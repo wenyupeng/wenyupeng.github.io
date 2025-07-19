@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Chris Wen&#39;s Blog</title>
+  <icon>https://wenyupeng.github.io/icon.png</icon>
+  <subtitle>study record</subtitle>
+  <link href="https://wenyupeng.github.io/atom.xml" rel="self"/>
+  
+  <link href="https://wenyupeng.github.io/"/>
+  <updated>2025-07-19T14:37:10.546Z</updated>
+  <id>https://wenyupeng.github.io/</id>
+  
+  <author>
+    <name>Chris Wen</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Using Hexo to Build a Personal Blog</title>
+    <link href="https://wenyupeng.github.io/2025/07/15/hexo/01build-blog/"/>
+    <id>https://wenyupeng.github.io/2025/07/15/hexo/01build-blog/</id>
+    <published>2025-07-15T12:08:15.000Z</published>
+    <updated>2025-07-19T14:37:10.546Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Build-Your-Own-Blog-with-Hexo&quot;&gt;&lt;a href=&quot;#Build-Your-Own-Blog-with-Hexo&quot; class=&quot;headerlink&quot; title=&quot;Build Your Own Blog with Hexo&quot;&gt;&lt;/a&gt;Build Your Own Blog with Hexo&lt;/h1&gt;&lt;p&gt;This guide walks you through the process of creating a personal blog</summary>
+        
+      
+    
+    
+    
+    <category term="hexo" scheme="https://wenyupeng.github.io/categories/hexo/"/>
+    
+    
+    <category term="hexo" scheme="https://wenyupeng.github.io/tags/hexo/"/>
+    
+  </entry>
+  
+</feed>
