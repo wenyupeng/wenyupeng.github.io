@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Chris Wen&#39;s Blog</title>
+  <icon>https://wenyupeng.github.io/icon.png</icon>
+  <subtitle>study record</subtitle>
+  <link href="https://wenyupeng.github.io/atom.xml" rel="self"/>
+  
+  <link href="https://wenyupeng.github.io/"/>
+  <updated>2025-07-28T12:58:25.319Z</updated>
+  <id>https://wenyupeng.github.io/</id>
+  
+  <author>
+    <name>Chris Wen</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>mininet</title>
+    <link href="https://wenyupeng.github.io/2025/07/16/computer_basic/network/mininet/01-mininet/"/>
+    <id>https://wenyupeng.github.io/2025/07/16/computer_basic/network/mininet/01-mininet/</id>
+    <published>2025-07-16T12:08:15.000Z</published>
+    <updated>2025-07-28T12:58:25.319Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;What-is-Mininet&quot;&gt;&lt;a href=&quot;#What-is-Mininet&quot; class=&quot;headerlink&quot; title=&quot;What is Mininet?&quot;&gt;&lt;/a&gt;What is Mininet?&lt;/h1&gt;&lt;p&gt;Mininet is a lightweight network emulator that creates a virtual network with hosts, switches, links, and controllers all on</summary>
+        
+      
+    
+    
+    
+    <category term="computer-fundation" scheme="https://wenyupeng.github.io/categories/computer-fundation/"/>
+    
+    <category term="network" scheme="https://wenyupeng.github.io/categories/computer-fundation/network/"/>
+    
+    <category term="mininet" scheme="https://wenyupeng.github.io/categories/computer-fundation/network/mininet/"/>
+    
+    
+    <category term="network" scheme="https://wenyupeng.github.io/tags/network/"/>
+    
+    <category term="mininet" scheme="https://wenyupeng.github.io/tags/mininet/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Using Hexo to Build a Personal Blog</title>
+    <link href="https://wenyupeng.github.io/2025/07/15/hexo/01-build-blog/"/>
+    <id>https://wenyupeng.github.io/2025/07/15/hexo/01-build-blog/</id>
+    <published>2025-07-15T12:08:15.000Z</published>
+    <updated>2025-07-28T12:58:25.319Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Build-Your-Own-Blog-with-Hexo&quot;&gt;&lt;a href=&quot;#Build-Your-Own-Blog-with-Hexo&quot; class=&quot;headerlink&quot; title=&quot;Build Your Own Blog with Hexo&quot;&gt;&lt;/a&gt;Build Your Own Blog with Hexo&lt;/h1&gt;&lt;p&gt;This guide walks you through the process of creating a personal blog</summary>
+        
+      
+    
+    
+    
+    <category term="hexo" scheme="https://wenyupeng.github.io/categories/hexo/"/>
+    
+    
+    <category term="hexo" scheme="https://wenyupeng.github.io/tags/hexo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Product Management Introduction</title>
+    <link href="https://wenyupeng.github.io/2025/07/15/pmp/01-introduction/"/>
+    <id>https://wenyupeng.github.io/2025/07/15/pmp/01-introduction/</id>
+    <published>2025-07-15T12:08:15.000Z</published>
+    <updated>2025-07-28T12:58:25.319Z</updated>
+    
+    
+    
+    
+    <category term="pmp" scheme="https://wenyupeng.github.io/categories/pmp/"/>
+    
+    
+    <category term="pmp" scheme="https://wenyupeng.github.io/tags/pmp/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Data Link layer</title>
+    <link href="https://wenyupeng.github.io/2025/07/15/computer_basic/network/01-data-link/"/>
+    <id>https://wenyupeng.github.io/2025/07/15/computer_basic/network/01-data-link/</id>
+    <published>2025-07-15T12:08:15.000Z</published>
+    <updated>2025-07-28T12:58:25.319Z</updated>
+    
+    
+    
+    
+    <category term="computer-fundation" scheme="https://wenyupeng.github.io/categories/computer-fundation/"/>
+    
+    <category term="network" scheme="https://wenyupeng.github.io/categories/computer-fundation/network/"/>
+    
+    
+    <category term="network" scheme="https://wenyupeng.github.io/tags/network/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Azure Container registries</title>
+    <link href="https://wenyupeng.github.io/2025/07/14/azure/01-container-registries/"/>
+    <id>https://wenyupeng.github.io/2025/07/14/azure/01-container-registries/</id>
+    <published>2025-07-14T12:08:15.000Z</published>
+    <updated>2025-07-28T12:58:25.319Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;After building our artifacts, we need a place to store them. Common options include Docker Hub, Nexus Repository, Google Container Registry, and Amazon Elastic Container Registry.&lt;/p&gt;
+&lt;p&gt;In this section, we’ll focus on Azure Container Registry</summary>
+        
+      
+    
+    
+    
+    <category term="cloud-platform" scheme="https://wenyupeng.github.io/categories/cloud-platform/"/>
+    
+    <category term="azure" scheme="https://wenyupeng.github.io/categories/cloud-platform/azure/"/>
+    
+    <category term="container-registries" scheme="https://wenyupeng.github.io/categories/cloud-platform/azure/container-registries/"/>
+    
+    
+    <category term="azure" scheme="https://wenyupeng.github.io/tags/azure/"/>
+    
+  </entry>
+  
+</feed>
