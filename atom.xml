@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Chris Wen&#39;s Blog</title>
+  <icon>https://wenyupeng.github.io/icon.png</icon>
+  <subtitle>study record</subtitle>
+  <link href="https://wenyupeng.github.io/atom.xml" rel="self"/>
+  
+  <link href="https://wenyupeng.github.io/"/>
+  <updated>2025-10-11T13:47:30.094Z</updated>
+  <id>https://wenyupeng.github.io/</id>
+  
+  <author>
+    <name>Chris Wen</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Leetcode - 205. Isomorphic Strings</title>
+    <link href="https://wenyupeng.github.io/2025/10/06/leetcode/205-isomorphic-strings/"/>
+    <id>https://wenyupeng.github.io/2025/10/06/leetcode/205-isomorphic-strings/</id>
+    <published>2025-10-06T04:18:15.000Z</published>
+    <updated>2025-10-11T13:47:30.094Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Description&quot;&gt;&lt;a href=&quot;#Description&quot; class=&quot;headerlink&quot; title=&quot;Description&quot;&gt;&lt;/a&gt;Description&lt;/h1&gt;&lt;p&gt;Given two strings s and t, determine if they are isomorphic.&lt;/p&gt;
+&lt;p&gt;Two strings s and t are isomorphic if the characters in s can be replaced</summary>
+        
+      
+    
+    
+    
+    <category term="Leetcode" scheme="https://wenyupeng.github.io/categories/Leetcode/"/>
+    
+    
+    <category term="Leetcode" scheme="https://wenyupeng.github.io/tags/Leetcode/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Leetcode - 392. Is Subsequence</title>
+    <link href="https://wenyupeng.github.io/2025/10/06/leetcode/392-is-subsequence/"/>
+    <id>https://wenyupeng.github.io/2025/10/06/leetcode/392-is-subsequence/</id>
+    <published>2025-10-06T04:18:15.000Z</published>
+    <updated>2025-10-11T13:47:30.094Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Description&quot;&gt;&lt;a href=&quot;#Description&quot; class=&quot;headerlink&quot; title=&quot;Description&quot;&gt;&lt;/a&gt;Description&lt;/h1&gt;&lt;p&gt;Given two strings s and t, return true if s is a subsequence of t, or false otherwise.&lt;br&gt;A subsequence of a string is a new string that is</summary>
+        
+      
+    
+    
+    
+    <category term="Leetcode" scheme="https://wenyupeng.github.io/categories/Leetcode/"/>
+    
+    
+    <category term="Leetcode" scheme="https://wenyupeng.github.io/tags/Leetcode/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>terraform</title>
+    <link href="https://wenyupeng.github.io/2025/08/24/iac/01-iac-terraform/"/>
+    <id>https://wenyupeng.github.io/2025/08/24/iac/01-iac-terraform/</id>
+    <published>2025-08-24T03:43:14.000Z</published>
+    <updated>2025-10-11T13:47:30.093Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Terraform&quot;&gt;&lt;a href=&quot;#Terraform&quot; class=&quot;headerlink&quot; title=&quot;Terraform&quot;&gt;&lt;/a&gt;Terraform&lt;/h1&gt;&lt;h2 id=&quot;Documentation&quot;&gt;&lt;a href=&quot;#Documentation&quot; class=&quot;headerlink&quot; title=&quot;Documentation&quot;&gt;&lt;/a&gt;Documentation&lt;/h2&gt;&lt;p&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="iac" scheme="https://wenyupeng.github.io/categories/iac/"/>
+    
+    <category term="terraform" scheme="https://wenyupeng.github.io/categories/iac/terraform/"/>
+    
+    
+    <category term="iac" scheme="https://wenyupeng.github.io/tags/iac/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>interview question of anthrapic</title>
+    <link href="https://wenyupeng.github.io/2025/08/24/interview/01-anthrapic-swe/"/>
+    <id>https://wenyupeng.github.io/2025/08/24/interview/01-anthrapic-swe/</id>
+    <published>2025-08-24T03:43:14.000Z</published>
+    <updated>2025-10-11T13:47:30.093Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Question-1-Concurrent-Web-Crawler-Implementation&quot;&gt;&lt;a href=&quot;#Question-1-Concurrent-Web-Crawler-Implementation&quot; class=&quot;headerlink&quot; title=&quot;Question 1: Concurrent Web Crawler Implementation&quot;&gt;&lt;/a&gt;Question 1: Concurrent Web Crawler</summary>
+        
+      
+    
+    
+    
+    <category term="interview-question" scheme="https://wenyupeng.github.io/categories/interview-question/"/>
+    
+    <category term="anthrapic" scheme="https://wenyupeng.github.io/categories/interview-question/anthrapic/"/>
+    
+    
+    <category term="interview-question" scheme="https://wenyupeng.github.io/tags/interview-question/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>docker install DVWA</title>
+    <link href="https://wenyupeng.github.io/2025/08/03/docker/01-docker-installDVWA/"/>
+    <id>https://wenyupeng.github.io/2025/08/03/docker/01-docker-installDVWA/</id>
+    <published>2025-08-03T13:29:58.000Z</published>
+    <updated>2025-10-11T13:47:30.093Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Installing-DVWA-using-Docker&quot;&gt;&lt;a href=&quot;#Installing-DVWA-using-Docker&quot; class=&quot;headerlink&quot; title=&quot;Installing DVWA using Docker&quot;&gt;&lt;/a&gt;Installing DVWA using Docker&lt;/h1&gt;&lt;p&gt;Install the Damn Vulnerable Web Application (via a Docker container) quite</summary>
+        
+      
+    
+    
+    
+    <category term="docker" scheme="https://wenyupeng.github.io/categories/docker/"/>
+    
+    <category term="DVWA" scheme="https://wenyupeng.github.io/categories/docker/DVWA/"/>
+    
+    
+    <category term="DVWA" scheme="https://wenyupeng.github.io/tags/DVWA/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Fix &quot;Unable to locate package docker-compose-plugin&quot; on Ubuntu</title>
+    <link href="https://wenyupeng.github.io/2025/07/26/ubuntu/01-ubuntu-changeSource/"/>
+    <id>https://wenyupeng.github.io/2025/07/26/ubuntu/01-ubuntu-changeSource/</id>
+    <published>2025-07-26T11:23:42.000Z</published>
+    <updated>2025-10-11T13:47:30.095Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Install-Docker-Compose-on-Ubuntu&quot;&gt;&lt;a href=&quot;#Install-Docker-Compose-on-Ubuntu&quot; class=&quot;headerlink&quot; title=&quot;Install Docker Compose on Ubuntu&quot;&gt;&lt;/a&gt;Install Docker Compose on Ubuntu&lt;/h1&gt;&lt;p&gt;When trying to install Docker Compose with the</summary>
+        
+      
+    
+    
+    
+    <category term="ubuntu" scheme="https://wenyupeng.github.io/categories/ubuntu/"/>
+    
+    <category term="docker" scheme="https://wenyupeng.github.io/categories/ubuntu/docker/"/>
+    
+    <category term="docker-compose" scheme="https://wenyupeng.github.io/categories/ubuntu/docker/docker-compose/"/>
+    
+    
+    <category term="ubuntu" scheme="https://wenyupeng.github.io/tags/ubuntu/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Installing Docker in Ubuntu</title>
+    <link href="https://wenyupeng.github.io/2025/07/26/ubuntu/02-ubuntu-installDocker/"/>
+    <id>https://wenyupeng.github.io/2025/07/26/ubuntu/02-ubuntu-installDocker/</id>
+    <published>2025-07-26T11:23:42.000Z</published>
+    <updated>2025-10-11T13:47:30.095Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Installing-Docker-in-Ubuntu&quot;&gt;&lt;a href=&quot;#Installing-Docker-in-Ubuntu&quot; class=&quot;headerlink&quot; title=&quot;Installing Docker in Ubuntu&quot;&gt;&lt;/a&gt;Installing Docker in Ubuntu&lt;/h1&gt;&lt;p&gt;Docker (&lt;a href=&quot;https://www.docker.com/&quot;&gt;https://www.docker.com/&lt;/a&gt;) is an</summary>
+        
+      
+    
+    
+    
+    <category term="ubuntu" scheme="https://wenyupeng.github.io/categories/ubuntu/"/>
+    
+    <category term="docker" scheme="https://wenyupeng.github.io/categories/ubuntu/docker/"/>
+    
+    
+    <category term="ubuntu" scheme="https://wenyupeng.github.io/tags/ubuntu/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Network layer</title>
+    <link href="https://wenyupeng.github.io/2025/07/19/computer_basic/network/03-network-layer/"/>
+    <id>https://wenyupeng.github.io/2025/07/19/computer_basic/network/03-network-layer/</id>
+    <published>2025-07-19T12:08:15.000Z</published>
+    <updated>2025-10-11T13:47:30.093Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;Network-layer&quot;&gt;&lt;a href=&quot;#Network-layer&quot; class=&quot;headerlink&quot; title=&quot;Network layer&quot;&gt;&lt;/a&gt;Network layer&lt;/h2&gt;&lt;p&gt;The network layer is responsible for delivering packets from the source host to the destination host across multiple networks. Its main</summary>
+        
+      
+    
+    
+    
+    <category term="computer-fundation" scheme="https://wenyupeng.github.io/categories/computer-fundation/"/>
+    
+    <category term="network" scheme="https://wenyupeng.github.io/categories/computer-fundation/network/"/>
+    
+    
+    <category term="network" scheme="https://wenyupeng.github.io/tags/network/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>large language model</title>
+    <link href="https://wenyupeng.github.io/2025/07/19/ai/02-ai-deep-learning/"/>
+    <id>https://wenyupeng.github.io/2025/07/19/ai/02-ai-deep-learning/</id>
+    <published>2025-07-19T03:20:01.000Z</published>
+    <updated>2025-10-11T13:47:30.092Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;References&quot;&gt;&lt;a href=&quot;#References&quot; class=&quot;headerlink&quot; title=&quot;References&quot;&gt;&lt;/a&gt;References&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;&quot;&gt;Dive Into Deep Learning&lt;/a&gt;&lt;/p&gt;
+&lt;h1 id=&quot;Create-Environment&quot;&gt;&lt;a href=&quot;#Create-Environment&quot; class=&quot;headerlink&quot; title=&quot;Create</summary>
+        
+      
+    
+    
+    
+    <category term="ai" scheme="https://wenyupeng.github.io/categories/ai/"/>
+    
+    <category term="foundation" scheme="https://wenyupeng.github.io/categories/ai/foundation/"/>
+    
+    <category term="large language model" scheme="https://wenyupeng.github.io/categories/ai/foundation/large-language-model/"/>
+    
+    
+    <category term="ai" scheme="https://wenyupeng.github.io/tags/ai/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Leetcode - 7. Reverse Integer</title>
+    <link href="https://wenyupeng.github.io/2025/07/19/leetcode/07-reverse-integer/"/>
+    <id>https://wenyupeng.github.io/2025/07/19/leetcode/07-reverse-integer/</id>
+    <published>2025-07-19T02:18:15.000Z</published>
+    <updated>2025-10-11T13:47:30.094Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Description&quot;&gt;&lt;a href=&quot;#Description&quot; class=&quot;headerlink&quot; title=&quot;Description&quot;&gt;&lt;/a&gt;Description&lt;/h1&gt;&lt;p&gt;Given a signed 32-bit integer &lt;code&gt;x&lt;/code&gt;, return &lt;code&gt;x&lt;/code&gt; with its digits reversed. If reversing &lt;code&gt;x&lt;/code&gt; causes the value to</summary>
+        
+      
+    
+    
+    
+    <category term="Leetcode" scheme="https://wenyupeng.github.io/categories/Leetcode/"/>
+    
+    
+    <category term="Leetcode" scheme="https://wenyupeng.github.io/tags/Leetcode/"/>
+    
+  </entry>
+  
+</feed>
