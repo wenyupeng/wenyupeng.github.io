@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Chris Wen&#39;s Blog</title>
+  <icon>https://wenyupeng.github.io/icon.png</icon>
+  <subtitle>study record</subtitle>
+  <link href="https://wenyupeng.github.io/atom.xml" rel="self"/>
+  
+  <link href="https://wenyupeng.github.io/"/>
+  <updated>2025-11-18T13:06:21.244Z</updated>
+  <id>https://wenyupeng.github.io/</id>
+  
+  <author>
+    <name>Chris Wen</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Exploratory Data Analysis</title>
+    <link href="https://wenyupeng.github.io/2025/11/10/big_data/eda/01-concept/"/>
+    <id>https://wenyupeng.github.io/2025/11/10/big_data/eda/01-concept/</id>
+    <published>2025-11-10T11:08:15.000Z</published>
+    <updated>2025-11-18T13:06:21.244Z</updated>
+    
+    
+    
+    
+    <category term="DA" scheme="https://wenyupeng.github.io/categories/DA/"/>
+    
+    <category term="EDA" scheme="https://wenyupeng.github.io/categories/DA/EDA/"/>
+    
+    
+    <category term="EDA" scheme="https://wenyupeng.github.io/tags/EDA/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Continuous Probability Distributions</title>
+    <link href="https://wenyupeng.github.io/2025/11/10/big_data/da/06-des-statistics/"/>
+    <id>https://wenyupeng.github.io/2025/11/10/big_data/da/06-des-statistics/</id>
+    <published>2025-11-10T08:34:31.000Z</published>
+    <updated>2025-11-18T13:06:21.244Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Continuous-Probability-Distributions&quot;&gt;&lt;a href=&quot;#Continuous-Probability-Distributions&quot; class=&quot;headerlink&quot; title=&quot;Continuous Probability Distributions&quot;&gt;&lt;/a&gt;Continuous Probability Distributions&lt;/h1&gt;&lt;figure class=&quot;highlight</summary>
+        
+      
+    
+    
+    
+    <category term="da" scheme="https://wenyupeng.github.io/categories/da/"/>
+    
+    
+    <category term="da" scheme="https://wenyupeng.github.io/tags/da/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Multivariate Categorical and Relational Data</title>
+    <link href="https://wenyupeng.github.io/2025/11/10/big_data/da/05-des-statistics/"/>
+    <id>https://wenyupeng.github.io/2025/11/10/big_data/da/05-des-statistics/</id>
+    <published>2025-11-10T05:11:55.000Z</published>
+    <updated>2025-11-18T13:06:21.244Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Multivariate-Categorical-and-Relational-Data&quot;&gt;&lt;a href=&quot;#Multivariate-Categorical-and-Relational-Data&quot; class=&quot;headerlink&quot; title=&quot;Multivariate Categorical and Relational Data&quot;&gt;&lt;/a&gt;Multivariate Categorical and Relational Data&lt;/h1&gt;&lt;figure</summary>
+        
+      
+    
+    
+    
+    <category term="da" scheme="https://wenyupeng.github.io/categories/da/"/>
+    
+    
+    <category term="da" scheme="https://wenyupeng.github.io/tags/da/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Visualising Multidimensional Data and Measuring Correlation</title>
+    <link href="https://wenyupeng.github.io/2025/11/10/big_data/da/04-des-statistics/"/>
+    <id>https://wenyupeng.github.io/2025/11/10/big_data/da/04-des-statistics/</id>
+    <published>2025-11-10T02:40:08.000Z</published>
+    <updated>2025-11-18T13:06:21.244Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Visualising-Multidimensional-Data-and-Measuring-Correlation&quot;&gt;&lt;a href=&quot;#Visualising-Multidimensional-Data-and-Measuring-Correlation&quot; class=&quot;headerlink&quot; title=&quot;Visualising Multidimensional Data and Measuring Correlation&quot;&gt;&lt;/a&gt;Visualising</summary>
+        
+      
+    
+    
+    
+    <category term="da" scheme="https://wenyupeng.github.io/categories/da/"/>
+    
+    
+    <category term="da" scheme="https://wenyupeng.github.io/tags/da/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Handling Categorical Data</title>
+    <link href="https://wenyupeng.github.io/2025/11/10/big_data/da/03-des-statistics/"/>
+    <id>https://wenyupeng.github.io/2025/11/10/big_data/da/03-des-statistics/</id>
+    <published>2025-11-10T01:16:44.000Z</published>
+    <updated>2025-11-18T13:06:21.244Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Handling-Categorical-Data&quot;&gt;&lt;a href=&quot;#Handling-Categorical-Data&quot; class=&quot;headerlink&quot; title=&quot;Handling Categorical Data&quot;&gt;&lt;/a&gt;Handling Categorical Data&lt;/h1&gt;&lt;h2 id=&quot;Representing-Categorical-Data&quot;&gt;&lt;a href=&quot;#Representing-Categorical-Data&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="da" scheme="https://wenyupeng.github.io/categories/da/"/>
+    
+    
+    <category term="da" scheme="https://wenyupeng.github.io/tags/da/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Inspecting the Distribution of Numberic Data</title>
+    <link href="https://wenyupeng.github.io/2025/11/10/big_data/da/02-des-statistics/"/>
+    <id>https://wenyupeng.github.io/2025/11/10/big_data/da/02-des-statistics/</id>
+    <published>2025-11-10T00:04:20.000Z</published>
+    <updated>2025-11-18T13:06:21.244Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Inspecting-the-Distribution-of-Numberic-Data&quot;&gt;&lt;a href=&quot;#Inspecting-the-Distribution-of-Numberic-Data&quot; class=&quot;headerlink&quot; title=&quot;Inspecting the Distribution of Numberic Data&quot;&gt;&lt;/a&gt;Inspecting the Distribution of Numberic Data&lt;/h1&gt;&lt;figure</summary>
+        
+      
+    
+    
+    
+    <category term="da" scheme="https://wenyupeng.github.io/categories/da/"/>
+    
+    
+    <category term="da" scheme="https://wenyupeng.github.io/tags/da/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Descriptive Statistic for Continuous Data</title>
+    <link href="https://wenyupeng.github.io/2025/11/09/big_data/da/01-des-statistics/"/>
+    <id>https://wenyupeng.github.io/2025/11/09/big_data/da/01-des-statistics/</id>
+    <published>2025-11-09T23:15:23.000Z</published>
+    <updated>2025-11-18T13:06:21.244Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Descriptive-Statistic-fopr-Continuous-Data&quot;&gt;&lt;a href=&quot;#Descriptive-Statistic-fopr-Continuous-Data&quot; class=&quot;headerlink&quot; title=&quot;Descriptive Statistic fopr Continuous Data&quot;&gt;&lt;/a&gt;Descriptive Statistic fopr Continuous Data&lt;/h1&gt;&lt;p&gt;Histograms are</summary>
+        
+      
+    
+    
+    
+    <category term="da" scheme="https://wenyupeng.github.io/categories/da/"/>
+    
+    
+    <category term="da" scheme="https://wenyupeng.github.io/tags/da/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Python - Basic Usage of Data Analysis</title>
+    <link href="https://wenyupeng.github.io/2025/10/31/python/02-basic-usage-data-analysis/"/>
+    <id>https://wenyupeng.github.io/2025/10/31/python/02-basic-usage-data-analysis/</id>
+    <published>2025-10-31T22:11:16.000Z</published>
+    <updated>2025-11-18T13:06:21.247Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Basic-Usage-of-Data-Analysis&quot;&gt;&lt;a href=&quot;#Basic-Usage-of-Data-Analysis&quot; class=&quot;headerlink&quot; title=&quot;Basic Usage of Data Analysis&quot;&gt;&lt;/a&gt;Basic Usage of Data Analysis&lt;/h1&gt;&lt;h2 id=&quot;Getting-Started-with-JupyterLab&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="Python" scheme="https://wenyupeng.github.io/categories/Python/"/>
+    
+    
+    <category term="Python" scheme="https://wenyupeng.github.io/tags/Python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hello Prisma</title>
+    <link href="https://wenyupeng.github.io/2025/10/21/nodejs/prisma/01-hello-prisma/"/>
+    <id>https://wenyupeng.github.io/2025/10/21/nodejs/prisma/01-hello-prisma/</id>
+    <published>2025-10-21T01:07:34.000Z</published>
+    <updated>2025-11-18T13:06:21.247Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Connecting-Prisma-application-to-Supabase-Postgres&quot;&gt;&lt;a href=&quot;#Connecting-Prisma-application-to-Supabase-Postgres&quot; class=&quot;headerlink&quot; title=&quot;Connecting Prisma application to Supabase Postgres&quot;&gt;&lt;/a&gt;Connecting Prisma application to Supabase</summary>
+        
+      
+    
+    
+    
+    <category term="nodejs" scheme="https://wenyupeng.github.io/categories/nodejs/"/>
+    
+    <category term="orm" scheme="https://wenyupeng.github.io/categories/nodejs/orm/"/>
+    
+    <category term="prisma" scheme="https://wenyupeng.github.io/categories/nodejs/orm/prisma/"/>
+    
+    
+    <category term="prisma, supabase" scheme="https://wenyupeng.github.io/tags/prisma-supabase/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Leetcode - 205. Isomorphic Strings</title>
+    <link href="https://wenyupeng.github.io/2025/10/06/leetcode/205-isomorphic-strings/"/>
+    <id>https://wenyupeng.github.io/2025/10/06/leetcode/205-isomorphic-strings/</id>
+    <published>2025-10-06T04:18:15.000Z</published>
+    <updated>2025-11-18T13:06:21.247Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Description&quot;&gt;&lt;a href=&quot;#Description&quot; class=&quot;headerlink&quot; title=&quot;Description&quot;&gt;&lt;/a&gt;Description&lt;/h1&gt;&lt;p&gt;Given two strings s and t, determine if they are isomorphic.&lt;/p&gt;
+&lt;p&gt;Two strings s and t are isomorphic if the characters in s can be replaced</summary>
+        
+      
+    
+    
+    
+    <category term="Leetcode" scheme="https://wenyupeng.github.io/categories/Leetcode/"/>
+    
+    
+    <category term="Leetcode" scheme="https://wenyupeng.github.io/tags/Leetcode/"/>
+    
+  </entry>
+  
+</feed>
