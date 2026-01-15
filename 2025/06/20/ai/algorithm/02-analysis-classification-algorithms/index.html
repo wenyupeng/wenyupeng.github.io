@@ -1,0 +1,887 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Comparative Analysis of Classification Algorithms | Chris Wen's Blog</title><meta name="author" content="Chris Wen"><meta name="copyright" content="Chris Wen"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Comparative Analysis of Classification AlgorithmsAbstractThis report provides a comprehensive analysis of the performance of three popular classification algorithms:Decision Tree, Logistic Regression,">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Comparative Analysis of Classification Algorithms">
+<meta property="og:url" content="https://wenyupeng.github.io/2025/06/20/ai/algorithm/02-analysis-classification-algorithms/index.html">
+<meta property="og:site_name" content="Chris Wen&#39;s Blog">
+<meta property="og:description" content="Comparative Analysis of Classification AlgorithmsAbstractThis report provides a comprehensive analysis of the performance of three popular classification algorithms:Decision Tree, Logistic Regression,">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251007095230189.png">
+<meta property="article:published_time" content="2025-06-20T04:21:30.000Z">
+<meta property="article:modified_time" content="2026-01-15T04:32:03.389Z">
+<meta property="article:author" content="Chris Wen">
+<meta property="article:tag" content="ai">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251007095230189.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Comparative Analysis of Classification Algorithms",
+  "url": "https://wenyupeng.github.io/2025/06/20/ai/algorithm/02-analysis-classification-algorithms/",
+  "image": "https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251007095230189.png",
+  "datePublished": "2025-06-20T04:21:30.000Z",
+  "dateModified": "2026-01-15T04:32:03.389Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Chris Wen",
+      "url": "https://wenyupeng.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/images/favicon.ico"><link rel="canonical" href="https://wenyupeng.github.io/2025/06/20/ai/algorithm/02-analysis-classification-algorithms/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.json","preload":true,"top_n_per_article":-1,"unescape":false,"languages":{"hits_empty":"No results found for: ${query}","hits_stats":"${hits} articles found"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"Author: Chris Wen","link":"Link: ","source":"Source: Chris Wen's Blog","info":"Copyright belongs to the author. For commercial use, please contact the author for authorization. For non-commercial use, please indicate the source."}},
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: true,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Comparative Analysis of Classification Algorithms',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/custom-style.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/constown/HexoCustomFile@0.0.4/dist/css/custom.min.css"><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Chris Wen's Blog" type="application/atom+xml">
+</head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load', preloader.endLoading)
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/images/lucky-icon.png" onerror="this.onerror=null;this.src='/images/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">70</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">24</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">46</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/project/"><i class="fa-fw fas fa-project-diagram"></i><span> Project</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251007095230189.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Chris Wen's Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">Comparative Analysis of Classification Algorithms</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/project/"><i class="fa-fw fas fa-project-diagram"></i><span> Project</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Comparative Analysis of Classification Algorithms</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-06-20T04:21:30.000Z" title="Created 2025-06-20 14:21:30">2025-06-20</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2026-01-15T04:32:03.389Z" title="Updated 2026-01-15 15:32:03">2026-01-15</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/ai/">ai</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/ai/foundation/">foundation</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/ai/foundation/classification-algorithms/">classification algorithms</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">4.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>27mins</span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:30,&quot;messagePrev&quot;:&quot;It has been&quot;,&quot;messageNext&quot;:&quot;days since the last update, the content of the article may be outdated.&quot;,&quot;postUpdate&quot;:&quot;2026-01-15 15:32:03&quot;}" hidden></div><h1 id="Comparative-Analysis-of-Classification-Algorithms"><a href="#Comparative-Analysis-of-Classification-Algorithms" class="headerlink" title="Comparative Analysis of Classification Algorithms"></a>Comparative Analysis of Classification Algorithms</h1><h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p>This report provides a comprehensive analysis of the performance of three popular classification algorithms:<br><strong>Decision Tree</strong>, <strong>Logistic Regression</strong>, <strong>Naive Bayes</strong>, <strong>Random Forest</strong>, <strong>Support Vector Machines (SVM)</strong> and <strong>Multilayer Perceptron</strong>.<br>The purpose of the study is to evaluate and compare these algorithms based on key performance metrics such as <strong>accuracy</strong>, <strong>precision</strong>, <strong>recall</strong>, <strong>F1-score</strong>, and <strong>false alarm rate</strong> (www.evidentlyai.com, n.d.), using two different datasets.<br>The dataset underwent preprocessing steps, including applying multiple scalers, normalization and handling of missing values, to ensure consistency and reliability of the results. The algorithms were trained and tested, with additional validation.<br>Confusion matrices (www.evidentlyai.com, n.d.) were used to visualize classification errors, while performance metrics were calculated for a detailed assessment. </p>
+<ol>
+<li>Random Forest consistently outperformed the other algorithms, achieving the highest accuracy of 95.2% and balanced metrics across classes. </li>
+<li>SVM demonstrated competitive performance but struggled with classes having overlapping distributions. Naive Bayes, while computationally efficient, showed limitations due to its independence assumption, resulting in lower precision for certain classes. </li>
+</ol>
+<p>The results are presented through comparative tables and visualizations, providing actionable insights into the strengths and weaknesses of each algorithm. This analysis serves as a practical guide for selecting classification algorithms based on dataset characteristics and application requirements.</p>
+<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>The objective of this study is to compare various classification algorithms to evaluate their performance across key metrics, such as <strong>accuracy</strong>, <strong>precision</strong>, <strong>recall</strong>, and <strong>F1-score</strong>.<br>Classification plays a pivotal role in machine learning, enabling systems to categorize data effectively for decision-making tasks.<br>The algorithms explored include <strong>Decision Tree</strong>, <strong>Logistic Regression</strong>, <strong>Naïve Bayes</strong>, <strong>Random Forest</strong>, <strong>SVM-SVC</strong>, and <strong>MLP</strong>. The datasets are “NSL-KDD” AND “Processed Combined IoT dataset”. Preprocessing steps included handling missing values, scaling features, and encoding categorical data, preparing the dataset for optimal model performance.</p>
+<h2 id="Dataset-Introduction"><a href="#Dataset-Introduction" class="headerlink" title="Dataset Introduction"></a>Dataset Introduction</h2><h3 id="NSL-KDD"><a href="#NSL-KDD" class="headerlink" title="NSL-KDD"></a>NSL-KDD</h3><p>According to Gao(2019), the NSL-KDD dataset is a refined version of the original KDD’99 dataset, designed for evaluating intrusion detection systems (IDS). It addresses issues like redundant records and class imbalance, providing a balanced and reliable dataset. It includes 41 features per record and categorizes attacks into four types: <strong>DoS</strong>, <strong>Probe</strong>, <strong>R2L</strong>, and <strong>U2R</strong>. The dataset is divided into training and testing sets, with the testing set containing unseen attack types to evaluate generalization. Widely used for IDS research, feature engineering, and algorithm evaluation, NSL-KDD remains a popular benchmark, though its lack of modern threats highlights the need for complementary dataset.</p>
+<h3 id="Processed-Combined-IoT-dataset"><a href="#Processed-Combined-IoT-dataset" class="headerlink" title="Processed Combined IoT dataset"></a>Processed Combined IoT dataset</h3><p>According to Alsaedi et al., the TON_IoT dataset is a new data-driven IoT/IIoT dataset. It includes heterogeneous data sources gathered from the Telemetry data of IoT/IIoT services, as well as the Operating Systems logs and Network traffic of IoT network, collected from a realistic representation of a medium-scale network. The dataset has various normal and attack events for different IoT/IIoT services, and includes a combination of physical and simulated IoT/IIoT services . The TON_IoT dataset aims to address the limitations of existing datasets by providing a more representative dataset for evaluating cybersecurity solutions and machine learning methods for IoT/IIoT applications . The dataset can be accessed through the TON-IoT repository.</p>
+<h2 id="Algorithms-Overview"><a href="#Algorithms-Overview" class="headerlink" title="Algorithms Overview"></a>Algorithms Overview</h2><h3 id="Decision-Tree"><a href="#Decision-Tree" class="headerlink" title="Decision Tree"></a>Decision Tree</h3><h4 id="Working-Principle"><a href="#Working-Principle" class="headerlink" title="Working Principle"></a>Working Principle</h4><p>A Decision Tree (scikit-learn, 2019) is a supervised learning algorithm used for both classification and regression tasks. It recursively splits the dataset into subsets based on feature values, creating a tree-like structure. Each internal node represents a decision based on a feature, while each leaf node represents the final predicted class or value. The tree construction process uses algorithms like <strong>ID3</strong>, <strong>CART</strong>, or <strong>C4.5</strong>, with the primary goal of reducing impurity at each split. Impurity is measured using metrics such as <strong>Gini Impurity</strong> or <strong>Entropy</strong> (for classification). The tree grows by selecting the feature that best separates the data at each node. Decision Trees are easy to understand and interpret, but they tend to overfit if not properly regularized.</p>
+<p><strong>Key Parameters</strong></p>
+<ol>
+<li><strong>max_depth</strong>: Limits the depth of the tree to avoid overfitting. A smaller depth prevents the model from capturing too much noise from the training data.</li>
+<li><strong>min_samples_split</strong>: Specifies the minimum number of samples required to split an internal node. Larger values prevent the tree from becoming too specific to the training data.</li>
+<li><strong>max_features</strong>: Defines the number of features to consider when looking for the best split. Reducing this value can speed up the training process and introduce diversity in ensemble methods like Random Forest.</li>
+<li><strong>criterion</strong>: The function used to measure the quality of a split. It can be <strong>gini</strong> for Gini impurity or <strong>entropy</strong> for information gain.</li>
+</ol>
+<h3 id="Logistic-Regression"><a href="#Logistic-Regression" class="headerlink" title="Logistic Regression"></a>Logistic Regression</h3><h4 id="Working-Principle-1"><a href="#Working-Principle-1" class="headerlink" title="Working Principle"></a>Working Principle</h4><p>Logistic Regression (scikit-learn, 2014) is a statistical method used for binary classification tasks. It predicts the probability that a given input belongs to a particular class. Unlike linear regression, which predicts continuous values, logistic regression applies a logistic (sigmoid) function to the output of a linear equation to map predictions to a probability between 0 and 1. The model learns by adjusting weights assigned to each feature to minimize the difference between predicted probabilities and actual class labels. Logistic Regression assumes a linear relationship between input features and the log odds of the target variable, making it simple yet effective for many classification problems.</p>
+<p>Logistic Regression is widely used due to its simplicity, interpretability, and effectiveness in problems where the classes are linearly separable.<br><strong>Key Parameters</strong></p>
+<ol>
+<li><strong>C</strong>: The regularization strength. It controls the trade-off between fitting the data well and preventing overfitting. Smaller values of C apply stronger regularization (higher penalty on complexity).</li>
+<li><strong>solver</strong>: The algorithm used to optimize the weights of the model. Common solvers include <strong>liblinear</strong>, <strong>newton-cg</strong>, <strong>lbfgs</strong>, and <strong>saga</strong>. The solver choice affects convergence speed and suitability for certain datasets.</li>
+<li><strong>max_iter</strong>: The maximum number of iterations for optimization algorithms. A higher value allows the algorithm to converge more precisely, especially for complex datasets.</li>
+<li><strong>penalty</strong>: The regularization technique used. Common penalties include <strong>l2</strong> (Ridge regularization), which discourages large coefficients, and <strong>l1</strong> (Lasso), which encourages sparsity in the model.</li>
+<li><strong>multi_class</strong>: Defines how multi-class classification is handled. Options include <strong>ovr</strong> (one-vs-rest) and <strong>multinomial</strong>. The choice depends on the problem being solved.</li>
+</ol>
+<h3 id="Naive-Bayes"><a href="#Naive-Bayes" class="headerlink" title="Naive Bayes"></a>Naive Bayes</h3><h4 id="Working-Principle-2"><a href="#Working-Principle-2" class="headerlink" title="Working Principle"></a>Working Principle</h4><p>Naive Bayes (scikit-learn, n.d.) is a probabilistic algorithm based on Bayes’ Theorem, which calculates the posterior probability of a class given the features. It assumes independence among predictors, simplifying computations and making it efficient for high-dimensional data. Despite the <strong>naive</strong> assumption, it performs well in applications such as text classification and spam filtering. Naive Bayes is fast and computationally efficient, particularly for large datasets with independent features.<br><strong>Key Parameters</strong></p>
+<ol>
+<li><strong>var_smoothing</strong>: A small additive constant to stabilize calculations and avoid division by zero when features have zero variance. Adjusting this parameter can help handle datasets with highly varying feature distributions.</li>
+</ol>
+<h3 id="Random-Forest"><a href="#Random-Forest" class="headerlink" title="Random Forest"></a>Random Forest</h3><h4 id="Working-Principle-3"><a href="#Working-Principle-3" class="headerlink" title="Working Principle"></a>Working Principle</h4><p>Random Forest (scikit-learn, 2018) is an ensemble learning method that builds multiple decision trees during training and combines their predictions to improve classification accuracy and control overfitting. Each tree is trained on a bootstrap sample of the data, and feature selection at each node ensures diversity among the trees. For classification, the output is determined by majority voting among the trees. This method excels at handling large datasets with high dimensionality and is robust against noisy data.<br>Random Forest balances bias and variance effectively, making it suitable for diverse datasets.</p>
+<p><strong>Key Parameters</strong></p>
+<ol>
+<li><strong>n_estimators</strong>: The number of trees in the forest. Increasing this value improves accuracy but can increase computational cost.</li>
+<li><strong>max_depth</strong>: The maximum depth of each tree. Limiting depth prevents overfitting while maintaining performance.</li>
+<li><strong>min_samples_split</strong>: The minimum number of samples required to split a node. Higher values lead to simpler trees that generalize better.</li>
+</ol>
+<h3 id="Support-Vector-Machines-SVM"><a href="#Support-Vector-Machines-SVM" class="headerlink" title="Support Vector Machines (SVM)"></a>Support Vector Machines (SVM)</h3><h4 id="Working-Principle-4"><a href="#Working-Principle-4" class="headerlink" title="Working Principle"></a>Working Principle</h4><p>SVM (scikit-learn, 2019) identifies a hyperplane that separates classes with the maximum margin. It uses kernel functions to transform data into higher dimensions for non-linear separation. By maximizing the margin, SVM minimizes classification error. It is effective for both linear and non-linear problems and is robust to overfitting, especially in highdimensional spaces.<br>SVM is versatile and powerful, particularly for datasets with complex decision boundaries.</p>
+<p><strong>Key Parameters</strong></p>
+<ol>
+<li><strong>c</strong>: The regularization parameter that controls the trade-off between achieving a low error on the training set and maintaining a large margin.</li>
+<li><strong>kernel</strong>: Specifies the type of kernel function (e.g., linear, radial basis function (RBF), or polynomial). The choice depends on the dataset’s nature.</li>
+<li><strong>gamma</strong>: The kernel coefficient for RBF and polynomial kernels, influencing the decision boundary’s flexibility. Lower values result in smoother boundaries, while higher values allow more complex boundaries.</li>
+</ol>
+<h3 id="Multilayer-Perceptron"><a href="#Multilayer-Perceptron" class="headerlink" title="Multilayer Perceptron"></a>Multilayer Perceptron</h3><h4 id="Working-Principle-5"><a href="#Working-Principle-5" class="headerlink" title="Working Principle"></a>Working Principle</h4><p>A Multilayer Perceptron (MLP) (scikit-learn, 2010) is a type of artificial neural network (ANN) composed of multiple layers of nodes (neurons). It consists of an input layer, one or more hidden layers, and an output layer. MLP is used for supervised learning tasks, such as classification and regression. The network learns by adjusting weights based on the errors between predicted and actual outputs using an optimization algorithm, typically backpropagation.</p>
+<p>In MLP, the input data is passed through each layer of neurons. Each neuron applies a weighted sum of inputs, followed by an activation function to introduce non-linearity into the model. Common activation functions include ReLU (Rectified Linear Unit) for hidden layers and softmax for the output layer in classification tasks. During training, the model uses the backpropagation algorithm to compute the gradient of the loss function and update the weights accordingly. The goal is to minimize the difference between the predicted and actual output (i.e., minimize the loss).</p>
+<p>MLP is a powerful model capable of learning complex patterns, making it well-suited for tasks such as image recognition, speech processing, and classification tasks that involve nonlinear decision boundaries. MLPs are versatile and can handle both simple and complex datasets. By adjusting the key parameters, MLPs can be fine-tuned for a variety of applications, including image recognition, natural language processing, and more.</p>
+<p><strong>Key Parameters</strong></p>
+<ol>
+<li><strong>hidden_layer_sizes</strong>: Defines the number and size of hidden layers in the network. For example, (100,) specifies a network with one hidden layer containing 100 neurons. The configuration of hidden layers affects the network**s ability to capture complex relationships.</li>
+<li><strong>activation</strong>: Specifies the activation function used in the hidden layers. Common options include:<ul>
+<li><strong>relu</strong>: Rectified Linear Unit, a popular activation function that helps with faster training.</li>
+<li><strong>tanh</strong>: Hyperbolic tangent, which outputs values between -1 and 1.</li>
+<li><strong>logistic</strong>: Sigmoid function, often used for binary classification tasks.</li>
+</ul>
+</li>
+<li><strong>solver</strong>: The algorithm used for weight optimization. The common solvers are:<ul>
+<li><strong>adam</strong>: A popular optimization algorithm that adapts the learning rate during training.</li>
+<li><strong>sgd</strong>: Stochastic Gradient Descent, a basic optimizer that updates weights based on a random subset of data.</li>
+<li><strong>lbfgs</strong>: A quasi-Newton method, effective for smaller datasets.</li>
+</ul>
+</li>
+<li><strong>learning_rate</strong>: Determines how the learning rate changes during training. Options include:<ul>
+<li><strong>constant</strong>: The learning rate remains constant throughout training.</li>
+<li><strong>invscaling</strong>: Gradually decreases the learning rate as training progresses.</li>
+<li><strong>adaptive</strong>: The learning rate decreases when the validation score is not improving.</li>
+</ul>
+</li>
+<li><strong>max_iter</strong>: The maximum number of iterations for optimization. More iterations generally allow for better convergence, especially on more complex datasets.</li>
+<li><strong>alpha</strong>: L2 regularization term that helps prevent overfitting by penalizing large weights. Higher values of alpha make the model simpler by forcing smaller weights.</li>
+<li><strong>batch_size</strong>: The number of samples processed before the model updates its weights. Larger batch sizes lead to more stable but slower updates, while smaller batch sizes can speed up training but result in noisier updates.</li>
+</ol>
+<h2 id="Evaluation-Metrics"><a href="#Evaluation-Metrics" class="headerlink" title="Evaluation Metrics"></a>Evaluation Metrics</h2><h3 id="Accuracy"><a href="#Accuracy" class="headerlink" title="Accuracy"></a>Accuracy</h3><p>The accuracy indicates the proportion of samples correctly classified by the model to the total number of samples.</p>
+<script type="math/tex; mode=display">
+Precision_i= \frac{(TP_i+TN_i)}{(Total Samples)}</script><p>Among them, $TP_i$ are the true positive examples of class <strong>i</strong>  , and $FP_i$ are the false positive examples predicted as class <strong>i</strong>  from other categories.</p>
+<h3 id="Precision"><a href="#Precision" class="headerlink" title="Precision"></a>Precision</h3><p>Precision is the proportion of correctly positive samples among all the samples predicted as positive. For each category <strong>i</strong> , the calculation formula for precision is:</p>
+<script type="math/tex; mode=display">
+Precision_i= \frac{TP_i}{(TP_i+FP_i)}</script><p>Among them, $TP_i$ are the true positive examples of class <strong>i</strong>  , and $FP_i$ are the false positive examples predicted as class <strong>i</strong>  from other categories.</p>
+<h3 id="Recall"><a href="#Recall" class="headerlink" title="Recall"></a>Recall</h3><p>Recall is the proportion of correctly predicted positive samples among all the actual positive samples. For each category <strong>i</strong> , the calculation formula for precision is:</p>
+<script type="math/tex; mode=display">
+Recall_i= \frac{TP_i} {(TP_i+FN_i)}</script><p>Among them, $TP_i$ are the true positive examples of class <strong>i</strong>  , and $FN_i$ are the false positive examples predicted as class <strong>i</strong>  from other categories.</p>
+<h3 id="F-Score"><a href="#F-Score" class="headerlink" title="F-Score"></a>F-Score</h3><p>The F-Score is the harmonic mean of precision and recall. The calculation formula is:</p>
+<script type="math/tex; mode=display">
+F_i=\frac{(2*Precision*Recall)}{(Precision+Recall)}</script><h3 id="False-Alarm"><a href="#False-Alarm" class="headerlink" title="False Alarm"></a>False Alarm</h3><p>FPR (False Positive Rate) is the proportion of negative samples that are incorrectly classified as positive among all actual negative samples. For each category <strong>i</strong>  , the calculation formula for the false positive rate is:</p>
+<script type="math/tex; mode=display">
+FPR_i=\frac{FP_i}{(FP_i+FP_i )}</script><p>Among them, $FP_i$ are the false positive examples predicted as class <strong>i</strong>  from other categories, and $FP_i$ are the false positive examples predicted as class <strong>i</strong>  from other categories.</p>
+<h2 id="Results-and-Analysis"><a href="#Results-and-Analysis" class="headerlink" title="Results and Analysis"></a>Results and Analysis</h2><h3 id="Performance-Metrics"><a href="#Performance-Metrics" class="headerlink" title="Performance Metrics"></a>Performance Metrics</h3><h4 id="Decision-Tree-1"><a href="#Decision-Tree-1" class="headerlink" title="Decision Tree"></a>Decision Tree</h4><p>According to the API documentation on scikit-learn, parameters such as max_depth, min_samples_split, min_samples_leaf, and criterion were tuned. The optimal parameter values were found to be: max_depth (default), min_samples_split=14, min_samples_leaf=2, and criterion=’gini’.</p>
+<h5 id="Dataset-1-NSL-KDD"><a href="#Dataset-1-NSL-KDD" class="headerlink" title="Dataset 1 (NSL-KDD)"></a>Dataset 1 (NSL-KDD)</h5><p><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251025140228109.png" alt="confusion matrix"><br><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251025140247175.png" alt="performance"></p>
+<h5 id="Dataset-2-TON-IOT"><a href="#Dataset-2-TON-IOT" class="headerlink" title="Dataset 2 (TON_IOT)"></a>Dataset 2 (TON_IOT)</h5><p><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251025140316755.png" alt="confusion matrix"><br><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251025140332375.png" alt="performance"></p>
+<h5 id="Comparing"><a href="#Comparing" class="headerlink" title="Comparing"></a>Comparing</h5><div class="table-container">
+<table>
+<thead>
+<tr>
+<th><strong>Metric</strong></th>
+<th><strong>NSL-KDD (DT)</strong></th>
+<th><strong>TON-IoT (DT)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Accuracy (%)</strong></td>
+<td>90.846</td>
+<td>86.5</td>
+</tr>
+<tr>
+<td><strong>Precision (%)</strong></td>
+<td>83.33</td>
+<td>87.25</td>
+</tr>
+<tr>
+<td><strong>Recall (%)</strong></td>
+<td>51.274</td>
+<td>84.265</td>
+</tr>
+<tr>
+<td><strong>F-Score (%)</strong></td>
+<td>53.2</td>
+<td>85.285</td>
+</tr>
+<tr>
+<td><strong>False Alarm (%)</strong></td>
+<td>16.67</td>
+<td>12.75</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>we can infer that the TON-IoT dataset generally yields better overall performance with the Decision Tree algorithm due to higher precision, recall, F-Score, and lower false alarm rates. In contrast, the NSL-KDD dataset achieves higher accuracy but struggles with recall and false alarm rates, possibly due to class imbalances or complexity in its features.<br><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251025140504902.png" alt="comparing"></p>
+<h4 id="Logistic-Regression-1"><a href="#Logistic-Regression-1" class="headerlink" title="Logistic Regression"></a>Logistic Regression</h4><p>Logistic Regression provides several parameters that can be adjusted to change the behaviour of the model: Best parameters: {‘C’: 0.1, ‘penalty’: ‘l2’, ‘solver’: ‘lbfgs’}</p>
+<h5 id="Dataset-1-NSL-KDD-1"><a href="#Dataset-1-NSL-KDD-1" class="headerlink" title="Dataset 1 (NSL-KDD)"></a>Dataset 1 (NSL-KDD)</h5><p><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251025140635239.png" alt="confusion matrix"><br><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251025140652961.png" alt="performance"></p>
+<h5 id="Dataset-2-TON-IOT-1"><a href="#Dataset-2-TON-IOT-1" class="headerlink" title="Dataset 2 (TON_IOT)"></a>Dataset 2 (TON_IOT)</h5><p><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251025140718884.png" alt="confusion matrix"><br><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251025140737467.png" alt="performance"></p>
+<h5 id="Comparing-1"><a href="#Comparing-1" class="headerlink" title="Comparing"></a>Comparing</h5><div class="table-container">
+<table>
+<thead>
+<tr>
+<th><strong>Metric</strong></th>
+<th><strong>NSL-KDD (DT)</strong></th>
+<th><strong>TON-IoT (DT)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Accuracy (%)</strong></td>
+<td>89.88</td>
+<td>68.78</td>
+</tr>
+<tr>
+<td><strong>Precision (%)</strong></td>
+<td>79.54</td>
+<td>76.275</td>
+</tr>
+<tr>
+<td><strong>Recall (%)</strong></td>
+<td>49.51</td>
+<td>60.605</td>
+</tr>
+<tr>
+<td><strong>F-Score (%)</strong></td>
+<td>49.19</td>
+<td>58.19</td>
+</tr>
+<tr>
+<td><strong>False Alarm (%)</strong></td>
+<td>20.46</td>
+<td>23.725</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>NSL-KDD Dataset</strong>: Logistic Regression is better at achieving higher accuracy and precision, making it more reliable for applications prioritizing these metrics.<br><strong>TON-IoT Dataset</strong>: Logistic Regression is more effective at identifying true positives, as evidenced by its higher recall and F-Score, but it suffers from lower overall accuracy.<br><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251025140903640.png" alt="comparing"></p>
+<h4 id="Naive-Bayes-1"><a href="#Naive-Bayes-1" class="headerlink" title="Naïve Bayes"></a>Naïve Bayes</h4><p>From scikit-learn, we know that the performance of GaussianNB is depend on priors and var_smoothing.  Best Parameters: {‘var_smoothing’: 1e-05}</p>
+<h5 id="Dataset-1-NSL-KDD-2"><a href="#Dataset-1-NSL-KDD-2" class="headerlink" title="Dataset 1 (NSL-KDD)"></a>Dataset 1 (NSL-KDD)</h5><p><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251025141152547.png" alt="confusion matrix"><br><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251025141203643.png" alt="performance"></p>
+<h5 id="Dataset-2-TON-IOT-2"><a href="#Dataset-2-TON-IOT-2" class="headerlink" title="Dataset 2 (TON_IOT)"></a>Dataset 2 (TON_IOT)</h5><p><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251025141231613.png" alt="confusion matrix"><br><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251025141242571.png" alt="performance"></p>
+<h5 id="Comparing-2"><a href="#Comparing-2" class="headerlink" title="Comparing"></a>Comparing</h5><div class="table-container">
+<table>
+<thead>
+<tr>
+<th><strong>Metric</strong></th>
+<th><strong>NSL-KDD (DT)</strong></th>
+<th><strong>TON-IoT (DT)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Accuracy (%)</strong></td>
+<td>86.77</td>
+<td>69.99</td>
+</tr>
+<tr>
+<td><strong>Precision (%)</strong></td>
+<td>51.058</td>
+<td>72.59</td>
+</tr>
+<tr>
+<td><strong>Recall (%)</strong></td>
+<td>52.292</td>
+<td>63.29</td>
+</tr>
+<tr>
+<td><strong>F-Score (%)</strong></td>
+<td>48.608</td>
+<td>62.68</td>
+</tr>
+<tr>
+<td><strong>False Alarm (%)</strong></td>
+<td>48.942</td>
+<td>27.41</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>NSL-KDD Dataset</strong>: Naïve Bayes achieves high accuracy but struggles with false positives and balanced performance (F-Score).<br><strong>TON-IoT Dataset</strong>: Naïve Bayes provides a more balanced classification with fewer false positives, making it better suited for use cases where precision and recall are critical.<br><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251025141333286.png" alt="comparing"></p>
+<h4 id="Random-Forest-1"><a href="#Random-Forest-1" class="headerlink" title="Random Forest"></a>Random Forest</h4><p>Random Forest has several important hyperparameters that we can adjust to improve its performance:<br>Best parameters found:  {‘bootstrap’: False, ‘max_depth’: None, ‘min_samples_leaf’: 1, ‘min_samples_split’: 4, ‘n_estimators’: 33}</p>
+<h5 id="Dataset-1-NSL-KDD-3"><a href="#Dataset-1-NSL-KDD-3" class="headerlink" title="Dataset 1 (NSL-KDD)"></a>Dataset 1 (NSL-KDD)</h5><p><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251025141445687.png" alt="confusion matrix"><br><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251025141454576.png" alt="performance"></p>
+<h5 id="Dataset-2-TON-IOT-3"><a href="#Dataset-2-TON-IOT-3" class="headerlink" title="Dataset 2 (TON_IOT)"></a>Dataset 2 (TON_IOT)</h5><p><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251025141522401.png" alt="confusion matrix"><br><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251025141530066.png" alt="performance"></p>
+<h5 id="Comparing-3"><a href="#Comparing-3" class="headerlink" title="Comparing"></a>Comparing</h5><div class="table-container">
+<table>
+<thead>
+<tr>
+<th><strong>Metric</strong></th>
+<th><strong>NSL-KDD (DT)</strong></th>
+<th><strong>TON-IoT (DT)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Accuracy (%)</strong></td>
+<td>89.75</td>
+<td>86.96</td>
+</tr>
+<tr>
+<td><strong>Precision (%)</strong></td>
+<td>80.72</td>
+<td>87.935</td>
+</tr>
+<tr>
+<td><strong>Recall (%)</strong></td>
+<td>48.088</td>
+<td>84.64</td>
+</tr>
+<tr>
+<td><strong>F-Score (%)</strong></td>
+<td>48.424</td>
+<td>85.745</td>
+</tr>
+<tr>
+<td><strong>False Alarm (%)</strong></td>
+<td>19.276</td>
+<td>12.065</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>NSL-KDD Dataset</strong>: Random Forest achieves high accuracy but is less effective at achieving balanced precision and recall, with a moderate false alarm rate.<br><strong>TON-IoT Dataset</strong>: Random Forest excels in all metrics, providing robust and balanced performance with minimal false alarms, making it a better-suited dataset for this algorithm.<br><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251025141553978.png" alt="comparing"></p>
+<h4 id="SVM-SVC"><a href="#SVM-SVC" class="headerlink" title="SVM-SVC"></a>SVM-SVC</h4><p>SVM-SVC has two important hyperparameters that we can adjust to improve its performance:<br>Best parameters: {‘C’: 1, ‘gamma’: ‘scale’}</p>
+<h5 id="Dataset-1-NSL-KDD-4"><a href="#Dataset-1-NSL-KDD-4" class="headerlink" title="Dataset 1 (NSL-KDD)"></a>Dataset 1 (NSL-KDD)</h5><p><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251025141704470.png" alt="confusion matrix"><br><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251025141715354.png" alt="performance"></p>
+<h5 id="Dataset-2-TON-IOT-4"><a href="#Dataset-2-TON-IOT-4" class="headerlink" title="Dataset 2 (TON_IOT)"></a>Dataset 2 (TON_IOT)</h5><p>Best params: {‘kernel’: [‘poly’], ‘C’: [1 <em> 10*</em>i for i in range(-3, 11)], ‘degree’: range(2, 10), ‘class_weight’: [‘balanced’], ‘max_iter’: [1000]}</p>
+<p><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251025141839832.png" alt="confusion matrix"><br><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251025141858666.png" alt="performance"></p>
+<h5 id="Comparing-4"><a href="#Comparing-4" class="headerlink" title="Comparing"></a>Comparing</h5><div class="table-container">
+<table>
+<thead>
+<tr>
+<th><strong>Metric</strong></th>
+<th><strong>NSL-KDD (DT)</strong></th>
+<th><strong>TON-IoT (DT)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Accuracy (%)</strong></td>
+<td>90.338</td>
+<td>60.51</td>
+</tr>
+<tr>
+<td><strong>Precision (%)</strong></td>
+<td>79.56</td>
+<td>45.615</td>
+</tr>
+<tr>
+<td><strong>Recall (%)</strong></td>
+<td>51.646</td>
+<td>49.735</td>
+</tr>
+<tr>
+<td><strong>F-Score (%)</strong></td>
+<td>53.84</td>
+<td>38.71</td>
+</tr>
+<tr>
+<td><strong>False Alarm (%)</strong></td>
+<td>20.44</td>
+<td>54.385</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>NSL-KDD Dataset</strong>: SVM-SVC achieves excellent accuracy and precision but struggles with recall and balanced classification.<br><strong>TON-IoT Dataset</strong>: SVM-SVC underperforms significantly, with low accuracy, precision, and F-Score, and a very high false alarm rate, suggesting it is not well-suited for this dataset without further tuning or preprocessing.<br><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251025141952824.png" alt="comparing"></p>
+<h4 id="MLP"><a href="#MLP" class="headerlink" title="MLP"></a>MLP</h4><p>MLP has four important hyperparameters that we can adjust to improve its performance:<br>Best Parameters: {‘alpha’: 0.001, ‘hidden_layer_sizes’: (100,), ‘learning_rate_init’: 0.001, ‘solver’: ‘adam’}</p>
+<h5 id="Dataset-1-NSL-KDD-5"><a href="#Dataset-1-NSL-KDD-5" class="headerlink" title="Dataset 1 (NSL-KDD)"></a>Dataset 1 (NSL-KDD)</h5><p><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251025142324873.png" alt="confusion matrix"><br><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251025142332877.png" alt="performance"></p>
+<h5 id="Dataset-2-TON-IOT-5"><a href="#Dataset-2-TON-IOT-5" class="headerlink" title="Dataset 2 (TON_IOT)"></a>Dataset 2 (TON_IOT)</h5><p><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251025142343193.png" alt="confusion matrix"><br><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251025142351436.png" alt="performance"></p>
+<h5 id="Comparing-5"><a href="#Comparing-5" class="headerlink" title="Comparing"></a>Comparing</h5><div class="table-container">
+<table>
+<thead>
+<tr>
+<th><strong>Metric</strong></th>
+<th><strong>NSL-KDD (DT)</strong></th>
+<th><strong>TON-IoT (DT)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Accuracy (%)</strong></td>
+<td>90.22</td>
+<td>80.38</td>
+</tr>
+<tr>
+<td><strong>Precision (%)</strong></td>
+<td>72.884</td>
+<td>84.685</td>
+</tr>
+<tr>
+<td><strong>Recall (%)</strong></td>
+<td>50.408</td>
+<td>75.58</td>
+</tr>
+<tr>
+<td><strong>F-Score (%)</strong></td>
+<td>52.406</td>
+<td>76.98</td>
+</tr>
+<tr>
+<td><strong>False Alarm (%)</strong></td>
+<td>27.116</td>
+<td>15.315</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>NSL-KDD Dataset</strong>: MLP achieves high accuracy but struggles with recall and false alarms, suggesting potential improvements through feature engineering or class balancing.<br><strong>TON-IoT Dataset</strong>: MLP delivers robust performance with high precision, recall, and low false alarm rate, making it a strong candidate for this dataset.<br><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251025142415114.png" alt="comparing"></p>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><h3 id="Dataset-1-NSL-KDD-6"><a href="#Dataset-1-NSL-KDD-6" class="headerlink" title="Dataset 1 (NSL-KDD)"></a>Dataset 1 (NSL-KDD)</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th><strong>Algorithms</strong></th>
+<th><strong>Accuracy (%)</strong></th>
+<th><strong>Precision (%)</strong></th>
+<th><strong>Recall (%)</strong></th>
+<th><strong>F-Score (%)</strong></th>
+<th><strong>False Alarm-FPR (%)</strong></th>
+<th><strong>Times (s)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DeciTree</td>
+<td>90.846</td>
+<td>83.33</td>
+<td>51.274</td>
+<td>53.2</td>
+<td>16.67</td>
+<td>1</td>
+</tr>
+<tr>
+<td>LR</td>
+<td>89.88</td>
+<td>79.54</td>
+<td>49.51</td>
+<td>49.19</td>
+<td>20.46</td>
+<td>60</td>
+</tr>
+<tr>
+<td>NB</td>
+<td>86.77</td>
+<td>51.058</td>
+<td>52.292</td>
+<td>48.608</td>
+<td>48.942</td>
+<td>15</td>
+</tr>
+<tr>
+<td>RanForest</td>
+<td>89.75</td>
+<td>80.72</td>
+<td>48.088</td>
+<td>48.424</td>
+<td>19.276</td>
+<td>220</td>
+</tr>
+<tr>
+<td>SVM-SVC</td>
+<td>90.338</td>
+<td>79.56</td>
+<td>51.646</td>
+<td>53.84</td>
+<td>20.44</td>
+<td>582</td>
+</tr>
+<tr>
+<td>MLP</td>
+<td>90.22</td>
+<td>72.884</td>
+<td>50.408</td>
+<td>52.406</td>
+<td>27.116</td>
+<td>3600</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251025142748235.png" alt="metrix"></p>
+<h4 id="Disscussion"><a href="#Disscussion" class="headerlink" title="Disscussion"></a>Disscussion</h4><p>In this analysis, we evaluate the performance of six classification algorithms—Decision Tree, Logistic Regression (LR), Naïve Bayes (NB), Random Forest (RF), SVM-SVC, and Multilayer Perceptron (MLP). The metrics considered include Accuracy, Precision, Recall, F1-Score, False Positive Rate (FPR), and execution time. Below is a summary of trends, dataset impact, and algorithm suitability based on the given dataset.</p>
+<h4 id="Performance-Trends"><a href="#Performance-Trends" class="headerlink" title="Performance Trends"></a>Performance Trends</h4><ol>
+<li>Accuracy<ul>
+<li>Highest Accuracy: From Picture 25, we can see that Decision Tree (90.846%) and SVM-SVC (90.338%) are the best-performing algorithms.</li>
+<li>Lower Accuracy: Naive Bayes (86.77%), indicating it is less reliable for overall prediction correctness.</li>
+</ul>
+</li>
+<li>Precision<ul>
+<li>From the Picture 25, Decision Tree (83.33%), showing it has the fewest False Positives among all algorithms.</li>
+<li>Naïve Bayes showed the weakest precision (51.058%), aligning with its limited performance in complex datasets.    </li>
+</ul>
+</li>
+<li>Recall<ul>
+<li>Naive Bayes (52.292%) and SVM-SVC (51.646%) perform best in detecting true positives.</li>
+<li>Random Forest (48.088%), indicating it misses many true positives.</li>
+</ul>
+</li>
+<li>F1-Score<ul>
+<li>SVM-SVC (53.84%) and Decision Tree (53.2%) provide the most balanced trade-off.</li>
+<li>Naive Bayes (48.608%) again struggles with performance consistency.</li>
+</ul>
+</li>
+<li>False Positive Rate (FPR)<ul>
+<li>Decision Tree (16.67%), making it the most reliable in minimizing False Alarms.</li>
+<li>Multi-Layer Perceptron (27.116%), which is prone to generating more False Alarms.</li>
+</ul>
+</li>
+</ol>
+<h4 id="Impact-of-Dataset-Characteristics"><a href="#Impact-of-Dataset-Characteristics" class="headerlink" title="Impact of Dataset Characteristics"></a>Impact of Dataset Characteristics</h4><ol>
+<li><p>Decision Tree (DeciTree)<br> <strong>Strengths</strong>:</p>
+<pre><code> - Accuracy (90.846%) and Precision (83.33%): Decision trees perform well for problems with simple decision boundaries, leading to good overall results.
+ - Execution time (1 seconds): The algorithm is straightforward and efficient, making it suitable for small-scale datasets or simple problems.
+</code></pre><p> <strong>Weaknesses</strong>:</p>
+<pre><code> - Low Recall (51.27%) and F1-Score (53.2%): Overfitting might result in poor recall for minority classes.
+ - Susceptible to overfitting: When the dataset has noise or high-dimensional features, the model may capture irrelevant details, reducing generalization performance.
+</code></pre></li>
+<li><p>Logistic Regression (LR)<br> <strong>Strengths</strong>:</p>
+<pre><code> - Balanced performance: As a linear model, LR works well for linearly separable data, achieving high precision 89.88%).
+ - Efficient runtime (60 seconds): The algorithm is computationally efficient.
+</code></pre><p> <strong>Weaknesses</strong>:</p>
+<pre><code> - Low Recall (49.51%) and F1-Score (49.19%): LR struggles with capturing complex nonlinear relationships, leading to lower recall and overall classification performance.
+ - Dependency on feature relationships: LR assumes a linear relationship between features and outcomes, limiting its effectiveness on nonlinear datasets.
+</code></pre></li>
+<li><p>Naïve Bayes (NB)<br> <strong>Strengths</strong>:</p>
+<pre><code> - Efficient computation: When the independence assumption holds, NB can quickly calculate posterior probabilities, making it suitable for tasks like text classification.
+</code></pre><p> <strong>Weaknesses</strong>:</p>
+<pre><code> - Low Accuracy (86.77%) and Precision (51.058%): The model struggles to utilize feature correlations effectively, as the independence assumption often doesn&#39;t hold, reducing its performance.
+ - Low Recall (52.292%) and F1-Score (48.608%): Feature interdependence limits the model&#39;s effectiveness on complex datasets.
+</code></pre></li>
+<li>Random Forest (RanForest)<br> <strong>Strengths</strong>:<pre><code> - High Precision (89.75%): By aggregating multiple decision trees, Random Forest mitigates the overfitting issues of single trees.
+ - Versatility: It can handle high-dimensional data and capture complex relationships.
+</code></pre> <strong>Weaknesses</strong>:<pre><code> - High runtime (220 seconds): The complexity of the model significantly increases training and inference time compared to simpler algorithms.
+ - Low Recall (48.088%) and F1-Score (48.424%): The model may not handle class imbalance well, requiring parameter tuning (e.g., class weights) to improve recall.
+</code></pre></li>
+<li>SVM-SVC<br> <strong>Strengths</strong>:<pre><code> - Adaptability to high-dimensional data: SVM with RBF kernels handles complex, nonlinear decision boundaries effectively.
+ - Balanced performance: Accuracy (90.338%) and runtime (582 seconds) are relatively moderate.
+</code></pre> <strong>Weaknesses</strong>:<pre><code> - Low Precision and Recall (51.646%, 53.84%): The model’s performance may be impacted by the complexity of data features and relationships.
+ - High time complexity: Training time increases significantly for larger datasets.
+</code></pre></li>
+<li>Multilayer Perceptron (MLP)<br> <strong>Strengths</strong>:<pre><code> - Relatively stable Accuracy (90.22%) and F1-Score (52.406%): MLP effectively handles complex nonlinear problems.
+ - Strong fitting ability: Particularly suitable for large-scale data with complex features.
+</code></pre> <strong>Weaknesses</strong>:<pre><code> - High runtime (3600 seconds): Training neural networks is computationally expensive, especially for high-dimensional datasets.
+ - Low Recall (50.408%): The model may not fully capture minority class characteristics due to insufficient parameter tuning or training data.
+</code></pre></li>
+</ol>
+<h3 id="Dataset-2-TON-IOT-6"><a href="#Dataset-2-TON-IOT-6" class="headerlink" title="Dataset 2 (TON_IOT)"></a>Dataset 2 (TON_IOT)</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th><strong>Algorithms</strong></th>
+<th><strong>Accuracy (%)</strong></th>
+<th><strong>Precision (%)</strong></th>
+<th><strong>Recall (%)</strong></th>
+<th><strong>F-Score (%)</strong></th>
+<th><strong>False Alarm-FPR (%)</strong></th>
+<th><strong>Times (s)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DeciTree</td>
+<td>86.5</td>
+<td>87.25</td>
+<td>84.265</td>
+<td>85.285</td>
+<td>12.75</td>
+<td>1</td>
+</tr>
+<tr>
+<td>LR</td>
+<td>68.78</td>
+<td>76.275</td>
+<td>60.605</td>
+<td>58.19</td>
+<td>23.725</td>
+<td>319</td>
+</tr>
+<tr>
+<td>NB</td>
+<td>69.99</td>
+<td>72.59</td>
+<td>63.29</td>
+<td>62.68</td>
+<td>27.41</td>
+<td>1</td>
+</tr>
+<tr>
+<td>RanForest</td>
+<td>86.96</td>
+<td>87.935</td>
+<td>84.64</td>
+<td>85.745</td>
+<td>12.065</td>
+<td>43</td>
+</tr>
+<tr>
+<td>SVM-SVC</td>
+<td>60.51</td>
+<td>45.615</td>
+<td>49.735</td>
+<td>38.71</td>
+<td>54.385</td>
+<td>3600</td>
+</tr>
+<tr>
+<td>MLP</td>
+<td>80.38</td>
+<td>84.685</td>
+<td>75.58</td>
+<td>76.98</td>
+<td>15.315</td>
+<td>2115</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251025143549053.png" alt="metrix"></p>
+<h4 id="Performance-Trends-1"><a href="#Performance-Trends-1" class="headerlink" title="Performance Trends"></a>Performance Trends</h4><ul>
+<li>Accuracy<ul>
+<li><strong>Best</strong>: Random Forest (86.96%) and Decision Tree (86.5%) are the most accurate.</li>
+<li><strong>Worst</strong>: SVM-SVC (60.51%) has the lowest accuracy.</li>
+</ul>
+</li>
+<li>Precision<ul>
+<li><strong>Best</strong>: Random Forest (87.935%) and Decision Tree (87.25%) again perform best in terms of precision.</li>
+<li><strong>Worst</strong>: SVM-SVC (45.615%) significantly underperforms.</li>
+</ul>
+</li>
+<li>Recall<ul>
+<li><strong>Best</strong>: Random Forest (84.64%) and Decision Tree (84.265%) lead in recall.</li>
+<li><strong>Worst</strong>: SVM-SVC (49.735%).</li>
+</ul>
+</li>
+<li>F-Score<ul>
+<li><strong>Best</strong>: Random Forest (85.745%) slightly edges out Decision Tree (85.285%).</li>
+<li><strong>Worst</strong>: SVM-SVC (38.71%).</li>
+</ul>
+</li>
+<li>False Alarm (FPR)<ul>
+<li><strong>Best</strong>: Random Forest (12.065%) and Decision Tree (12.75%) maintain low false positive rates.</li>
+<li><strong>Worst</strong>: SVM-SVC (54.385%) is the highest.</li>
+</ul>
+</li>
+<li>Execution Time<ul>
+<li><strong>Fastest</strong>: Decision Tree (1 second) and Naïve Bayes (1 second).</li>
+<li><strong>Slowest</strong>: SVM-SVC (3600 seconds), followed by MLP (2115 seconds).</li>
+</ul>
+</li>
+</ul>
+<h4 id="Impact-of-Dataset-Characteristics-1"><a href="#Impact-of-Dataset-Characteristics-1" class="headerlink" title="Impact of Dataset Characteristics"></a>Impact of Dataset Characteristics</h4><p><strong>Dimensionality</strong>:<br>TON_IoT likely involves high-dimensional data due to its IoT nature, affecting algorithm performance:</p>
+<ul>
+<li>Random Forest and Decision Tree, with their ability to handle high-dimensional datasets and irrelevant features, perform well.</li>
+<li>SVM-SVC, which struggles with large datasets, reflects this limitation in its performance.</li>
+</ul>
+<p><strong>Noise and Outliers</strong>:<br>IoT datasets often include noisy data:</p>
+<ul>
+<li>Random Forest and Decision Tree mitigate noise with feature averaging and robust splitting.</li>
+<li>MLP may struggle with noise, requiring substantial preprocessing for optimal results.</li>
+<li>Naïve Bayes, assuming feature independence, may be sensitive to outliers, though its simplicity helps in certain cases.</li>
+</ul>
+<p><strong>Class Imbalance</strong>:<br>IoT datasets often exhibit class imbalance (e.g., rare attack types vs. normal behavior). Algorithms handling imbalance:</p>
+<ul>
+<li>Random Forest and Decision Tree, using ensemble learning and weighted splits, manage imbalance better.</li>
+<li>Logistic Regression and Naïve Bayes may underperform in imbalanced scenarios without appropriate resampling techniques.</li>
+<li>SVM-SVC is particularly sensitive to imbalance, resulting in poor metrics.</li>
+</ul>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>In conclusion, the strengths and weaknesses of each algorithm are influenced by their underlying assumptions, model complexity, and adaptability to the dataset. For simple problems or scenarios requiring high efficiency, Decision Tree or Logistic Regression is recommended. Random Forest and MLP perform better on complex datasets but come with higher computational costs. SVM-SVC is well-suited for high-dimensional, nonlinear data, while Naïve Bayes can be effective for specific tasks such as text classification.</p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
+<li>Alsaedi, Abdullah, et al. “TON_IoT Telemetry Dataset: A New Generation Dataset of IoT and IIoT for Data-Driven Intrusion Detection Systems.” IEEE Access, 2020, pp. 1–1, <a target="_blank" rel="noopener" href="https://doi.org/10.1109/access.2020.3022862">https://doi.org/10.1109/access.2020.3022862</a>. </li>
+<li>Gao, X., Shan, C., Hu, C., Niu, Z. and Liu, Z., 2019. An adaptive ensemble machine learning model for intrusion detection. Ieee Access, 7, pp.82512-82521. </li>
+<li>Scikit-learn.org. (2019). sklearn.tree.DecisionTreeClassifier — scikit-learn 0.22.1 documentation. [online] Available at: <a target="_blank" rel="noopener" href="https://scikit-learn.org/stable/modules/generated/sklearn.tree.DecisionTreeClassifier.html">https://scikit-learn.org/stable/modules/generated/sklearn.tree.DecisionTreeClassifier.html</a>. </li>
+<li>scikit-learn (2014). sklearn.linear_model.LogisticRegression — scikit-learn 0.21.2 documentation. [online] Scikit-learn.org. Available at: <a target="_blank" rel="noopener" href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html">https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html</a>. </li>
+<li>scikit-learn (n.d.). sklearn.naive_bayes.GaussianNB — scikit-learn 0.22.1 documentation. [online] scikit-learn.org. Available at: <a target="_blank" rel="noopener" href="https://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.GaussianNB.html">https://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.GaussianNB.html</a>. </li>
+<li>Scikit-learn.org. (2018). sklearn.ensemble.RandomForestClassifier — scikit-learn 0.20.3 documentation. [online] Available at: <a target="_blank" rel="noopener" href="https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html">https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html</a>. </li>
+<li>scikit-learn (2019). sklearn.svm.SVC — scikit-learn 0.22 documentation. [online] Scikit-learn.org. Available at: <a target="_blank" rel="noopener" href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html">https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html</a>. </li>
+<li>scikit-learn (2010). sklearn.neural_network.MLPClassifier — scikit-learn 0.20.3 documentation. [online] Scikit-learn.org. Available at: <a target="_blank" rel="noopener" href="https://scikit-learn.org/stable/modules/generated/sklearn.neural_network.MLPClassifier.html">https://scikit-learn.org/stable/modules/generated/sklearn.neural_network.MLPClassifier.html</a>.</li>
+<li>SciKit Learn (2019). sklearn.model_selection.GridSearchCV — scikit-learn 0.22 Documentation. [online] Scikit-learn.org. Available at: <a target="_blank" rel="noopener" href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html">https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html</a>. </li>
+<li>www.evidentlyai.com. (n.d.). How to interpret a confusion matrix for a machine learning model. [online] Available at: <a target="_blank" rel="noopener" href="https://www.evidentlyai.com/classification-metrics/confusion-matrix">https://www.evidentlyai.com/classification-metrics/confusion-matrix</a>.</li>
+<li>www.evidentlyai.com. (n.d.). Accuracy vs. precision vs. recall in machine learning: what’s the difference? [online] Available at: <a target="_blank" rel="noopener" href="https://www.evidentlyai.com/classification-metrics/accuracy-precision-recall#what-is-recall">https://www.evidentlyai.com/classification-metrics/accuracy-precision-recall#what-is-recall</a>.</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://wenyupeng.github.io">Chris Wen</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://wenyupeng.github.io/2025/06/20/ai/algorithm/02-analysis-classification-algorithms/">https://wenyupeng.github.io/2025/06/20/ai/algorithm/02-analysis-classification-algorithms/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/ai/">ai</a></div><div class="post-share"><div class="social-share" data-image="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251007095230189.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/06/21/ai/algorithm/03-adversarial-machine-learning/" title="A Taxonomy and Terminology of Adversarial Machine Learning"><img class="cover" src="https://jsd.012700.xyz/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="onerror=null;src='/images/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">A Taxonomy and Terminology of Adversarial Machine Learning</div></div><div class="info-2"><div class="info-item-1">BackgroundMachine learning (ML) components are increasingly being deployed in critical applications, form computer vision to cybersecurity. However, the data-driven nature of ML introduces new security challenges compared to traditional knowledge-based AI systems. Adversaries can exploit vulnerabilities in ML models through a variety of adversarial attacks, posing significant risks to the integrity, availability, and confidentiality of these systems. Key Attack TypesThe taxonomy of adversaria...</div></div></div></a><a class="pagination-related" href="/2025/06/19/ai/algorithm/01-classification-algorithms/" title="Classification Algorithms"><img class="cover" src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251007095245295.png" onerror="onerror=null;src='/images/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">Classification Algorithms</div></div><div class="info-2"><div class="info-item-1">Dataset IntroductionNSL-KDDThe NSL-KDD dataset is a dataset for intrusion detection, which is a type of supervised learning problem. It consists of a large number of network traffic records that are labeled as either normal or malicious. The dataset contains a total of 41,478 network traffic records, which are categorized into 10 different types of attacks, such as DoS, Probe, U2R, R2L, etc. The dataset is publicly available and can be downloaded from the following link: https://www.unb.ca/ci...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/07/19/ai/01-ai-foundation/" title="large language model"><img class="cover" src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20250728225233182.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-07-19</div><div class="info-item-2">large language model</div></div><div class="info-2"><div class="info-item-1">Large Language ModelDefinitionA large language model is a machine learning model that is trained on a large corpus of text data, such as Wikipedia or the Web. These models can generate high-quality text that is similar to the training data, but can also generate text that is not present in the training data. History &lt; 1990s: IBM’s statistical language model (SLM) 1990s-2000s: Neural language models (NLLMs) 2001s: n-gram model 2010s: GPT-2, GPT-3  Dataset PreprocessingTokenizationSplitting ...</div></div></div></a><a class="pagination-related" href="/2025/07/19/ai/02-ai-deep-learning/" title="large language model"><img class="cover" src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20250728225255149.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-07-19</div><div class="info-item-2">large language model</div></div><div class="info-2"><div class="info-item-1">ReferencesDive Into Deep Learning Create Environmentuse conda or miniconda123conda env remove d2l-zhconda create -n d2l-zh -y python=3.8 pipconda activate d2l-zh install dependencies1pip install jupyter d2l torch torchvision download d2l-zh.zip123wget http://zh-v2.d2l.ai/d2l-zh.zipunzip d2l-zh.zipjupyter notebook </div></div></div></a><a class="pagination-related" href="/2025/06/19/ai/algorithm/01-classification-algorithms/" title="Classification Algorithms"><img class="cover" src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251007095245295.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-06-19</div><div class="info-item-2">Classification Algorithms</div></div><div class="info-2"><div class="info-item-1">Dataset IntroductionNSL-KDDThe NSL-KDD dataset is a dataset for intrusion detection, which is a type of supervised learning problem. It consists of a large number of network traffic records that are labeled as either normal or malicious. The dataset contains a total of 41,478 network traffic records, which are categorized into 10 different types of attacks, such as DoS, Probe, U2R, R2L, etc. The dataset is publicly available and can be downloaded from the following link: https://www.unb.ca/ci...</div></div></div></a><a class="pagination-related" href="/2025/06/21/ai/algorithm/03-adversarial-machine-learning/" title="A Taxonomy and Terminology of Adversarial Machine Learning"><img class="cover" src="https://jsd.012700.xyz/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-06-21</div><div class="info-item-2">A Taxonomy and Terminology of Adversarial Machine Learning</div></div><div class="info-2"><div class="info-item-1">BackgroundMachine learning (ML) components are increasingly being deployed in critical applications, form computer vision to cybersecurity. However, the data-driven nature of ML introduces new security challenges compared to traditional knowledge-based AI systems. Adversaries can exploit vulnerabilities in ML models through a variety of adversarial attacks, posing significant risks to the integrity, availability, and confidentiality of these systems. Key Attack TypesThe taxonomy of adversaria...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/images/lucky-icon.png" onerror="this.onerror=null;this.src='/images/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Chris Wen</div><div class="author-info-description">Dwell not on the past, nor fear the future.</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">70</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">24</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">46</div></a></div><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/wenyupeng" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:chriswen430@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://www.linkedin.com/in/chriswen430" target="_blank" title="Linkedin"><i class="fab fa-linkedin" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">Maintain the motivation to learn and stay humble when facing every problem.</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Comparative-Analysis-of-Classification-Algorithms"><span class="toc-number">1.</span> <span class="toc-text">Comparative Analysis of Classification Algorithms</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Abstract"><span class="toc-number">1.1.</span> <span class="toc-text">Abstract</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Introduction"><span class="toc-number">1.2.</span> <span class="toc-text">Introduction</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Dataset-Introduction"><span class="toc-number">1.3.</span> <span class="toc-text">Dataset Introduction</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#NSL-KDD"><span class="toc-number">1.3.1.</span> <span class="toc-text">NSL-KDD</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Processed-Combined-IoT-dataset"><span class="toc-number">1.3.2.</span> <span class="toc-text">Processed Combined IoT dataset</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Algorithms-Overview"><span class="toc-number">1.4.</span> <span class="toc-text">Algorithms Overview</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Decision-Tree"><span class="toc-number">1.4.1.</span> <span class="toc-text">Decision Tree</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Working-Principle"><span class="toc-number">1.4.1.1.</span> <span class="toc-text">Working Principle</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Logistic-Regression"><span class="toc-number">1.4.2.</span> <span class="toc-text">Logistic Regression</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Working-Principle-1"><span class="toc-number">1.4.2.1.</span> <span class="toc-text">Working Principle</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Naive-Bayes"><span class="toc-number">1.4.3.</span> <span class="toc-text">Naive Bayes</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Working-Principle-2"><span class="toc-number">1.4.3.1.</span> <span class="toc-text">Working Principle</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Random-Forest"><span class="toc-number">1.4.4.</span> <span class="toc-text">Random Forest</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Working-Principle-3"><span class="toc-number">1.4.4.1.</span> <span class="toc-text">Working Principle</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Support-Vector-Machines-SVM"><span class="toc-number">1.4.5.</span> <span class="toc-text">Support Vector Machines (SVM)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Working-Principle-4"><span class="toc-number">1.4.5.1.</span> <span class="toc-text">Working Principle</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Multilayer-Perceptron"><span class="toc-number">1.4.6.</span> <span class="toc-text">Multilayer Perceptron</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Working-Principle-5"><span class="toc-number">1.4.6.1.</span> <span class="toc-text">Working Principle</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Evaluation-Metrics"><span class="toc-number">1.5.</span> <span class="toc-text">Evaluation Metrics</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Accuracy"><span class="toc-number">1.5.1.</span> <span class="toc-text">Accuracy</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Precision"><span class="toc-number">1.5.2.</span> <span class="toc-text">Precision</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Recall"><span class="toc-number">1.5.3.</span> <span class="toc-text">Recall</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#F-Score"><span class="toc-number">1.5.4.</span> <span class="toc-text">F-Score</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#False-Alarm"><span class="toc-number">1.5.5.</span> <span class="toc-text">False Alarm</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Results-and-Analysis"><span class="toc-number">1.6.</span> <span class="toc-text">Results and Analysis</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Performance-Metrics"><span class="toc-number">1.6.1.</span> <span class="toc-text">Performance Metrics</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Decision-Tree-1"><span class="toc-number">1.6.1.1.</span> <span class="toc-text">Decision Tree</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Dataset-1-NSL-KDD"><span class="toc-number">1.6.1.1.1.</span> <span class="toc-text">Dataset 1 (NSL-KDD)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Dataset-2-TON-IOT"><span class="toc-number">1.6.1.1.2.</span> <span class="toc-text">Dataset 2 (TON_IOT)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Comparing"><span class="toc-number">1.6.1.1.3.</span> <span class="toc-text">Comparing</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Logistic-Regression-1"><span class="toc-number">1.6.1.2.</span> <span class="toc-text">Logistic Regression</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Dataset-1-NSL-KDD-1"><span class="toc-number">1.6.1.2.1.</span> <span class="toc-text">Dataset 1 (NSL-KDD)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Dataset-2-TON-IOT-1"><span class="toc-number">1.6.1.2.2.</span> <span class="toc-text">Dataset 2 (TON_IOT)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Comparing-1"><span class="toc-number">1.6.1.2.3.</span> <span class="toc-text">Comparing</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Naive-Bayes-1"><span class="toc-number">1.6.1.3.</span> <span class="toc-text">Naïve Bayes</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Dataset-1-NSL-KDD-2"><span class="toc-number">1.6.1.3.1.</span> <span class="toc-text">Dataset 1 (NSL-KDD)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Dataset-2-TON-IOT-2"><span class="toc-number">1.6.1.3.2.</span> <span class="toc-text">Dataset 2 (TON_IOT)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Comparing-2"><span class="toc-number">1.6.1.3.3.</span> <span class="toc-text">Comparing</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Random-Forest-1"><span class="toc-number">1.6.1.4.</span> <span class="toc-text">Random Forest</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Dataset-1-NSL-KDD-3"><span class="toc-number">1.6.1.4.1.</span> <span class="toc-text">Dataset 1 (NSL-KDD)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Dataset-2-TON-IOT-3"><span class="toc-number">1.6.1.4.2.</span> <span class="toc-text">Dataset 2 (TON_IOT)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Comparing-3"><span class="toc-number">1.6.1.4.3.</span> <span class="toc-text">Comparing</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SVM-SVC"><span class="toc-number">1.6.1.5.</span> <span class="toc-text">SVM-SVC</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Dataset-1-NSL-KDD-4"><span class="toc-number">1.6.1.5.1.</span> <span class="toc-text">Dataset 1 (NSL-KDD)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Dataset-2-TON-IOT-4"><span class="toc-number">1.6.1.5.2.</span> <span class="toc-text">Dataset 2 (TON_IOT)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Comparing-4"><span class="toc-number">1.6.1.5.3.</span> <span class="toc-text">Comparing</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#MLP"><span class="toc-number">1.6.1.6.</span> <span class="toc-text">MLP</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Dataset-1-NSL-KDD-5"><span class="toc-number">1.6.1.6.1.</span> <span class="toc-text">Dataset 1 (NSL-KDD)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Dataset-2-TON-IOT-5"><span class="toc-number">1.6.1.6.2.</span> <span class="toc-text">Dataset 2 (TON_IOT)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Comparing-5"><span class="toc-number">1.6.1.6.3.</span> <span class="toc-text">Comparing</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Summary"><span class="toc-number">1.7.</span> <span class="toc-text">Summary</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Dataset-1-NSL-KDD-6"><span class="toc-number">1.7.1.</span> <span class="toc-text">Dataset 1 (NSL-KDD)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Disscussion"><span class="toc-number">1.7.1.1.</span> <span class="toc-text">Disscussion</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Performance-Trends"><span class="toc-number">1.7.1.2.</span> <span class="toc-text">Performance Trends</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Impact-of-Dataset-Characteristics"><span class="toc-number">1.7.1.3.</span> <span class="toc-text">Impact of Dataset Characteristics</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Dataset-2-TON-IOT-6"><span class="toc-number">1.7.2.</span> <span class="toc-text">Dataset 2 (TON_IOT)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Performance-Trends-1"><span class="toc-number">1.7.2.1.</span> <span class="toc-text">Performance Trends</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Impact-of-Dataset-Characteristics-1"><span class="toc-number">1.7.2.2.</span> <span class="toc-text">Impact of Dataset Characteristics</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Conclusion"><span class="toc-number">1.8.</span> <span class="toc-text">Conclusion</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">1.9.</span> <span class="toc-text">Reference</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/11/14/big_data/da/11-des-statistics/" title="Box-Cox and Yeo-Johnson Transformations"><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251118091603317.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="Box-Cox and Yeo-Johnson Transformations"/></a><div class="content"><a class="title" href="/2025/11/14/big_data/da/11-des-statistics/" title="Box-Cox and Yeo-Johnson Transformations">Box-Cox and Yeo-Johnson Transformations</a><time datetime="2025-11-14T00:14:08.000Z" title="Created 2025-11-14 11:14:08">2025-11-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/11/13/big_data/da/10-des-statistics/" title="GDPR"><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251118091603317.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="GDPR"/></a><div class="content"><a class="title" href="/2025/11/13/big_data/da/10-des-statistics/" title="GDPR">GDPR</a><time datetime="2025-11-13T05:01:22.000Z" title="Created 2025-11-13 16:01:22">2025-11-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/11/12/big_data/da/12-des-statistics/" title="Dimensionality Reduction and PCA"><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251118091603317.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="Dimensionality Reduction and PCA"/></a><div class="content"><a class="title" href="/2025/11/12/big_data/da/12-des-statistics/" title="Dimensionality Reduction and PCA">Dimensionality Reduction and PCA</a><time datetime="2025-11-12T04:02:22.000Z" title="Created 2025-11-12 15:02:22">2025-11-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/11/11/big_data/da/09-des-statistics/" title="Data Matching"><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251118091603317.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="Data Matching"/></a><div class="content"><a class="title" href="/2025/11/11/big_data/da/09-des-statistics/" title="Data Matching">Data Matching</a><time datetime="2025-11-11T23:11:03.000Z" title="Created 2025-11-12 10:11:03">2025-11-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/11/11/big_data/da/08-des-statistics/" title="Imbalanced Data"><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251118091603317.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="Imbalanced Data"/></a><div class="content"><a class="title" href="/2025/11/11/big_data/da/08-des-statistics/" title="Imbalanced Data">Imbalanced Data</a><time datetime="2025-11-11T09:34:31.000Z" title="Created 2025-11-11 20:34:31">2025-11-11</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;2025 - 2026 By Chris Wen</span></div><div class="footer_custom_text">Live each day with purpose.</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script></div><script src='/js/custom.js'></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="false" data-text="HAPPY,EVERY,DAY" data-fontsize="15px" data-random="true" async="async"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => fn())
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      const usePjax = true
+      false
+        ? (usePjax ? pjax.loadUrl('/404.html') : window.location.href = '/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})()</script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading Database</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><script src="https://cdn.jsdelivr.net/npm/live2d-widget@^3.1.3/lib/L2Dwidget.min.js"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"superSample":3,"position":"left","width":300,"height":600,"hOffset":90,"vOffset":-100},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.3,"opacityOnHover":0.3,"opacity":0.95},"log":false});</script></body></html>

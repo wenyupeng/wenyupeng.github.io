@@ -1,0 +1,279 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>A Taxonomy and Terminology of Adversarial Machine Learning | Chris Wen's Blog</title><meta name="author" content="Chris Wen"><meta name="copyright" content="Chris Wen"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="BackgroundMachine learning (ML) components are increasingly being deployed in critical applications, form computer vision to cybersecurity. However, the data-driven nature of ML introduces new securit">
+<meta property="og:type" content="article">
+<meta property="og:title" content="A Taxonomy and Terminology of Adversarial Machine Learning">
+<meta property="og:url" content="https://wenyupeng.github.io/2025/06/21/ai/algorithm/03-adversarial-machine-learning/index.html">
+<meta property="og:site_name" content="Chris Wen&#39;s Blog">
+<meta property="og:description" content="BackgroundMachine learning (ML) components are increasingly being deployed in critical applications, form computer vision to cybersecurity. However, the data-driven nature of ML introduces new securit">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://jsd.012700.xyz/gh/jerryc127/CDN@latest/cover/default_bg.png">
+<meta property="article:published_time" content="2025-06-21T06:11:12.000Z">
+<meta property="article:modified_time" content="2026-01-15T04:32:03.389Z">
+<meta property="article:author" content="Chris Wen">
+<meta property="article:tag" content="ai">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jsd.012700.xyz/gh/jerryc127/CDN@latest/cover/default_bg.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "A Taxonomy and Terminology of Adversarial Machine Learning",
+  "url": "https://wenyupeng.github.io/2025/06/21/ai/algorithm/03-adversarial-machine-learning/",
+  "image": "https://jsd.012700.xyz/gh/jerryc127/CDN@latest/cover/default_bg.png",
+  "datePublished": "2025-06-21T06:11:12.000Z",
+  "dateModified": "2026-01-15T04:32:03.389Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Chris Wen",
+      "url": "https://wenyupeng.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/images/favicon.ico"><link rel="canonical" href="https://wenyupeng.github.io/2025/06/21/ai/algorithm/03-adversarial-machine-learning/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.json","preload":true,"top_n_per_article":-1,"unescape":false,"languages":{"hits_empty":"No results found for: ${query}","hits_stats":"${hits} articles found"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"Author: Chris Wen","link":"Link: ","source":"Source: Chris Wen's Blog","info":"Copyright belongs to the author. For commercial use, please contact the author for authorization. For non-commercial use, please indicate the source."}},
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: true,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'A Taxonomy and Terminology of Adversarial Machine Learning',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/custom-style.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/constown/HexoCustomFile@0.0.4/dist/css/custom.min.css"><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Chris Wen's Blog" type="application/atom+xml">
+</head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load', preloader.endLoading)
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/images/lucky-icon.png" onerror="this.onerror=null;this.src='/images/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">70</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">24</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">46</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/project/"><i class="fa-fw fas fa-project-diagram"></i><span> Project</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://jsd.012700.xyz/gh/jerryc127/CDN@latest/cover/default_bg.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Chris Wen's Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">A Taxonomy and Terminology of Adversarial Machine Learning</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/project/"><i class="fa-fw fas fa-project-diagram"></i><span> Project</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">A Taxonomy and Terminology of Adversarial Machine Learning</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-06-21T06:11:12.000Z" title="Created 2025-06-21 16:11:12">2025-06-21</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2026-01-15T04:32:03.389Z" title="Updated 2026-01-15 15:32:03">2026-01-15</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/ai/">ai</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/ai/foundation/">foundation</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/ai/foundation/adversarial-machine-learning/">adversarial-machine-learning</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">674</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>4mins</span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:30,&quot;messagePrev&quot;:&quot;It has been&quot;,&quot;messageNext&quot;:&quot;days since the last update, the content of the article may be outdated.&quot;,&quot;postUpdate&quot;:&quot;2026-01-15 15:32:03&quot;}" hidden></div><h1 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h1><p>Machine learning (ML) components are increasingly being deployed in critical applications, form computer vision to cybersecurity. However, the data-driven nature of ML introduces new security challenges compared to traditional knowledge-based AI systems. Adversaries can exploit vulnerabilities in ML models through a variety of adversarial attacks, posing significant risks to the integrity, availability, and confidentiality of these systems.</p>
+<h1 id="Key-Attack-Types"><a href="#Key-Attack-Types" class="headerlink" title="Key Attack Types"></a>Key Attack Types</h1><p>The taxonomy of adversarial machine learning (AML) attacks identifies several important attack types, <strong>Data Access Attacks</strong>, <strong>Poisoning Attacks</strong>, <strong>Evasion Attacks</strong>, <strong>Oracle Attacks</strong> and <strong>Membership Inference Attacks</strong>. These adversarial attacks on machine learning models can affect the both training and testing stages.</p>
+<h1 id="Training-Stage"><a href="#Training-Stage" class="headerlink" title="Training Stage"></a>Training Stage</h1><h2 id="Data-Access-Attacks"><a href="#Data-Access-Attacks" class="headerlink" title="Data Access Attacks"></a>Data Access Attacks</h2><p>Adversaries can gain unauthorized access to the training data and manipulate the data to create a substitute model, which can be used to test and develop effective adversarial examples to attack the original target model.</p>
+<h2 id="Poisoning-Attacks"><a href="#Poisoning-Attacks" class="headerlink" title="Poisoning Attacks"></a>Poisoning Attacks</h2><p>Poisoning attacks, also know as causative attacks, are a type of adversarial attack against machine learning systems where the adversary alters the training data or model directly or indirectly to degrade the performance of the target model. This can be done through indirect poisoning, where the adversary poisons the data before pre-processing, or direct poisoning, which involves data injection, data manipulation (label or input), or logic corruption. Poisoning attacks target the training phase of the machine learning pipeline, aiming to compromise the integrity of the model by exploiting vulnerabilities in the learning process.</p>
+<h1 id="Testing-Stage"><a href="#Testing-Stage" class="headerlink" title="Testing Stage"></a>Testing Stage</h1><h2 id="Evasion-Attacks"><a href="#Evasion-Attacks" class="headerlink" title="Evasion Attacks"></a>Evasion Attacks</h2><p>Evasion attacks are adversarial attacks that occur during the testing phase of a machine learning system, where inputs are manipulated to evade correct classification by the model. The attacker uses optimization techniques to find small perturbations that cause significant misclassification. Common algorithms for these attacks include L-BFGS, FGSM, and JSMA, which require knowledge of the target or substitute model to compute gradients.</p>
+<h2 id="Oracle-Attacks"><a href="#Oracle-Attacks" class="headerlink" title="Oracle Attacks"></a>Oracle Attacks</h2><p>In Oracle Attacks, an adversary uses an API to observe model inputs and outputs, allowing them to train a substitute model similar to the target model. This substitute model can then be used to generate adversarial examples for Evasion Attacks. Oracle Attacks include Extraction Attacks, which extract model parameters, and Inversion Attacks, which reconstruct training data, potentially compromising privacy.</p>
+<h2 id="Membership-Inference-Attacks"><a href="#Membership-Inference-Attacks" class="headerlink" title="Membership Inference Attacks"></a>Membership Inference Attacks</h2><p>These attacks involve determining whether a particular data point was used to train the machine learning model.</p>
+<h1 id="Defense-Mechanisms"><a href="#Defense-Mechanisms" class="headerlink" title="Defense Mechanisms"></a>Defense Mechanisms</h1><p>To mitigate the risks posed by adversarial attacks, researchers have developed several defense mechanisms, Data Encryption and Sanitization, Robust Statistics, Adversarial Training, Gradient Masking, and Differential Privacy. These defense mechanisms aim to improve the overall security and assurance of ML components, making them more robust, resilient, and secure against a range of adversarial attacks.</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th><strong>Defense Mechanisms</strong></th>
+<th><strong>Instructions</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Data Encryption and Sanitization</td>
+<td>Encrypting training data and sanitizing it to remove potential malicious samples can help protect against data access and poisoning attacks.</td>
+</tr>
+<tr>
+<td>Robust Statistics</td>
+<td>Employing robust statistical techniques during model training can improve the model’s resilience to noisy or adversarial training data.</td>
+</tr>
+<tr>
+<td>Adversarial Training</td>
+<td>Incorporating adversarial examples into the training process can improve the model’s robustness to evasion attacks.</td>
+</tr>
+<tr>
+<td>Gradient Masking</td>
+<td>Obfuscating the gradients used in the optimization process can make it more difficult for adversaries to craft effective adversarial examples.</td>
+</tr>
+<tr>
+<td>Differential Privacy</td>
+<td>Applying differential privacy techniques can help protect the privacy of the training data and mitigate membership inference attacks.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h1 id="Consequences-of-Adversarial-Attacks"><a href="#Consequences-of-Adversarial-Attacks" class="headerlink" title="Consequences of Adversarial Attacks"></a>Consequences of Adversarial Attacks</h1><p>The consequences of successful adversarial attacks on ML models can be severe, leading to integrity, availability, and confidentiality violations:</p>
+<ol>
+<li>Integrity Violations: Adversarial attacks can cause ML models to misclassify inputs, leading to reduced confidence in the model’s outputs or targeted misclassifications.</li>
+<li>Availability Violations: Adversarial attacks can disrupt the normal operation of ML models, rendering them unusable or unavailable for their intended purposes.</li>
+<li>Confidentiality Violations: Adversarial attacks can lead to the extraction of sensitive information about the target ML model, such as its architecture, parameters, or training data, potentially resulting in privacy breaches.<br>These consequences can have significant impacts on the applications and systems that rely on the security and trustworthiness of ML components, underscoring the importance of developing robust defense mechanisms to mitigate the risks of adversarial attacks.</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://wenyupeng.github.io">Chris Wen</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://wenyupeng.github.io/2025/06/21/ai/algorithm/03-adversarial-machine-learning/">https://wenyupeng.github.io/2025/06/21/ai/algorithm/03-adversarial-machine-learning/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/ai/">ai</a></div><div class="post-share"><div class="social-share" data-image="https://jsd.012700.xyz/gh/jerryc127/CDN@latest/cover/default_bg.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/07/01/computer_basic/network/malware/01-malware-review-zeus&amp;Fareit/" title="Malware Review"><img class="cover" src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251007095210307.png" onerror="onerror=null;src='/images/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">Malware Review</div></div><div class="info-2"><div class="info-item-1">Malware ReviewThis article introduces two major malware families, Zeus and Fareit. Zeus is a banking trojanthat steals online financial credentials through techniques such as keylogging and formgrabbing. Fareit is a credential-stealing trojan that collects passwords, usernames, and walletdata, often delivering other malware as well. The study outlines their impacts on target systemsand highlights key traffic patterns, providing insight into how these threats can be identifiedthrough network a...</div></div></div></a><a class="pagination-related" href="/2025/06/20/ai/algorithm/02-analysis-classification-algorithms/" title="Comparative Analysis of Classification Algorithms"><img class="cover" src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251007095230189.png" onerror="onerror=null;src='/images/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">Comparative Analysis of Classification Algorithms</div></div><div class="info-2"><div class="info-item-1">Comparative Analysis of Classification AlgorithmsAbstractThis report provides a comprehensive analysis of the performance of three popular classification algorithms:Decision Tree, Logistic Regression, Naive Bayes, Random Forest, Support Vector Machines (SVM) and Multilayer Perceptron.The purpose of the study is to evaluate and compare these algorithms based on key performance metrics such as accuracy, precision, recall, F1-score, and false alarm rate (www.evidentlyai.com, n.d.), using two dif...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/07/19/ai/01-ai-foundation/" title="large language model"><img class="cover" src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20250728225233182.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-07-19</div><div class="info-item-2">large language model</div></div><div class="info-2"><div class="info-item-1">Large Language ModelDefinitionA large language model is a machine learning model that is trained on a large corpus of text data, such as Wikipedia or the Web. These models can generate high-quality text that is similar to the training data, but can also generate text that is not present in the training data. History &lt; 1990s: IBM’s statistical language model (SLM) 1990s-2000s: Neural language models (NLLMs) 2001s: n-gram model 2010s: GPT-2, GPT-3  Dataset PreprocessingTokenizationSplitting ...</div></div></div></a><a class="pagination-related" href="/2025/07/19/ai/02-ai-deep-learning/" title="large language model"><img class="cover" src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20250728225255149.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-07-19</div><div class="info-item-2">large language model</div></div><div class="info-2"><div class="info-item-1">ReferencesDive Into Deep Learning Create Environmentuse conda or miniconda123conda env remove d2l-zhconda create -n d2l-zh -y python=3.8 pipconda activate d2l-zh install dependencies1pip install jupyter d2l torch torchvision download d2l-zh.zip123wget http://zh-v2.d2l.ai/d2l-zh.zipunzip d2l-zh.zipjupyter notebook </div></div></div></a><a class="pagination-related" href="/2025/06/19/ai/algorithm/01-classification-algorithms/" title="Classification Algorithms"><img class="cover" src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251007095245295.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-06-19</div><div class="info-item-2">Classification Algorithms</div></div><div class="info-2"><div class="info-item-1">Dataset IntroductionNSL-KDDThe NSL-KDD dataset is a dataset for intrusion detection, which is a type of supervised learning problem. It consists of a large number of network traffic records that are labeled as either normal or malicious. The dataset contains a total of 41,478 network traffic records, which are categorized into 10 different types of attacks, such as DoS, Probe, U2R, R2L, etc. The dataset is publicly available and can be downloaded from the following link: https://www.unb.ca/ci...</div></div></div></a><a class="pagination-related" href="/2025/06/20/ai/algorithm/02-analysis-classification-algorithms/" title="Comparative Analysis of Classification Algorithms"><img class="cover" src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251007095230189.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-06-20</div><div class="info-item-2">Comparative Analysis of Classification Algorithms</div></div><div class="info-2"><div class="info-item-1">Comparative Analysis of Classification AlgorithmsAbstractThis report provides a comprehensive analysis of the performance of three popular classification algorithms:Decision Tree, Logistic Regression, Naive Bayes, Random Forest, Support Vector Machines (SVM) and Multilayer Perceptron.The purpose of the study is to evaluate and compare these algorithms based on key performance metrics such as accuracy, precision, recall, F1-score, and false alarm rate (www.evidentlyai.com, n.d.), using two dif...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/images/lucky-icon.png" onerror="this.onerror=null;this.src='/images/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Chris Wen</div><div class="author-info-description">Dwell not on the past, nor fear the future.</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">70</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">24</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">46</div></a></div><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/wenyupeng" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:chriswen430@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://www.linkedin.com/in/chriswen430" target="_blank" title="Linkedin"><i class="fab fa-linkedin" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">Maintain the motivation to learn and stay humble when facing every problem.</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Background"><span class="toc-number">1.</span> <span class="toc-text">Background</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Key-Attack-Types"><span class="toc-number">2.</span> <span class="toc-text">Key Attack Types</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Training-Stage"><span class="toc-number">3.</span> <span class="toc-text">Training Stage</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Data-Access-Attacks"><span class="toc-number">3.1.</span> <span class="toc-text">Data Access Attacks</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Poisoning-Attacks"><span class="toc-number">3.2.</span> <span class="toc-text">Poisoning Attacks</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Testing-Stage"><span class="toc-number">4.</span> <span class="toc-text">Testing Stage</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Evasion-Attacks"><span class="toc-number">4.1.</span> <span class="toc-text">Evasion Attacks</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Oracle-Attacks"><span class="toc-number">4.2.</span> <span class="toc-text">Oracle Attacks</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Membership-Inference-Attacks"><span class="toc-number">4.3.</span> <span class="toc-text">Membership Inference Attacks</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Defense-Mechanisms"><span class="toc-number">5.</span> <span class="toc-text">Defense Mechanisms</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Consequences-of-Adversarial-Attacks"><span class="toc-number">6.</span> <span class="toc-text">Consequences of Adversarial Attacks</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/11/14/big_data/da/11-des-statistics/" title="Box-Cox and Yeo-Johnson Transformations"><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251118091603317.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="Box-Cox and Yeo-Johnson Transformations"/></a><div class="content"><a class="title" href="/2025/11/14/big_data/da/11-des-statistics/" title="Box-Cox and Yeo-Johnson Transformations">Box-Cox and Yeo-Johnson Transformations</a><time datetime="2025-11-14T00:14:08.000Z" title="Created 2025-11-14 11:14:08">2025-11-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/11/13/big_data/da/10-des-statistics/" title="GDPR"><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251118091603317.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="GDPR"/></a><div class="content"><a class="title" href="/2025/11/13/big_data/da/10-des-statistics/" title="GDPR">GDPR</a><time datetime="2025-11-13T05:01:22.000Z" title="Created 2025-11-13 16:01:22">2025-11-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/11/12/big_data/da/12-des-statistics/" title="Dimensionality Reduction and PCA"><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251118091603317.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="Dimensionality Reduction and PCA"/></a><div class="content"><a class="title" href="/2025/11/12/big_data/da/12-des-statistics/" title="Dimensionality Reduction and PCA">Dimensionality Reduction and PCA</a><time datetime="2025-11-12T04:02:22.000Z" title="Created 2025-11-12 15:02:22">2025-11-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/11/11/big_data/da/09-des-statistics/" title="Data Matching"><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251118091603317.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="Data Matching"/></a><div class="content"><a class="title" href="/2025/11/11/big_data/da/09-des-statistics/" title="Data Matching">Data Matching</a><time datetime="2025-11-11T23:11:03.000Z" title="Created 2025-11-12 10:11:03">2025-11-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/11/11/big_data/da/08-des-statistics/" title="Imbalanced Data"><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251118091603317.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="Imbalanced Data"/></a><div class="content"><a class="title" href="/2025/11/11/big_data/da/08-des-statistics/" title="Imbalanced Data">Imbalanced Data</a><time datetime="2025-11-11T09:34:31.000Z" title="Created 2025-11-11 20:34:31">2025-11-11</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;2025 - 2026 By Chris Wen</span></div><div class="footer_custom_text">Live each day with purpose.</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><div class="js-pjax"></div><script src='/js/custom.js'></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="false" data-text="HAPPY,EVERY,DAY" data-fontsize="15px" data-random="true" async="async"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => fn())
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      const usePjax = true
+      false
+        ? (usePjax ? pjax.loadUrl('/404.html') : window.location.href = '/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})()</script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading Database</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><script src="https://cdn.jsdelivr.net/npm/live2d-widget@^3.1.3/lib/L2Dwidget.min.js"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"superSample":3,"position":"left","width":300,"height":600,"hOffset":90,"vOffset":-100},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.3,"opacityOnHover":0.3,"opacity":0.95},"log":false});</script></body></html>

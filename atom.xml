@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Chris Wen&#39;s Blog</title>
+  <icon>https://wenyupeng.github.io/icon.png</icon>
+  <subtitle>study record</subtitle>
+  <link href="https://wenyupeng.github.io/atom.xml" rel="self"/>
+  
+  <link href="https://wenyupeng.github.io/"/>
+  <updated>2026-01-15T04:32:03.389Z</updated>
+  <id>https://wenyupeng.github.io/</id>
+  
+  <author>
+    <name>Chris Wen</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Box-Cox and Yeo-Johnson Transformations</title>
+    <link href="https://wenyupeng.github.io/2025/11/14/big_data/da/11-des-statistics/"/>
+    <id>https://wenyupeng.github.io/2025/11/14/big_data/da/11-des-statistics/</id>
+    <published>2025-11-14T00:14:08.000Z</published>
+    <updated>2026-01-15T04:32:03.389Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Box-Cox-and-Yeo-Johnson-Transformations&quot;&gt;&lt;a href=&quot;#Box-Cox-and-Yeo-Johnson-Transformations&quot; class=&quot;headerlink&quot; title=&quot;Box-Cox and Yeo-Johnson Transformations&quot;&gt;&lt;/a&gt;Box-Cox and Yeo-Johnson Transformations&lt;/h1&gt;&lt;p&gt;The main motivations for</summary>
+        
+      
+    
+    
+    
+    <category term="da" scheme="https://wenyupeng.github.io/categories/da/"/>
+    
+    
+    <category term="da" scheme="https://wenyupeng.github.io/tags/da/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>GDPR</title>
+    <link href="https://wenyupeng.github.io/2025/11/13/big_data/da/10-des-statistics/"/>
+    <id>https://wenyupeng.github.io/2025/11/13/big_data/da/10-des-statistics/</id>
+    <published>2025-11-13T05:01:22.000Z</published>
+    <updated>2026-01-15T04:32:03.389Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;General-Data-Protection-Regulation&quot;&gt;&lt;a href=&quot;#General-Data-Protection-Regulation&quot; class=&quot;headerlink&quot; title=&quot;General Data Protection Regulation&quot;&gt;&lt;/a&gt;General Data Protection Regulation&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;https://gdpr-info.eu/&quot;&gt;GDPR&lt;/a&gt;&lt;br&gt;The</summary>
+        
+      
+    
+    
+    
+    <category term="da" scheme="https://wenyupeng.github.io/categories/da/"/>
+    
+    
+    <category term="da" scheme="https://wenyupeng.github.io/tags/da/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Dimensionality Reduction and PCA</title>
+    <link href="https://wenyupeng.github.io/2025/11/12/big_data/da/12-des-statistics/"/>
+    <id>https://wenyupeng.github.io/2025/11/12/big_data/da/12-des-statistics/</id>
+    <published>2025-11-12T04:02:22.000Z</published>
+    <updated>2026-01-15T04:32:03.389Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Dimensionality-Reduction-and-PCA&quot;&gt;&lt;a href=&quot;#Dimensionality-Reduction-and-PCA&quot; class=&quot;headerlink&quot; title=&quot;Dimensionality Reduction and PCA&quot;&gt;&lt;/a&gt;Dimensionality Reduction and PCA&lt;/h1&gt;&lt;p&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="da" scheme="https://wenyupeng.github.io/categories/da/"/>
+    
+    
+    <category term="da" scheme="https://wenyupeng.github.io/tags/da/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Data Matching</title>
+    <link href="https://wenyupeng.github.io/2025/11/11/big_data/da/09-des-statistics/"/>
+    <id>https://wenyupeng.github.io/2025/11/11/big_data/da/09-des-statistics/</id>
+    <published>2025-11-11T23:11:03.000Z</published>
+    <updated>2026-01-15T04:32:03.389Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Data-Matching&quot;&gt;&lt;a href=&quot;#Data-Matching&quot; class=&quot;headerlink&quot; title=&quot;Data Matching&quot;&gt;&lt;/a&gt;Data Matching&lt;/h1&gt;&lt;p&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="da" scheme="https://wenyupeng.github.io/categories/da/"/>
+    
+    
+    <category term="da" scheme="https://wenyupeng.github.io/tags/da/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Imbalanced Data</title>
+    <link href="https://wenyupeng.github.io/2025/11/11/big_data/da/08-des-statistics/"/>
+    <id>https://wenyupeng.github.io/2025/11/11/big_data/da/08-des-statistics/</id>
+    <published>2025-11-11T09:34:31.000Z</published>
+    <updated>2026-01-15T04:32:03.389Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Imbalanced-Data&quot;&gt;&lt;a href=&quot;#Imbalanced-Data&quot; class=&quot;headerlink&quot; title=&quot;Imbalanced Data&quot;&gt;&lt;/a&gt;Imbalanced Data&lt;/h1&gt;&lt;p&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="da" scheme="https://wenyupeng.github.io/categories/da/"/>
+    
+    
+    <category term="da" scheme="https://wenyupeng.github.io/tags/da/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Outlier</title>
+    <link href="https://wenyupeng.github.io/2025/11/11/big_data/da/07-des-statistics/"/>
+    <id>https://wenyupeng.github.io/2025/11/11/big_data/da/07-des-statistics/</id>
+    <published>2025-11-11T08:34:31.000Z</published>
+    <updated>2026-01-15T04:32:03.389Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Outliers&quot;&gt;&lt;a href=&quot;#Outliers&quot; class=&quot;headerlink&quot; title=&quot;Outliers&quot;&gt;&lt;/a&gt;Outliers&lt;/h1&gt;&lt;figure class=&quot;highlight python&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span</summary>
+        
+      
+    
+    
+    
+    <category term="da" scheme="https://wenyupeng.github.io/categories/da/"/>
+    
+    
+    <category term="da" scheme="https://wenyupeng.github.io/tags/da/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Exploratory Data Analysis</title>
+    <link href="https://wenyupeng.github.io/2025/11/10/big_data/eda/01-concept/"/>
+    <id>https://wenyupeng.github.io/2025/11/10/big_data/eda/01-concept/</id>
+    <published>2025-11-10T11:08:15.000Z</published>
+    <updated>2026-01-15T04:32:03.389Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Exploratory-Data-Analysis&quot;&gt;&lt;a href=&quot;#Exploratory-Data-Analysis&quot; class=&quot;headerlink&quot; title=&quot;Exploratory Data Analysis&quot;&gt;&lt;/a&gt;Exploratory Data Analysis&lt;/h1&gt;&lt;p&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="DA" scheme="https://wenyupeng.github.io/categories/DA/"/>
+    
+    <category term="EDA" scheme="https://wenyupeng.github.io/categories/DA/EDA/"/>
+    
+    
+    <category term="EDA" scheme="https://wenyupeng.github.io/tags/EDA/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Continuous Probability Distributions</title>
+    <link href="https://wenyupeng.github.io/2025/11/10/big_data/da/06-des-statistics/"/>
+    <id>https://wenyupeng.github.io/2025/11/10/big_data/da/06-des-statistics/</id>
+    <published>2025-11-10T08:34:31.000Z</published>
+    <updated>2026-01-15T04:32:03.389Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Continuous-Probability-Distributions&quot;&gt;&lt;a href=&quot;#Continuous-Probability-Distributions&quot; class=&quot;headerlink&quot; title=&quot;Continuous Probability Distributions&quot;&gt;&lt;/a&gt;Continuous Probability Distributions&lt;/h1&gt;&lt;figure class=&quot;highlight</summary>
+        
+      
+    
+    
+    
+    <category term="da" scheme="https://wenyupeng.github.io/categories/da/"/>
+    
+    
+    <category term="da" scheme="https://wenyupeng.github.io/tags/da/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Multivariate Categorical and Relational Data</title>
+    <link href="https://wenyupeng.github.io/2025/11/10/big_data/da/05-des-statistics/"/>
+    <id>https://wenyupeng.github.io/2025/11/10/big_data/da/05-des-statistics/</id>
+    <published>2025-11-10T05:11:55.000Z</published>
+    <updated>2026-01-15T04:32:03.389Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Multivariate-Categorical-and-Relational-Data&quot;&gt;&lt;a href=&quot;#Multivariate-Categorical-and-Relational-Data&quot; class=&quot;headerlink&quot; title=&quot;Multivariate Categorical and Relational Data&quot;&gt;&lt;/a&gt;Multivariate Categorical and Relational Data&lt;/h1&gt;&lt;figure</summary>
+        
+      
+    
+    
+    
+    <category term="da" scheme="https://wenyupeng.github.io/categories/da/"/>
+    
+    
+    <category term="da" scheme="https://wenyupeng.github.io/tags/da/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Visualising Multidimensional Data and Measuring Correlation</title>
+    <link href="https://wenyupeng.github.io/2025/11/10/big_data/da/04-des-statistics/"/>
+    <id>https://wenyupeng.github.io/2025/11/10/big_data/da/04-des-statistics/</id>
+    <published>2025-11-10T02:40:08.000Z</published>
+    <updated>2026-01-15T04:32:03.389Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Visualising-Multidimensional-Data-and-Measuring-Correlation&quot;&gt;&lt;a href=&quot;#Visualising-Multidimensional-Data-and-Measuring-Correlation&quot; class=&quot;headerlink&quot; title=&quot;Visualising Multidimensional Data and Measuring Correlation&quot;&gt;&lt;/a&gt;Visualising</summary>
+        
+      
+    
+    
+    
+    <category term="da" scheme="https://wenyupeng.github.io/categories/da/"/>
+    
+    
+    <category term="da" scheme="https://wenyupeng.github.io/tags/da/"/>
+    
+  </entry>
+  
+</feed>

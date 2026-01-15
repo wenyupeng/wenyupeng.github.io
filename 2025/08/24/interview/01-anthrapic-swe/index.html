@@ -1,0 +1,309 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>interview question of anthrapic | Chris Wen's Blog</title><meta name="author" content="Chris Wen"><meta name="copyright" content="Chris Wen"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Question 1: Concurrent Web Crawler ImplementationDesign and implement a multi-threaded web crawler that efficiently crawls a specific domain and counts unique URLs Requirements:  Handle circular refer">
+<meta property="og:type" content="article">
+<meta property="og:title" content="interview question of anthrapic">
+<meta property="og:url" content="https://wenyupeng.github.io/2025/08/24/interview/01-anthrapic-swe/index.html">
+<meta property="og:site_name" content="Chris Wen&#39;s Blog">
+<meta property="og:description" content="Question 1: Concurrent Web Crawler ImplementationDesign and implement a multi-threaded web crawler that efficiently crawls a specific domain and counts unique URLs Requirements:  Handle circular refer">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251026173546007.png">
+<meta property="article:published_time" content="2025-08-24T03:43:14.000Z">
+<meta property="article:modified_time" content="2026-01-15T04:32:03.391Z">
+<meta property="article:author" content="Chris Wen">
+<meta property="article:tag" content="interview-question">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251026173546007.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "interview question of anthrapic",
+  "url": "https://wenyupeng.github.io/2025/08/24/interview/01-anthrapic-swe/",
+  "image": "https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251026173546007.png",
+  "datePublished": "2025-08-24T03:43:14.000Z",
+  "dateModified": "2026-01-15T04:32:03.391Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Chris Wen",
+      "url": "https://wenyupeng.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/images/favicon.ico"><link rel="canonical" href="https://wenyupeng.github.io/2025/08/24/interview/01-anthrapic-swe/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.json","preload":true,"top_n_per_article":-1,"unescape":false,"languages":{"hits_empty":"No results found for: ${query}","hits_stats":"${hits} articles found"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"Author: Chris Wen","link":"Link: ","source":"Source: Chris Wen's Blog","info":"Copyright belongs to the author. For commercial use, please contact the author for authorization. For non-commercial use, please indicate the source."}},
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: true,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'interview question of anthrapic',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/custom-style.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/constown/HexoCustomFile@0.0.4/dist/css/custom.min.css"><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Chris Wen's Blog" type="application/atom+xml">
+</head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load', preloader.endLoading)
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/images/lucky-icon.png" onerror="this.onerror=null;this.src='/images/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">70</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">24</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">46</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/project/"><i class="fa-fw fas fa-project-diagram"></i><span> Project</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251026173546007.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Chris Wen's Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">interview question of anthrapic</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/project/"><i class="fa-fw fas fa-project-diagram"></i><span> Project</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">interview question of anthrapic</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-08-24T03:43:14.000Z" title="Created 2025-08-24 13:43:14">2025-08-24</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2026-01-15T04:32:03.391Z" title="Updated 2026-01-15 15:32:03">2026-01-15</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/interview-question/">interview-question</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">655</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>4mins</span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:30,&quot;messagePrev&quot;:&quot;It has been&quot;,&quot;messageNext&quot;:&quot;days since the last update, the content of the article may be outdated.&quot;,&quot;postUpdate&quot;:&quot;2026-01-15 15:32:03&quot;}" hidden></div><h1 id="Question-1-Concurrent-Web-Crawler-Implementation"><a href="#Question-1-Concurrent-Web-Crawler-Implementation" class="headerlink" title="Question 1: Concurrent Web Crawler Implementation"></a>Question 1: Concurrent Web Crawler Implementation</h1><p>Design and implement a multi-threaded web crawler that efficiently crawls a specific domain and counts unique URLs</p>
+<p>Requirements:</p>
+<ul>
+<li>Handle circular references and invalid URLs</li>
+<li>implement rate limiting and exponential back off</li>
+<li>Process robots.txt compliance</li>
+<li>Support different URL schemes and redirects</li>
+<li>Optimize for memory usage with large datasets</li>
+</ul>
+<h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">[Seed URLs]</span><br><span class="line">    |</span><br><span class="line">  [Frontier in-memory queue] &lt;--- [Persistent overflow queue (RocksDB/file)]</span><br><span class="line">    |</span><br><span class="line">  [Worker Pool: N threads]</span><br><span class="line">    |---&gt; [RobotsCache] (check)</span><br><span class="line">    |---&gt; [URL Normalizer]</span><br><span class="line">    |---&gt; [Seen: BloomFilter (mem) + RocksDB (exact)]</span><br><span class="line">    |---&gt; [RateLimiter per-host]</span><br><span class="line">    |---&gt; [Fetcher (HTTP client)] --&gt; [Redirect Handler]</span><br><span class="line">    |                                   |</span><br><span class="line">    |                                   v</span><br><span class="line">    |                                  [Parser (streaming)]</span><br><span class="line">    |                                   |</span><br><span class="line">    |------- enqueue new links ---------------</span><br><span class="line">    |</span><br><span class="line">  [Storage: only metadata (URL, status, timestamp)]</span><br><span class="line">    |</span><br><span class="line">  [Metrics/Logging/Monitor]</span><br></pre></td></tr></table></figure>
+<h2 id="Frontier"><a href="#Frontier" class="headerlink" title="Frontier"></a>Frontier</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function offer(url):</span><br><span class="line">    if not isValid(url): return</span><br><span class="line">    if inmemoryQueue.size &lt; MAX_INMEM: push(inmemoryQueue, url)</span><br><span class="line">    else persistQueue.append(url)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">function refillWorker():</span><br><span class="line">    if inmemoryQueue.isEmpty: load up to N from persistQueue</span><br></pre></td></tr></table></figure>
+<h2 id="Seen-BloomFilter-RocksDB"><a href="#Seen-BloomFilter-RocksDB" class="headerlink" title="Seen (BloomFilter + RocksDB)"></a>Seen (BloomFilter + RocksDB)</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">if not bloom.mightContain(url):</span><br><span class="line">    bloom.put(url)</span><br><span class="line">    if not rocksdb.contains(url):</span><br><span class="line">        rocksdb.put(url, meta)</span><br><span class="line">        uniqueCount++</span><br></pre></td></tr></table></figure>
+<h2 id="Robots-txt"><a href="#Robots-txt" class="headerlink" title="Robots.txt"></a>Robots.txt</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">if not robotsCache.has(host):</span><br><span class="line">    rules = fetchRobots(host)</span><br><span class="line">    robotsCache.put(host, rules)</span><br><span class="line">if not rules.isAllowed(userAgent, path):</span><br><span class="line">    skip</span><br><span class="line">else</span><br><span class="line">    rps = rules.getCrawlDelayOrDefault()</span><br><span class="line">    hostRateLimiter.setRate(host, 1/rps)</span><br></pre></td></tr></table></figure>
+<h2 id="Rate-Limiter"><a href="#Rate-Limiter" class="headerlink" title="Rate Limiter"></a>Rate Limiter</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">lim = hostLimit.computeIfAbsent(host, h -&gt; new TokenBucket(defaultRate, burst))</span><br><span class="line">lim.acquire()</span><br></pre></td></tr></table></figure>
+<h2 id="HTTP-Fetcher"><a href="#HTTP-Fetcher" class="headerlink" title="HTTP Fetcher"></a>HTTP Fetcher</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">HttpRequest req = HttpRequest.newBuilder(uri).GET().build();</span><br><span class="line">HttpResponse&lt;InputStream&gt; resp = client.send(req, BodyHandlers.ofInputStream());</span><br><span class="line">int status = resp.statusCode();</span><br><span class="line">if (status &gt;=200 &amp;&amp; status&lt;300) processBody(resp.body());</span><br><span class="line">else if (status &gt;=300 &amp;&amp; status&lt;400) handleRedirect(resp.headers().firstValue(&quot;location&quot;));</span><br><span class="line">else if (status==429 || status&gt;=500) retryWithBackoff();</span><br><span class="line">else // 4xx -&gt; record and drop</span><br></pre></td></tr></table></figure>
+<h2 id="Exponential-Backoff-Jitter"><a href="#Exponential-Backoff-Jitter" class="headerlink" title="Exponential Backoff + Jitter"></a>Exponential Backoff + Jitter</h2><p>sleep = base * 2^attempt + random(0, jitter)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">for attempt in 0..max:</span><br><span class="line">    try fetch()</span><br><span class="line">    if status ok: break</span><br><span class="line">    if status is retryable:</span><br><span class="line">    sleep = min(maxBackoff, base * 2^attempt)</span><br><span class="line">    sleep = random(0, sleep) // full jitter</span><br><span class="line">    sleepMillis(sleep)</span><br><span class="line">    else break</span><br></pre></td></tr></table></figure>
+<h2 id="Canonicalization"><a href="#Canonicalization" class="headerlink" title="Canonicalization"></a>Canonicalization</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">from urllib.parse import urlparse, urlunparse, parse_qsl, urlencode</span><br><span class="line"></span><br><span class="line">def normalize(u):</span><br><span class="line">    p = urlparse(u)</span><br><span class="line">    scheme = p.scheme.lower()</span><br><span class="line">    host = p.hostname.lower()</span><br><span class="line">    port = &#x27;&#x27; if p.port in (80,443,None) else f&quot;:&#123;p.port&#125;&quot;</span><br><span class="line">    q = sorted([(k,v) for k,v in parse_qsl(p.query) if not is_tracking_param(k)])</span><br><span class="line">    return urlunparse((scheme, host+port, norm_path(p.path), &#x27;&#x27;, urlencode(q), &#x27;&#x27;))</span><br></pre></td></tr></table></figure>
+<h2 id="Parser"><a href="#Parser" class="headerlink" title="Parser"></a>Parser</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for link in streamingParse(htmlStream):</span><br><span class="line">    abs = resolve(baseUrl, link)</span><br><span class="line">    if isSameDomain(abs): offer(abs)</span><br></pre></td></tr></table></figure>
+<h2 id="Worker-Pool"><a href="#Worker-Pool" class="headerlink" title="Worker Pool"></a>Worker Pool</h2><p>ExecutorService + NIO Queue</p>
+<h2 id="Monitor"><a href="#Monitor" class="headerlink" title="Monitor"></a>Monitor</h2><p>Prometheus metrics + Grafana dashboards</p>
+<h1 id="Question-2-Distributed-LLM-Inference-System-Design"><a href="#Question-2-Distributed-LLM-Inference-System-Design" class="headerlink" title="Question 2: Distributed LLM Inference System Design"></a>Question 2: Distributed LLM Inference System Design</h1><p>Design a high-throughput system for serving large language model inference requests at scale.</p>
+<p>Requirements:</p>
+<ul>
+<li>Support 15,000+ requests per second</li>
+<li>Handle multiple model variants and sizes</li>
+<li>Implement dynamic load balancing</li>
+<li>Achieve sub0100ms latency for standard requests</li>
+<li>Support zero-downtime model updates</li>
+<li>Include comprehensive monitoring and alerting</li>
+</ul>
+<h1 id="Question-3-High-Performance-Document-Similarity-Search"><a href="#Question-3-High-Performance-Document-Similarity-Search" class="headerlink" title="Question 3: High-Performance Document Similarity Search"></a>Question 3: High-Performance Document Similarity Search</h1><p>Implement an efficient algorithm for finding top-k most similar documents from a massive corpus</p>
+<p>Requirements:</p>
+<ul>
+<li>Handle 15M+ document corpus</li>
+<li>Average document length: 1500+ words</li>
+<li>Query response time: &lt; 30 ms</li>
+<li>Support real-time document additions</li>
+<li>Optimize memory footprint</li>
+</ul>
+<h1 id="Question-4-Distributed-System-Debugging-Challenge"><a href="#Question-4-Distributed-System-Debugging-Challenge" class="headerlink" title="Question 4: Distributed System Debugging Challenge"></a>Question 4: Distributed System Debugging Challenge</h1><p>Debug a meesage queue system experiencing performance degradation under high load</p>
+<p>Common Issues:</p>
+<ul>
+<li>Race conditions in concurrent message processing</li>
+<li>Memory leaks from unclosed connections</li>
+<li>Improper error handling causing silent failures</li>
+<li>Inefficient connection pooling strategies</li>
+<li>Deadlocks in multi-threaded environment</li>
+</ul>
+<h1 id="Question-5-Real-time-Data-Processing-Pipeline"><a href="#Question-5-Real-time-Data-Processing-Pipeline" class="headerlink" title="Question 5: Real-time Data Processing Pipeline"></a>Question 5: Real-time Data Processing Pipeline</h1><p>Design a system for processing streaming data with low latency and high reliability.</p>
+<p>Requirements:</p>
+<ul>
+<li>Process 100,000+ events per second</li>
+<li>Maintain exactly-once processing semantics</li>
+<li>Support complex event transformations</li>
+<li>Handle out-of-order events</li>
+<li>Implement fault tolerance and recovery</li>
+</ul>
+<h1 id="Question-6-Machine-Learning-Model-Serving-Optimization"><a href="#Question-6-Machine-Learning-Model-Serving-Optimization" class="headerlink" title="Question 6: Machine Learning Model Serving Optimization"></a>Question 6: Machine Learning Model Serving Optimization</h1><p>Optimize an existing ML model serving system for better performance and resource utilization</p>
+<p>Focus Areas:</p>
+<ul>
+<li>Batch processing optimization</li>
+<li>GPU memory management</li>
+<li>Model parallelism strategies</li>
+<li>Caching mechanisms for predictions</li>
+<li>Auto-scaling based on demand</li>
+</ul>
+<h1 id="Question-7-Database-Performance-Tuning"><a href="#Question-7-Database-Performance-Tuning" class="headerlink" title="Question 7: Database Performance Tuning"></a>Question 7: Database Performance Tuning</h1><p>Analyze and optimize a database system experiencing slow query performance.</p>
+<p>Common Problems:</p>
+<ul>
+<li>Missing or inefficient indexes</li>
+<li>Poor query optimization</li>
+<li>Lock contention issues</li>
+<li>Inadequate connection pooling</li>
+<li>Suboptimal schema design</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://wenyupeng.github.io">Chris Wen</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://wenyupeng.github.io/2025/08/24/interview/01-anthrapic-swe/">https://wenyupeng.github.io/2025/08/24/interview/01-anthrapic-swe/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/interview-question/">interview-question</a></div><div class="post-share"><div class="social-share" data-image="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251026173546007.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/08/24/interview/02-java-backend/" title="interview question of Java Backend"><img class="cover" src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251026173458667.png" onerror="onerror=null;src='/images/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">interview question of Java Backend</div></div><div class="info-2"><div class="info-item-1">Interview QuestionsCore Java (OOPs, Collections, Concurrency Basics)Explain difference between HashMap, HashTable, and ConcurrentHashMap.    Feature HashMap Hashtable ConcurrentHashMap     Thread Safety Not thread-safe Thread-safe (synchronized methods) Thread-safe (lock segmentation / fine-grained locking)   Null Keys/Values Allows one null key and multiple null values Does not allow any null keys/values Does not allow null keys/values   Performance Faster (no synchronization overhead) Slowe...</div></div></div></a><a class="pagination-related" href="/2025/08/24/iac/01-iac-terraform/" title="terraform"><img class="cover" src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251007095245295.png" onerror="onerror=null;src='/images/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">terraform</div></div><div class="info-2"><div class="info-item-1">TerraformDocumentationterraform TofuDocumentationtofu </div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/08/24/interview/02-java-backend/" title="interview question of Java Backend"><img class="cover" src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251026173458667.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-08-24</div><div class="info-item-2">interview question of Java Backend</div></div><div class="info-2"><div class="info-item-1">Interview QuestionsCore Java (OOPs, Collections, Concurrency Basics)Explain difference between HashMap, HashTable, and ConcurrentHashMap.    Feature HashMap Hashtable ConcurrentHashMap     Thread Safety Not thread-safe Thread-safe (synchronized methods) Thread-safe (lock segmentation / fine-grained locking)   Null Keys/Values Allows one null key and multiple null values Does not allow any null keys/values Does not allow null keys/values   Performance Faster (no synchronization overhead) Slowe...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/images/lucky-icon.png" onerror="this.onerror=null;this.src='/images/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Chris Wen</div><div class="author-info-description">Dwell not on the past, nor fear the future.</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">70</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">24</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">46</div></a></div><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/wenyupeng" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:chriswen430@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://www.linkedin.com/in/chriswen430" target="_blank" title="Linkedin"><i class="fab fa-linkedin" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">Maintain the motivation to learn and stay humble when facing every problem.</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Question-1-Concurrent-Web-Crawler-Implementation"><span class="toc-number">1.</span> <span class="toc-text">Question 1: Concurrent Web Crawler Implementation</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Overview"><span class="toc-number">1.1.</span> <span class="toc-text">Overview</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Frontier"><span class="toc-number">1.2.</span> <span class="toc-text">Frontier</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Seen-BloomFilter-RocksDB"><span class="toc-number">1.3.</span> <span class="toc-text">Seen (BloomFilter + RocksDB)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Robots-txt"><span class="toc-number">1.4.</span> <span class="toc-text">Robots.txt</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Rate-Limiter"><span class="toc-number">1.5.</span> <span class="toc-text">Rate Limiter</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HTTP-Fetcher"><span class="toc-number">1.6.</span> <span class="toc-text">HTTP Fetcher</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Exponential-Backoff-Jitter"><span class="toc-number">1.7.</span> <span class="toc-text">Exponential Backoff + Jitter</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Canonicalization"><span class="toc-number">1.8.</span> <span class="toc-text">Canonicalization</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Parser"><span class="toc-number">1.9.</span> <span class="toc-text">Parser</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Worker-Pool"><span class="toc-number">1.10.</span> <span class="toc-text">Worker Pool</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Monitor"><span class="toc-number">1.11.</span> <span class="toc-text">Monitor</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Question-2-Distributed-LLM-Inference-System-Design"><span class="toc-number">2.</span> <span class="toc-text">Question 2: Distributed LLM Inference System Design</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Question-3-High-Performance-Document-Similarity-Search"><span class="toc-number">3.</span> <span class="toc-text">Question 3: High-Performance Document Similarity Search</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Question-4-Distributed-System-Debugging-Challenge"><span class="toc-number">4.</span> <span class="toc-text">Question 4: Distributed System Debugging Challenge</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Question-5-Real-time-Data-Processing-Pipeline"><span class="toc-number">5.</span> <span class="toc-text">Question 5: Real-time Data Processing Pipeline</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Question-6-Machine-Learning-Model-Serving-Optimization"><span class="toc-number">6.</span> <span class="toc-text">Question 6: Machine Learning Model Serving Optimization</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Question-7-Database-Performance-Tuning"><span class="toc-number">7.</span> <span class="toc-text">Question 7: Database Performance Tuning</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/11/14/big_data/da/11-des-statistics/" title="Box-Cox and Yeo-Johnson Transformations"><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251118091603317.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="Box-Cox and Yeo-Johnson Transformations"/></a><div class="content"><a class="title" href="/2025/11/14/big_data/da/11-des-statistics/" title="Box-Cox and Yeo-Johnson Transformations">Box-Cox and Yeo-Johnson Transformations</a><time datetime="2025-11-14T00:14:08.000Z" title="Created 2025-11-14 11:14:08">2025-11-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/11/13/big_data/da/10-des-statistics/" title="GDPR"><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251118091603317.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="GDPR"/></a><div class="content"><a class="title" href="/2025/11/13/big_data/da/10-des-statistics/" title="GDPR">GDPR</a><time datetime="2025-11-13T05:01:22.000Z" title="Created 2025-11-13 16:01:22">2025-11-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/11/12/big_data/da/12-des-statistics/" title="Dimensionality Reduction and PCA"><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251118091603317.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="Dimensionality Reduction and PCA"/></a><div class="content"><a class="title" href="/2025/11/12/big_data/da/12-des-statistics/" title="Dimensionality Reduction and PCA">Dimensionality Reduction and PCA</a><time datetime="2025-11-12T04:02:22.000Z" title="Created 2025-11-12 15:02:22">2025-11-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/11/11/big_data/da/09-des-statistics/" title="Data Matching"><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251118091603317.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="Data Matching"/></a><div class="content"><a class="title" href="/2025/11/11/big_data/da/09-des-statistics/" title="Data Matching">Data Matching</a><time datetime="2025-11-11T23:11:03.000Z" title="Created 2025-11-12 10:11:03">2025-11-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/11/11/big_data/da/08-des-statistics/" title="Imbalanced Data"><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251118091603317.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="Imbalanced Data"/></a><div class="content"><a class="title" href="/2025/11/11/big_data/da/08-des-statistics/" title="Imbalanced Data">Imbalanced Data</a><time datetime="2025-11-11T09:34:31.000Z" title="Created 2025-11-11 20:34:31">2025-11-11</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;2025 - 2026 By Chris Wen</span></div><div class="footer_custom_text">Live each day with purpose.</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><div class="js-pjax"></div><script src='/js/custom.js'></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="false" data-text="HAPPY,EVERY,DAY" data-fontsize="15px" data-random="true" async="async"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => fn())
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      const usePjax = true
+      false
+        ? (usePjax ? pjax.loadUrl('/404.html') : window.location.href = '/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})()</script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading Database</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><script src="https://cdn.jsdelivr.net/npm/live2d-widget@^3.1.3/lib/L2Dwidget.min.js"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"superSample":3,"position":"left","width":300,"height":600,"hOffset":90,"vOffset":-100},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.3,"opacityOnHover":0.3,"opacity":0.95},"log":false});</script></body></html>

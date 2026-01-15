@@ -1,0 +1,445 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Outlier | Chris Wen's Blog</title><meta name="author" content="Chris Wen"><meta name="copyright" content="Chris Wen"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Outliers123456import numpy as npimport pandas as pdimport matplotlib.pyplot as pltimport seaborn as snspd.set_option(&quot;display.notebook_repr_html&quot;, False)  # disable &quot;rich&quot; outputpl">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Outlier">
+<meta property="og:url" content="https://wenyupeng.github.io/2025/11/11/big_data/da/07-des-statistics/index.html">
+<meta property="og:site_name" content="Chris Wen&#39;s Blog">
+<meta property="og:description" content="Outliers123456import numpy as npimport pandas as pdimport matplotlib.pyplot as pltimport seaborn as snspd.set_option(&quot;display.notebook_repr_html&quot;, False)  # disable &quot;rich&quot; outputpl">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251118091603317.png">
+<meta property="article:published_time" content="2025-11-11T08:34:31.000Z">
+<meta property="article:modified_time" content="2026-01-15T04:32:03.389Z">
+<meta property="article:author" content="Chris Wen">
+<meta property="article:tag" content="da">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251118091603317.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Outlier",
+  "url": "https://wenyupeng.github.io/2025/11/11/big_data/da/07-des-statistics/",
+  "image": "https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251118091603317.png",
+  "datePublished": "2025-11-11T08:34:31.000Z",
+  "dateModified": "2026-01-15T04:32:03.389Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Chris Wen",
+      "url": "https://wenyupeng.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/images/favicon.ico"><link rel="canonical" href="https://wenyupeng.github.io/2025/11/11/big_data/da/07-des-statistics/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.json","preload":true,"top_n_per_article":-1,"unescape":false,"languages":{"hits_empty":"No results found for: ${query}","hits_stats":"${hits} articles found"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"Author: Chris Wen","link":"Link: ","source":"Source: Chris Wen's Blog","info":"Copyright belongs to the author. For commercial use, please contact the author for authorization. For non-commercial use, please indicate the source."}},
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: true,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Outlier',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/custom-style.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/constown/HexoCustomFile@0.0.4/dist/css/custom.min.css"><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Chris Wen's Blog" type="application/atom+xml">
+</head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load', preloader.endLoading)
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/images/lucky-icon.png" onerror="this.onerror=null;this.src='/images/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">70</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">24</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">46</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/project/"><i class="fa-fw fas fa-project-diagram"></i><span> Project</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post type-page" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251118091603317.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Chris Wen's Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">Outlier</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/project/"><i class="fa-fw fas fa-project-diagram"></i><span> Project</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Outlier</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-11-11T08:34:31.000Z" title="Created 2025-11-11 19:34:31">2025-11-11</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2026-01-15T04:32:03.389Z" title="Updated 2026-01-15 15:32:03">2026-01-15</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/da/">da</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">1.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>11mins</span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:30,&quot;messagePrev&quot;:&quot;It has been&quot;,&quot;messageNext&quot;:&quot;days since the last update, the content of the article may be outdated.&quot;,&quot;postUpdate&quot;:&quot;2026-01-15 15:32:03&quot;}" hidden></div><h1 id="Outliers"><a href="#Outliers" class="headerlink" title="Outliers"></a>Outliers</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line">pd.set_option(<span class="string">&quot;display.notebook_repr_html&quot;</span>, <span class="literal">False</span>)  <span class="comment"># disable &quot;rich&quot; output</span></span><br><span class="line">plt.style.use(<span class="string">&quot;seaborn&quot;</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="Unidimensional-Data"><a href="#Unidimensional-Data" class="headerlink" title="Unidimensional Data"></a>Unidimensional Data</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">x = np.loadtxt(<span class="string">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> +</span><br><span class="line">    <span class="string">&quot;teaching-data/master/marek/blobs2.txt&quot;</span>)</span><br><span class="line">plt.subplot(<span class="number">121</span>)</span><br><span class="line">sns.boxplot(data=x, orient=<span class="string">&quot;h&quot;</span>)</span><br><span class="line">plt.subplot(<span class="number">122</span>)</span><br><span class="line">sns.histplot(x, binwidth=<span class="number">1</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<h2 id="Multidimensional-Data"><a href="#Multidimensional-Data" class="headerlink" title="Multidimensional Data"></a>Multidimensional Data</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">x = np.loadtxt(<span class="string">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> +</span><br><span class="line">    <span class="string">&quot;teaching-data/master/marek/blobs1.txt&quot;</span>, delimiter=<span class="string">&quot;,&quot;</span>)</span><br><span class="line">plt.subplot(<span class="number">221</span>)</span><br><span class="line">sns.boxplot(data=x[:, <span class="number">0</span>], orient=<span class="string">&quot;h&quot;</span>)</span><br><span class="line">plt.subplot(<span class="number">222</span>)</span><br><span class="line">sns.histplot(x[:, <span class="number">0</span>], bins=<span class="number">20</span>)</span><br><span class="line">plt.title(<span class="string">&quot;x[:, 0]&quot;</span>)</span><br><span class="line">plt.subplot(<span class="number">223</span>)</span><br><span class="line">sns.boxplot(data=x[:, <span class="number">1</span>], orient=<span class="string">&quot;h&quot;</span>)</span><br><span class="line">plt.subplot(<span class="number">224</span>)</span><br><span class="line">sns.histplot(x[:, <span class="number">1</span>], bins=<span class="number">20</span>)</span><br><span class="line">plt.title(<span class="string">&quot;x[:, 1]&quot;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<h2 id="Multidimensional-Data-1"><a href="#Multidimensional-Data-1" class="headerlink" title="Multidimensional Data"></a>Multidimensional Data</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">x = np.loadtxt(<span class="string">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> +</span><br><span class="line">    <span class="string">&quot;teaching-data/master/marek/blobs1.txt&quot;</span>, delimiter=<span class="string">&quot;,&quot;</span>)</span><br><span class="line">plt.subplot(<span class="number">221</span>)</span><br><span class="line">sns.boxplot(data=x[:, <span class="number">0</span>], orient=<span class="string">&quot;h&quot;</span>)</span><br><span class="line">plt.subplot(<span class="number">222</span>)</span><br><span class="line">sns.histplot(x[:, <span class="number">0</span>], bins=<span class="number">20</span>)</span><br><span class="line">plt.title(<span class="string">&quot;x[:, 0]&quot;</span>)</span><br><span class="line">plt.subplot(<span class="number">223</span>)</span><br><span class="line">sns.boxplot(data=x[:, <span class="number">1</span>], orient=<span class="string">&quot;h&quot;</span>)</span><br><span class="line">plt.subplot(<span class="number">224</span>)</span><br><span class="line">sns.histplot(x[:, <span class="number">1</span>], bins=<span class="number">20</span>)</span><br><span class="line">plt.title(<span class="string">&quot;x[:, 1]&quot;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">plt.scatter(x[:, <span class="number">0</span>], x[:, <span class="number">1</span>])</span><br><span class="line">plt.axis(<span class="string">&quot;equal&quot;</span>)</span><br><span class="line">plt.show()</span><br><span class="line"></span><br><span class="line">x[-<span class="number">8</span>:, :]</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> scipy.spatial</span><br><span class="line">t = scipy.spatial.KDTree(x)</span><br><span class="line">n = t.query_ball_tree(t, <span class="number">0.2</span>)  <span class="comment"># epsilon=0.2 (radius)</span></span><br><span class="line">c = np.array([<span class="built_in">len</span>(e) <span class="keyword">for</span> e <span class="keyword">in</span> n])</span><br><span class="line">c[[<span class="number">0</span>, <span class="number">1</span>, -<span class="number">2</span>, -<span class="number">1</span>]]  <span class="comment"># preview</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">plt.scatter(x[c &gt; <span class="number">1</span>, <span class="number">0</span>], x[c &gt; <span class="number">1</span>, <span class="number">1</span>], label=<span class="string">&quot;normal point&quot;</span>)</span><br><span class="line">plt.scatter(x[c == <span class="number">1</span>, <span class="number">0</span>], x[c == <span class="number">1</span>, <span class="number">1</span>], marker=<span class="string">&quot;v&quot;</span>, label=<span class="string">&quot;outlier&quot;</span>)</span><br><span class="line">plt.axis(<span class="string">&quot;equal&quot;</span>)</span><br><span class="line">plt.legend()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<h2 id="Distance-based-outlier-detection"><a href="#Distance-based-outlier-detection" class="headerlink" title="Distance-based outlier detection"></a>Distance-based outlier detection</h2><h3 id="K-nearest-neighbour-KNN"><a href="#K-nearest-neighbour-KNN" class="headerlink" title="K-nearest neighbour (KNN)"></a>K-nearest neighbour (KNN)</h3><p>[1] Edwin Knorr and Raymond Ng. Algorithms for mining distance-based outliers in large datasets. In Proc. of the VLDB Conference, pages 392–403, New York, USA, September 1998.<br><a target="_blank" rel="noopener" href="https://d2l.deakin.edu.au/content/enforced/1761137-SIT220_SIT731_TRI-3_2025/Efficient%20Algorithms%20for%20Mining%20Outliers%20from%20Large%20Data%20Sets.pdf?ou=1761137">Read Section 3.1 of the paper</a></p>
+<p>This paper proposes an intuitive and general distance-based definition of outliers, where a data point’s “degree of being an outlier” is measured by its distance to the k-th nearest neighbor, and the top n points with the largest distances are considered outliers. To address the high computational cost on large datasets, the authors designed an efficient partition-based pruning algorithm that can exclude partitions that cannot contain outliers in advance, significantly reducing computation. Experimental results show that this method performs well and scales effectively on large and high-dimensional datasets, making it suitable for applications such as database cleaning, fraud detection, network intrusion detection, and IoT sensor data analysis.</p>
+<p>However, the method still depends on the choice of parameters n and k, may suffer from distance degradation in high-dimensional spaces, and is sensitive to data standardization and distance metrics. Overall, this paper is pioneering in the field of outlier detection, offering both theoretical significance and practical applicability.</p>
+<h2 id="Density-based-outlier-detection"><a href="#Density-based-outlier-detection" class="headerlink" title="Density-based outlier detection"></a>Density-based outlier detection</h2><h3 id="Local-outlier-factor-LOF-algorithm"><a href="#Local-outlier-factor-LOF-algorithm" class="headerlink" title="Local outlier factor (LOF) algorithm"></a>Local outlier factor (LOF) algorithm</h3><p><a target="_blank" rel="noopener" href="https://d2l.deakin.edu.au/content/enforced/1761137-SIT220_SIT731_TRI-3_2025/LOF-%20Identifying%20Density-Based%20Local%20Outliers.pdf?ou=1761137">Read Definition 3, of the paper</a></p>
+<p>The LOF (Local Outlier Factor) algorithm is a density-based local outlier detection method. It measures the degree of abnormality of each data point by comparing its local density with that of its neighbors. Specifically, it computes the local reachability density (lrd) of each point and then forms the LOF value as the ratio of the average density of its neighbors to its own density. An LOF value close to 1 indicates that the point has a density similar to its neighbors and is considered normal, while a significantly larger value indicates local sparsity and a potential outlier. The algorithm is particularly effective for detecting local outliers in datasets with varying density or irregular cluster shapes.</p>
+<p>The advantages of LOF include its independence from predefined clusters or distribution assumptions, its continuous outlier scoring, and strong adaptability to complex data structures. However, it is sensitive to the choice of the neighborhood parameter k, requires experience-based thresholding for LOF values, and has relatively high computational complexity, making it less efficient for large-scale, high-dimensional, or streaming data. LOF is widely applied in anomaly detection, data cleaning, IoT sensor data analysis, and network traffic monitoring.</p>
+<hr>
+<p><a target="_blank" rel="noopener" href="https://d2l.deakin.edu.au/content/enforced/1761137-SIT220_SIT731_TRI-3_2025/Outlier%20Detection-%20Methods,%20Models,%20and%20Classification.pdf?ou=1761137">Read Page 6 of the paper</a></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Method Category</th>
+<th>Core Idea</th>
+<th>Main Algorithms / Representative Methods</th>
+<th>Advantages</th>
+<th>Limitations / Notes</th>
+<th>Suitable Scenarios</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Statistical-based</strong></td>
+<td>Assume data follows a certain distribution; detect outliers based on probability or deviation</td>
+<td>Z-score, Grubbs Test, Mixture Models</td>
+<td>Simple and intuitive; works well for low-dimensional, known-distribution data</td>
+<td>Depends on distribution assumption; less effective in high dimensions</td>
+<td>Data quality checking, low-dimensional sensor data</td>
+</tr>
+<tr>
+<td><strong>Distance / Nearest Neighbor</strong></td>
+<td>Points far from others are likely outliers</td>
+<td>k-NN Outlier, Distance-based Outlier</td>
+<td>Distribution-free; intuitive</td>
+<td>High computational cost in high-dimensional or large datasets; needs parameter k</td>
+<td>IoT, RFID, trajectory anomaly detection</td>
+</tr>
+<tr>
+<td><strong>Density-based</strong></td>
+<td>Compare local density of a point with its neighbors</td>
+<td>LOF (Local Outlier Factor), DBSCAN Outlier</td>
+<td>Detects local outliers; handles varying density</td>
+<td>Sensitive to parameter k; computationally intensive</td>
+<td>Local outlier detection, datasets with varying density</td>
+</tr>
+<tr>
+<td><strong>Clustering-based</strong></td>
+<td>Outliers do not belong to major clusters or belong to small clusters</td>
+<td>K-means Outlier, DBSCAN Outlier</td>
+<td>Can detect isolated points outside clusters</td>
+<td>Sensitive to clustering quality; hard with noise or high-dimensional data</td>
+<td>Data exploration, cluster-based anomaly detection</td>
+</tr>
+<tr>
+<td><strong>Learning / ML-based</strong></td>
+<td>Use supervised, semi-supervised, or unsupervised models to predict outliers</td>
+<td>One-class SVM, Isolation Forest, Autoencoder</td>
+<td>Handles high-dimensional and complex data</td>
+<td>Requires training; parameter tuning can be complex</td>
+<td>Network intrusion detection, anomaly pattern recognition</td>
+</tr>
+<tr>
+<td><strong>Hybrid / Ensemble</strong></td>
+<td>Combine multiple methods to improve robustness</td>
+<td>Feature Bagging + LOF, Ensemble k-NN</td>
+<td>Improves detection accuracy; reduces false positives</td>
+<td>High complexity; high computational cost</td>
+<td>High-dimensional, complex, or large-scale data</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Local_outlier_factor">lof</a></p>
+<p><a target="_blank" rel="noopener" href="https://scikit-learn.org/dev/auto_examples/neighbors/plot_lof_outlier_detection.html">Python scikit-learn (aka sklearn) has a page about LOF</a></p>
+<h2 id="Clustering-based-outlier-detection"><a href="#Clustering-based-outlier-detection" class="headerlink" title="Clustering-based outlier detection"></a>Clustering-based outlier detection</h2><h3 id="Modified-k-means-and-minimum-spanning-tree"><a href="#Modified-k-means-and-minimum-spanning-tree" class="headerlink" title="Modified k-means and minimum spanning tree"></a>Modified k-means and minimum spanning tree</h3><p><a target="_blank" rel="noopener" href="https://d2l.deakin.edu.au/content/enforced/1761137-SIT220_SIT731_TRI-3_2025/Two-phase%20clustering%20process%20for%20outliers%20detection.pdf?ou=1761137">Read Algorithm 3.1 and 3.2 of the paper</a></p>
+<p>This paper proposes an outlier detection method based on a two-phase clustering process combined with a minimum spanning tree (MST). In the first phase, a modified k-means clustering is applied, where points far from existing cluster centers are treated as new cluster centers, allowing isolated or sparse outliers to form independent clusters. In the second phase, an MST is constructed using the cluster centers, and the longest edges are removed to split the tree into subtrees, identifying outliers in small or isolated clusters. This approach leverages both clustering and graph structure, effectively detecting few and sparsely distributed outliers while providing good interpretability.</p>
+<p>The method’s advantages include independence from data distribution assumptions and the ability to detect isolated/sparse outliers, making it suitable for static and multi-modal datasets. Its limitations are sensitivity to parameters (such as initial k and distance thresholds), higher computational cost for high-dimensional or large-scale data, and reduced effectiveness for dense anomalous clusters or streaming data. The method is particularly suitable for scenarios like IoT, RFID, and sensor trajectory data where outliers are sparse and batch processing is feasible.</p>
+<hr>
+<h3 id="Density-based-spatial-clustering-of-applications-with-noise-DBSCAN-Section"><a href="#Density-based-spatial-clustering-of-applications-with-noise-DBSCAN-Section" class="headerlink" title="Density-based spatial clustering of applications with noise (DBSCAN) Section"></a>Density-based spatial clustering of applications with noise (DBSCAN) Section</h3><p><a target="_blank" rel="noopener" href="https://d2l.deakin.edu.au/content/enforced/1761137-SIT220_SIT731_TRI-3_2025/A%20critical%20overview%20of%20outlier%20detection%20methods.pdf?ou=1761137">Read Section 7.1 of the paper</a></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Method Category</th>
+<th>Core Idea</th>
+<th>Representative Methods / Algorithms</th>
+<th>Advantages</th>
+<th>Limitations / Notes</th>
+<th>Suitable Scenarios</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Statistical-based</strong></td>
+<td>Assume data follows a certain distribution; detect outliers based on deviation or probability</td>
+<td>Z-score, Grubbs Test, Mixture Models</td>
+<td>Simple, intuitive, works well for low-dimensional, known-distribution data</td>
+<td>Assumes data distribution; less effective in high dimensions or unknown distribution</td>
+<td>Low-dimensional data, data cleaning, error detection</td>
+</tr>
+<tr>
+<td><strong>Distance / Nearest-Neighbor-based</strong></td>
+<td>Points far from most others are potential outliers</td>
+<td>k-NN Outlier, Distance-based Outlier</td>
+<td>Distribution-free; intuitive; works for moderate dimensions</td>
+<td>Computationally expensive for high-dimensional/large data; sensitive to distance metric and parameter k</td>
+<td>IoT, RFID, trajectory anomaly detection, moderate-size datasets</td>
+</tr>
+<tr>
+<td><strong>Density-based</strong></td>
+<td>Compare local density of a point with its neighbors; low-density points are outliers</td>
+<td>LOF (Local Outlier Factor), DBSCAN Outlier</td>
+<td>Detects local outliers; handles clusters with varying density or shape</td>
+<td>Sensitive to parameters (neighborhood size, density threshold); computationally intensive; not ideal for streaming/high-dimensional data</td>
+<td>Local anomaly detection, multi-modal or irregular cluster data</td>
+</tr>
+<tr>
+<td><strong>Clustering-based</strong></td>
+<td>Outliers do not belong to main clusters or belong to small/sparse clusters</td>
+<td>K-means Outlier, DBSCAN Outlier</td>
+<td>Easy to interpret; effective if cluster structure exists</td>
+<td>Sensitive to clustering quality; affected by noise; less effective in high-dimensional or complex data</td>
+<td>Data with clear cluster structure; batch/static data; exploratory analysis</td>
+</tr>
+<tr>
+<td><strong>Learning-based / Model-based</strong></td>
+<td>Use supervised, semi-supervised, or unsupervised learning to identify outliers</td>
+<td>One-class SVM, Isolation Forest, Autoencoder</td>
+<td>Handles high-dimensional, complex, and unstructured data; scalable for large datasets</td>
+<td>Requires training; parameter tuning; interpretability may be low; sensitive to training data</td>
+<td>Network intrusion detection, financial fraud, complex sensor/IoT data</td>
+</tr>
+<tr>
+<td><strong>Ensemble / Hybrid Methods</strong></td>
+<td>Combine multiple methods to improve robustness and accuracy</td>
+<td>Feature Bagging + LOF, Ensemble k-NN</td>
+<td>Leverages strengths of multiple methods; reduces false positives</td>
+<td>Complex to implement; computationally expensive; interpretation may be harder</td>
+<td>High-dimensional, large-scale, or complex datasets; critical systems requiring high reliability</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/DBSCAN">Wikipedia has a page about DBSCAN</a></p>
+<h1 id="Applications-Cluster-Analysis"><a href="#Applications-Cluster-Analysis" class="headerlink" title="Applications: Cluster Analysis (**)"></a>Applications: Cluster Analysis (**)</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> scipy.stats</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line">plt.style.use(<span class="string">&quot;seaborn&quot;</span>)  <span class="comment"># plot style</span></span><br><span class="line">pd.set_option(<span class="string">&quot;display.notebook_repr_html&quot;</span>, <span class="literal">False</span>)  <span class="comment"># disable &quot;rich&quot; output</span></span><br><span class="line">np.random.seed(<span class="number">123</span>)  <span class="comment"># initialise the pseudorandom number generator</span></span><br></pre></td></tr></table></figure>
+<h2 id="Euclidean-Distance"><a href="#Euclidean-Distance" class="headerlink" title="Euclidean Distance"></a>Euclidean Distance</h2><script type="math/tex; mode=display">
+\|\mathbf{u} - \mathbf{v}\| = \sqrt{(u_1 - v_1)^2 + (u_2 - v_2)^2 + \dots + (u_m - v_m)^2} = \sqrt{\sum_{i=1}^{m} (u_i - v_i)^2}</script><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">X = np.array([</span><br><span class="line">    [<span class="number">0</span>,    <span class="number">0</span>],</span><br><span class="line">    [<span class="number">1</span>,    <span class="number">0</span>],</span><br><span class="line">    [-<span class="number">1.5</span>, <span class="number">1</span>],</span><br><span class="line">    [<span class="number">1</span>,    <span class="number">1</span>]</span><br><span class="line">])</span><br><span class="line"><span class="keyword">import</span> scipy.spatial.distance</span><br><span class="line">D = scipy.spatial.distance.cdist(X, X)</span><br><span class="line">D</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">plt.plot(X[:, <span class="number">0</span>], X[:, <span class="number">1</span>], <span class="string">&quot;ko&quot;</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(X.shape[<span class="number">0</span>]-<span class="number">1</span>):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(i+<span class="number">1</span>, X.shape[<span class="number">0</span>]):</span><br><span class="line">        plt.plot(X[[i,j], <span class="number">0</span>], X[[i,j], <span class="number">1</span>], <span class="string">&quot;k-&quot;</span>, alpha=<span class="number">0.2</span>)</span><br><span class="line">        plt.text(np.mean(X[[i,j], <span class="number">0</span>]), np.mean(X[[i,j], <span class="number">1</span>]), np.<span class="built_in">round</span>(D[i, j], <span class="number">2</span>))</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<h2 id="Centroids"><a href="#Centroids" class="headerlink" title="Centroids"></a>Centroids</h2><script type="math/tex; mode=display">
+\min_{c} \sum_{i=1}^{n} \| \mathbf{x}_i - \mathbf{c} \|^2</script><script type="math/tex; mode=display">
+\mathbf{c} = \frac{1}{n} (\mathbf{x}_1 + \mathbf{x}_2 + \dots + \mathbf{x}_n) = \frac{1}{n} \sum_{i=1}^{n} \mathbf{x}_i</script><script type="math/tex; mode=display">
+c_j = \frac{1}{n} \sum_{i=1}^{n} x_{i,j}</script><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">c = np.mean(X, axis=<span class="number">0</span>)</span><br><span class="line">c</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">np.sqrt(np.mean(scipy.spatial.distance.cdist(X, c.reshape(<span class="number">1</span>, -<span class="number">1</span>))**<span class="number">2</span>))</span><br></pre></td></tr></table></figure>
+<h2 id="Clustering-with-k-Means"><a href="#Clustering-with-k-Means" class="headerlink" title="Clustering with k-Means"></a>Clustering with k-Means</h2><script type="math/tex; mode=display">
+\min_{c_1, c_2, \dots, c_k} \sum_{i=1}^{n} \min \Big\{ 
+\| \mathbf{x}_i - \mathbf{c}_1 \|^2, 
+\| \mathbf{x}_i - \mathbf{c}_2 \|^2, 
+\dots, 
+\| \mathbf{x}_i - \mathbf{c}_k \|^2 
+\Big\}</script><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">X = np.loadtxt(<span class="string">&quot;https://raw.githubusercontent.com/gagolews/teaching-data/master/marek/blobs1.txt&quot;</span>, delimiter=<span class="string">&quot;,&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> scipy.cluster.vq</span><br><span class="line">C, l = scipy.cluster.vq.kmeans2(X, <span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">my_colours = np.array([<span class="string">&quot;lightcoral&quot;</span>, <span class="string">&quot;cornflowerblue&quot;</span>])</span><br><span class="line">plt.scatter(X[:, <span class="number">0</span>], X[:, <span class="number">1</span>], c=my_colours[l])</span><br><span class="line">plt.plot(C[:, <span class="number">0</span>], C[:, <span class="number">1</span>], <span class="string">&quot;kX&quot;</span>)</span><br><span class="line">plt.axis(<span class="string">&quot;equal&quot;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">np.bincount(l)  <span class="comment"># or, e.g., pd.Series(l).value_counts()</span></span><br><span class="line"></span><br><span class="line">Xl = pd.DataFrame(<span class="built_in">dict</span>(X1=X[:, <span class="number">0</span>], X2=X[:, <span class="number">1</span>], l=l))</span><br><span class="line">Xl.sample(<span class="number">5</span>, random_state=<span class="number">42</span>)  <span class="comment"># some randomly chosen rows</span></span><br><span class="line"></span><br><span class="line">Xl.groupby(<span class="string">&quot;l&quot;</span>).mean()</span><br><span class="line"></span><br><span class="line">np.argmin(scipy.spatial.distance.cdist(X, C), axis=<span class="number">1</span>)</span><br></pre></td></tr></table></figure></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://wenyupeng.github.io">Chris Wen</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://wenyupeng.github.io/2025/11/11/big_data/da/07-des-statistics/">https://wenyupeng.github.io/2025/11/11/big_data/da/07-des-statistics/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/da/">da</a></div><div class="post-share"><div class="social-share" data-image="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251118091603317.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/11/11/big_data/da/08-des-statistics/" title="Imbalanced Data"><img class="cover" src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251118091603317.png" onerror="onerror=null;src='/images/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">Imbalanced Data</div></div><div class="info-2"><div class="info-item-1">Imbalanced DataImbalanced data research The editorial on Learning from Imbalanced Data highlights the central challenge that in many real-world applications—such as fraud detection, medical diagnosis, and anomaly detection—the important class is often rare, causing standard machine-learning algorithms to bias heavily toward the majority class. It summarizes three major research directions: data-level methods (oversampling, undersampling, synthetic sample generation), algorithm-level methods (...</div></div></div></a><a class="pagination-related" href="/2025/11/10/big_data/eda/01-concept/" title="Exploratory Data Analysis"><img class="cover" src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251118085259492.png" onerror="onerror=null;src='/images/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">Exploratory Data Analysis</div></div><div class="info-2"><div class="info-item-1">Exploratory Data AnalysisEDA%20is,step%20in%20any%20data%20analysis.) Exploratory Data Analysis(EDA) is the process of looking at data before doing any detailed analysis. Its goal is to understand what the data looks like, find mistakes or unusual values, and discover simple patterns. In EDA, we check how individual variables are distributed, see whether two variables seem related, and identify outliers that may need attention. This is often done using simple charts and basic statistics. EDA ...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/11/09/big_data/da/01-des-statistics/" title="Descriptive Statistic for Continuous Data"><img class="cover" src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251118091603317.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-11-10</div><div class="info-item-2">Descriptive Statistic for Continuous Data</div></div><div class="info-2"><div class="info-item-1">Descriptive Statistic fopr Continuous DataHistograms are based on binned data and hence provide us with snapshots of how much probability mass is allocated in diferent parts of the data domain. 1234567import numpy as npincome = np.loadtxt(&quot;https://raw.githubusercontent.com/gagolews/&quot; +    &quot;teaching-data/master/marek/uk_income_simulated_2020.txt&quot;)b = [0, 10000, 20000, 30000, 40000, 50000, 60000, 80000, np.inf]  # bin boundsc = np.histogram(income, bins=b)[0]  # countsfor i ...</div></div></div></a><a class="pagination-related" href="/2025/11/10/big_data/da/02-des-statistics/" title="Inspecting the Distribution of Numberic Data"><img class="cover" src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251118091603317.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-11-10</div><div class="info-item-2">Inspecting the Distribution of Numberic Data</div></div><div class="info-2"><div class="info-item-1">Inspecting the Distribution of Numberic Data12345import numpy as npheights = np.loadtxt(&quot;https://raw.githubusercontent.com/gagolews/&quot; +    &quot;teaching-data/master/marek/nhanes_adult_female_height_2020.txt&quot;)np.random.choice(heights, 24, replace=False) Histograms1234567import matplotlib.pyplot as pltimport seaborn as snsplt.style.use(&quot;seaborn&quot;)sns.__version__  # FYIsns.histplot(heights, bins=11)plt.show() 1234income = np.loadtxt(&quot;https://raw.githubusercontent.co...</div></div></div></a><a class="pagination-related" href="/2025/11/10/big_data/da/04-des-statistics/" title="Visualising Multidimensional Data and Measuring Correlation"><img class="cover" src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251118091603317.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-11-10</div><div class="info-item-2">Visualising Multidimensional Data and Measuring Correlation</div></div><div class="info-2"><div class="info-item-1">Visualising Multidimensional Data and Measuring Correlation123456789import numpy as npimport pandas as pdbody = pd.read_csv(&quot;https://raw.githubusercontent.com/gagolews/&quot; +    &quot;teaching-data/master/marek/nhanes_adult_female_bmx_2020.csv&quot;,    comment=&quot;#&quot;)body = body.to_numpy()  # data frames will be covered laterbody.shapebody[:6, :]  # 6 first rows, all columns Scatterplots2D Data1234567891011import matplotlib.pyplot as pltimport seaborn as snsplt.style.use(&quot;...</div></div></div></a><a class="pagination-related" href="/2025/11/10/big_data/da/03-des-statistics/" title="Handling Categorical Data"><img class="cover" src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251118091603317.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-11-10</div><div class="info-item-2">Handling Categorical Data</div></div><div class="info-2"><div class="info-item-1">Handling Categorical DataRepresenting Categorical DataTwo common ways to represent a categorical variable with k distinct levels is by storing it as:  a vector of strings, a vector of integers between 0 (inclusive) and k (exclusive).  12345678import numpy as npcountries = np.loadtxt(&quot;https://raw.githubusercontent.com/gagolews/&quot; +    &quot;teaching-data/master/marek/37_pzu_warsaw_marathon_country.txt&quot;,    dtype=&quot;str&quot;)x = countries[:16]xnp.unique(x) Encoding and Decodin...</div></div></div></a><a class="pagination-related" href="/2025/11/10/big_data/da/05-des-statistics/" title="Multivariate Categorical and Relational Data"><img class="cover" src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251118091603317.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-11-10</div><div class="info-item-2">Multivariate Categorical and Relational Data</div></div><div class="info-2"><div class="info-item-1">Multivariate Categorical and Relational Data12345import numpy as npmarathon = np.loadtxt(&quot;https://raw.githubusercontent.com/gagolews/&quot; +    &quot;teaching-data/master/marek/37_pzu_warsaw_marathon_3groups_top1000.txt&quot;,    delimiter=&quot;,&quot;, dtype=str)marathon[:6, :]  # preview Two-Way Contingency Tables123np.unique(marathon[:, 0])np.unique(marathon[:, 1]) 123456import scipy.statsl, v = scipy.stats.contingency.crosstab(marathon[:, 0], marathon[:, 1])l, vimport marekmarek.pr...</div></div></div></a><a class="pagination-related" href="/2025/11/10/big_data/da/06-des-statistics/" title="Continuous Probability Distributions"><img class="cover" src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251118091603317.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-11-10</div><div class="info-item-2">Continuous Probability Distributions</div></div><div class="info-2"><div class="info-item-1">Continuous Probability Distributions1234import numpy as npimport matplotlib.pyplot as pltimport seaborn as snsplt.style.use(&quot;seaborn&quot;) 123456heights = np.loadtxt(&quot;https://raw.githubusercontent.com/gagolews/&quot; +    &quot;teaching-data/master/marek/nhanes_adult_female_height_2020.txt&quot;)sns.histplot(heights, stat=&quot;density&quot;, kde=True)plt.show()import scipy.stats Normal DistributionNormal Distribution12345678μ = np.mean(heights)  # an estimator of expected valueσ =...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/images/lucky-icon.png" onerror="this.onerror=null;this.src='/images/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Chris Wen</div><div class="author-info-description">Dwell not on the past, nor fear the future.</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">70</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">24</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">46</div></a></div><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/wenyupeng" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:chriswen430@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://www.linkedin.com/in/chriswen430" target="_blank" title="Linkedin"><i class="fab fa-linkedin" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">Maintain the motivation to learn and stay humble when facing every problem.</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Outliers"><span class="toc-number">1.</span> <span class="toc-text">Outliers</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Unidimensional-Data"><span class="toc-number">1.1.</span> <span class="toc-text">Unidimensional Data</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Multidimensional-Data"><span class="toc-number">1.2.</span> <span class="toc-text">Multidimensional Data</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Multidimensional-Data-1"><span class="toc-number">1.3.</span> <span class="toc-text">Multidimensional Data</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Distance-based-outlier-detection"><span class="toc-number">1.4.</span> <span class="toc-text">Distance-based outlier detection</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#K-nearest-neighbour-KNN"><span class="toc-number">1.4.1.</span> <span class="toc-text">K-nearest neighbour (KNN)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Density-based-outlier-detection"><span class="toc-number">1.5.</span> <span class="toc-text">Density-based outlier detection</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Local-outlier-factor-LOF-algorithm"><span class="toc-number">1.5.1.</span> <span class="toc-text">Local outlier factor (LOF) algorithm</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Clustering-based-outlier-detection"><span class="toc-number">1.6.</span> <span class="toc-text">Clustering-based outlier detection</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Modified-k-means-and-minimum-spanning-tree"><span class="toc-number">1.6.1.</span> <span class="toc-text">Modified k-means and minimum spanning tree</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Density-based-spatial-clustering-of-applications-with-noise-DBSCAN-Section"><span class="toc-number">1.6.2.</span> <span class="toc-text">Density-based spatial clustering of applications with noise (DBSCAN) Section</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Applications-Cluster-Analysis"><span class="toc-number">2.</span> <span class="toc-text">Applications: Cluster Analysis (**)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Euclidean-Distance"><span class="toc-number">2.1.</span> <span class="toc-text">Euclidean Distance</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Centroids"><span class="toc-number">2.2.</span> <span class="toc-text">Centroids</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Clustering-with-k-Means"><span class="toc-number">2.3.</span> <span class="toc-text">Clustering with k-Means</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/11/14/big_data/da/11-des-statistics/" title="Box-Cox and Yeo-Johnson Transformations"><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251118091603317.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="Box-Cox and Yeo-Johnson Transformations"/></a><div class="content"><a class="title" href="/2025/11/14/big_data/da/11-des-statistics/" title="Box-Cox and Yeo-Johnson Transformations">Box-Cox and Yeo-Johnson Transformations</a><time datetime="2025-11-14T00:14:08.000Z" title="Created 2025-11-14 11:14:08">2025-11-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/11/13/big_data/da/10-des-statistics/" title="GDPR"><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251118091603317.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="GDPR"/></a><div class="content"><a class="title" href="/2025/11/13/big_data/da/10-des-statistics/" title="GDPR">GDPR</a><time datetime="2025-11-13T05:01:22.000Z" title="Created 2025-11-13 16:01:22">2025-11-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/11/12/big_data/da/12-des-statistics/" title="Dimensionality Reduction and PCA"><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251118091603317.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="Dimensionality Reduction and PCA"/></a><div class="content"><a class="title" href="/2025/11/12/big_data/da/12-des-statistics/" title="Dimensionality Reduction and PCA">Dimensionality Reduction and PCA</a><time datetime="2025-11-12T04:02:22.000Z" title="Created 2025-11-12 15:02:22">2025-11-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/11/11/big_data/da/09-des-statistics/" title="Data Matching"><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251118091603317.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="Data Matching"/></a><div class="content"><a class="title" href="/2025/11/11/big_data/da/09-des-statistics/" title="Data Matching">Data Matching</a><time datetime="2025-11-11T23:11:03.000Z" title="Created 2025-11-12 10:11:03">2025-11-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/11/11/big_data/da/08-des-statistics/" title="Imbalanced Data"><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251118091603317.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="Imbalanced Data"/></a><div class="content"><a class="title" href="/2025/11/11/big_data/da/08-des-statistics/" title="Imbalanced Data">Imbalanced Data</a><time datetime="2025-11-11T09:34:31.000Z" title="Created 2025-11-11 20:34:31">2025-11-11</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;2025 - 2026 By Chris Wen</span></div><div class="footer_custom_text">Live each day with purpose.</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script></div><script src='/js/custom.js'></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="false" data-text="HAPPY,EVERY,DAY" data-fontsize="15px" data-random="true" async="async"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => fn())
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      const usePjax = true
+      false
+        ? (usePjax ? pjax.loadUrl('/404.html') : window.location.href = '/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})()</script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading Database</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><script src="https://cdn.jsdelivr.net/npm/live2d-widget@^3.1.3/lib/L2Dwidget.min.js"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"superSample":3,"position":"left","width":300,"height":600,"hOffset":90,"vOffset":-100},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.3,"opacityOnHover":0.3,"opacity":0.95},"log":false});</script></body></html>

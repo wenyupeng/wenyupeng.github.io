@@ -1,0 +1,973 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>interview question of Java Backend | Chris Wen's Blog</title><meta name="author" content="Chris Wen"><meta name="copyright" content="Chris Wen"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Interview QuestionsCore Java (OOPs, Collections, Concurrency Basics)Explain difference between HashMap, HashTable, and ConcurrentHashMap.    Feature HashMap Hashtable ConcurrentHashMap     Thread Safe">
+<meta property="og:type" content="article">
+<meta property="og:title" content="interview question of Java Backend">
+<meta property="og:url" content="https://wenyupeng.github.io/2025/08/24/interview/02-java-backend/index.html">
+<meta property="og:site_name" content="Chris Wen&#39;s Blog">
+<meta property="og:description" content="Interview QuestionsCore Java (OOPs, Collections, Concurrency Basics)Explain difference between HashMap, HashTable, and ConcurrentHashMap.    Feature HashMap Hashtable ConcurrentHashMap     Thread Safe">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251026173458667.png">
+<meta property="article:published_time" content="2025-08-24T06:07:34.000Z">
+<meta property="article:modified_time" content="2026-01-15T04:32:03.391Z">
+<meta property="article:author" content="Chris Wen">
+<meta property="article:tag" content="interview-question">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251026173458667.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "interview question of Java Backend",
+  "url": "https://wenyupeng.github.io/2025/08/24/interview/02-java-backend/",
+  "image": "https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251026173458667.png",
+  "datePublished": "2025-08-24T06:07:34.000Z",
+  "dateModified": "2026-01-15T04:32:03.391Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Chris Wen",
+      "url": "https://wenyupeng.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/images/favicon.ico"><link rel="canonical" href="https://wenyupeng.github.io/2025/08/24/interview/02-java-backend/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.json","preload":true,"top_n_per_article":-1,"unescape":false,"languages":{"hits_empty":"No results found for: ${query}","hits_stats":"${hits} articles found"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"Author: Chris Wen","link":"Link: ","source":"Source: Chris Wen's Blog","info":"Copyright belongs to the author. For commercial use, please contact the author for authorization. For non-commercial use, please indicate the source."}},
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: true,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'interview question of Java Backend',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/custom-style.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/constown/HexoCustomFile@0.0.4/dist/css/custom.min.css"><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Chris Wen's Blog" type="application/atom+xml">
+</head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load', preloader.endLoading)
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/images/lucky-icon.png" onerror="this.onerror=null;this.src='/images/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">70</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">24</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">46</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/project/"><i class="fa-fw fas fa-project-diagram"></i><span> Project</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251026173458667.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Chris Wen's Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">interview question of Java Backend</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/project/"><i class="fa-fw fas fa-project-diagram"></i><span> Project</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">interview question of Java Backend</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-08-24T06:07:34.000Z" title="Created 2025-08-24 16:07:34">2025-08-24</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2026-01-15T04:32:03.391Z" title="Updated 2026-01-15 15:32:03">2026-01-15</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/interview-question/">interview-question</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">3.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>22mins</span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:30,&quot;messagePrev&quot;:&quot;It has been&quot;,&quot;messageNext&quot;:&quot;days since the last update, the content of the article may be outdated.&quot;,&quot;postUpdate&quot;:&quot;2026-01-15 15:32:03&quot;}" hidden></div><h1 id="Interview-Questions"><a href="#Interview-Questions" class="headerlink" title="Interview Questions"></a>Interview Questions</h1><h2 id="Core-Java-OOPs-Collections-Concurrency-Basics"><a href="#Core-Java-OOPs-Collections-Concurrency-Basics" class="headerlink" title="Core Java (OOPs, Collections, Concurrency Basics)"></a>Core Java (OOPs, Collections, Concurrency Basics)</h2><h3 id="Explain-difference-between-HashMap-HashTable-and-ConcurrentHashMap"><a href="#Explain-difference-between-HashMap-HashTable-and-ConcurrentHashMap" class="headerlink" title="Explain difference between HashMap, HashTable, and ConcurrentHashMap."></a>Explain difference between HashMap, HashTable, and ConcurrentHashMap.</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>HashMap</th>
+<th>Hashtable</th>
+<th>ConcurrentHashMap</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Thread Safety</strong></td>
+<td>Not thread-safe</td>
+<td>Thread-safe (synchronized methods)</td>
+<td>Thread-safe (lock segmentation / fine-grained locking)</td>
+</tr>
+<tr>
+<td><strong>Null Keys/Values</strong></td>
+<td>Allows one null key and multiple null values</td>
+<td>Does <strong>not</strong> allow any null keys/values</td>
+<td>Does <strong>not</strong> allow null keys/values</td>
+</tr>
+<tr>
+<td><strong>Performance</strong></td>
+<td>Faster (no synchronization overhead)</td>
+<td>Slower (entire table is locked)</td>
+<td>Better concurrency — multiple threads can read/write different segments simultaneously</td>
+</tr>
+<tr>
+<td><strong>Use Case</strong></td>
+<td>Single-threaded apps</td>
+<td>Legacy thread-safe code</td>
+<td>High-performance concurrent apps</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Example</strong>:<br>If multiple threads are accessing and modifying a map, prefer ConcurrentHashMap. For non-concurrent cases, use HashMap. Avoid Hashtable in modern code.</p>
+<h3 id="How-does-equals-and-hashCode-work-together-in-collections"><a href="#How-does-equals-and-hashCode-work-together-in-collections" class="headerlink" title="How does equals() and hashCode() work together in collections?"></a>How does equals() and hashCode() work together in collections?</h3><ul>
+<li>hashCode(): Returns an integer hash value used to place objects in hash-based collections (like HashMap, HashSet).</li>
+<li>equals(): Compares two objects for logical equality.</li>
+</ul>
+<p><strong>Contract</strong>:</p>
+<ul>
+<li>If two objects are equal according to equals(), they must have the same hashCode().</li>
+<li>If two objects have the same hashCode(), they may or may not be equal.</li>
+</ul>
+<p><strong>Why it matters</strong>:<br>    Collections like HashMap use hashCode() to find a bucket, and then equals() to check if the key already exists.<br><strong>Example</strong>:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">equals</span><span class="params">(Object o)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">this</span> == o) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">if</span> (!(o <span class="keyword">instanceof</span> Person)) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="type">Person</span> <span class="variable">p</span> <span class="operator">=</span> (Person) o;</span><br><span class="line">    <span class="keyword">return</span> id == p.id;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">hashCode</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> Objects.hash(id);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
+<h3 id="Difference-between-shallow-copy-vs-deep-copy-in-Java"><a href="#Difference-between-shallow-copy-vs-deep-copy-in-Java" class="headerlink" title="Difference between shallow copy vs deep copy in Java."></a>Difference between shallow copy vs deep copy in Java.</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Shallow Copy</strong></td>
+<td>Copies only object references (not the objects they refer to). Both objects share the same nested objects.</td>
+<td><code>clone()</code> without custom implementation</td>
+</tr>
+<tr>
+<td><strong>Deep Copy</strong></td>
+<td>Copies everything — including new instances of nested objects. Changes in one object don’t affect the other.</td>
+<td>Implemented manually or via serialization</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Example</strong>:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Shallow copy</span></span><br><span class="line"><span class="type">Employee</span> <span class="variable">e2</span> <span class="operator">=</span> e1.clone(); <span class="comment">// e1.address and e2.address point to same object</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Deep copy</span></span><br><span class="line"><span class="type">Employee</span> <span class="variable">e2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Employee</span>(e1);</span><br><span class="line">e2.address = <span class="keyword">new</span> <span class="title class_">Address</span>(e1.address);</span><br></pre></td></tr></table></figure></p>
+<h3 id="How-do-you-prevent-deadlock-in-multithreaded-applications"><a href="#How-do-you-prevent-deadlock-in-multithreaded-applications" class="headerlink" title="How do you prevent deadlock in multithreaded applications?"></a>How do you prevent deadlock in multithreaded applications?</h3><p>Deadlock occurs when two or more threads are waiting on each other’s locks.</p>
+<p><strong>Ways to prevent it</strong>:</p>
+<ol>
+<li>Lock ordering – Always acquire locks in a consistent order.</li>
+<li>Try-lock with timeout – Use tryLock() from ReentrantLock to avoid waiting forever.</li>
+<li>Avoid nested locks – Reduce code sections that acquire multiple locks.</li>
+<li>Use concurrent utilities – Prefer ConcurrentHashMap, BlockingQueue, etc., which manage synchronization internally.</li>
+<li>Minimize synchronized blocks – Keep critical sections small.</li>
+</ol>
+<p><strong>Example</strong>:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (lock1.tryLock(<span class="number">50</span>, TimeUnit.MILLISECONDS)) &#123;</span><br><span class="line">    <span class="keyword">if</span> (lock2.tryLock(<span class="number">50</span>, TimeUnit.MILLISECONDS)) &#123;</span><br><span class="line">        <span class="comment">// work</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="Explain-volatile-vs-synchronized-—-when-to-use-each"><a href="#Explain-volatile-vs-synchronized-—-when-to-use-each" class="headerlink" title="Explain volatile vs synchronized — when to use each."></a>Explain volatile vs synchronized — when to use each.</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th><code>volatile</code></th>
+<th><code>synchronized</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Purpose</strong></td>
+<td>Guarantees <strong>visibility</strong> of changes across threads</td>
+<td>Guarantees <strong>atomicity</strong> and <strong>visibility</strong></td>
+</tr>
+<tr>
+<td><strong>Use Case</strong></td>
+<td>When multiple threads read/write a variable, and writes are independent</td>
+<td>When operations on shared data must be atomic</td>
+</tr>
+<tr>
+<td><strong>Locking</strong></td>
+<td>No locking (lighter, faster)</td>
+<td>Uses intrinsic lock (can block threads)</td>
+</tr>
+<tr>
+<td><strong>Scope</strong></td>
+<td>Variable-level only</td>
+<td>Code block or method</td>
+</tr>
+<tr>
+<td><strong>Example Use</strong></td>
+<td>Status flags, configuration values</td>
+<td>Counters, complex state updates</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Example</strong>:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">volatile</span> <span class="type">boolean</span> <span class="variable">running</span> <span class="operator">=</span> <span class="literal">true</span>; <span class="comment">// visibility only</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title function_">increment</span><span class="params">()</span> &#123;  <span class="comment">// atomic operation</span></span><br><span class="line">    count++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><strong>Rule of thumb</strong>:</p>
+<ul>
+<li>Use volatile for simple flags or status updates.</li>
+<li>Use synchronized (or locks) for compound operations that must be atomic.</li>
+</ul>
+<h2 id="Spring-amp-Spring-Boot"><a href="#Spring-amp-Spring-Boot" class="headerlink" title="Spring &amp; Spring Boot"></a>Spring &amp; Spring Boot</h2><h3 id="Difference-between-Component-Service-Repository-and-Controller"><a href="#Difference-between-Component-Service-Repository-and-Controller" class="headerlink" title="Difference between @Component, @Service, @Repository, and @Controller."></a>Difference between @Component, @Service, @Repository, and @Controller.</h3><p>Spring provides several stereotype annotations to define beans, which also give semantic meaning for better readability:</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Annotation</th>
+<th>Purpose</th>
+<th>Special Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>@Component</code></td>
+<td>Generic stereotype for any Spring-managed component</td>
+<td>Base annotation for all other stereotypes</td>
+</tr>
+<tr>
+<td><code>@Service</code></td>
+<td>Indicates a service layer component (business logic)</td>
+<td>Mainly semantic, no extra behavior, improves readability</td>
+</tr>
+<tr>
+<td><code>@Repository</code></td>
+<td>Indicates a DAO (Data Access Object) component</td>
+<td>Converts database exceptions into Spring’s <code>DataAccessException</code></td>
+</tr>
+<tr>
+<td><code>@Controller</code></td>
+<td>Indicates a web controller handling HTTP requests</td>
+<td>Typically used with <code>@RequestMapping</code> to handle endpoints; works with Spring MVC</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Summary:</strong><br>All are detected via component scanning and registered as Spring beans, but <code>@Repository</code> and <code>@Controller</code> have additional framework-specific roles.</p>
+<h3 id="What-is-Spring-Boot-auto-configuration-How-does-it-work-internally"><a href="#What-is-Spring-Boot-auto-configuration-How-does-it-work-internally" class="headerlink" title="What is Spring Boot auto-configuration? How does it work internally?"></a>What is Spring Boot auto-configuration? How does it work internally?</h3><p><strong>Auto-configuration</strong> is a key feature of Spring Boot that automatically configures your application based on the dependencies on the classpath and properties defined in <code>application.properties</code> or <code>application.yml</code>.</p>
+<p><strong>How it works internally:</strong></p>
+<ol>
+<li>Spring Boot uses the <code>@SpringBootApplication</code> annotation, which includes <code>@EnableAutoConfiguration</code>.</li>
+<li><code>@EnableAutoConfiguration</code> imports <code>spring.factories</code> which lists all auto-configuration classes.</li>
+<li>During startup, Spring Boot evaluates each auto-configuration class using <code>@Conditional</code> annotations (e.g., <code>@ConditionalOnClass</code>, <code>@ConditionalOnMissingBean</code>) to decide which beans to create.</li>
+<li>Beans are registered automatically based on what classes and libraries are available on the classpath.</li>
+</ol>
+<p><strong>Example:</strong><br>If <code>spring-boot-starter-data-jpa</code> is on the classpath, Spring Boot auto-configures <code>EntityManagerFactory</code> and <code>DataSource</code> beans automatically.</p>
+<h3 id="How-do-you-implement-exception-handling-globally-in-Spring-Boot-REST-APIs"><a href="#How-do-you-implement-exception-handling-globally-in-Spring-Boot-REST-APIs" class="headerlink" title="How do you implement exception handling globally in Spring Boot REST APIs?"></a>How do you implement exception handling globally in Spring Boot REST APIs?</h3><p>Spring Boot provides <code>@ControllerAdvice</code> for global exception handling.</p>
+<p><strong>Steps:</strong></p>
+<ol>
+<li>Create a class annotated with <code>@ControllerAdvice</code>.</li>
+<li>Define methods annotated with <code>@ExceptionHandler</code> to handle specific exceptions.</li>
+<li>Optionally, use <code>@ResponseStatus</code> or return a custom response body.</li>
+</ol>
+<p><strong>Example:</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ControllerAdvice</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">GlobalExceptionHandler</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ExceptionHandler(ResourceNotFoundException.class)</span></span><br><span class="line">    <span class="meta">@ResponseStatus(HttpStatus.NOT_FOUND)</span></span><br><span class="line">    <span class="keyword">public</span> ResponseEntity&lt;String&gt; <span class="title function_">handleResourceNotFound</span><span class="params">(ResourceNotFoundException ex)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ExceptionHandler(Exception.class)</span></span><br><span class="line">    <span class="meta">@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)</span></span><br><span class="line">    <span class="keyword">public</span> ResponseEntity&lt;String&gt; <span class="title function_">handleGenericException</span><span class="params">(Exception ex)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)</span><br><span class="line">                             .body(<span class="string">&quot;Something went wrong: &quot;</span> + ex.getMessage());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Explain-difference-between-RequestParam-PathVariable-and-RequestBody"><a href="#Explain-difference-between-RequestParam-PathVariable-and-RequestBody" class="headerlink" title="Explain difference between @RequestParam, @PathVariable, and @RequestBody."></a>Explain difference between @RequestParam, @PathVariable, and @RequestBody.</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Annotation</th>
+<th>Usage</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>@RequestParam</code></td>
+<td>Binds query parameters or form data</td>
+<td><code>GET /users?id=123</code> → <code>@RequestParam(&quot;id&quot;) Long id</code></td>
+</tr>
+<tr>
+<td><code>@PathVariable</code></td>
+<td>Binds URI template variables</td>
+<td><code>GET /users/123</code> → <code>@PathVariable(&quot;id&quot;) Long id</code></td>
+</tr>
+<tr>
+<td><code>@RequestBody</code></td>
+<td>Binds HTTP request body (JSON/XML) to Java object</td>
+<td><code>POST /users</code> with JSON <code>&#123; &quot;name&quot;: &quot;John&quot; &#125;</code> → <code>@RequestBody User user</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Summary</strong>:</p>
+<ul>
+<li>@RequestParam → query/form parameters</li>
+<li>@PathVariable → path segments</li>
+<li>@RequestBody → request body content</li>
+</ul>
+<h3 id="How-do-you-implement-profiles-in-Spring-Boot-for-multiple-environments"><a href="#How-do-you-implement-profiles-in-Spring-Boot-for-multiple-environments" class="headerlink" title="How do you implement profiles in Spring Boot for multiple environments?"></a>How do you implement profiles in Spring Boot for multiple environments?</h3><p>Spring Boot supports profiles to separate environment-specific configurations (dev, test, prod).</p>
+<p>Steps:</p>
+<ol>
+<li>Create profile-specific properties files:<ul>
+<li>application-dev.properties</li>
+<li>application-prod.properties</li>
+</ul>
+</li>
+<li>Activate a profile:<ul>
+<li>In application.properties:<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spring.profiles.active=dev</span><br></pre></td></tr></table></figure></li>
+<li>Or via command line:<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar app.jar --spring.profiles.active=prod</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>Use @Profile annotation to conditionally load beans:<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@Configuration</span><br><span class="line">@Profile(&quot;dev&quot;)</span><br><span class="line">public class DevConfig &#123;</span><br><span class="line">    @Bean</span><br><span class="line">    public DataSource devDataSource() &#123;</span><br><span class="line">        return new HikariDataSource();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<strong>Summary</strong>:<br>Profiles allow you to maintain different configurations for different environments while keeping a single codebase.</li>
+</ol>
+<h2 id="JPA-Hibernate"><a href="#JPA-Hibernate" class="headerlink" title="JPA / Hibernate"></a>JPA / Hibernate</h2><h3 id="What-are-entity-states-Transient-Persistent-Detached-Removed-in-Hibernate"><a href="#What-are-entity-states-Transient-Persistent-Detached-Removed-in-Hibernate" class="headerlink" title="What are entity states (Transient, Persistent, Detached, Removed) in Hibernate?"></a>What are entity states (Transient, Persistent, Detached, Removed) in Hibernate?</h3><p>In Hibernate, an entity can exist in one of four states:</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>State</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Transient</strong></td>
+<td>The entity is <strong>not associated</strong> with a Hibernate <code>Session</code> and <strong>not persisted</strong> in the database.</td>
+<td><code>User user = new User();</code> (new object, no <code>save()</code> called)</td>
+</tr>
+<tr>
+<td><strong>Persistent</strong></td>
+<td>The entity is <strong>associated with a Hibernate <code>Session</code></strong> and changes will be automatically synchronized with the database.</td>
+<td><code>session.save(user);</code></td>
+</tr>
+<tr>
+<td><strong>Detached</strong></td>
+<td>The entity <strong>was persistent</strong>, but the session is <strong>closed</strong> or entity is <strong>evicted</strong>. Changes are not automatically persisted.</td>
+<td><code>session.close(); user.setName(&quot;John&quot;);</code></td>
+</tr>
+<tr>
+<td><strong>Removed</strong></td>
+<td>The entity is scheduled for <strong>deletion</strong>. It will be deleted when the transaction commits.</td>
+<td><code>session.delete(user);</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="Explain-lazy-loading-and-how-to-avoid-LazyInitializationException"><a href="#Explain-lazy-loading-and-how-to-avoid-LazyInitializationException" class="headerlink" title="Explain lazy loading and how to avoid LazyInitializationException."></a>Explain lazy loading and how to avoid LazyInitializationException.</h3><p><strong>Lazy loading</strong> is when Hibernate delays loading of associated entities until they are actually accessed.</p>
+<ul>
+<li><strong>Example:</strong>  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Entity</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Department</span> &#123;</span><br><span class="line">    <span class="meta">@OneToMany(fetch = FetchType.LAZY)</span></span><br><span class="line">    <span class="keyword">private</span> List&lt;Employee&gt; employees;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+employees are loaded from the database only when getEmployees() is called.</li>
+</ul>
+<p><strong>LazyInitializationException</strong> occurs if you try to access a lazily loaded collection outside an active session.</p>
+<p><strong>Ways to avoid it</strong>:</p>
+<ol>
+<li>Open Session in View (not recommended for all cases): Keep session open during view rendering.</li>
+<li>Fetch join in JPQL: <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> d <span class="keyword">FROM</span> Department d <span class="keyword">JOIN</span> <span class="keyword">FETCH</span> d.employees <span class="keyword">WHERE</span> d.id <span class="operator">=</span> :id</span><br></pre></td></tr></table></figure></li>
+<li>Eager fetching (careful with performance): <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@OneToMany(fetch = FetchType.EAGER)</span><br></pre></td></tr></table></figure></li>
+<li>Initialize collection manually before session closes: <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hibernate.initialize(department.getEmployees());</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="Difference-between-Criteria-API-and-JPQL"><a href="#Difference-between-Criteria-API-and-JPQL" class="headerlink" title="Difference between Criteria API and JPQL."></a>Difference between Criteria API and JPQL.</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>JPQL</th>
+<th>Criteria API</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Query Type</td>
+<td>String-based queries</td>
+<td>Object-oriented, type-safe queries</td>
+</tr>
+<tr>
+<td>Compile-time safety</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Readability</td>
+<td>Simple for static queries</td>
+<td>Better for dynamic queries</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Example</strong><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// SELECT u FROM User u WHERE u.age &gt; 25</span></span><br><span class="line"><span class="type">CriteriaBuilder</span> <span class="variable">cb</span> <span class="operator">=</span> em.getCriteriaBuilder();</span><br><span class="line">CriteriaQuery&lt;User&gt; cq = cb.createQuery(User.class);</span><br><span class="line">Root&lt;User&gt; user = cq.from(User.class);</span><br><span class="line">cq.select(user).where(cb.gt(user.get(<span class="string">&quot;age&quot;</span>), <span class="number">25</span>));</span><br></pre></td></tr></table></figure></p>
+<h3 id="What-is-the-difference-between-CascadeType-ALL-and-orphanRemoval"><a href="#What-is-the-difference-between-CascadeType-ALL-and-orphanRemoval" class="headerlink" title="What is the difference between CascadeType.ALL and orphanRemoval?"></a>What is the difference between CascadeType.ALL and orphanRemoval?</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th><code>CascadeType.ALL</code></th>
+<th><code>orphanRemoval = true</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Purpose</td>
+<td>Applies all operations (persist, merge, remove, refresh) from parent to child</td>
+<td>Deletes child entities when they are removed from parent collection</td>
+</tr>
+<tr>
+<td>Example</td>
+<td>Saving parent automatically saves child</td>
+<td>Removing a child from parent’s collection deletes it from DB</td>
+</tr>
+<tr>
+<td>Key Difference</td>
+<td>Cascade propagates <strong>operations</strong>, not necessarily removal</td>
+<td>Orphan removal <strong>only deletes orphans</strong> but doesn’t cascade persist</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Example</strong>:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)</span></span><br><span class="line"><span class="keyword">private</span> List&lt;Employee&gt; employees;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>cascade = ALL → persisting parent also persists employees</li>
+<li>orphanRemoval = true → removing employee from list deletes it from DB</li>
+</ul>
+<h3 id="How-do-you-implement-pagination-and-sorting-in-Spring-Data-JPA"><a href="#How-do-you-implement-pagination-and-sorting-in-Spring-Data-JPA" class="headerlink" title="How do you implement pagination and sorting in Spring Data JPA?"></a>How do you implement pagination and sorting in Spring Data JPA?</h3><p>Spring Data JPA provides Pageable and Sort interfaces for pagination and sorting.</p>
+<p><strong>Example</strong>:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Repository</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">UserRepository</span> <span class="keyword">extends</span> <span class="title class_">JpaRepository</span>&lt;User, Long&gt; &#123;</span><br><span class="line">    Page&lt;User&gt; <span class="title function_">findByAgeGreaterThan</span><span class="params">(<span class="type">int</span> age, Pageable pageable)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><strong>Usage in service</strong>:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Pageable</span> <span class="variable">pageable</span> <span class="operator">=</span> PageRequest.of(<span class="number">0</span>, <span class="number">10</span>, Sort.by(<span class="string">&quot;name&quot;</span>).ascending());</span><br><span class="line">Page&lt;User&gt; users = userRepository.findByAgeGreaterThan(<span class="number">25</span>, pageable);</span><br><span class="line"></span><br><span class="line">users.getContent().forEach(System.out::println);</span><br><span class="line">System.out.println(<span class="string">&quot;Total pages: &quot;</span> + users.getTotalPages());</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>PageRequest.of(page, size, sort) specifies page number, page size, and sorting.</li>
+<li>Returns a Page<T> which contains content, total pages, total elements, and more.</li>
+</ul>
+<h2 id="Microservices-amp-Architecture"><a href="#Microservices-amp-Architecture" class="headerlink" title="Microservices &amp; Architecture"></a>Microservices &amp; Architecture</h2><h3 id="Explain-difference-between-monolithic-and-microservices-architectures"><a href="#Explain-difference-between-monolithic-and-microservices-architectures" class="headerlink" title="Explain difference between monolithic and microservices architectures."></a>Explain difference between monolithic and microservices architectures.</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Monolithic Architecture</th>
+<th>Microservices Architecture</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Structure</td>
+<td>Single unified codebase</td>
+<td>Collection of small, independent services</td>
+</tr>
+<tr>
+<td>Deployment</td>
+<td>One deployable unit</td>
+<td>Each service deployed independently</td>
+</tr>
+<tr>
+<td>Scaling</td>
+<td>Scale entire application</td>
+<td>Scale individual services as needed</td>
+</tr>
+<tr>
+<td>Technology Stack</td>
+<td>Usually uniform</td>
+<td>Can use different stacks per service</td>
+</tr>
+<tr>
+<td>Fault Isolation</td>
+<td>Failure in one module may affect entire app</td>
+<td>Failures isolated to the specific service</td>
+</tr>
+<tr>
+<td>Development Speed</td>
+<td>Slower for large teams</td>
+<td>Faster with independent teams</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Summary:</strong><br>Monolith = single large app; Microservices = many small, loosely coupled apps that communicate over APIs.</p>
+<h3 id="How-do-you-implement-inter-service-communication-REST-Kafka-gRPC"><a href="#How-do-you-implement-inter-service-communication-REST-Kafka-gRPC" class="headerlink" title="How do you implement inter-service communication? (REST, Kafka, gRPC)"></a>How do you implement inter-service communication? (REST, Kafka, gRPC)</h3><p>Microservices need to communicate with each other. Common methods:</p>
+<ol>
+<li><strong>REST (HTTP/JSON)</strong>  <ul>
+<li>Simple, widely used, synchronous request-response.  </li>
+<li><strong>Example</strong>:<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping(&quot;/users/&#123;id&#125;&quot;)</span></span><br><span class="line"><span class="keyword">public</span> User <span class="title function_">getUser</span><span class="params">(<span class="meta">@PathVariable</span> Long id)</span> &#123; ... &#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><strong>Kafka</strong> (Event-driven messaging)<ul>
+<li>Asynchronous, decoupled communication using topics.</li>
+<li><strong>Example</strong>: Service A produces events → Service B consumes events.</li>
+</ul>
+</li>
+<li>gRPC (Remote Procedure Calls)<ul>
+<li>High-performance, strongly typed, binary protocol using Protocol Buffers.</li>
+<li><strong>Example</strong>:<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">service UserService &#123;</span><br><span class="line">    rpc <span class="title function_">GetUser</span><span class="params">(UserRequest)</span> returns (UserResponse);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<strong>Summary</strong>:</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>REST → synchronous, simple</li>
+<li>Kafka → asynchronous, decoupled</li>
+<li>gRPC → synchronous or streaming, high performance</li>
+</ul>
+<h3 id="What-is-API-Gateway-and-why-do-we-need-it"><a href="#What-is-API-Gateway-and-why-do-we-need-it" class="headerlink" title="What is API Gateway and why do we need it?"></a>What is API Gateway and why do we need it?</h3><p>An API Gateway is a single entry point for clients to interact with multiple microservices.</p>
+<p><strong>Responsibilities</strong>:</p>
+<ul>
+<li>Routing requests to appropriate microservices</li>
+<li>Request aggregation (combine multiple service responses)</li>
+<li>Authentication &amp; authorization</li>
+<li>Rate limiting, caching, logging</li>
+</ul>
+<p><strong>Example</strong>:</p>
+<ul>
+<li>Netflix Zuul, Spring Cloud Gateway, Kong, NGINX</li>
+</ul>
+<p><strong>Summary</strong>:<br>API Gateway simplifies client interaction, hides service complexity, and provides cross-cutting features in one place.</p>
+<h3 id="How-do-you-manage-configuration-in-multiple-microservices"><a href="#How-do-you-manage-configuration-in-multiple-microservices" class="headerlink" title="How do you manage configuration in multiple microservices?"></a>How do you manage configuration in multiple microservices?</h3><p>For multiple services, externalized and centralized configuration is recommended.</p>
+<p><strong>Approaches</strong>:</p>
+<ol>
+<li>Spring Cloud Config<ul>
+<li>Central config server serving properties via Git/Filesystem.</li>
+<li>Services fetch config dynamically.</li>
+</ul>
+</li>
+<li>Environment variables / Kubernetes ConfigMaps &amp; Secrets<ul>
+<li>Store environment-specific configuration outside code.</li>
+</ul>
+</li>
+<li>Consul / etcd<ul>
+<li>Distributed configuration with service discovery integration.</li>
+</ul>
+</li>
+</ol>
+<p><strong>Example with Spring Cloud Config</strong>:<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">user-service</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">config:</span></span><br><span class="line">      <span class="attr">uri:</span> <span class="string">http://config-server:8888</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="Explain-circuit-breaker-pattern-Hystrix-Resilience4j-with-example"><a href="#Explain-circuit-breaker-pattern-Hystrix-Resilience4j-with-example" class="headerlink" title="Explain circuit breaker pattern (Hystrix/Resilience4j) with example."></a>Explain circuit breaker pattern (Hystrix/Resilience4j) with example.</h3><p>The circuit breaker pattern prevents cascading failures in microservices when one service is down or slow.</p>
+<p><strong>How it works</strong>:</p>
+<ul>
+<li>Circuit is closed → calls pass normally.</li>
+<li>If failures exceed threshold → circuit opens → further calls fail fast.</li>
+<li>After a timeout → circuit half-open → test a few requests before closing.</li>
+</ul>
+<p>Example with Resilience4j (Spring Boot):<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserService</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@CircuitBreaker(name = &quot;userService&quot;, fallbackMethod = &quot;fallbackGetUser&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> User <span class="title function_">getUser</span><span class="params">(Long id)</span> &#123;</span><br><span class="line">        <span class="comment">// Call external service</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> User <span class="title function_">fallbackGetUser</span><span class="params">(Long id, Throwable t)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">User</span>(id, <span class="string">&quot;Default User&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><strong>Summary</strong>:<br>Circuit breakers improve system resilience by preventing cascading failures and allowing graceful degradation.</p>
+<h2 id="Cloud-amp-DevOps-Basics"><a href="#Cloud-amp-DevOps-Basics" class="headerlink" title="Cloud &amp; DevOps Basics"></a>Cloud &amp; DevOps Basics</h2><h3 id="What-is-the-difference-between-Docker-image-and-Docker-container"><a href="#What-is-the-difference-between-Docker-image-and-Docker-container" class="headerlink" title="What is the difference between Docker image and Docker container?"></a>What is the difference between Docker image and Docker container?</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Docker Image</th>
+<th>Docker Container</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Definition</td>
+<td>Read-only template with application and dependencies</td>
+<td>Running instance of an image</td>
+</tr>
+<tr>
+<td>Lifecycle</td>
+<td>Immutable, stored in registry</td>
+<td>Created, started, stopped, or destroyed</td>
+</tr>
+<tr>
+<td>Purpose</td>
+<td>Used to build containers</td>
+<td>Executes the application</td>
+</tr>
+<tr>
+<td>Example</td>
+<td><code>myapp:1.0</code> image</td>
+<td><code>docker run myapp:1.0</code> creates a container</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Summary:</strong><br>Image = blueprint; Container = running instance of that blueprint.</p>
+<h3 id="How-does-Kubernetes-handle-scaling-and-service-discovery"><a href="#How-does-Kubernetes-handle-scaling-and-service-discovery" class="headerlink" title="How does Kubernetes handle scaling and service discovery?"></a>How does Kubernetes handle scaling and service discovery?</h3><p><strong>Scaling:</strong>  </p>
+<ul>
+<li>Kubernetes can automatically scale pods using:<ul>
+<li><strong>Manual scaling:</strong> <code>kubectl scale deployment myapp --replicas=5</code></li>
+<li><strong>Horizontal Pod Autoscaler (HPA):</strong> Automatically adjusts replicas based on CPU/memory metrics.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Service Discovery:</strong>  </p>
+<ul>
+<li>Pods are ephemeral; services use <strong>DNS names</strong> for discovery.</li>
+<li><strong>Kubernetes Service</strong> creates a stable IP and DNS name for a set of pods.  </li>
+<li>Example: <code>http://user-service.default.svc.cluster.local</code></li>
+</ul>
+<h3 id="Explain-difference-between-Blue-Green-and-Rolling-deployments"><a href="#Explain-difference-between-Blue-Green-and-Rolling-deployments" class="headerlink" title="Explain difference between Blue-Green and Rolling deployments."></a>Explain difference between Blue-Green and Rolling deployments.</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Blue-Green Deployment</th>
+<th>Rolling Deployment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Approach</td>
+<td>Two identical environments: Blue (current) &amp; Green (new)</td>
+<td>Update pods gradually with new version</td>
+</tr>
+<tr>
+<td>Downtime</td>
+<td>Near-zero downtime</td>
+<td>Minimal downtime during updates</td>
+</tr>
+<tr>
+<td>Rollback</td>
+<td>Simple: switch traffic back to old environment</td>
+<td>Rollback requires reverting pods</td>
+</tr>
+<tr>
+<td>Complexity</td>
+<td>Requires double resources</td>
+<td>Resource-efficient</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="How-do-you-monitor-Spring-Boot-microservices-in-production-Actuator-ELK-Prometheus"><a href="#How-do-you-monitor-Spring-Boot-microservices-in-production-Actuator-ELK-Prometheus" class="headerlink" title="How do you monitor Spring Boot microservices in production (Actuator, ELK, Prometheus)?"></a>How do you monitor Spring Boot microservices in production (Actuator, ELK, Prometheus)?</h3><p><strong>1. Spring Boot Actuator:</strong>  </p>
+<ul>
+<li>Exposes metrics, health checks, and info endpoints.  </li>
+<li>Example: <code>/actuator/health</code>, <code>/actuator/metrics</code></li>
+</ul>
+<p><strong>2. ELK Stack (Elasticsearch, Logstash, Kibana):</strong>  </p>
+<ul>
+<li>Centralized logging for multiple microservices.  </li>
+<li>Collect logs with Logstash → store in Elasticsearch → visualize in Kibana.</li>
+</ul>
+<p><strong>3. Prometheus &amp; Grafana:</strong>  </p>
+<ul>
+<li>Prometheus scrapes metrics from Actuator endpoints.  </li>
+<li>Grafana visualizes metrics in dashboards.  </li>
+<li><strong>Example</strong>:  <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">management:</span></span><br><span class="line"><span class="attr">endpoints:</span></span><br><span class="line">    <span class="attr">web:</span></span><br><span class="line">    <span class="attr">exposure:</span></span><br><span class="line">        <span class="attr">include:</span> <span class="string">health,</span> <span class="string">metrics,</span> <span class="string">prometheus</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="What-is-CI-CD-How-have-you-implemented-it-in-your-projects"><a href="#What-is-CI-CD-How-have-you-implemented-it-in-your-projects" class="headerlink" title="What is CI/CD? How have you implemented it in your projects?"></a>What is CI/CD? How have you implemented it in your projects?</h3><p>CI/CD stands for Continuous Integration / Continuous Deployment.</p>
+<ul>
+<li>Continuous Integration (CI): Automatically build and test code whenever changes are pushed.</li>
+<li>Continuous Deployment (CD): Automatically deploy code to staging/production after passing tests.</li>
+</ul>
+<p><strong>Typical Implementation</strong>:</p>
+<ol>
+<li>Use GitHub Actions / Jenkins / GitLab CI to build, test, and package Spring Boot services into Docker images.</li>
+<li>Push Docker images to Docker Registry (Docker Hub, ECR, GCR).</li>
+<li>Deploy images to Kubernetes or cloud environment.</li>
+<li>Automated tests and monitoring ensure quality and quick rollback if needed.</li>
+</ol>
+<p><strong>Example GitHub Actions snippet</strong>:<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">CI/CD</span> <span class="string">Pipeline</span></span><br><span class="line"><span class="attr">on:</span> [<span class="string">push</span>]</span><br><span class="line"><span class="attr">jobs:</span></span><br><span class="line">  <span class="attr">build:</span></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">uses:</span> <span class="string">actions/checkout@v3</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Build</span> <span class="string">Docker</span> <span class="string">image</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">docker</span> <span class="string">build</span> <span class="string">-t</span> <span class="string">myapp:$&#123;&#123;</span> <span class="string">github.sha</span> <span class="string">&#125;&#125;</span> <span class="string">.</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Push</span> <span class="string">to</span> <span class="string">registry</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">docker</span> <span class="string">push</span> <span class="string">myapp:$&#123;&#123;</span> <span class="string">github.sha</span> <span class="string">&#125;&#125;</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="SQL-Database-Knowledge"><a href="#SQL-Database-Knowledge" class="headerlink" title="SQL / Database Knowledge"></a>SQL / Database Knowledge</h2><h3 id="Write-a-SQL-query-to-get-department-wise-average-salary"><a href="#Write-a-SQL-query-to-get-department-wise-average-salary" class="headerlink" title="Write a SQL query to get department-wise average salary."></a>Write a SQL query to get department-wise average salary.</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> </span><br><span class="line">    department_id,</span><br><span class="line">    <span class="built_in">AVG</span>(salary) <span class="keyword">AS</span> avg_salary</span><br><span class="line"><span class="keyword">FROM</span> employees</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> department_id</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> avg_salary <span class="keyword">DESC</span>;</span><br></pre></td></tr></table></figure>
+<p><strong>Explanation</strong>:</p>
+<ul>
+<li>GROUP BY groups rows by department.</li>
+<li>AVG() calculates the average salary per department.</li>
+<li>ORDER BY sorts the results (optional).</li>
+</ul>
+<h3 id="Difference-between-INNER-JOIN-LEFT-JOIN-RIGHT-JOIN-FULL-JOIN"><a href="#Difference-between-INNER-JOIN-LEFT-JOIN-RIGHT-JOIN-FULL-JOIN" class="headerlink" title="Difference between INNER JOIN, LEFT JOIN, RIGHT JOIN, FULL JOIN."></a>Difference between INNER JOIN, LEFT JOIN, RIGHT JOIN, FULL JOIN.</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+<th>Example Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>INNER JOIN</strong></td>
+<td>Returns only rows with matching values in both tables.</td>
+<td>Employees that belong to a department.</td>
+</tr>
+<tr>
+<td><strong>LEFT JOIN</strong></td>
+<td>Returns all rows from the left table, even if no match exists in the right table.</td>
+<td>All employees, with department info if available.</td>
+</tr>
+<tr>
+<td><strong>RIGHT JOIN</strong></td>
+<td>Returns all rows from the right table, even if no match exists in the left table.</td>
+<td>All departments, even those with no employees.</td>
+</tr>
+<tr>
+<td><strong>FULL JOIN</strong></td>
+<td>Returns all rows from both tables, with <code>NULL</code> for missing matches.</td>
+<td>All employees and departments, matched where possible.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Example</strong>:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> e.name, d.name <span class="keyword">AS</span> department</span><br><span class="line"><span class="keyword">FROM</span> employees e</span><br><span class="line"><span class="keyword">LEFT</span> <span class="keyword">JOIN</span> departments d <span class="keyword">ON</span> e.dept_id <span class="operator">=</span> d.id;</span><br></pre></td></tr></table></figure></p>
+<h3 id="How-do-you-optimize-slow-running-SQL-queries"><a href="#How-do-you-optimize-slow-running-SQL-queries" class="headerlink" title="How do you optimize slow-running SQL queries?"></a>How do you optimize slow-running SQL queries?</h3><ol>
+<li>Analyze the query plan<ul>
+<li>Use EXPLAIN (MySQL, PostgreSQL) to view execution details.</li>
+<li>Identify full table scans, missing indexes, or inefficient joins.</li>
+</ul>
+</li>
+<li>Create appropriate indexes<ul>
+<li>Add indexes on columns used in WHERE, JOIN, and ORDER BY clauses.</li>
+</ul>
+</li>
+<li>Reduce data retrieval<ul>
+<li>Use SELECT specific_columns instead of SELECT *.</li>
+<li>Apply filters and limits.</li>
+</ul>
+</li>
+<li>Optimize joins and subqueries<ul>
+<li>Prefer joins over nested subqueries when possible.</li>
+</ul>
+</li>
+<li>Use caching<ul>
+<li>Cache frequent queries (e.g., Redis, Memcached).</li>
+</ul>
+</li>
+<li>Partition large tables<ul>
+<li>Improves performance on very large datasets.</li>
+</ul>
+</li>
+</ol>
+<h3 id="Explain-ACID-properties-and-isolation-levels-in-databases"><a href="#Explain-ACID-properties-and-isolation-levels-in-databases" class="headerlink" title="Explain ACID properties and isolation levels in databases."></a>Explain ACID properties and isolation levels in databases.</h3><p><strong>ACID Properties</strong></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Atomicity</strong></td>
+<td>All operations in a transaction succeed or none do.</td>
+</tr>
+<tr>
+<td><strong>Consistency</strong></td>
+<td>Database remains valid before and after the transaction.</td>
+</tr>
+<tr>
+<td><strong>Isolation</strong></td>
+<td>Transactions do not interfere with each other.</td>
+</tr>
+<tr>
+<td><strong>Durability</strong></td>
+<td>Once committed, data changes persist even after failures.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Isolation Levels</strong></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Level</th>
+<th>Description</th>
+<th>Common Problems Prevented</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>READ UNCOMMITTED</strong></td>
+<td>Transactions can read uncommitted data (dirty reads).</td>
+<td>None</td>
+</tr>
+<tr>
+<td><strong>READ COMMITTED</strong></td>
+<td>Prevents dirty reads, allows non-repeatable reads.</td>
+<td>Dirty reads</td>
+</tr>
+<tr>
+<td><strong>REPEATABLE READ</strong></td>
+<td>Prevents dirty and non-repeatable reads, but phantom reads may occur.</td>
+<td>Dirty, non-repeatable reads</td>
+</tr>
+<tr>
+<td><strong>SERIALIZABLE</strong></td>
+<td>Highest level, ensures full isolation (transactions run sequentially).</td>
+<td>All</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="How-do-you-use-indexes-and-what-are-clustered-vs-non-clustered-indexes"><a href="#How-do-you-use-indexes-and-what-are-clustered-vs-non-clustered-indexes" class="headerlink" title="How do you use indexes, and what are clustered vs non-clustered indexes?"></a>How do you use indexes, and what are clustered vs non-clustered indexes?</h3><p><strong>What is an index?</strong><br>An index improves data retrieval speed by allowing the database to find rows quickly, similar to a book index.</p>
+<p><strong>Syntax Example</strong>:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> INDEX idx_employee_name <span class="keyword">ON</span> employees(name);</span><br></pre></td></tr></table></figure><br><strong>Types of Indexes</strong></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Clustered Index</strong></td>
+<td>Physically sorts and stores table data based on the index key. One per table.</td>
+<td><code>PRIMARY KEY</code> automatically creates a clustered index.</td>
+</tr>
+<tr>
+<td><strong>Non-Clustered Index</strong></td>
+<td>Stores index separately from table data, containing pointers to the actual rows.</td>
+<td>Used for frequently queried columns not part of the primary key.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Summary</strong>:</p>
+<ul>
+<li>Clustered = data sorted by index</li>
+<li>Non-clustered = separate lookup structure</li>
+</ul>
+<p><strong>Best Practices</strong>:</p>
+<ul>
+<li>Use indexes on columns often used in filters and joins.</li>
+<li>Avoid over-indexing (it slows down inserts/updates).</li>
+<li>Regularly monitor and rebuild fragmented indexes.</li>
+</ul>
+<h2 id="DSA-amp-Coding-GlobalLogic-Special-Focus"><a href="#DSA-amp-Coding-GlobalLogic-Special-Focus" class="headerlink" title="DSA &amp; Coding (GlobalLogic Special Focus)"></a>DSA &amp; Coding (GlobalLogic Special Focus)</h2><h3 id="Write-a-program-to-reverse-a-linked-list-in-Java-iterative-recursive"><a href="#Write-a-program-to-reverse-a-linked-list-in-Java-iterative-recursive" class="headerlink" title="Write a program to reverse a linked list in Java (iterative + recursive)."></a>Write a program to reverse a linked list in Java (iterative + recursive).</h3><p><strong>Iterative Approach:</strong><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Node</span> &#123;</span><br><span class="line">    <span class="type">int</span> data;</span><br><span class="line">    Node next;</span><br><span class="line">    Node(<span class="type">int</span> data) &#123; <span class="built_in">this</span>.data = data; &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ReverseLinkedList</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Node <span class="title function_">reverseIterative</span><span class="params">(Node head)</span> &#123;</span><br><span class="line">        <span class="type">Node</span> <span class="variable">prev</span> <span class="operator">=</span> <span class="literal">null</span>, curr = head;</span><br><span class="line">        <span class="keyword">while</span> (curr != <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="type">Node</span> <span class="variable">next</span> <span class="operator">=</span> curr.next; <span class="comment">// store next</span></span><br><span class="line">            curr.next = prev;      <span class="comment">// reverse link</span></span><br><span class="line">            prev = curr;           <span class="comment">// move prev forward</span></span><br><span class="line">            curr = next;           <span class="comment">// move curr forward</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> prev; <span class="comment">// new head</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><strong>Recursive Approach</strong>:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> Node <span class="title function_">reverseRecursive</span><span class="params">(Node head)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (head == <span class="literal">null</span> || head.next == <span class="literal">null</span>)</span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">    <span class="type">Node</span> <span class="variable">newHead</span> <span class="operator">=</span> reverseRecursive(head.next);</span><br><span class="line">    head.next.next = head;</span><br><span class="line">    head.next = <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">return</span> newHead;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="Implement-a-program-to-find-the-first-non-repeating-character-in-a-string"><a href="#Implement-a-program-to-find-the-first-non-repeating-character-in-a-string" class="headerlink" title="Implement a program to find the first non-repeating character in a string."></a>Implement a program to find the first non-repeating character in a string.</h3><p>Logic: Use a frequency map to track occurrences, then find the first char with count = 1.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FirstNonRepeatingChar</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">char</span> <span class="title function_">firstNonRepeating</span><span class="params">(String s)</span> &#123;</span><br><span class="line">        Map&lt;Character, Integer&gt; map = <span class="keyword">new</span> <span class="title class_">LinkedHashMap</span>&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">char</span> c : s.toCharArray())</span><br><span class="line">            map.put(c, map.getOrDefault(c, <span class="number">0</span>) + <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (Map.Entry&lt;Character, Integer&gt; entry : map.entrySet()) &#123;</span><br><span class="line">            <span class="keyword">if</span> (entry.getValue() == <span class="number">1</span>)</span><br><span class="line">                <span class="keyword">return</span> entry.getKey();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;_&#x27;</span>; <span class="comment">// if no non-repeating char</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        System.out.println(firstNonRepeating(<span class="string">&quot;swiss&quot;</span>)); <span class="comment">// Output: w</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="Write-a-Java-program-to-find-the-longest-common-prefix-among-a-set-of-strings"><a href="#Write-a-Java-program-to-find-the-longest-common-prefix-among-a-set-of-strings" class="headerlink" title="Write a Java program to find the longest common prefix among a set of strings."></a>Write a Java program to find the longest common prefix among a set of strings.</h3><p>Approach: Compare characters of all strings until mismatch occurs.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LongestCommonPrefix</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">longestCommonPrefix</span><span class="params">(String[] strs)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (strs == <span class="literal">null</span> || strs.length == <span class="number">0</span>) <span class="keyword">return</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="type">String</span> <span class="variable">prefix</span> <span class="operator">=</span> strs[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt; strs.length; i++) &#123;</span><br><span class="line">            <span class="keyword">while</span> (!strs[i].startsWith(prefix)) &#123;</span><br><span class="line">                prefix = prefix.substring(<span class="number">0</span>, prefix.length() - <span class="number">1</span>);</span><br><span class="line">                <span class="keyword">if</span> (prefix.isEmpty()) <span class="keyword">return</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> prefix;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        String[] input = &#123;<span class="string">&quot;flower&quot;</span>, <span class="string">&quot;flow&quot;</span>, <span class="string">&quot;flight&quot;</span>&#125;;</span><br><span class="line">        System.out.println(longestCommonPrefix(input)); <span class="comment">// Output: &quot;fl&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="Implement-LRU-Cache-in-Java"><a href="#Implement-LRU-Cache-in-Java" class="headerlink" title="Implement LRU Cache in Java."></a>Implement LRU Cache in Java.</h3><p>Approach: Use LinkedHashMap with access order.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LRUCache</span>&lt;K, V&gt; <span class="keyword">extends</span> <span class="title class_">LinkedHashMap</span>&lt;K, V&gt; &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">int</span> capacity;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">LRUCache</span><span class="params">(<span class="type">int</span> capacity)</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>(capacity, <span class="number">0.75f</span>, <span class="literal">true</span>); <span class="comment">// accessOrder = true</span></span><br><span class="line">        <span class="built_in">this</span>.capacity = capacity;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="type">boolean</span> <span class="title function_">removeEldestEntry</span><span class="params">(Map.Entry&lt;K, V&gt; eldest)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> size() &gt; capacity;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        LRUCache&lt;Integer, String&gt; cache = <span class="keyword">new</span> <span class="title class_">LRUCache</span>&lt;&gt;(<span class="number">3</span>);</span><br><span class="line">        cache.put(<span class="number">1</span>, <span class="string">&quot;A&quot;</span>);</span><br><span class="line">        cache.put(<span class="number">2</span>, <span class="string">&quot;B&quot;</span>);</span><br><span class="line">        cache.put(<span class="number">3</span>, <span class="string">&quot;C&quot;</span>);</span><br><span class="line">        cache.get(<span class="number">1</span>); <span class="comment">// access 1</span></span><br><span class="line">        cache.put(<span class="number">4</span>, <span class="string">&quot;D&quot;</span>); <span class="comment">// removes 2 (least recently used)</span></span><br><span class="line">        System.out.println(cache.keySet()); <span class="comment">// Output: [3, 1, 4]</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="Write-a-REST-API-to-fetch-last-N-orders-of-a-customer-Spring-Boot-JPA"><a href="#Write-a-REST-API-to-fetch-last-N-orders-of-a-customer-Spring-Boot-JPA" class="headerlink" title="Write a REST API to fetch last N orders of a customer (Spring Boot + JPA)."></a>Write a REST API to fetch last N orders of a customer (Spring Boot + JPA).</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Entity</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Order</span> &#123;</span><br><span class="line">    <span class="meta">@Id</span></span><br><span class="line">    <span class="meta">@GeneratedValue(strategy = GenerationType.IDENTITY)</span></span><br><span class="line">    <span class="keyword">private</span> Long id;</span><br><span class="line">    <span class="keyword">private</span> Long customerId;</span><br><span class="line">    <span class="keyword">private</span> LocalDateTime orderDate;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">double</span> amount;</span><br><span class="line">    <span class="comment">// getters and setters</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Repository</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">OrderRepository</span> <span class="keyword">extends</span> <span class="title class_">JpaRepository</span>&lt;Order, Long&gt; &#123;</span><br><span class="line">    List&lt;Order&gt; <span class="title function_">findTopNByCustomerIdOrderByOrderDateDesc</span><span class="params">(Long customerId, Pageable pageable)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">OrderService</span> &#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> OrderRepository orderRepository;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> List&lt;Order&gt; <span class="title function_">getLastNOrders</span><span class="params">(Long customerId, <span class="type">int</span> n)</span> &#123;</span><br><span class="line">        <span class="type">Pageable</span> <span class="variable">pageable</span> <span class="operator">=</span> PageRequest.of(<span class="number">0</span>, n);</span><br><span class="line">        <span class="keyword">return</span> orderRepository.findByCustomerIdOrderByOrderDateDesc(customerId, pageable);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;/api/orders&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">OrderController</span> &#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> OrderService orderService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping(&quot;/&#123;customerId&#125;/last&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> List&lt;Order&gt; <span class="title function_">getLastNOrders</span><span class="params">(</span></span><br><span class="line"><span class="params">            <span class="meta">@PathVariable</span> Long customerId,</span></span><br><span class="line"><span class="params">            <span class="meta">@RequestParam(defaultValue = &quot;5&quot;)</span> <span class="type">int</span> n)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> orderService.getLastNOrders(customerId, n);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><strong>Example Request</strong>:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GET /api/orders/101/last?n=3</span><br><span class="line"><span class="comment"># Response: Returns the last 3 orders for customer 101 sorted by date (descending).</span></span><br></pre></td></tr></table></figure></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://wenyupeng.github.io">Chris Wen</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://wenyupeng.github.io/2025/08/24/interview/02-java-backend/">https://wenyupeng.github.io/2025/08/24/interview/02-java-backend/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/interview-question/">interview-question</a></div><div class="post-share"><div class="social-share" data-image="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251026173458667.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/10/06/leetcode/205-isomorphic-strings/" title="Leetcode - 205. Isomorphic Strings"><img class="cover" src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20250728225255149.png" onerror="onerror=null;src='/images/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">Leetcode - 205. Isomorphic Strings</div></div><div class="info-2"><div class="info-item-1">DescriptionGiven two strings s and t, determine if they are isomorphic. Two strings s and t are isomorphic if the characters in s can be replaced to get t. All occurrences of a character must be replaced with another character while preserving the order of characters. No two characters may map to the same character, but a character may map to itself. Approach12345678910111213141516class Solution:    def isIsomorphic(self, s: str, t: str) -&gt; bool:        char_index_s = &#123;&#125;        c...</div></div></div></a><a class="pagination-related" href="/2025/08/24/interview/01-anthrapic-swe/" title="interview question of anthrapic"><img class="cover" src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251026173546007.png" onerror="onerror=null;src='/images/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">interview question of anthrapic</div></div><div class="info-2"><div class="info-item-1">Question 1: Concurrent Web Crawler ImplementationDesign and implement a multi-threaded web crawler that efficiently crawls a specific domain and counts unique URLs Requirements:  Handle circular references and invalid URLs implement rate limiting and exponential back off Process robots.txt compliance Support different URL schemes and redirects Optimize for memory usage with large datasets  Overview12345678910111213141516171819[Seed URLs]    |  [Frontier in-memory queue] &lt;--- [Persistent ov...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/08/24/interview/01-anthrapic-swe/" title="interview question of anthrapic"><img class="cover" src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251026173546007.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-08-24</div><div class="info-item-2">interview question of anthrapic</div></div><div class="info-2"><div class="info-item-1">Question 1: Concurrent Web Crawler ImplementationDesign and implement a multi-threaded web crawler that efficiently crawls a specific domain and counts unique URLs Requirements:  Handle circular references and invalid URLs implement rate limiting and exponential back off Process robots.txt compliance Support different URL schemes and redirects Optimize for memory usage with large datasets  Overview12345678910111213141516171819[Seed URLs]    |  [Frontier in-memory queue] &lt;--- [Persistent ov...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/images/lucky-icon.png" onerror="this.onerror=null;this.src='/images/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Chris Wen</div><div class="author-info-description">Dwell not on the past, nor fear the future.</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">70</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">24</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">46</div></a></div><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/wenyupeng" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:chriswen430@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://www.linkedin.com/in/chriswen430" target="_blank" title="Linkedin"><i class="fab fa-linkedin" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">Maintain the motivation to learn and stay humble when facing every problem.</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Interview-Questions"><span class="toc-number">1.</span> <span class="toc-text">Interview Questions</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Core-Java-OOPs-Collections-Concurrency-Basics"><span class="toc-number">1.1.</span> <span class="toc-text">Core Java (OOPs, Collections, Concurrency Basics)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Explain-difference-between-HashMap-HashTable-and-ConcurrentHashMap"><span class="toc-number">1.1.1.</span> <span class="toc-text">Explain difference between HashMap, HashTable, and ConcurrentHashMap.</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#How-does-equals-and-hashCode-work-together-in-collections"><span class="toc-number">1.1.2.</span> <span class="toc-text">How does equals() and hashCode() work together in collections?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Difference-between-shallow-copy-vs-deep-copy-in-Java"><span class="toc-number">1.1.3.</span> <span class="toc-text">Difference between shallow copy vs deep copy in Java.</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#How-do-you-prevent-deadlock-in-multithreaded-applications"><span class="toc-number">1.1.4.</span> <span class="toc-text">How do you prevent deadlock in multithreaded applications?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Explain-volatile-vs-synchronized-%E2%80%94-when-to-use-each"><span class="toc-number">1.1.5.</span> <span class="toc-text">Explain volatile vs synchronized — when to use each.</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Spring-amp-Spring-Boot"><span class="toc-number">1.2.</span> <span class="toc-text">Spring &amp; Spring Boot</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Difference-between-Component-Service-Repository-and-Controller"><span class="toc-number">1.2.1.</span> <span class="toc-text">Difference between @Component, @Service, @Repository, and @Controller.</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#What-is-Spring-Boot-auto-configuration-How-does-it-work-internally"><span class="toc-number">1.2.2.</span> <span class="toc-text">What is Spring Boot auto-configuration? How does it work internally?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#How-do-you-implement-exception-handling-globally-in-Spring-Boot-REST-APIs"><span class="toc-number">1.2.3.</span> <span class="toc-text">How do you implement exception handling globally in Spring Boot REST APIs?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Explain-difference-between-RequestParam-PathVariable-and-RequestBody"><span class="toc-number">1.2.4.</span> <span class="toc-text">Explain difference between @RequestParam, @PathVariable, and @RequestBody.</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#How-do-you-implement-profiles-in-Spring-Boot-for-multiple-environments"><span class="toc-number">1.2.5.</span> <span class="toc-text">How do you implement profiles in Spring Boot for multiple environments?</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JPA-Hibernate"><span class="toc-number">1.3.</span> <span class="toc-text">JPA &#x2F; Hibernate</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#What-are-entity-states-Transient-Persistent-Detached-Removed-in-Hibernate"><span class="toc-number">1.3.1.</span> <span class="toc-text">What are entity states (Transient, Persistent, Detached, Removed) in Hibernate?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Explain-lazy-loading-and-how-to-avoid-LazyInitializationException"><span class="toc-number">1.3.2.</span> <span class="toc-text">Explain lazy loading and how to avoid LazyInitializationException.</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Difference-between-Criteria-API-and-JPQL"><span class="toc-number">1.3.3.</span> <span class="toc-text">Difference between Criteria API and JPQL.</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#What-is-the-difference-between-CascadeType-ALL-and-orphanRemoval"><span class="toc-number">1.3.4.</span> <span class="toc-text">What is the difference between CascadeType.ALL and orphanRemoval?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#How-do-you-implement-pagination-and-sorting-in-Spring-Data-JPA"><span class="toc-number">1.3.5.</span> <span class="toc-text">How do you implement pagination and sorting in Spring Data JPA?</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Microservices-amp-Architecture"><span class="toc-number">1.4.</span> <span class="toc-text">Microservices &amp; Architecture</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Explain-difference-between-monolithic-and-microservices-architectures"><span class="toc-number">1.4.1.</span> <span class="toc-text">Explain difference between monolithic and microservices architectures.</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#How-do-you-implement-inter-service-communication-REST-Kafka-gRPC"><span class="toc-number">1.4.2.</span> <span class="toc-text">How do you implement inter-service communication? (REST, Kafka, gRPC)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#What-is-API-Gateway-and-why-do-we-need-it"><span class="toc-number">1.4.3.</span> <span class="toc-text">What is API Gateway and why do we need it?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#How-do-you-manage-configuration-in-multiple-microservices"><span class="toc-number">1.4.4.</span> <span class="toc-text">How do you manage configuration in multiple microservices?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Explain-circuit-breaker-pattern-Hystrix-Resilience4j-with-example"><span class="toc-number">1.4.5.</span> <span class="toc-text">Explain circuit breaker pattern (Hystrix&#x2F;Resilience4j) with example.</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Cloud-amp-DevOps-Basics"><span class="toc-number">1.5.</span> <span class="toc-text">Cloud &amp; DevOps Basics</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#What-is-the-difference-between-Docker-image-and-Docker-container"><span class="toc-number">1.5.1.</span> <span class="toc-text">What is the difference between Docker image and Docker container?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#How-does-Kubernetes-handle-scaling-and-service-discovery"><span class="toc-number">1.5.2.</span> <span class="toc-text">How does Kubernetes handle scaling and service discovery?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Explain-difference-between-Blue-Green-and-Rolling-deployments"><span class="toc-number">1.5.3.</span> <span class="toc-text">Explain difference between Blue-Green and Rolling deployments.</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#How-do-you-monitor-Spring-Boot-microservices-in-production-Actuator-ELK-Prometheus"><span class="toc-number">1.5.4.</span> <span class="toc-text">How do you monitor Spring Boot microservices in production (Actuator, ELK, Prometheus)?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#What-is-CI-CD-How-have-you-implemented-it-in-your-projects"><span class="toc-number">1.5.5.</span> <span class="toc-text">What is CI&#x2F;CD? How have you implemented it in your projects?</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SQL-Database-Knowledge"><span class="toc-number">1.6.</span> <span class="toc-text">SQL &#x2F; Database Knowledge</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Write-a-SQL-query-to-get-department-wise-average-salary"><span class="toc-number">1.6.1.</span> <span class="toc-text">Write a SQL query to get department-wise average salary.</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Difference-between-INNER-JOIN-LEFT-JOIN-RIGHT-JOIN-FULL-JOIN"><span class="toc-number">1.6.2.</span> <span class="toc-text">Difference between INNER JOIN, LEFT JOIN, RIGHT JOIN, FULL JOIN.</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#How-do-you-optimize-slow-running-SQL-queries"><span class="toc-number">1.6.3.</span> <span class="toc-text">How do you optimize slow-running SQL queries?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Explain-ACID-properties-and-isolation-levels-in-databases"><span class="toc-number">1.6.4.</span> <span class="toc-text">Explain ACID properties and isolation levels in databases.</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#How-do-you-use-indexes-and-what-are-clustered-vs-non-clustered-indexes"><span class="toc-number">1.6.5.</span> <span class="toc-text">How do you use indexes, and what are clustered vs non-clustered indexes?</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DSA-amp-Coding-GlobalLogic-Special-Focus"><span class="toc-number">1.7.</span> <span class="toc-text">DSA &amp; Coding (GlobalLogic Special Focus)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Write-a-program-to-reverse-a-linked-list-in-Java-iterative-recursive"><span class="toc-number">1.7.1.</span> <span class="toc-text">Write a program to reverse a linked list in Java (iterative + recursive).</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Implement-a-program-to-find-the-first-non-repeating-character-in-a-string"><span class="toc-number">1.7.2.</span> <span class="toc-text">Implement a program to find the first non-repeating character in a string.</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Write-a-Java-program-to-find-the-longest-common-prefix-among-a-set-of-strings"><span class="toc-number">1.7.3.</span> <span class="toc-text">Write a Java program to find the longest common prefix among a set of strings.</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Implement-LRU-Cache-in-Java"><span class="toc-number">1.7.4.</span> <span class="toc-text">Implement LRU Cache in Java.</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Write-a-REST-API-to-fetch-last-N-orders-of-a-customer-Spring-Boot-JPA"><span class="toc-number">1.7.5.</span> <span class="toc-text">Write a REST API to fetch last N orders of a customer (Spring Boot + JPA).</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/11/14/big_data/da/11-des-statistics/" title="Box-Cox and Yeo-Johnson Transformations"><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251118091603317.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="Box-Cox and Yeo-Johnson Transformations"/></a><div class="content"><a class="title" href="/2025/11/14/big_data/da/11-des-statistics/" title="Box-Cox and Yeo-Johnson Transformations">Box-Cox and Yeo-Johnson Transformations</a><time datetime="2025-11-14T00:14:08.000Z" title="Created 2025-11-14 11:14:08">2025-11-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/11/13/big_data/da/10-des-statistics/" title="GDPR"><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251118091603317.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="GDPR"/></a><div class="content"><a class="title" href="/2025/11/13/big_data/da/10-des-statistics/" title="GDPR">GDPR</a><time datetime="2025-11-13T05:01:22.000Z" title="Created 2025-11-13 16:01:22">2025-11-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/11/12/big_data/da/12-des-statistics/" title="Dimensionality Reduction and PCA"><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251118091603317.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="Dimensionality Reduction and PCA"/></a><div class="content"><a class="title" href="/2025/11/12/big_data/da/12-des-statistics/" title="Dimensionality Reduction and PCA">Dimensionality Reduction and PCA</a><time datetime="2025-11-12T04:02:22.000Z" title="Created 2025-11-12 15:02:22">2025-11-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/11/11/big_data/da/09-des-statistics/" title="Data Matching"><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251118091603317.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="Data Matching"/></a><div class="content"><a class="title" href="/2025/11/11/big_data/da/09-des-statistics/" title="Data Matching">Data Matching</a><time datetime="2025-11-11T23:11:03.000Z" title="Created 2025-11-12 10:11:03">2025-11-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/11/11/big_data/da/08-des-statistics/" title="Imbalanced Data"><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251118091603317.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="Imbalanced Data"/></a><div class="content"><a class="title" href="/2025/11/11/big_data/da/08-des-statistics/" title="Imbalanced Data">Imbalanced Data</a><time datetime="2025-11-11T09:34:31.000Z" title="Created 2025-11-11 20:34:31">2025-11-11</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;2025 - 2026 By Chris Wen</span></div><div class="footer_custom_text">Live each day with purpose.</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><div class="js-pjax"></div><script src='/js/custom.js'></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="false" data-text="HAPPY,EVERY,DAY" data-fontsize="15px" data-random="true" async="async"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => fn())
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      const usePjax = true
+      false
+        ? (usePjax ? pjax.loadUrl('/404.html') : window.location.href = '/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})()</script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading Database</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><script src="https://cdn.jsdelivr.net/npm/live2d-widget@^3.1.3/lib/L2Dwidget.min.js"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"superSample":3,"position":"left","width":300,"height":600,"hOffset":90,"vOffset":-100},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.3,"opacityOnHover":0.3,"opacity":0.95},"log":false});</script></body></html>
