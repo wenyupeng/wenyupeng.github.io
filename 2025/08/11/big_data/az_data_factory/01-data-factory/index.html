@@ -1,0 +1,361 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Azure Data Factory – Core Concepts Explained | Chris Wen's Blog</title><meta name="author" content="Chris Wen"><meta name="copyright" content="Chris Wen"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Azure Data Factory OverviewAzure Data Factory (ADF) is a fully managed, cloud-based data integration service that allows you to create, schedule, and orchestrate data workflows.It is commonly used for">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Azure Data Factory – Core Concepts Explained">
+<meta property="og:url" content="https://wenyupeng.github.io/2025/08/11/big_data/az_data_factory/01-data-factory/index.html">
+<meta property="og:site_name" content="Chris Wen&#39;s Blog">
+<meta property="og:description" content="Azure Data Factory OverviewAzure Data Factory (ADF) is a fully managed, cloud-based data integration service that allows you to create, schedule, and orchestrate data workflows.It is commonly used for">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20260129095152812.png">
+<meta property="article:published_time" content="2025-08-11T00:15:23.000Z">
+<meta property="article:modified_time" content="2026-03-15T22:27:36.826Z">
+<meta property="article:author" content="Chris Wen">
+<meta property="article:tag" content="data-factory">
+<meta property="article:tag" content="data-integration">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20260129095152812.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Azure Data Factory – Core Concepts Explained",
+  "url": "https://wenyupeng.github.io/2025/08/11/big_data/az_data_factory/01-data-factory/",
+  "image": "https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20260129095152812.png",
+  "datePublished": "2025-08-11T00:15:23.000Z",
+  "dateModified": "2026-03-15T22:27:36.826Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Chris Wen",
+      "url": "https://wenyupeng.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/images/favicon.ico"><link rel="canonical" href="https://wenyupeng.github.io/2025/08/11/big_data/az_data_factory/01-data-factory/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.json","preload":true,"top_n_per_article":-1,"unescape":false,"languages":{"hits_empty":"No results found for: ${query}","hits_stats":"${hits} articles found"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"Author: Chris Wen","link":"Link: ","source":"Source: Chris Wen's Blog","info":"Copyright belongs to the author. For commercial use, please contact the author for authorization. For non-commercial use, please indicate the source."}},
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: true,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Azure Data Factory – Core Concepts Explained',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/custom-style.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/constown/HexoCustomFile@0.0.4/dist/css/custom.min.css"><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Chris Wen's Blog" type="application/atom+xml">
+</head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load', preloader.endLoading)
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/images/lucky-icon.png" onerror="this.onerror=null;this.src='/images/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">82</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">27</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">48</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/project/"><i class="fa-fw fas fa-project-diagram"></i><span> Project</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post type-page" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20260129095152812.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Chris Wen's Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">Azure Data Factory – Core Concepts Explained</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/project/"><i class="fa-fw fas fa-project-diagram"></i><span> Project</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Azure Data Factory – Core Concepts Explained</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-08-11T00:15:23.000Z" title="Created 2025-08-11 10:15:23">2025-08-11</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2026-03-15T22:27:36.826Z" title="Updated 2026-03-16 09:27:36">2026-03-16</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/azure/">azure</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">545</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>3mins</span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:30,&quot;messagePrev&quot;:&quot;It has been&quot;,&quot;messageNext&quot;:&quot;days since the last update, the content of the article may be outdated.&quot;,&quot;postUpdate&quot;:&quot;2026-03-16 09:27:36&quot;}" hidden></div><h1 id="Azure-Data-Factory-Overview"><a href="#Azure-Data-Factory-Overview" class="headerlink" title="Azure Data Factory Overview"></a>Azure Data Factory Overview</h1><p>Azure Data Factory (ADF) is a fully managed, cloud-based data integration service that allows you to create, schedule, and orchestrate data workflows.<br>It is commonly used for ETL / ELT pipelines, enabling data movement and transformation across different data sources at scale.</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20260130004146178.png" alt="Azure Data Factory Architecture"></h2><h2 id="Resource-Group"><a href="#Resource-Group" class="headerlink" title="Resource Group"></a>Resource Group</h2><p>A Resource Group is a logical container in Azure that holds related resources for an Azure solution.</p>
+<p>In Azure Data Factory, the resource group typically contains:</p>
+<ul>
+<li>Azure Data Factory instance</li>
+<li>Storage accounts (e.g. Blob Storage, Data Lake)</li>
+<li>Azure SQL / Synapse resources</li>
+<li>Networking and security configurations</li>
+</ul>
+<p>Using resource groups helps with lifecycle management, access control, and cost tracking.</p>
+<h2 id="-1"><a href="#-1" class="headerlink" title=""></a><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20260130004224372.png" alt="Azure Resource Group"></h2><h2 id="Top-Level-Concepts-in-Azure-Data-Factory"><a href="#Top-Level-Concepts-in-Azure-Data-Factory" class="headerlink" title="Top-Level Concepts in Azure Data Factory"></a>Top-Level Concepts in Azure Data Factory</h2><p>Azure Data Factory is built around several core components:</p>
+<ul>
+<li><strong>Pipelines</strong> – Logical groups of activities that perform a task</li>
+<li><strong>Activities</strong> – Individual processing steps (e.g. copy, transform)</li>
+<li><strong>Datasets</strong> – Represent data structures used as inputs and outputs</li>
+<li><strong>Data Flows</strong> – Visual data transformation logic</li>
+<li><strong>Integration Runtimes</strong> – Compute infrastructure for data movement and transformation</li>
+</ul>
+<h2 id="-2"><a href="#-2" class="headerlink" title=""></a><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20260130004315635.png" alt="ADF Components"></h2><h2 id="Pipelines-and-Activities"><a href="#Pipelines-and-Activities" class="headerlink" title="Pipelines and Activities"></a>Pipelines and Activities</h2><p>A pipeline is a container for one or more activities that together perform a workflow.</p>
+<p>An activity defines a specific action, such as:</p>
+<ul>
+<li>Copying data</li>
+<li>Executing a data flow</li>
+<li>Running a stored procedure</li>
+<li>Calling an external service</li>
+</ul>
+<p>Pipelines support control flow, including:</p>
+<ul>
+<li>Conditional logic</li>
+<li>Loops</li>
+<li>Error handling</li>
+</ul>
+<hr>
+<h2 id="Linked-Services-and-Datasets"><a href="#Linked-Services-and-Datasets" class="headerlink" title="Linked Services and Datasets"></a>Linked Services and Datasets</h2><h3 id="Linked-Services"><a href="#Linked-Services" class="headerlink" title="Linked Services"></a>Linked Services</h3><p>A Linked Service is similar to a connection string.<br>It defines the connection information required for Azure Data Factory to connect to external resources such as databases, storage accounts, or SaaS services.</p>
+<p>Examples:</p>
+<ul>
+<li>Azure Blob Storage</li>
+<li>Azure SQL Database</li>
+<li>Amazon S3</li>
+<li>On-premises SQL Server</li>
+</ul>
+<h3 id="Datasets"><a href="#Datasets" class="headerlink" title="Datasets"></a>Datasets</h3><p>A Dataset represents a named view of data within a linked service.</p>
+<p>Datasets identify:</p>
+<ul>
+<li>Tables</li>
+<li>Files</li>
+<li>Folders</li>
+<li>Documents</li>
+</ul>
+<p>For example, an Azure Blob Storage dataset specifies:</p>
+<ul>
+<li>Container name</li>
+<li>Folder path</li>
+<li>File format</li>
+</ul>
+<h2 id="-3"><a href="#-3" class="headerlink" title=""></a><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20260130004349228.png" alt="Linked Service and Dataset"></h2><h2 id="Azure-Blob-Storage"><a href="#Azure-Blob-Storage" class="headerlink" title="Azure Blob Storage"></a>Azure Blob Storage</h2><p>Azure Blob Storage is Microsoft’s object storage solution for the cloud, optimized for storing large amounts of unstructured data.</p>
+<p>Unstructured data includes:</p>
+<ul>
+<li>Text files</li>
+<li>Images</li>
+<li>Videos</li>
+<li>Binary data</li>
+<li>Logs</li>
+</ul>
+<h3 id="Common-Use-Cases"><a href="#Common-Use-Cases" class="headerlink" title="Common Use Cases"></a>Common Use Cases</h3><p>Azure Blob Storage is designed for:</p>
+<ol>
+<li>Serving images or documents directly to browsers</li>
+<li>Storing files for distributed access</li>
+<li>Streaming video and audio</li>
+<li>Writing and storing log files</li>
+<li>Backup, restore, and disaster recovery</li>
+<li>Storing data for analytics and machine learning workloads</li>
+</ol>
+<h2 id="-4"><a href="#-4" class="headerlink" title=""></a><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20260130004455493.png" alt="Azure Blob Storage"></h2><h2 id="Variables-in-Azure-Data-Factory"><a href="#Variables-in-Azure-Data-Factory" class="headerlink" title="Variables in Azure Data Factory"></a>Variables in Azure Data Factory</h2><p>Pipeline variables are values that can be:</p>
+<ul>
+<li>Defined at the pipeline level</li>
+<li>Modified during pipeline execution</li>
+</ul>
+<p>They are commonly used for:</p>
+<ul>
+<li>Storing intermediate values</li>
+<li>Controlling workflow logic</li>
+<li>Tracking execution states</li>
+</ul>
+<hr>
+<h2 id="Parameters-in-Azure-Data-Factory"><a href="#Parameters-in-Azure-Data-Factory" class="headerlink" title="Parameters in Azure Data Factory"></a>Parameters in Azure Data Factory</h2><p>Pipeline parameters are values passed into a pipeline at runtime.</p>
+<p>Key characteristics:</p>
+<ul>
+<li>Defined at pipeline level</li>
+<li>Cannot be changed during execution</li>
+<li>Used to make pipelines reusable</li>
+</ul>
+<p>Common use cases include:</p>
+<ul>
+<li>Passing file paths</li>
+<li>Environment-specific values</li>
+<li>Dataset configuration settings</li>
+</ul>
+<hr>
+<h2 id="JSON-Structure-in-ADF"><a href="#JSON-Structure-in-ADF" class="headerlink" title="JSON Structure in ADF"></a>JSON Structure in ADF</h2><p>Behind the Azure Data Factory UI, all pipelines, datasets, and linked services are stored as JSON definitions.</p>
+<p>These JSON files describe:</p>
+<ul>
+<li>Activity logic</li>
+<li>Dependencies</li>
+<li>Expressions</li>
+<li>Parameters and variables</li>
+</ul>
+<p>This enables:</p>
+<ul>
+<li>Source control integration (Git)</li>
+<li>CI/CD pipelines</li>
+<li>Automated deployments</li>
+</ul>
+<hr>
+<h2 id="Integration-Runtime-IR"><a href="#Integration-Runtime-IR" class="headerlink" title="Integration Runtime (IR)"></a>Integration Runtime (IR)</h2><p>The Integration Runtime (IR) is the compute infrastructure used by Azure Data Factory to provide data integration capabilities.</p>
+<p>It is responsible for:</p>
+<ul>
+<li>Data movement</li>
+<li>Data transformation</li>
+<li>Executing data flows</li>
+</ul>
+<h3 id="Types-of-Integration-Runtime"><a href="#Types-of-Integration-Runtime" class="headerlink" title="Types of Integration Runtime"></a>Types of Integration Runtime</h3><ul>
+<li><strong>Azure IR</strong> – Fully managed, runs in Azure</li>
+<li><strong>Self-hosted IR</strong> – Used for on-premises or private networks</li>
+<li><strong>Azure-SSIS IR</strong> – For running SSIS packages in Azure</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20260130004540520.png" alt="Integration Runtime"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://wenyupeng.github.io">Chris Wen</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://wenyupeng.github.io/2025/08/11/big_data/az_data_factory/01-data-factory/">https://wenyupeng.github.io/2025/08/11/big_data/az_data_factory/01-data-factory/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/data-factory/">data-factory</a><a class="post-meta__tags" href="/tags/data-integration/">data-integration</a></div><div class="post-share"><div class="social-share" data-image="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20260129095152812.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/08/12/big_data/az_data_factory/03-transformation/" title="Transformation"><img class="cover" src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20260129095152812.png" onerror="onerror=null;src='/images/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">Transformation</div></div><div class="info-2"><div class="info-item-1">What is data transformationConditional Split TransformationThe conditional split transformation routes data rows to different streams based on matching conditions The conditional split transformation is similar to a CASE decision structure in a programming language. The transformation evaluates expressions, and based on the results, directs the data row to the specified stream Exists TransformationThe exists transformation is a row filtering transformation that checks whether your data exists...</div></div></div></a><a class="pagination-related" href="/2025/08/11/big_data/az_data_factory/02-activity/" title="Activity"><img class="cover" src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20260129095152812.png" onerror="onerror=null;src='/images/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">Activity</div></div><div class="info-2"><div class="info-item-1">What is ActivityCopy ActivityIn Azure Data Factory and Synapse pipelines, you can use the Copy activity to copy data among stores located on-premises and in the cloud. After you copy the data, you can use otheer activities to further transform and analyze it. Append Variable ActivityUse the Append Variable activity to add a value to an existing array variable. Delete ActivityDelete files or folders from on-premises storage stores or cloud storage store. This activity is used to clean up or ac...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/08/11/big_data/az_data_factory/02-activity/" title="Activity"><img class="cover" src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20260129095152812.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-08-11</div><div class="info-item-2">Activity</div></div><div class="info-2"><div class="info-item-1">What is ActivityCopy ActivityIn Azure Data Factory and Synapse pipelines, you can use the Copy activity to copy data among stores located on-premises and in the cloud. After you copy the data, you can use otheer activities to further transform and analyze it. Append Variable ActivityUse the Append Variable activity to add a value to an existing array variable. Delete ActivityDelete files or folders from on-premises storage stores or cloud storage store. This activity is used to clean up or ac...</div></div></div></a><a class="pagination-related" href="/2025/08/12/big_data/az_data_factory/03-transformation/" title="Transformation"><img class="cover" src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20260129095152812.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-08-12</div><div class="info-item-2">Transformation</div></div><div class="info-2"><div class="info-item-1">What is data transformationConditional Split TransformationThe conditional split transformation routes data rows to different streams based on matching conditions The conditional split transformation is similar to a CASE decision structure in a programming language. The transformation evaluates expressions, and based on the results, directs the data row to the specified stream Exists TransformationThe exists transformation is a row filtering transformation that checks whether your data exists...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/images/lucky-icon.png" onerror="this.onerror=null;this.src='/images/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Chris Wen</div><div class="author-info-description">Dwell not on the past, nor fear the future.</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">82</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">27</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">48</div></a></div><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/wenyupeng" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:chriswen430@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://www.linkedin.com/in/chriswen430" target="_blank" title="Linkedin"><i class="fab fa-linkedin" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">Maintain the motivation to learn and stay humble when facing every problem.</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Azure-Data-Factory-Overview"><span class="toc-number">1.</span> <span class="toc-text">Azure Data Factory Overview</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.1.</span> <span class="toc-text"></span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Resource-Group"><span class="toc-number">1.2.</span> <span class="toc-text">Resource Group</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#-1"><span class="toc-number">1.3.</span> <span class="toc-text"></span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Top-Level-Concepts-in-Azure-Data-Factory"><span class="toc-number">1.4.</span> <span class="toc-text">Top-Level Concepts in Azure Data Factory</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#-2"><span class="toc-number">1.5.</span> <span class="toc-text"></span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Pipelines-and-Activities"><span class="toc-number">1.6.</span> <span class="toc-text">Pipelines and Activities</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Linked-Services-and-Datasets"><span class="toc-number">1.7.</span> <span class="toc-text">Linked Services and Datasets</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Linked-Services"><span class="toc-number">1.7.1.</span> <span class="toc-text">Linked Services</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Datasets"><span class="toc-number">1.7.2.</span> <span class="toc-text">Datasets</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#-3"><span class="toc-number">1.8.</span> <span class="toc-text"></span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Azure-Blob-Storage"><span class="toc-number">1.9.</span> <span class="toc-text">Azure Blob Storage</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Common-Use-Cases"><span class="toc-number">1.9.1.</span> <span class="toc-text">Common Use Cases</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#-4"><span class="toc-number">1.10.</span> <span class="toc-text"></span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Variables-in-Azure-Data-Factory"><span class="toc-number">1.11.</span> <span class="toc-text">Variables in Azure Data Factory</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Parameters-in-Azure-Data-Factory"><span class="toc-number">1.12.</span> <span class="toc-text">Parameters in Azure Data Factory</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JSON-Structure-in-ADF"><span class="toc-number">1.13.</span> <span class="toc-text">JSON Structure in ADF</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Integration-Runtime-IR"><span class="toc-number">1.14.</span> <span class="toc-text">Integration Runtime (IR)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Types-of-Integration-Runtime"><span class="toc-number">1.14.1.</span> <span class="toc-text">Types of Integration Runtime</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/11/14/big_data/da/11-des-statistics-2/" title="Box-Cox and Yeo-Johnson Transformations"><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251118091603317.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="Box-Cox and Yeo-Johnson Transformations"/></a><div class="content"><a class="title" href="/2025/11/14/big_data/da/11-des-statistics-2/" title="Box-Cox and Yeo-Johnson Transformations">Box-Cox and Yeo-Johnson Transformations</a><time datetime="2025-11-14T00:14:08.000Z" title="Created 2025-11-14 11:14:08">2025-11-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/11/13/big_data/da/11-des-statistics-1/" title="Feature Selection"><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251118091603317.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="Feature Selection"/></a><div class="content"><a class="title" href="/2025/11/13/big_data/da/11-des-statistics-1/" title="Feature Selection">Feature Selection</a><time datetime="2025-11-13T22:22:12.000Z" title="Created 2025-11-14 09:22:12">2025-11-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/11/13/big_data/da/10-des-statistics/" title="GDPR"><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251118091603317.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="GDPR"/></a><div class="content"><a class="title" href="/2025/11/13/big_data/da/10-des-statistics/" title="GDPR">GDPR</a><time datetime="2025-11-13T05:01:22.000Z" title="Created 2025-11-13 16:01:22">2025-11-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/11/12/big_data/da/12-des-statistics/" title="Dimensionality Reduction and PCA"><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251118091603317.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="Dimensionality Reduction and PCA"/></a><div class="content"><a class="title" href="/2025/11/12/big_data/da/12-des-statistics/" title="Dimensionality Reduction and PCA">Dimensionality Reduction and PCA</a><time datetime="2025-11-12T04:02:22.000Z" title="Created 2025-11-12 15:02:22">2025-11-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/11/11/big_data/da/09-des-statistics/" title="Data Matching"><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251118091603317.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="Data Matching"/></a><div class="content"><a class="title" href="/2025/11/11/big_data/da/09-des-statistics/" title="Data Matching">Data Matching</a><time datetime="2025-11-11T23:11:03.000Z" title="Created 2025-11-12 10:11:03">2025-11-12</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;2025 - 2026 By Chris Wen</span></div><div class="footer_custom_text">Live each day with purpose.</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><div class="js-pjax"></div><script src='/js/custom.js'></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="false" data-text="HAPPY,EVERY,DAY" data-fontsize="15px" data-random="true" async="async"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => fn())
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      const usePjax = true
+      false
+        ? (usePjax ? pjax.loadUrl('/404.html') : window.location.href = '/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})()</script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading Database</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><script src="https://cdn.jsdelivr.net/npm/live2d-widget@^3.1.3/lib/L2Dwidget.min.js"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"superSample":3,"position":"left","width":300,"height":600,"hOffset":90,"vOffset":-100},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.3,"opacityOnHover":0.3,"opacity":0.95},"log":false});</script></body></html>
