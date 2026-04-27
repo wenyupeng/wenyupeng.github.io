@@ -1,0 +1,330 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>MySQL Index | Chris Wen's Blog</title><meta name="author" content="Chris Wen"><meta name="copyright" content="Chris Wen"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="MySQL IndexIndexes are data structures that improve the speed of data retrieval operations on a database table at the cost of additional storage space and maintenance overhead. In MySQL, indexes are u">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL Index">
+<meta property="og:url" content="https://wenyupeng.github.io/2025/06/09/database/mysql/07-index/index.html">
+<meta property="og:site_name" content="Chris Wen&#39;s Blog">
+<meta property="og:description" content="MySQL IndexIndexes are data structures that improve the speed of data retrieval operations on a database table at the cost of additional storage space and maintenance overhead. In MySQL, indexes are u">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251007095210307.png">
+<meta property="article:published_time" content="2025-06-09T13:11:27.000Z">
+<meta property="article:modified_time" content="2026-04-27T12:17:47.752Z">
+<meta property="article:author" content="Chris Wen">
+<meta property="article:tag" content="mysql">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251007095210307.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "MySQL Index",
+  "url": "https://wenyupeng.github.io/2025/06/09/database/mysql/07-index/",
+  "image": "https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251007095210307.png",
+  "datePublished": "2025-06-09T13:11:27.000Z",
+  "dateModified": "2026-04-27T12:17:47.752Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Chris Wen",
+      "url": "https://wenyupeng.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/images/favicon.ico"><link rel="canonical" href="https://wenyupeng.github.io/2025/06/09/database/mysql/07-index/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.json","preload":true,"top_n_per_article":-1,"unescape":false,"languages":{"hits_empty":"No results found for: ${query}","hits_stats":"${hits} articles found"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"Author: Chris Wen","link":"Link: ","source":"Source: Chris Wen's Blog","info":"Copyright belongs to the author. For commercial use, please contact the author for authorization. For non-commercial use, please indicate the source."}},
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: true,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'MySQL Index',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/custom-style.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/constown/HexoCustomFile@0.0.4/dist/css/custom.min.css"><meta name="generator" content="Hexo 8.1.1"><link rel="alternate" href="/atom.xml" title="Chris Wen's Blog" type="application/atom+xml">
+</head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load', preloader.endLoading)
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/images/lucky-icon.png" onerror="this.onerror=null;this.src='/images/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">109</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">32</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">57</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/project/"><i class="fa-fw fas fa-project-diagram"></i><span> Project</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post type-page" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251007095210307.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Chris Wen's Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">MySQL Index</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/project/"><i class="fa-fw fas fa-project-diagram"></i><span> Project</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">MySQL Index</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-06-09T13:11:27.000Z" title="Created 2025-06-09 23:11:27">2025-06-09</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2026-04-27T12:17:47.752Z" title="Updated 2026-04-27 22:17:47">2026-04-27</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/database/">database</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/database/mysql/">mysql</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">1.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>7mins</span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:30,&quot;messagePrev&quot;:&quot;It has been&quot;,&quot;messageNext&quot;:&quot;days since the last update, the content of the article may be outdated.&quot;,&quot;postUpdate&quot;:&quot;2026-04-27 22:17:47&quot;}" hidden></div><h1 id="MySQL-Index"><a href="#MySQL-Index" class="headerlink" title="MySQL Index"></a>MySQL Index</h1><p>Indexes are data structures that improve the speed of data retrieval operations on a database table at the cost of additional storage space and maintenance overhead. In MySQL, indexes are used to quickly locate and access the data in a table without having to scan the entire table. There are several types of indexes in MySQL, including:</p>
+<ul>
+<li><strong>B-Tree Indexes</strong>: This is the most common type of index in MySQL. It organizes the data in a balanced tree structure, allowing for efficient searching, insertion, and deletion operations. B-Tree indexes are suitable for a wide range of queries, including equality and range queries.</li>
+<li><strong>Hash Indexes</strong>: This type of index uses a hash function to map the indexed values to a specific location in the index. Hash indexes are very fast for equality queries but are not suitable for range queries or sorting operations.</li>
+<li><strong>Full-Text Indexes</strong>: This type of index is used for full-text searching in MySQL. It allows you to perform complex searches on text data, such as searching for specific words or phrases within a column.</li>
+<li><strong>Spatial Indexes</strong>: This type of index is used for spatial data types in MySQL, such as points, lines, and polygons. Spatial indexes allow for efficient querying of spatial data, such as finding all points within a certain distance from a given location.</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Index Type</th>
+<th>Use Cases</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B-Tree Indexes</td>
+<td>General-purpose indexing for a wide range of queries, including equality and range queries.</td>
+</tr>
+<tr>
+<td>Hash Indexes</td>
+<td>Fast equality queries, but not suitable for range queries or sorting operations.</td>
+</tr>
+<tr>
+<td>Full-Text Indexes</td>
+<td>Full-text searching on text data, such as searching for specific words or phrases within a column.</td>
+</tr>
+<tr>
+<td>Spatial Indexes</td>
+<td>Efficient querying of spatial data, such as finding all points within a certain distance from a given location.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>When creating an index in MySQL, you can specify the type of index you want to create using the <code>USING</code> clause. For example:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> INDEX idx_name <span class="keyword">ON</span> table_name (column_name) <span class="keyword">USING</span> BTREE;</span><br></pre></td></tr></table></figure></p>
+<h2 id="Indexing-Strategies"><a href="#Indexing-Strategies" class="headerlink" title="Indexing Strategies"></a>Indexing Strategies</h2><p>When designing your database schema and creating indexes, it’s important to consider the following strategies:</p>
+<ul>
+<li><strong>Choose the right columns</strong>: Indexes should be created on columns that are frequently used in WHERE clauses, JOIN conditions, or as part of an ORDER BY clause. Avoid creating indexes on columns that are rarely used in queries, as this can lead to unnecessary overhead.</li>
+<li><strong>Use composite indexes</strong>: If you have queries that filter on multiple columns, consider creating a composite index that includes all the relevant columns. This can improve query performance by allowing the database to use a single index for multiple conditions.</li>
+<li><strong>Limit the number of indexes</strong>: While indexes can improve query performance, having too many indexes can lead to increased storage requirements and slower write operations. It’s important to strike a balance between query performance and maintenance overhead when creating indexes.</li>
+<li><strong>Regularly monitor and optimize indexes</strong>: As your database grows and evolves, it’s important to regularly monitor the performance of your indexes and optimize them as needed. This may involve adding new indexes, removing unused indexes, or reorganizing existing indexes to improve query performance.</li>
+</ul>
+<h2 id="B-Tree-Indexes"><a href="#B-Tree-Indexes" class="headerlink" title="B-Tree Indexes"></a>B-Tree Indexes</h2><p>B-Tree indexes are the most commonly used type of index in MySQL. They are organized in a balanced tree structure, which allows for efficient searching, insertion, and deletion operations. B-Tree indexes are suitable for a wide range of queries, including equality and range queries. When a query is executed that can utilize a B-Tree index, MySQL will traverse the tree structure to quickly locate the relevant data, resulting in faster query performance compared to scanning the entire table.</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Index Type</th>
+<th>INNODB</th>
+<th>MyISAM</th>
+<th>Memory</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B-Tree Indexes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Hash Indexes</td>
+<td>No</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Full-Text Indexes</td>
+<td>Yes (InnoDB 5.6+)</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Spatial Indexes</td>
+<td>Yes (InnoDB 5.7+)</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>When creating a B-Tree index, you can specify the columns to be indexed and the type of index to be created. For example:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> INDEX idx_name <span class="keyword">ON</span> table_name (column_name) <span class="keyword">USING</span> BTREE;</span><br></pre></td></tr></table></figure></p>
+<h3 id="Structure-of-B-Tree-Indexes"><a href="#Structure-of-B-Tree-Indexes" class="headerlink" title="Structure of B-Tree Indexes"></a>Structure of B-Tree Indexes</h3><p>B-Tree indexes are structured as a balanced tree, where each node contains a certain number of keys and pointers to child nodes. The keys in the B-Tree index are stored in sorted order, which allows for efficient searching. When a query is executed that can utilize a B-Tree index, MySQL will traverse the tree structure to quickly locate the relevant data. The search process involves comparing the search key with the keys in the nodes of the tree and following the appropriate pointers until the desired data is found or determined to be absent.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">-- Structure of a B-Tree index</span><br><span class="line">B-Tree Index</span><br><span class="line">├── Node 1 (keys: A, B, C)</span><br><span class="line">│   ├── Pointer to Node 2 (keys: A1, A2)</span><br><span class="line">│   ├── Pointer to Node 3 (keys: B1, B2)</span><br><span class="line">│   └── Pointer to Node 4 (keys: C1, C2)</span><br><span class="line">├── Node 2 (keys: A1, A2)</span><br><span class="line">├── Node 3 (keys: B1, B2)</span><br><span class="line">└── Node 4 (keys: C1, C2)</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20260417200628889.png" alt="B-Tree Index"></p>
+<blockquote>
+<p>B-Tree and AVL trees are both types of self-balancing binary search trees, but they have different structures and use cases. B-Tree indexes are designed for efficient storage and retrieval of data in databases, while AVL trees are primarily used in memory for fast access to data. B-Tree indexes can have multiple keys and pointers in each node, allowing for efficient searching and insertion, while AVL trees maintain a strict balance condition to ensure logarithmic time complexity for search, insertion, and deletion operations.</p>
+</blockquote>
+<h2 id="Hash-Indexes"><a href="#Hash-Indexes" class="headerlink" title="Hash Indexes"></a>Hash Indexes</h2><p>Hash indexes use a hash function to map the indexed values to a specific location in the index. Hash indexes are very fast for equality queries, as they can directly access the relevant data based on the hash value. However, they are not suitable for range queries or sorting operations, as the hash function does not preserve the order of the indexed values. Hash indexes are only supported by the Memory storage engine in MySQL.</p>
+<p>When creating a hash index, you can specify the columns to be indexed and the type of index to be created. For example:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> INDEX idx_name <span class="keyword">ON</span> table_name (column_name) <span class="keyword">USING</span> HASH;</span><br></pre></td></tr></table></figure></p>
+<h2 id="B-Tree-Indexes-1"><a href="#B-Tree-Indexes-1" class="headerlink" title="B+Tree Indexes"></a>B+Tree Indexes</h2><p>B+Tree indexes are a variation of B-Tree indexes that store all the indexed values in the leaf nodes of the tree, while the internal nodes only contain keys and pointers to the child nodes. This structure allows for efficient range queries and sorting operations, as the leaf nodes are linked together in a sorted order. B+Tree indexes are commonly used in databases to improve query performance for a wide range of queries.</p>
+<p>When creating a B+Tree index, you can specify the columns to be indexed and the type of index to be created. For example:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> INDEX idx_name <span class="keyword">ON</span> table_name (column_name) <span class="keyword">USING</span> BTREE;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">-- Structure of a B+Tree index</span><br><span class="line">B+Tree Index</span><br><span class="line">├── Internal Node 1 (keys: A, B, C)</span><br><span class="line">│   ├── Pointer to Internal Node 2 (keys: A1, A2)</span><br><span class="line">│   ├── Pointer to Internal Node 3 (keys: B1, B2)</span><br><span class="line">│   └── Pointer to Internal Node 4 (keys: C1, C2)</span><br><span class="line">├── Leaf Node 1 (keys: A1, A2)</span><br><span class="line">├── Leaf Node 2 (keys: B1, B2)</span><br><span class="line">└── Leaf Node 3 (keys: C1, C2)</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20260417195811947.png" alt="B+Tree Index"></p>
+<h2 id="Full-Text-Indexes"><a href="#Full-Text-Indexes" class="headerlink" title="Full-Text Indexes"></a>Full-Text Indexes</h2><p>Full-text indexes are used for full-text searching in MySQL. They allow you to perform complex searches on text data, such as searching for specific words or phrases within a column. Full-text indexes are supported by both the InnoDB and MyISAM storage engines in MySQL.</p>
+<p>When creating a full-text index, you can specify the columns to be indexed and the type of index to be created. For example:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> FULLTEXT INDEX idx_name <span class="keyword">ON</span> table_name (column_name);</span><br></pre></td></tr></table></figure></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://wenyupeng.github.io">Chris Wen</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://wenyupeng.github.io/2025/06/09/database/mysql/07-index/">https://wenyupeng.github.io/2025/06/09/database/mysql/07-index/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/mysql/">mysql</a></div><div class="post-share"><div class="social-share" data-image="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251007095210307.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/06/10/computer_basic/data_structure_and_algorithm/01-greedy/" title="Greedy Algorithms"><img class="cover" src="https://jsd.012700.xyz/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="onerror=null;src='/images/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">Greedy Algorithms</div></div><div class="info-2"><div class="info-item-1">Greedy AlgorithmsGreedy algorithms are a class of algorithms that make locally optimal choices at each step with the hope of finding a global optimum. They are often used for optimization problems where the solution can be built incrementally by making a series of choices. Maximun SwapMaximum Swap CandyCandy </div></div></div></a><a class="pagination-related" href="/2025/06/08/database/mysql/06-engine/" title="MySQL Storage Engine"><img class="cover" src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20250728225233182.png" onerror="onerror=null;src='/images/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">MySQL Storage Engine</div></div><div class="info-2"><div class="info-item-1">MySQL Storage EngineMySQL supports multiple storage engines, each with its own features and use cases. The most commonly used storage engines are InnoDB and MyISAM.  InnoDB: This is the default storage engine in MySQL. It supports transactions, foreign keys, and row-level locking, making it suitable for high-concurrency applications. InnoDB is designed for reliability and performance, and it is the recommended storage engine for most applications. MyISAM: This storage engine is older and does...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/08/04/container/docker/03-docker-mysql/" title="Docker Compose Install Mysql"><img class="cover" src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251007095245295.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-08-04</div><div class="info-item-2">Docker Compose Install Mysql</div></div><div class="info-2"><div class="info-item-1">Installing Mysql using Docker Compose12345678910111213141516version: &#x27;3&#x27;services:  mysql:    image: mysql:8.0.18    container_name: mysql8    environment:      - MYSQL_ROOT_PASSWORD=root#      - TZ=Asia/Shanghai    volumes:      - ./log:/var/log/mysql      - ./data:/var/lib/mysql      - ./conf/conf.d:/etc/mysql/conf.d      # - /etc/localtime:/etc/localtime:ro    ports:      - 3306:3306    restart: always</div></div></div></a><a class="pagination-related" href="/2025/06/04/database/mysql/01-fundamental/" title="MySQL Installation Guide"><img class="cover" src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251007095230189.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-06-04</div><div class="info-item-2">MySQL Installation Guide</div></div><div class="info-2"><div class="info-item-1">MySQL Basic InformationMySQL is an open-source relational database management system (RDBMS) that uses Structured Query Language (SQL) for managing and manipulating data. It is widely used for web applications, data warehousing, and various other applications due to its reliability, performance, and ease of use. MySQL ArchitectureMySQL follows a client-server architecture, where the MySQL server manages the database and handles client requests. The server consists of several components, inclu...</div></div></div></a><a class="pagination-related" href="/2025/06/04/database/mysql/02-data%20type/" title="MySQL Data Types"><img class="cover" src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20250728225255149.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-06-04</div><div class="info-item-2">MySQL Data Types</div></div><div class="info-2"><div class="info-item-1">MySQL Data TypesThis chapter provides a structured overview of MySQL data types, including numeric, string, temporal, and other specialized types. Understanding these types is essential for esigning efficient and reliable database schemas.  Numeric TypesInteger TypesMySQL provides several integer types (e.g., TINYINT, INT, BIGINT) to store whole numbers. Historically, these types allowed an optional display width (M). Key points:  The display width (M) defines the minimum display width, not t...</div></div></div></a><a class="pagination-related" href="/2025/06/06/database/mysql/04-query/" title="MySQL Query"><img class="cover" src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251007095230189.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-06-06</div><div class="info-item-2">MySQL Query</div></div><div class="info-2"><div class="info-item-1">Join QueryA JOIN query is used to combine rows from two or more tables based on a related column between them. There are several types of JOINs in MySQL, including INNER JOIN, LEFT JOIN, RIGHT JOIN, and FULL OUTER JOIN. INNER JOINThe INNER JOIN returns only the rows that have matching values in both tables.1234SELECT columnsFROM table1INNER JOIN table2ON table1.common_column = table2.common_column; LEFT JOINThe LEFT JOIN returns all rows from the left table and the matched rows from the right...</div></div></div></a><a class="pagination-related" href="/2025/06/08/database/mysql/06-engine/" title="MySQL Storage Engine"><img class="cover" src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20250728225233182.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-06-08</div><div class="info-item-2">MySQL Storage Engine</div></div><div class="info-2"><div class="info-item-1">MySQL Storage EngineMySQL supports multiple storage engines, each with its own features and use cases. The most commonly used storage engines are InnoDB and MyISAM.  InnoDB: This is the default storage engine in MySQL. It supports transactions, foreign keys, and row-level locking, making it suitable for high-concurrency applications. InnoDB is designed for reliability and performance, and it is the recommended storage engine for most applications. MyISAM: This storage engine is older and does...</div></div></div></a><a class="pagination-related" href="/2025/06/04/database/mysql/03-functions/" title="MySQL Functions"><img class="cover" src="https://jsd.012700.xyz/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-06-05</div><div class="info-item-2">MySQL Functions</div></div><div class="info-2"><div class="info-item-1">MySQL FunctionsMySQL provides a wide range of built-in functions that can be used to perform various operations on data. These functions can be categorized into several types, including string functions, numeric functions, date and time functions, and aggregate functions. String FunctionsString functions are used to manipulate and analyze string data. Some common string functions include:  CONCAT(): Concatenates two or more strings. COMPARE(): Compares two strings and returns 0 if they are eq...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/images/lucky-icon.png" onerror="this.onerror=null;this.src='/images/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Chris Wen</div><div class="author-info-description">Dwell not on the past, nor fear the future.</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">109</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">32</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">57</div></a></div><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/wenyupeng" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:chriswen430@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://www.linkedin.com/in/chriswen430" target="_blank" title="Linkedin"><i class="fab fa-linkedin" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">Maintain the motivation to learn and stay humble when facing every problem.</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#MySQL-Index"><span class="toc-number">1.</span> <span class="toc-text">MySQL Index</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Indexing-Strategies"><span class="toc-number">1.1.</span> <span class="toc-text">Indexing Strategies</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#B-Tree-Indexes"><span class="toc-number">1.2.</span> <span class="toc-text">B-Tree Indexes</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Structure-of-B-Tree-Indexes"><span class="toc-number">1.2.1.</span> <span class="toc-text">Structure of B-Tree Indexes</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hash-Indexes"><span class="toc-number">1.3.</span> <span class="toc-text">Hash Indexes</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#B-Tree-Indexes-1"><span class="toc-number">1.4.</span> <span class="toc-text">B+Tree Indexes</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Full-Text-Indexes"><span class="toc-number">1.5.</span> <span class="toc-text">Full-Text Indexes</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/11/14/big_data/da/11-des-statistics-2/" title="Box-Cox and Yeo-Johnson Transformations"><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251118091603317.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="Box-Cox and Yeo-Johnson Transformations"/></a><div class="content"><a class="title" href="/2025/11/14/big_data/da/11-des-statistics-2/" title="Box-Cox and Yeo-Johnson Transformations">Box-Cox and Yeo-Johnson Transformations</a><time datetime="2025-11-14T00:14:08.000Z" title="Created 2025-11-14 11:14:08">2025-11-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/11/13/big_data/da/11-des-statistics-1/" title="Feature Selection"><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251118091603317.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="Feature Selection"/></a><div class="content"><a class="title" href="/2025/11/13/big_data/da/11-des-statistics-1/" title="Feature Selection">Feature Selection</a><time datetime="2025-11-13T22:22:12.000Z" title="Created 2025-11-14 09:22:12">2025-11-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/11/13/big_data/da/10-des-statistics/" title="GDPR"><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251118091603317.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="GDPR"/></a><div class="content"><a class="title" href="/2025/11/13/big_data/da/10-des-statistics/" title="GDPR">GDPR</a><time datetime="2025-11-13T05:01:22.000Z" title="Created 2025-11-13 16:01:22">2025-11-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/11/12/big_data/da/12-des-statistics/" title="Dimensionality Reduction and PCA"><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251118091603317.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="Dimensionality Reduction and PCA"/></a><div class="content"><a class="title" href="/2025/11/12/big_data/da/12-des-statistics/" title="Dimensionality Reduction and PCA">Dimensionality Reduction and PCA</a><time datetime="2025-11-12T04:02:22.000Z" title="Created 2025-11-12 15:02:22">2025-11-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/11/11/big_data/da/09-des-statistics/" title="Data Matching"><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251118091603317.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="Data Matching"/></a><div class="content"><a class="title" href="/2025/11/11/big_data/da/09-des-statistics/" title="Data Matching">Data Matching</a><time datetime="2025-11-11T23:11:03.000Z" title="Created 2025-11-12 10:11:03">2025-11-12</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;2025 - 2026 By Chris Wen</span></div><div class="footer_custom_text">Live each day with purpose.</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><div class="js-pjax"></div><script src='/js/custom.js'></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="false" data-text="HAPPY,EVERY,DAY" data-fontsize="15px" data-random="true" async="async"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => fn())
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      const usePjax = true
+      false
+        ? (usePjax ? pjax.loadUrl('/404.html') : window.location.href = '/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})()</script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading Database</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><script src="https://cdn.jsdelivr.net/npm/live2d-widget@^3.1.3/lib/L2Dwidget.min.js"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"superSample":3,"position":"left","width":300,"height":600,"hOffset":90,"vOffset":-100},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.3,"opacityOnHover":0.3,"opacity":0.95},"log":false});</script></body></html>

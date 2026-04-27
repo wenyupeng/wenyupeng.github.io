@@ -1,0 +1,1283 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Machine Learning | Chris Wen's Blog</title><meta name="author" content="Chris Wen"><meta name="copyright" content="Chris Wen"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Overview of Machine LearningWhat is Machine Learning?Machine Learning (ML) is a subset of artificial intelligence (AI) that enables computers to learn from data and improve their performance over time">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Machine Learning">
+<meta property="og:url" content="https://wenyupeng.github.io/2025/09/14/ai/ml/01-machine-learning/index.html">
+<meta property="og:site_name" content="Chris Wen&#39;s Blog">
+<meta property="og:description" content="Overview of Machine LearningWhat is Machine Learning?Machine Learning (ML) is a subset of artificial intelligence (AI) that enables computers to learn from data and improve their performance over time">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20250728225233182.png">
+<meta property="article:published_time" content="2025-09-14T06:11:45.000Z">
+<meta property="article:modified_time" content="2026-04-27T12:17:47.748Z">
+<meta property="article:author" content="Chris Wen">
+<meta property="article:tag" content="ai">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20250728225233182.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Machine Learning",
+  "url": "https://wenyupeng.github.io/2025/09/14/ai/ml/01-machine-learning/",
+  "image": "https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20250728225233182.png",
+  "datePublished": "2025-09-14T06:11:45.000Z",
+  "dateModified": "2026-04-27T12:17:47.748Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Chris Wen",
+      "url": "https://wenyupeng.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/images/favicon.ico"><link rel="canonical" href="https://wenyupeng.github.io/2025/09/14/ai/ml/01-machine-learning/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.json","preload":true,"top_n_per_article":-1,"unescape":false,"languages":{"hits_empty":"No results found for: ${query}","hits_stats":"${hits} articles found"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"Author: Chris Wen","link":"Link: ","source":"Source: Chris Wen's Blog","info":"Copyright belongs to the author. For commercial use, please contact the author for authorization. For non-commercial use, please indicate the source."}},
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: true,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Machine Learning',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/custom-style.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/constown/HexoCustomFile@0.0.4/dist/css/custom.min.css"><meta name="generator" content="Hexo 8.1.1"><link rel="alternate" href="/atom.xml" title="Chris Wen's Blog" type="application/atom+xml">
+</head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load', preloader.endLoading)
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/images/lucky-icon.png" onerror="this.onerror=null;this.src='/images/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">109</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">32</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">57</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/project/"><i class="fa-fw fas fa-project-diagram"></i><span> Project</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20250728225233182.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Chris Wen's Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">Machine Learning</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/project/"><i class="fa-fw fas fa-project-diagram"></i><span> Project</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Machine Learning</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-09-14T06:11:45.000Z" title="Created 2025-09-14 16:11:45">2025-09-14</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2026-04-27T12:17:47.748Z" title="Updated 2026-04-27 22:17:47">2026-04-27</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/ai/">ai</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/ai/machine-learning/">machine-learning</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>37mins</span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:30,&quot;messagePrev&quot;:&quot;It has been&quot;,&quot;messageNext&quot;:&quot;days since the last update, the content of the article may be outdated.&quot;,&quot;postUpdate&quot;:&quot;2026-04-27 22:17:47&quot;}" hidden></div><h1 id="Overview-of-Machine-Learning"><a href="#Overview-of-Machine-Learning" class="headerlink" title="Overview of Machine Learning"></a>Overview of Machine Learning</h1><h2 id="What-is-Machine-Learning"><a href="#What-is-Machine-Learning" class="headerlink" title="What is Machine Learning?"></a>What is Machine Learning?</h2><p>Machine Learning (ML) is a subset of artificial intelligence (AI) that enables computers to learn from data and improve their performance over time without being explicitly programmed. ML algorithms build mathematical models based on sample data, known as “training data,” to make predictions or decisions without being explicitly programmed to perform the task.</p>
+<blockquote>
+<p>Artificial intelligence is a field of computer science that aims to create machines that can perform tasks that normally require human intelligence. Includes Natural Language Processing (NLP), Computer Vision, Robotics, and more.<br>Machine learning is a subset of AI that enables computers to learn from data and improve their performance over time without being explicitly programmed.<br>Deep learning is a subset of machine learning that uses neural networks with many layers to model complex patterns in data.</p>
+</blockquote>
+<h2 id="Key-Concepts-in-Machine-Learning"><a href="#Key-Concepts-in-Machine-Learning" class="headerlink" title="Key Concepts in Machine Learning"></a>Key Concepts in Machine Learning</h2><ul>
+<li><strong>Dataset</strong>: A collection of data used for training and testing ML models.<ul>
+<li><strong>Training Set</strong>: The portion of the dataset used to train the model.</li>
+<li><strong>Testing Set</strong>: The portion of the dataset used to evaluate the model’s performance</li>
+<li><strong>Validation Set</strong>: A separate subset of the dataset used to validate the model’s performance.</li>
+</ul>
+</li>
+<li><strong>Samples</strong>: Individual data points in the dataset.</li>
+<li><strong>Features</strong>: The attributes or properties of the data that are used for making predictions.</li>
+<li><strong>Feature Vectors</strong>: A representation of features in a numerical format that can be processed by ML algorithms.</li>
+<li><strong>Labels</strong>: The target variable that the model is trying to predict (in supervised learning).</li>
+<li><strong>Model</strong>: The mathematical representation learned from data, used to make predictions.</li>
+<li><strong>Parameters</strong>: The internal variables of the model that are learned from the training data.</li>
+<li><strong>Hyperparameters</strong>: Parameters that are not learned from the training data, but are set by the user.</li>
+</ul>
+<h1 id="Machine-Learning-Fundamental-Theorem"><a href="#Machine-Learning-Fundamental-Theorem" class="headerlink" title="Machine Learning Fundamental Theorem"></a>Machine Learning Fundamental Theorem</h1><h2 id="Three-Elements-of-Machine-Learning"><a href="#Three-Elements-of-Machine-Learning" class="headerlink" title="Three Elements of Machine Learning"></a>Three Elements of Machine Learning</h2><p>Machine learning relies on three fundamental elements:</p>
+<ol>
+<li><strong>Model</strong>: Summarizes the inherent patterns in the data and describes the parameter system using mathematical language.</li>
+<li><strong>Strategy</strong>: Evaluation criteria for selecting the optimal model.</li>
+<li><strong>Algorithm</strong>: Specific methods for selecting the optimal model.</li>
+</ol>
+<h2 id="Types-of-Machine-Learning"><a href="#Types-of-Machine-Learning" class="headerlink" title="Types of Machine Learning"></a>Types of Machine Learning</h2><ul>
+<li><strong>Supervised Learning</strong>: The model learns from labeled data (e.g., classification, regression), where the model is provided with input-output pairs.</li>
+<li><strong>Unsupervised Learning</strong>: The model finds patterns in unlabeled data (e.g., clustering, dimensionality reduction), where the model is provided with input data and must find hidden structures.</li>
+<li><strong>Reinforcement Learning</strong>: The model learns by interacting with an environment and receiving feedback (rewards or penalties), where the model is provided with input-output pairs.</li>
+</ul>
+<ol>
+<li><strong>Supervised Learning</strong><ul>
+<li>Linear Model<ul>
+<li>Linear Regression</li>
+<li>Lasso Regression</li>
+<li>Ridge Regression</li>
+<li>Linear Discrimination Analysis (LDA)</li>
+<li>Logistic Regression</li>
+</ul>
+</li>
+<li>K-Nearest Neighbors (KNN)</li>
+<li>Decision Trees</li>
+<li>Naive Bayes</li>
+<li>Support Vector Machines (SVM)</li>
+<li>Neural Networks</li>
+<li>Ensemble Learning<ul>
+<li>Boosting<ul>
+<li>AdaBoost</li>
+<li>Gradient Boosting trees<ul>
+<li>XGBoost</li>
+<li>LightGBM</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Bagging<ul>
+<li>Random Forest</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Unsupervised Learning</strong><ul>
+<li>Clustering<ul>
+<li>K-Means</li>
+<li>Gaussian Mixture Clustering</li>
+<li>Density Clustering</li>
+<li>Hierarchical Clustering</li>
+<li>Spectral Clustering</li>
+</ul>
+</li>
+<li>Dimensionality Reduction<ul>
+<li>Main Component Analysis (PCA)</li>
+<li>Singular Value Decomposition (SVD)</li>
+<li>t-SNE</li>
+<li>Self-encoder</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Semi-Supervised Learning</strong><ul>
+<li>Semi-Supervised Support Vector Machines (S3VM)</li>
+<li>Graph-Based Semi-Supervised Learning</li>
+<li>Generative Models</li>
+<li>Collaborative training</li>
+</ul>
+</li>
+<li><strong>Reinforcement Learning</strong><ul>
+<li>Dynamic Programming</li>
+<li>Monte Carlo Tree Search</li>
+<li>Q-Learning</li>
+<li>Strategic Gradient Algorithms</li>
+<li>Mimicking Learning</li>
+</ul>
+</li>
+</ol>
+<p><strong>Probabilistic Model</strong></p>
+<ul>
+<li>EM Algorithm</li>
+<li>Naive Bayes</li>
+<li>Bayesian Networks</li>
+<li>Hidden Markov Models</li>
+<li>Markov Random Fields</li>
+<li>Conditional Random Fields</li>
+<li>Markov Chain Monte Carlo</li>
+<li>Hidden Dirichlet Allocation (LDA)</li>
+<li>Variational Autoencoders (VAE)</li>
+</ul>
+<h2 id="Modeling-Process"><a href="#Modeling-Process" class="headerlink" title="Modeling Process"></a>Modeling Process</h2><ol>
+<li><strong>Data Collection</strong>: Gathering data from various sources.</li>
+<li><strong>Data Cleaning</strong>: Handling missing values, removing duplicates, and correcting errors in the data.</li>
+<li><strong>Feature Engineering</strong>: Creating new features from existing data to improve model performance.</li>
+<li><strong>Algorithm Selection</strong>: Choosing the appropriate machine learning algorithm based on the problem and data characteristics.</li>
+<li><strong>Model Training</strong>: Training the selected algorithm on the prepared data.</li>
+<li><strong>Model Evaluation</strong>: Assessing the performance of the trained model using appropriate metrics.</li>
+<li><strong>Model Optimization</strong>: Tuning hyperparameters and improving the model based on evaluation results.</li>
+<li><strong>Model Deployment</strong>: Deploying the trained model into a production environment for real-world use.</li>
+</ol>
+<h2 id="Feature-Engineering"><a href="#Feature-Engineering" class="headerlink" title="Feature Engineering"></a>Feature Engineering</h2><p>Feature engineering is the process of creating new features from existing data to improve the performance of machine learning models. It involves techniques such as:</p>
+<ul>
+<li><strong>Feature Selection</strong>: Selecting the most relevant features for model training to reduce dimensionality and improve model performance.<ul>
+<li><strong>Filter Methods</strong>: The relationship between features and the target variable is evaluated based on statistical tests (e.g., chi-square test, correlation coefficient, information gain), and the most relevant features are selected.</li>
+<li><strong>Wrapper Methods</strong>: Use models(such as Recursive Feature Elimination, RFE) to evaluate the importance of features and select features based on the model’s performance.</li>
+<li><strong>Embedded methods</strong>: Use the model’s own feature selection mechanism (such as feature importance in decision trees, L1 regularized feature selection) to select the most important features.</li>
+</ul>
+</li>
+<li><strong>Feature Transformation</strong>: Applying mathematical operations to the features to normalize or scale them (e.g., logarithmic transformation for non-negative data).<ul>
+<li><strong>Normalization</strong>: Scales features to a specific range (typically between 0 and 1). Suitable for scale-sensitive models (such as KNN and SVM).</li>
+<li><strong>Standardization</strong>: By subtracting the mean and dividing by the standard deviation, the distribution of the feature is made to have a mean of 0 and a standard deviation of 1. Suitable for scale-insensitive models (such as linear regression).</li>
+<li><strong>Log Transformation</strong>: For skewed distributions (such as income, prices, etc.), logarithmic transformation can convert them into a form that is closer to a normal distribution.</li>
+<li><strong>Encoding of categorical variables</strong><ul>
+<li>One-hot encoding: Converting categorical variables into binary columns is often used for unordered categorical features.</li>
+<li>Label encoding: Mapping categorical variables to integers is often used for ordinal categorical features.</li>
+<li>Target encoding: Replace each category of the categorical variable with the mean or other statistic of its corresponding target variable.</li>
+<li>Frequency encoding: Replace each category of the categorical variable with the frequency of that category in the dataset.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Feature Construction</strong>: Feature construction involves creating new, more representative features based on existing features. By combining, transforming, or aggregating existing features, features that better reflect the patterns in the data can be formed.<ul>
+<li>Interactive Feature: Combining two features to form a new feature. For example, the product, sum, or difference of two features. For example, combining age and income to create a new feature may better reflect certain patterns.</li>
+<li>Statistical Features: Extracting statistical values ​​from original features, such as calculating the average, maximum, minimum, and standard deviation for a given time window. For example, in time series data, you can extract the average for each hour or day from the original data.</li>
+<li>Date and Time Features: Extracting features such as day of the week, month, year, and quarter from date and time data. For example, converting “2000-01-01” into features such as “day of the week,” “whether it’s a holiday,” and “beginning or end of the month.”</li>
+</ul>
+</li>
+<li><strong>Feature Dimensionality Reduction</strong>: When the number of features in a dataset is very large, feature dimensionality reduction can help reduce computational complexity and avoid overfitting. Dimensionality reduction methods can reduce the number of features while preserving the essence of the data.<ul>
+<li>Principal Component Analysis (PCA): Maps the original features to a new space through linear transformation, so that the new features (principal components) retain the variance of the data as much as possible.</li>
+<li>Linear Discriminant Analysis (LDA): A supervised learning dimensionality reduction method that reduces dimensionality by maximizing the ratio of inter-class distance to intra-class distance.</li>
+<li>t-SNE (t-Distributed Stochastic Neighbor Embedding): A non-linear dimensionality reduction technique, particularly suitable for visualizing high-dimensional data.</li>
+<li>Autoencoder: A neural network model that achieves dimensionality reduction of data through a compression encoder.</li>
+</ul>
+</li>
+</ul>
+<h3 id="Low-Variance-Filtering-Method"><a href="#Low-Variance-Filtering-Method" class="headerlink" title="Low Variance Filtering Method"></a>Low Variance Filtering Method</h3><p>Feature selection can be based directly on variance, which is the simplest approach. Features with low variance mean that all sample values ​​for that feature are almost identical, having minimal impact on prediction, and can be removed.<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.feature_selection <span class="keyword">import</span> VarianceThreshold</span><br><span class="line"></span><br><span class="line"><span class="comment"># Create a VarianceThreshold object</span></span><br><span class="line">selector = VarianceThreshold(threshold=<span class="number">0.1</span>)</span><br><span class="line">selector.fit_transform(X)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Get the feature ranking</span></span><br><span class="line">ranking = selector.get_support(indices=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Get the feature names</span></span><br><span class="line">feature_names = selector.get_feature_names()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Get the feature names and ranking</span></span><br><span class="line">feature_names, ranking = selector.get_feature_names_out()</span><br></pre></td></tr></table></figure></p>
+<h3 id="Correlation-Based-Feature-Selection"><a href="#Correlation-Based-Feature-Selection" class="headerlink" title="Correlation-Based Feature Selection"></a>Correlation-Based Feature Selection</h3><p>Correlation-based methods evaluate the relationship between features and the target variable, or among features themselves.<br>They are commonly used to:</p>
+<ul>
+<li>Select highly relevant features (strong correlation with the target)</li>
+<li>Remove redundant features (high correlation between features)</li>
+</ul>
+<h4 id="Pearson-Correlation-Coefficient"><a href="#Pearson-Correlation-Coefficient" class="headerlink" title="Pearson Correlation Coefficient"></a>Pearson Correlation Coefficient</h4><p>The Pearson Correlation Coefficient measures the linear relationship between two variables. Its value ranges from -1 to 1.</p>
+<script type="math/tex; mode=display">
+r = \frac{\sum_{i=1}^{n} (x_i - \bar{x})(y_i - \bar{y})}
+{\sqrt{\sum_{i=1}^{n} (x_i - \bar{x})^2} \cdot \sqrt{\sum_{i=1}^{n} (y_i - \bar{y})^2}}</script><ul>
+<li><strong>Positive Correlation (r → 1):</strong>    As the feature increases, the target variable also increases.</li>
+<li><strong>Negative Correlation (r → -1):</strong>   As the feature increases, the target variable decreases.</li>
+<li><strong>No Correlation (r → 0):</strong>    No clear relationship between the feature and the target variable.</li>
+</ul>
+<h5 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h5><p>Suppose we have a dataset containing <strong>advertising spending across different channels</strong> and <strong>sales revenue</strong>.</p>
+<p>We can compute the Pearson correlation coefficient between each feature and the target using:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pandas.DataFrame.corrwith(method=<span class="string">&quot;pearson&quot;</span>)</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line">advertising = pd.read_csv(<span class="string">&quot;data/advertising.csv&quot;</span>)</span><br><span class="line">advertising.drop(advertising.columns[<span class="number">0</span>], axis=<span class="number">1</span>, inplace=<span class="literal">True</span>)</span><br><span class="line">advertising.dropna(inplace=<span class="literal">True</span>)</span><br><span class="line">X = advertising.drop(<span class="string">&quot;Sales&quot;</span>, axis=<span class="number">1</span>)</span><br><span class="line">y = advertising[<span class="string">&quot;Sales&quot;</span>]</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(X.corrwith(y, method=<span class="string">&quot;pearson&quot;</span>))</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">corr_matrix = advertising.corr(method=<span class="string">&quot;pearson&quot;</span>)</span><br><span class="line">sns.heatmap(corr_matrix, annot=<span class="literal">True</span>, cmap=<span class="string">&quot;coolwarm&quot;</span>, fmt=<span class="string">&quot;.2f&quot;</span>)</span><br><span class="line">plt.title(<span class="string">&quot;Feature Correlation Matrix&quot;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20260424102653830.png" alt="Pearson Correlation Matrix"></p>
+<h4 id="Spearman-Rank-Correlation-Coefficient"><a href="#Spearman-Rank-Correlation-Coefficient" class="headerlink" title="Spearman Rank Correlation Coefficient"></a>Spearman Rank Correlation Coefficient</h4><p>The <strong>Spearman Rank Correlation Coefficient</strong> (Spearman’s ρ) is defined as the Pearson correlation coefficient between the <strong>ranked variables</strong>.  </p>
+<p>It measures the <strong>monotonic relationship</strong> between two variables — that is, whether one variable consistently increases or decreases as the other increases (not necessarily linearly).</p>
+<ul>
+<li>Suitable for <strong>non-linear relationships</strong></li>
+<li>Does <strong>not require normal distribution</strong></li>
+<li>Works well with <strong>ordinal (ranked) data</strong></li>
+</ul>
+<script type="math/tex; mode=display">
+\rho = 1 - \frac{6 \sum d_i^2}{n(n^2 - 1)}</script><p>Where:</p>
+<ul>
+<li>$d_i$ = difference between the ranks of each pair of observations  </li>
+<li>$n$ = number of samples  </li>
+<li><strong>ρ = 1</strong>: Perfect positive correlation (as one variable increases, the other always increases)</li>
+<li><strong>ρ = -1</strong>: Perfect negative correlation (as one variable increases, the other always decreases)</li>
+<li><strong>ρ = 0</strong>: No correlation  </li>
+</ul>
+<h5 id="Example-1"><a href="#Example-1" class="headerlink" title="Example"></a>Example</h5><p>Suppose we have a dataset of <strong>weekly study hours (X)</strong> and <strong>math exam scores (y)</strong>:</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>X (Hours)</th>
+<th>y (Score)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5</td>
+<td>55</td>
+</tr>
+<tr>
+<td>8</td>
+<td>65</td>
+</tr>
+<tr>
+<td>10</td>
+<td>70</td>
+</tr>
+<tr>
+<td>12</td>
+<td>75</td>
+</tr>
+<tr>
+<td>15</td>
+<td>85</td>
+</tr>
+<tr>
+<td>3</td>
+<td>50</td>
+</tr>
+<tr>
+<td>7</td>
+<td>60</td>
+</tr>
+<tr>
+<td>9</td>
+<td>72</td>
+</tr>
+<tr>
+<td>14</td>
+<td>80</td>
+</tr>
+<tr>
+<td>6</td>
+<td>58</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<p>Step 1: Rank the Data</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>X</th>
+<th>Rank(X)</th>
+<th>y</th>
+<th>Rank(y)</th>
+<th>d = R<sub>X</sub> - R<sub>y</sub></th>
+<th>d²</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5</td>
+<td>2</td>
+<td>55</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>8</td>
+<td>5</td>
+<td>65</td>
+<td>5</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>10</td>
+<td>7</td>
+<td>70</td>
+<td>6</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>12</td>
+<td>8</td>
+<td>75</td>
+<td>8</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>15</td>
+<td>10</td>
+<td>85</td>
+<td>10</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>3</td>
+<td>1</td>
+<td>50</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>7</td>
+<td>4</td>
+<td>60</td>
+<td>4</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>9</td>
+<td>6</td>
+<td>72</td>
+<td>7</td>
+<td>-1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>14</td>
+<td>9</td>
+<td>80</td>
+<td>9</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>6</td>
+<td>3</td>
+<td>58</td>
+<td>3</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<p>Step 2: Compute Spearman Correlation</p>
+<script type="math/tex; mode=display">
+\rho = 1 - \frac{6 \times 2}{10(10^2 - 1)} 
+= 1 - \frac{12}{990} 
+= 1 - 0.0121 
+= 0.9879</script><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.corrwith(target, method=<span class="string">&quot;spearman&quot;</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line">X = [[<span class="number">5</span>], [<span class="number">8</span>], [<span class="number">10</span>], [<span class="number">12</span>], [<span class="number">15</span>], [<span class="number">3</span>], [<span class="number">7</span>], [<span class="number">9</span>], [<span class="number">14</span>], [<span class="number">6</span>]]</span><br><span class="line">y = [<span class="number">55</span>, <span class="number">65</span>, <span class="number">70</span>, <span class="number">75</span>, <span class="number">85</span>, <span class="number">50</span>, <span class="number">60</span>, <span class="number">72</span>, <span class="number">80</span>, <span class="number">58</span>]</span><br><span class="line">X = pd.DataFrame(X)</span><br><span class="line">y = pd.Series(y)</span><br><span class="line"><span class="built_in">print</span>(X.corrwith(y, method=<span class="string">&quot;spearman&quot;</span>))</span><br></pre></td></tr></table></figure>
+<h4 id="Principal-Component-Analysis-PCA"><a href="#Principal-Component-Analysis-PCA" class="headerlink" title="Principal Component Analysis (PCA)"></a>Principal Component Analysis (PCA)</h4><p>Principal Component Analysis (PCA) is a statistical procedure that uses an orthogonal transformation to convert a set of observations of possibly correlated variables into a set of values of linearly uncorrelated variables called principal components.</p>
+<p>Principal component analysis is performed using sklearn.decomposition.PCA. The parameter n_components, if a decimal, indicates the proportion of information to retain; if an integer, it indicates the number of dimensions to retain.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">from</span> sklearn.decomposition <span class="keyword">import</span> PCA</span><br><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> StandardScaler</span><br><span class="line"></span><br><span class="line">n_samples = <span class="number">1000</span></span><br><span class="line">component1 = np.random.normal(<span class="number">0</span>, <span class="number">1</span>, n_samples)</span><br><span class="line">component2 = np.random.normal(<span class="number">0</span>, <span class="number">0.2</span>, n_samples)</span><br><span class="line">noise = np.random.normal(<span class="number">0</span>, <span class="number">0.1</span>, n_samples)</span><br><span class="line">X = np.vstack([component1 - component2, component1 + component2, component2 + noise]).T</span><br><span class="line"></span><br><span class="line">scaler = StandardScaler()</span><br><span class="line">X_standardized = scaler.fit_transform(X)</span><br><span class="line"></span><br><span class="line">pca = PCA(n_components=<span class="number">2</span>)</span><br><span class="line">X_pca = pca.fit_transform(X_standardized)</span><br><span class="line"></span><br><span class="line">fig = plt.figure(figsize=(<span class="number">12</span>, <span class="number">4</span>))</span><br><span class="line">ax1 = fig.add_subplot(<span class="number">121</span>, projection=<span class="string">&quot;3d&quot;</span>)</span><br><span class="line">ax1.scatter(X[:, <span class="number">0</span>], X[:, <span class="number">1</span>], X[:, <span class="number">2</span>], c=<span class="string">&quot;g&quot;</span>)</span><br><span class="line">ax1.set_title(<span class="string">&quot;Before PCA (3D)&quot;</span>)</span><br><span class="line">ax1.set_xlabel(<span class="string">&quot;Feature 1&quot;</span>)</span><br><span class="line">ax1.set_ylabel(<span class="string">&quot;Feature 2&quot;</span>)</span><br><span class="line">ax1.set_zlabel(<span class="string">&quot;Feature 3&quot;</span>)</span><br><span class="line"></span><br><span class="line">ax2 = fig.add_subplot(<span class="number">122</span>)</span><br><span class="line">ax2.scatter(X_pca[:, <span class="number">0</span>], X_pca[:, <span class="number">1</span>], c=<span class="string">&quot;g&quot;</span>)</span><br><span class="line">ax2.set_title(<span class="string">&quot;After PCA (2D)&quot;</span>)</span><br><span class="line">ax2.set_xlabel(<span class="string">&quot;Principal Component 1&quot;</span>)</span><br><span class="line">ax2.set_ylabel(<span class="string">&quot;Principal Component 2&quot;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20260424104532520.png" alt="PCA"></p>
+<h2 id="Model-Evaluation-and-Model-Selection-Key-Topic"><a href="#Model-Evaluation-and-Model-Selection-Key-Topic" class="headerlink" title="Model Evaluation and Model Selection (Key Topic)"></a>Model Evaluation and Model Selection (Key Topic)</h2><h3 id="Loss-Function"><a href="#Loss-Function" class="headerlink" title="Loss Function"></a>Loss Function</h3><p>To evaluate how good a model’s prediction is, we need a <strong>measurement criterion</strong>.</p>
+<p>In <strong>supervised learning</strong>, given an input $X$, a model can be viewed as a <strong>decision function</strong> $f$, which outputs a prediction $f(X)$.<br>The true label is denoted as $Y$.  </p>
+<p>There is usually a deviation between $f(X)$ and $Y$, which is measured by a <strong>loss function</strong>:</p>
+<script type="math/tex; mode=display">
+L(Y, f(X))</script><h3 id="Properties-of-Loss-Functions"><a href="#Properties-of-Loss-Functions" class="headerlink" title="Properties of Loss Functions"></a>Properties of Loss Functions</h3><ul>
+<li>A loss function measures the <strong>prediction error</strong> of a model  </li>
+<li>The <strong>smaller</strong> the loss value, the <strong>better</strong> the model  </li>
+<li>The loss function is a <strong>non-negative real-valued function</strong> of $f(X)$ and $Y$</li>
+</ul>
+<h3 id="Common-Loss-Functions"><a href="#Common-Loss-Functions" class="headerlink" title="Common Loss Functions"></a>Common Loss Functions</h3><h4 id="1-0-1-Loss-Function"><a href="#1-0-1-Loss-Function" class="headerlink" title="1. 0-1 Loss Function"></a>1. 0-1 Loss Function</h4><script type="math/tex; mode=display">
+L(Y, f(X)) =
+\begin{cases}
+1, & Y \ne f(X) \\
+0, & Y = f(X)
+\end{cases}</script><hr>
+<h4 id="2-Squared-Loss-Function"><a href="#2-Squared-Loss-Function" class="headerlink" title="2. Squared Loss Function"></a>2. Squared Loss Function</h4><script type="math/tex; mode=display">
+L(Y, f(X)) = (Y - f(X))^2</script><hr>
+<h4 id="3-Absolute-Loss-Function"><a href="#3-Absolute-Loss-Function" class="headerlink" title="3. Absolute Loss Function"></a>3. Absolute Loss Function</h4><script type="math/tex; mode=display">
+L(Y, f(X)) = |Y - f(X)|</script><hr>
+<h4 id="4-Log-Likelihood-Loss-Negative-Log-Likelihood"><a href="#4-Log-Likelihood-Loss-Negative-Log-Likelihood" class="headerlink" title="4. Log-Likelihood Loss (Negative Log-Likelihood)"></a>4. Log-Likelihood Loss (Negative Log-Likelihood)</h4><script type="math/tex; mode=display">
+L(Y, P(Y|X)) = -\log P(Y|X)</script><hr>
+<h3 id="Empirical-Error-Empirical-Risk"><a href="#Empirical-Error-Empirical-Risk" class="headerlink" title="Empirical Error (Empirical Risk)"></a>Empirical Error (Empirical Risk)</h3><p>Given a training dataset with $n$ samples:</p>
+<script type="math/tex; mode=display">
+T = \{(x_1, y_1), (x_2, y_2), \dots, (x_n, y_n)\}</script><p>Using a chosen loss function, we can compute the <strong>average error on the training set</strong>, known as:</p>
+<ul>
+<li><strong>Training Error</strong></li>
+<li><strong>Empirical Error</strong></li>
+<li><strong>Empirical Risk</strong></li>
+</ul>
+<script type="math/tex; mode=display">
+R_{\text{emp}}(f) = \frac{1}{n} \sum_{i=1}^{n} L(y_i, f(x_i))</script><h4 id="Generalization-Error"><a href="#Generalization-Error" class="headerlink" title="Generalization Error"></a>Generalization Error</h4><p>Similarly, the <strong>average error on the test dataset</strong> is called:</p>
+<ul>
+<li><strong>Test Error</strong></li>
+<li><strong>Generalization Error</strong></li>
+</ul>
+<p>This reflects how well the model performs on <strong>unseen data</strong>.</p>
+<h4 id="Model-Evaluation-Strategy"><a href="#Model-Evaluation-Strategy" class="headerlink" title="Model Evaluation Strategy"></a>Model Evaluation Strategy</h4><p>A common evaluation strategy is to analyze the <strong>empirical error</strong>:</p>
+<ul>
+<li>When the empirical risk is minimized, the model is considered optimal under this criterion  </li>
+<li>This principle is known as <strong>Empirical Risk Minimization (ERM)</strong></li>
+</ul>
+<h3 id="Underfitting-and-Overfitting"><a href="#Underfitting-and-Overfitting" class="headerlink" title="Underfitting and Overfitting"></a>Underfitting and Overfitting</h3><p><strong>Fitting</strong> refers to the process by which a machine learning model learns patterns from training data and makes predictions.<br>Ideally, a model should:</p>
+<ul>
+<li>Capture the underlying patterns in the training data  </li>
+<li>Perform well on unseen data (test data)  </li>
+</ul>
+<p>This ability is known as <strong>generalization</strong>.<br><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20260424111248753.png" alt="Fitting"></p>
+<p><strong>Underfitting</strong> occurs when a model performs poorly on the training data and fails to capture the underlying patterns.</p>
+<ul>
+<li>Poor performance on both <strong>training</strong> and <strong>test</strong> datasets  </li>
+<li>Model is <strong>too simple</strong>  </li>
+<li>Characterized by <strong>high bias</strong><br><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20260424111313491.png" alt="Underfitting"></li>
+</ul>
+<p><strong>Overfitting</strong> occurs when a model performs very well on training data but poorly on unseen data.</p>
+<ul>
+<li>Very low error on <strong>training data</strong>  </li>
+<li>High error on <strong>test data</strong>  </li>
+<li>Model learns <strong>noise and details</strong> instead of general patterns  </li>
+<li>Characterized by <strong>high variance</strong><br><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20260424111349400.png" alt="Overfitting"></li>
+</ul>
+<p><strong>Root Cause</strong><br>The fundamental cause of underfitting and overfitting is <strong>model complexity</strong>:</p>
+<ul>
+<li><strong>Too simple → Underfitting</strong></li>
+<li><strong>Too complex → Overfitting</strong></li>
+</ul>
+<p>This leads to high <strong>generalization error</strong>.</p>
+<p><strong>Comparison</strong></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Training Error</th>
+<th>Test Error</th>
+<th>Model Complexity</th>
+<th>Key Issue</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Underfitting</td>
+<td>High</td>
+<td>High</td>
+<td>Too simple</td>
+<td>High Bias</td>
+</tr>
+<tr>
+<td>Overfitting</td>
+<td>Low</td>
+<td>High</td>
+<td>Too complex</td>
+<td>High Variance</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="Causes-and-Solutions"><a href="#Causes-and-Solutions" class="headerlink" title="Causes and Solutions"></a>Causes and Solutions</h4><blockquote>
+<p><strong>Underfitting</strong></p>
+</blockquote>
+<p><strong>Causes</strong>:</p>
+<ul>
+<li><p><strong>Insufficient model complexity</strong><br>The model is too simple to capture complex relationships  </p>
+</li>
+<li><p><strong>Insufficient features</strong><br>Poor feature selection or lack of informative features  </p>
+</li>
+<li><p><strong>Insufficient training</strong><br>Too few training iterations  </p>
+</li>
+<li><p><strong>Excessive regularization</strong><br>Regularization is too strong, forcing the model to be overly simple  </p>
+</li>
+</ul>
+<p><strong>Solutions</strong>:</p>
+<ul>
+<li>Increase model complexity  </li>
+<li>Add more features or improve feature engineering  </li>
+<li>Train longer (more iterations)  </li>
+<li>Reduce regularization strength  </li>
+</ul>
+<blockquote>
+<p><strong>Overfitting</strong></p>
+</blockquote>
+<p><strong>Causes</strong>:</p>
+<ul>
+<li><p><strong>Excessive model complexity</strong><br>Too many parameters  </p>
+</li>
+<li><p><strong>Insufficient training data</strong><br>Model memorizes training data instead of learning patterns  </p>
+</li>
+<li><p><strong>Too many features</strong><br>Model captures noise instead of useful signal  </p>
+</li>
+<li><p><strong>Overtraining</strong><br>Training too long causes the model to fit noise  </p>
+</li>
+</ul>
+<p><strong>Solutions</strong>:</p>
+<ul>
+<li>Reduce model complexity (simpler models, dimensionality reduction)  </li>
+<li>Increase training data (or use data augmentation)  </li>
+<li>Apply regularization (L1, L2)  </li>
+<li>Use cross-validation  </li>
+<li>Apply early stopping (stop when validation loss stops improving)  </li>
+</ul>
+<blockquote>
+<p><strong>Summary</strong></p>
+<ul>
+<li>Underfitting: high bias, model too simple  </li>
+<li>Overfitting: high variance, model too complex  </li>
+<li>The goal is to find a balance that minimizes <strong>generalization error</strong></li>
+</ul>
+</blockquote>
+<h4 id="Example-2"><a href="#Example-2" class="headerlink" title="Example"></a>Example</h4><p>Fit sin(x) to x∈[-3,3] using a polynomial:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LinearRegression</span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> mean_squared_error</span><br><span class="line"></span><br><span class="line">plt.rcParams[<span class="string">&quot;font.sans-serif&quot;</span>] = [<span class="string">&quot;KaiTi&quot;</span>]</span><br><span class="line">plt.rcParams[<span class="string">&quot;axes.unicode_minus&quot;</span>] = <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">polynomial</span>(<span class="params">x, degree</span>):</span><br><span class="line">    <span class="keyword">return</span> np.hstack([x**i <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, degree + <span class="number">1</span>)])</span><br><span class="line"></span><br><span class="line">X = np.linspace(-<span class="number">3</span>, <span class="number">3</span>, <span class="number">300</span>).reshape(-<span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line">y = np.sin(X) + np.random.uniform(-<span class="number">0.5</span>, <span class="number">0.5</span>, <span class="number">300</span>).reshape(-<span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line">fig, ax = plt.subplots(<span class="number">1</span>, <span class="number">3</span>, figsize=(<span class="number">15</span>, <span class="number">4</span>))</span><br><span class="line">ax[<span class="number">0</span>].plot(X, y, <span class="string">&quot;yo&quot;</span>)</span><br><span class="line">ax[<span class="number">1</span>].plot(X, y, <span class="string">&quot;yo&quot;</span>)</span><br><span class="line">ax[<span class="number">2</span>].plot(X, y, <span class="string">&quot;yo&quot;</span>)</span><br><span class="line"></span><br><span class="line">x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=<span class="number">0.2</span>, random_state=<span class="number">42</span>)</span><br><span class="line"></span><br><span class="line">model = LinearRegression()</span><br><span class="line"></span><br><span class="line">x_train1 = x_train</span><br><span class="line">x_test1 = x_test</span><br><span class="line">model.fit(x_train1, y_train)</span><br><span class="line">y_pred1 = model.predict(x_test1)</span><br><span class="line">ax[<span class="number">0</span>].plot(np.array([[-<span class="number">3</span>], [<span class="number">3</span>]]), model.predict(np.array([[-<span class="number">3</span>], [<span class="number">3</span>]])), <span class="string">&quot;c&quot;</span>)</span><br><span class="line">ax[<span class="number">0</span>].text(-<span class="number">3</span>, <span class="number">1</span>, <span class="string">f&quot;test set mqe：<span class="subst">&#123;mean_squared_error(y_test, y_pred1):<span class="number">.4</span>f&#125;</span>&quot;</span>)</span><br><span class="line">ax[<span class="number">0</span>].text(-<span class="number">3</span>, <span class="number">1.3</span>, <span class="string">f&quot;training set mqe：<span class="subst">&#123;mean_squared_error(y_train, model.predict(x_train1)):<span class="number">.4</span>f&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">x_train2 = polynomial(x_train, <span class="number">5</span>)</span><br><span class="line">x_test2 = polynomial(x_test, <span class="number">5</span>)</span><br><span class="line">model.fit(x_train2, y_train)</span><br><span class="line">y_pred2 = model.predict(x_test2)</span><br><span class="line">ax[<span class="number">1</span>].plot(X, model.predict(polynomial(X, <span class="number">5</span>)), <span class="string">&quot;k&quot;</span>)</span><br><span class="line">ax[<span class="number">1</span>].text(-<span class="number">3</span>, <span class="number">1</span>, <span class="string">f&quot;test set mean mqe：<span class="subst">&#123;mean_squared_error(y_test, y_pred2):<span class="number">.4</span>f&#125;</span>&quot;</span>)</span><br><span class="line">ax[<span class="number">1</span>].text(-<span class="number">3</span>, <span class="number">1.3</span>, <span class="string">f&quot;training set mean mqe：<span class="subst">&#123;mean_squared_error(y_train, model.predict(x_train2)):<span class="number">.4</span>f&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">x_train3 = polynomial(x_train, <span class="number">20</span>)</span><br><span class="line">x_test3 = polynomial(x_test, <span class="number">20</span>)</span><br><span class="line">model.fit(x_train3, y_train)</span><br><span class="line"></span><br><span class="line">y_pred3 = model.predict(x_test3)</span><br><span class="line">ax[<span class="number">2</span>].plot(X, model.predict(polynomial(X, <span class="number">20</span>)), <span class="string">&quot;r&quot;</span>)</span><br><span class="line">ax[<span class="number">2</span>].text(-<span class="number">3</span>, <span class="number">1</span>, <span class="string">f&quot;test set mqe：<span class="subst">&#123;mean_squared_error(y_test, y_pred3):<span class="number">.4</span>f&#125;</span>&quot;</span>)</span><br><span class="line">ax[<span class="number">2</span>].text(-<span class="number">3</span>, <span class="number">1.3</span>, <span class="string">f&quot;training set mqe：<span class="subst">&#123;mean_squared_error(y_train, model.predict(x_train3)):<span class="number">.4</span>f&#125;</span>&quot;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20260424123250359.png" alt="example"></p>
+<p><strong>Conclusion</strong>:<br>When the polynomial degree is low, the model is too simple and the fit is poor.<br>As the polynomial degree increases, the model complexity becomes moderate, the fit is good, and both training and test errors are low.<br>When the polynomial degree continues to increase, the model becomes too complex, overlearns noise, resulting in low training error but high test error.</p>
+<h3 id="Regularization"><a href="#Regularization" class="headerlink" title="Regularization"></a>Regularization</h3><p><strong>Regularization</strong> is a technique used in machine learning to prevent overfitting by adding a penalty term to the loss function.  </p>
+<p>This penalty discourages overly large model parameters, thereby:</p>
+<ul>
+<li>Reducing model complexity  </li>
+<li>Improving generalization performance  </li>
+</ul>
+<p><strong>Regularized Loss Function</strong><br>For example, adding a regularization term to the squared loss:</p>
+<script type="math/tex; mode=display">
+\text{Loss} = \frac{1}{n} \left( \sum_{i=1}^{n} (f(x_i) - y_i)^2 + \lambda \sum_{i=1}^{k} \omega_i^2 \right)</script><ul>
+<li><p>Original loss term:</p>
+<script type="math/tex; mode=display">
+\sum_{i=1}^{n} (f(x_i) - y_i)^2</script><p>→ Fits the training data</p>
+</li>
+<li><p>Regularization term:</p>
+<script type="math/tex; mode=display">
+\lambda \sum_{i=1}^{k} \omega_i^2</script><p>→ Penalizes large parameters and reduces model complexity</p>
+</li>
+</ul>
+<p><strong>Regularization Coefficient</strong>: $\lambda$ is the <strong>regularization coefficient</strong>, it controls the strength of the penalty  and it is a <strong>hyperparameter</strong> (not learned during training).</p>
+<p>Trade-off:</p>
+<ul>
+<li>Large $\lambda$ → simpler model → risk of <strong>underfitting</strong>  </li>
+<li>Small $\lambda$ → complex model → risk of <strong>overfitting</strong></li>
+</ul>
+<blockquote>
+<p>L1 Regularization (Lasso)</p>
+</blockquote>
+<script type="math/tex; mode=display">
+\text{Loss}_{L1} = \text{Original Loss} + \lambda \sum_{i=1}^{k} |\omega_i|</script><p><strong>Characteristics</strong></p>
+<ul>
+<li>Encourages some weights to become <strong>exactly zero</strong>  </li>
+<li>Performs <strong>feature selection automatically</strong>  </li>
+<li>Produces a <strong>sparse model</strong>  </li>
+</ul>
+<p>In regression problems, this is known as <strong>Lasso Regression</strong>.</p>
+<blockquote>
+<p>L2 Regularization (Ridge)</p>
+</blockquote>
+<script type="math/tex; mode=display">
+\text{Loss}_{L2} = \text{Original Loss} + \lambda \sum_{i=1}^{k} \omega_i^2</script><p><strong>Characteristics</strong></p>
+<ul>
+<li>Shrinks all weights toward zero, but <strong>not exactly zero</strong>  </li>
+<li>Produces a <strong>smooth and stable model</strong>  </li>
+<li>Helps reduce overfitting without eliminating features  </li>
+</ul>
+<p>In regression problems, this is known as <strong>Ridge Regression</strong>.</p>
+<blockquote>
+<p>Elastic Net Regularization</p>
+</blockquote>
+<p>Elastic Net combines both L1 and L2 regularization:</p>
+<script type="math/tex; mode=display">
+\text{Loss}_{\text{ElasticNet}} = \text{Original Loss} + \lambda \left( \alpha \sum_{i=1}^{k} |\omega_i| + \frac{1 - \alpha}{2} \sum_{i=1}^{k} \omega_i^2 \right)</script><p><strong>Parameters</strong></p>
+<ul>
+<li>$\lambda$: overall regularization strength  </li>
+<li>$\alpha \in [0,1]$: balance between L1 and L2  </li>
+</ul>
+<p><strong>Characteristics</strong></p>
+<ul>
+<li>Combines:<ul>
+<li><strong>Sparsity</strong> (from L1)</li>
+<li><strong>Stability</strong> (from L2)  </li>
+</ul>
+</li>
+<li>Useful when:<ul>
+<li>Features are highly correlated  </li>
+<li>You want both feature selection and robustness  </li>
+</ul>
+</li>
+</ul>
+<h4 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h4><ul>
+<li>Regularization reduces overfitting by penalizing large parameters  </li>
+<li>L1 → sparse model (feature selection)  </li>
+<li>L2 → smooth model (weight shrinkage)  </li>
+<li>Elastic Net → balance between L1 and L2  </li>
+<li>$\lambda$ controls the bias–variance tradeoff</li>
+</ul>
+<h4 id="Example-3"><a href="#Example-3" class="headerlink" title="Example"></a>Example</h4><p>Similarly, taking the example of fitting sin(x) on x∈[-3,3] using a polynomial, we will perform fitting without regularization, with L1 regularization, and with L2 regularization.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LinearRegression, Lasso, Ridge</span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> mean_squared_error</span><br><span class="line"></span><br><span class="line"><span class="comment"># Setting up plot parameters for English display</span></span><br><span class="line">plt.rcParams[<span class="string">&quot;font.sans-serif&quot;</span>] = [<span class="string">&quot;Arial&quot;</span>]</span><br><span class="line">plt.rcParams[<span class="string">&quot;axes.unicode_minus&quot;</span>] = <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">polynomial</span>(<span class="params">x, degree</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;Constructs a polynomial, returning [x^1, x^2, x^3, ..., x^n]&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">return</span> np.hstack([x**i <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, degree + <span class="number">1</span>)])</span><br><span class="line"></span><br><span class="line"><span class="comment"># Generate random data</span></span><br><span class="line">X = np.linspace(-<span class="number">3</span>, <span class="number">3</span>, <span class="number">300</span>).reshape(-<span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line">y = np.sin(X) + np.random.uniform(-<span class="number">0.5</span>, <span class="number">0.5</span>, X.size).reshape(-<span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">fig, ax = plt.subplots(<span class="number">2</span>, <span class="number">3</span>, figsize=(<span class="number">15</span>, <span class="number">8</span>))</span><br><span class="line">ax[<span class="number">0</span>, <span class="number">0</span>].plot(X, y, <span class="string">&quot;yo&quot;</span>)</span><br><span class="line">ax[<span class="number">0</span>, <span class="number">1</span>].plot(X, y, <span class="string">&quot;yo&quot;</span>)</span><br><span class="line">ax[<span class="number">0</span>, <span class="number">2</span>].plot(X, y, <span class="string">&quot;yo&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Split training and testing sets</span></span><br><span class="line">x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=<span class="number">0.2</span>, random_state=<span class="number">42</span>)</span><br><span class="line">x_train_poly = polynomial(x_train, <span class="number">20</span>)</span><br><span class="line">x_test_poly = polynomial(x_test, <span class="number">20</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># --- Linear Regression (No Regularization) ---</span></span><br><span class="line">model = LinearRegression()</span><br><span class="line">model.fit(x_train_poly, y_train)  <span class="comment"># Model training</span></span><br><span class="line">y_pred = model.predict(x_test_poly)  <span class="comment"># Prediction</span></span><br><span class="line">ax[<span class="number">0</span>, <span class="number">0</span>].plot(X, model.predict(polynomial(X, <span class="number">20</span>)), <span class="string">&quot;r&quot;</span>)  <span class="comment"># Draw curve</span></span><br><span class="line">ax[<span class="number">0</span>, <span class="number">0</span>].set_title(<span class="string">&quot;Standard Linear Regression&quot;</span>)</span><br><span class="line">ax[<span class="number">0</span>, <span class="number">0</span>].text(-<span class="number">3</span>, <span class="number">1</span>, <span class="string">f&quot;MSE (Test Set): <span class="subst">&#123;mean_squared_error(y_test, y_pred):<span class="number">.4</span>f&#125;</span>&quot;</span>)</span><br><span class="line">ax[<span class="number">1</span>, <span class="number">0</span>].bar(np.arange(<span class="number">20</span>), model.coef_.reshape(-<span class="number">1</span>))  <span class="comment"># Plot all coefficients</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># --- L1 Regularization: Lasso Regression ---</span></span><br><span class="line">lasso = Lasso(alpha=<span class="number">0.01</span>)</span><br><span class="line">lasso.fit(x_train_poly, y_train)  <span class="comment"># Model training</span></span><br><span class="line">y_pred_lasso = lasso.predict(x_test_poly)  <span class="comment"># Prediction</span></span><br><span class="line">ax[<span class="number">0</span>, <span class="number">1</span>].plot(X, lasso.predict(polynomial(X, <span class="number">20</span>)), <span class="string">&quot;r&quot;</span>)  <span class="comment"># Draw curve</span></span><br><span class="line">ax[<span class="number">0</span>, <span class="number">1</span>].set_title(<span class="string">&quot;Lasso Regression&quot;</span>)</span><br><span class="line">ax[<span class="number">0</span>, <span class="number">1</span>].text(-<span class="number">3</span>, <span class="number">1</span>, <span class="string">f&quot;MSE (Test Set): <span class="subst">&#123;mean_squared_error(y_test, y_pred_lasso):<span class="number">.4</span>f&#125;</span>&quot;</span>)</span><br><span class="line">ax[<span class="number">1</span>, <span class="number">1</span>].bar(np.arange(<span class="number">20</span>), lasso.coef_)  <span class="comment"># Plot all coefficients</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># --- L2 Regularization: Ridge Regression ---</span></span><br><span class="line">ridge = Ridge(alpha=<span class="number">1</span>)</span><br><span class="line">ridge.fit(x_train_poly, y_train)  <span class="comment"># Model training</span></span><br><span class="line">y_pred_ridge = ridge.predict(x_test_poly)  <span class="comment"># Prediction</span></span><br><span class="line">ax[<span class="number">0</span>, <span class="number">2</span>].plot(X, ridge.predict(polynomial(X, <span class="number">20</span>)), <span class="string">&quot;r&quot;</span>)  <span class="comment"># Draw curve</span></span><br><span class="line">ax[<span class="number">0</span>, <span class="number">2</span>].set_title(<span class="string">&quot;Ridge Regression&quot;</span>)</span><br><span class="line">ax[<span class="number">0</span>, <span class="number">2</span>].text(-<span class="number">3</span>, <span class="number">1</span>, <span class="string">f&quot;MSE (Test Set): <span class="subst">&#123;mean_squared_error(y_test, y_pred_ridge):<span class="number">.4</span>f&#125;</span>&quot;</span>)</span><br><span class="line">ax[<span class="number">1</span>, <span class="number">2</span>].bar(np.arange(<span class="number">20</span>), ridge.coef_.reshape(-<span class="number">1</span>))  <span class="comment"># Plot all coefficients</span></span><br><span class="line"></span><br><span class="line">plt.tight_layout()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20260424143230558.png" alt="Regularization"></p>
+<h3 id="Cross-Validation"><a href="#Cross-Validation" class="headerlink" title="Cross-Validation"></a>Cross-Validation</h3><p><strong>Cross-Validation</strong> is a technique used to evaluate a model’s <strong>generalization ability</strong>.  </p>
+<p>It works by splitting the dataset into multiple subsets and repeatedly training and validating the model. This helps:</p>
+<ul>
+<li>Reduce randomness caused by a single data split  </li>
+<li>Provide a more reliable estimate of performance on unseen data  </li>
+<li>Mitigate risks of <strong>overfitting</strong> and <strong>underfitting</strong> due to poor data partitioning  </li>
+</ul>
+<blockquote>
+<p>Hold-Out Validation</p>
+</blockquote>
+<p>The dataset is split into two parts:</p>
+<ul>
+<li><strong>Training set</strong> (e.g., 70%)  </li>
+<li><strong>Validation set</strong> (e.g., 30%)  </li>
+</ul>
+<p>Characteristics</p>
+<ul>
+<li>Simple and fast  </li>
+<li>Performance depends heavily on a <strong>single split</strong>  </li>
+<li>May <strong>overestimate or underestimate</strong> model performance  </li>
+</ul>
+<blockquote>
+<p>k-Fold Cross-Validation</p>
+</blockquote>
+<p>The dataset is divided into $k$ equal subsets (called <strong>folds</strong>).</p>
+<p><strong>Procedure</strong></p>
+<ol>
+<li>Split data into $k$ folds  </li>
+<li>For each iteration:<ul>
+<li>Use $k - 1$ folds for training  </li>
+<li>Use the remaining 1 fold for validation  </li>
+</ul>
+</li>
+<li>Repeat $k$ times  </li>
+<li>Compute the <strong>average performance</strong></li>
+</ol>
+<script type="math/tex; mode=display">
+\text{CV Error} = \frac{1}{k} \sum_{i=1}^{k} \text{Error}_i</script><p><strong>Characteristics</strong></p>
+<ul>
+<li>Efficient use of data  </li>
+<li>More <strong>stable and reliable</strong> results  </li>
+<li>Widely used in practice  </li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20260424145759981.png" alt="k-Fold Cross-Validation"></p>
+<blockquote>
+<p>Leave-One-Out Cross-Validation (LOOCV)<br>A special case of k-fold where $k$ equals the number of samples. Each sample is used once as a validation set while the rest form the training set.</p>
+</blockquote>
+<h3 id="Summary-1"><a href="#Summary-1" class="headerlink" title="Summary"></a>Summary</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Data Usage</th>
+<th>Stability</th>
+<th>Computational Cost</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hold-Out</td>
+<td>Low</td>
+<td>Low</td>
+<td>Low</td>
+<td>Simple but unstable</td>
+</tr>
+<tr>
+<td>k-Fold</td>
+<td>High</td>
+<td>High</td>
+<td>Medium</td>
+<td>Most commonly used</td>
+</tr>
+<tr>
+<td>LOO</td>
+<td>Very High</td>
+<td>Very High</td>
+<td>Very High</td>
+<td>Best for small datasets</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="Model-Optimization-Algorithms"><a href="#Model-Optimization-Algorithms" class="headerlink" title="Model Optimization Algorithms"></a>Model Optimization Algorithms</h2><p>Regularization helps prevent overfitting and improves generalization.  </p>
+<p>In this case, the model evaluation strategy becomes minimizing the <strong>regularized empirical risk</strong>, known as <strong>Structural Risk Minimization (SRM)</strong>.</p>
+<script type="math/tex; mode=display">
+\min \ \frac{1}{n} \sum_{i=1}^{n} \left[ L(y_i, f(x_i)) + \lambda J(\theta) \right]</script><p>This is essentially an <strong>optimization problem</strong>, where the objective function depends on model parameters $\theta$.</p>
+<h3 id="Solution-Methods"><a href="#Solution-Methods" class="headerlink" title="Solution Methods"></a>Solution Methods</h3><p>There are two main approaches to solving this optimization problem:</p>
+<ul>
+<li><strong>Analytical Solution (Closed-form)</strong></li>
+<li><strong>Iterative Methods (e.g., Gradient Descent)</strong></li>
+</ul>
+<h4 id="Analytical-Solution"><a href="#Analytical-Solution" class="headerlink" title="Analytical Solution"></a>Analytical Solution</h4><p>If the minimum of the loss function can be derived mathematically, we can directly compute the optimal parameters.</p>
+<p><strong>Characteristics</strong></p>
+<ul>
+<li><strong>Conditions:</strong> The function must be differentiable and solvable analytically  </li>
+<li><strong>Advantages:</strong> Exact and efficient  </li>
+<li><strong>Disadvantages:</strong> Limited applicability; expensive for high-dimensional data  </li>
+</ul>
+<h5 id="Example-Linear-Regression-Least-Squares"><a href="#Example-Linear-Regression-Least-Squares" class="headerlink" title="Example: Linear Regression (Least Squares)"></a>Example: Linear Regression (Least Squares)</h5><p>Linear regression problems: analytical solutions can be obtained using the “least squares method”.</p>
+<script type="math/tex; mode=display">
+\text{Loss}_{\text{MSE}} = \frac{1}{n} (X\beta - y)^T (X\beta - y)</script><script type="math/tex; mode=display">
+\nabla \text{Loss}_{\text{MSE}} = \frac{2}{n} X^T (X\beta - y) = 0</script><script type="math/tex; mode=display">
+\beta = (X^T X)^{-1} X^T y</script><p>Linear regression L2 regularization (Ridge regression)</p>
+<script type="math/tex; mode=display">
+\text{Loss}_{L2} = \frac{1}{n} (X\beta - y)^T (X\beta - y) + \frac{\lambda}{n} \beta^T \beta</script><script type="math/tex; mode=display">
+\nabla \text{Loss}_{L2} = \frac{2}{n} X^T (X\beta - y) + \frac{2\lambda}{n} \beta = 0</script><script type="math/tex; mode=display">
+\beta = (X^T X + \lambda I)^{-1} X^T y</script><p>The term $\lambda I$ stabilizes the matrix inversion, hence the name <strong>Ridge Regression</strong>.</p>
+<h4 id="Gradient-Descent-Key-Method"><a href="#Gradient-Descent-Key-Method" class="headerlink" title="Gradient Descent (Key Method)"></a>Gradient Descent (Key Method)</h4><p><strong>Gradient Descent</strong> is a widely used first-order iterative optimization algorithm.</p>
+<p><strong>Core Idea</strong></p>
+<ul>
+<li>Start with an initial parameter $\theta_0$  </li>
+<li>Update parameters iteratively in the <strong>negative gradient direction</strong>  </li>
+<li>Continue until convergence  </li>
+</ul>
+<p><strong>Update Rule</strong>:</p>
+<script type="math/tex; mode=display">
+\theta_{k+1} = \theta_k - \alpha \nabla L(\theta_k)</script><p>Where:</p>
+<ul>
+<li>$\nabla L(\theta_k)$ = gradient of the loss function  </li>
+<li>$\alpha$ = <strong>learning rate</strong> (hyperparameter)  </li>
+</ul>
+<p><strong>Key Concepts</strong></p>
+<ul>
+<li><strong>Gradient direction:</strong> fastest increase of the function  </li>
+<li><strong>Negative gradient:</strong> fastest decrease → used for minimization  </li>
+</ul>
+<p><strong>Characteristics</strong></p>
+<ul>
+<li>May converge to a <strong>local minimum</strong> (not always global)  </li>
+<li><strong>Advantages:</strong> simple, widely applicable  </li>
+<li><strong>Disadvantages:</strong> may be slow; sensitive to learning rate  </li>
+</ul>
+<h5 id="Types-of-Gradient-Descent"><a href="#Types-of-Gradient-Descent" class="headerlink" title="Types of Gradient Descent"></a>Types of Gradient Descent</h5><h6 id="Batch-Gradient-Descent-BGD"><a href="#Batch-Gradient-Descent-BGD" class="headerlink" title="Batch Gradient Descent (BGD)"></a>Batch Gradient Descent (BGD)</h6><p>Uses the entire training dataset to compute the gradient at each iteration.<br><strong>Pros</strong>: easy to implement; Stable convergence<br><strong>Cons</strong>: requires the entire dataset; may be slow for large datasets, High computational cost per iteration</p>
+<h6 id="Stochastic-Gradient-Descent-SGD"><a href="#Stochastic-Gradient-Descent-SGD" class="headerlink" title="Stochastic Gradient Descent (SGD)"></a>Stochastic Gradient Descent (SGD)</h6><p>Uses one sample at a time to compute the gradient.<br><strong>Pros</strong>: Fast; can be used for large datasets; can be used for small datasets<br><strong>Cons</strong>: Noisy updates; unstable convergence; may require more iterations to converge</p>
+<h6 id="Mini-Batch-Gradient-Descent-MBGD"><a href="#Mini-Batch-Gradient-Descent-MBGD" class="headerlink" title="Mini-Batch Gradient Descent (MBGD)"></a>Mini-Batch Gradient Descent (MBGD)</h6><p>Uses a small batch of samples to compute the gradient at each iteration.<br><strong>Pros</strong>: Balance between BGD and SGD; faster convergence; more stable than SGD<br><strong>Cons</strong>: requires a small batch size; may be slow for large datasets</p>
+<h5 id="Gradient-Descent-Procedure"><a href="#Gradient-Descent-Procedure" class="headerlink" title="Gradient Descent Procedure"></a>Gradient Descent Procedure</h5><ol>
+<li>Initialize parameters randomly  </li>
+<li>Compute gradient of the loss function  </li>
+<li>Update parameters using gradient  </li>
+<li>Repeat until stopping criteria:<ul>
+<li>Gradient ≈ 0  </li>
+<li>Max iterations reached  </li>
+</ul>
+</li>
+</ol>
+<h5 id="Example-Gradient-Descent"><a href="#Example-Gradient-Descent" class="headerlink" title="Example: Gradient Descent"></a>Example: Gradient Descent</h5><p>Given:</p>
+<script type="math/tex; mode=display">
+f(x) = x^2</script><p>Find $x$ such that $f(x) = 2$</p>
+<p>Define objective function:</p>
+<script type="math/tex; mode=display">
+J(x) = (x^2 - 2)^2</script><p>Gradient:</p>
+<script type="math/tex; mode=display">
+\frac{dJ(x)}{dx} = 4x^3 - 8x</script><ul>
+<li>Initial value: $x_1 = 1$  </li>
+<li>Learning rate: $\alpha = 0.1$</li>
+</ul>
+<p>Step 1:</p>
+<script type="math/tex; mode=display">
+J(x_1) = 1,\quad J'(x_1) = -4</script><script type="math/tex; mode=display">
+x_2 = x_1 - \alpha J'(x_1) = 1.4</script><p>Step 2:</p>
+<script type="math/tex; mode=display">
+J(x_2) = 0.0016,\quad J'(x_2) = -0.224</script><script type="math/tex; mode=display">
+x_3 = 1.4224</script><p>Final convergence:</p>
+<script type="math/tex; mode=display">
+x \approx 1.414213,\quad J(x) \approx 2.53 \times 10^{-12}</script><p><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20260424153707562.png" alt="example"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">J</span>(<span class="params">x</span>):</span><br><span class="line">    <span class="keyword">return</span> (x**<span class="number">2</span> - <span class="number">2</span>) ** <span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">gradient</span>(<span class="params">x</span>):</span><br><span class="line">    <span class="keyword">return</span> <span class="number">4</span> * x**<span class="number">3</span> - <span class="number">8</span> * x</span><br><span class="line"></span><br><span class="line">x = <span class="number">1</span></span><br><span class="line">alpha = <span class="number">0.1</span> </span><br><span class="line"><span class="keyword">while</span> (j := J(x)) &gt; <span class="number">1e-30</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;x=<span class="subst">&#123;x&#125;</span>\tJ=<span class="subst">&#123;j&#125;</span>&quot;</span>)</span><br><span class="line">    grad = gradient(x)</span><br><span class="line">    x = x - alpha * grad</span><br></pre></td></tr></table></figure>
+<h5 id="L1-Regularization-Lasso"><a href="#L1-Regularization-Lasso" class="headerlink" title="L1 Regularization (Lasso)"></a>L1 Regularization (Lasso)</h5><script type="math/tex; mode=display">
+\text{Loss}_{L1} = \frac{1}{n} \left( \sum_{i=1}^{n} (f(x_i) - y_i)^2 + \lambda \sum_{j=1}^{k} |\omega_j| \right)</script><p><strong>Gradient Derivation</strong></p>
+<script type="math/tex; mode=display">
+\frac{\partial \text{Loss}_{L1}}{\partial \omega_j}
+= \frac{1}{n} \left( 2 \sum_{i=1}^{n} x_{ij}(f(x_i) - y_i) + \lambda \cdot \text{sign}(\omega_j) \right)</script><p>Where:</p>
+<script type="math/tex; mode=display">
+\text{sign}(\omega_j) =
+\begin{cases}
+1, & \omega_j > 0 \\
+0, & \omega_j = 0 \\
+-1, & \omega_j < 0
+\end{cases}</script><p><strong>Parameter Update Rule</strong></p>
+<script type="math/tex; mode=display">
+\omega_j \leftarrow \omega_j - \alpha \left(
+\frac{2}{n} \sum_{i=1}^{n} x_{ij}(f(x_i) - y_i)
++ \frac{\lambda}{n} \cdot \text{sign}(\omega_j)
+\right)</script><p>The gradient of the L1 regularization term is a <strong>constant</strong>:</p>
+<script type="math/tex; mode=display">
+\frac{\lambda}{n}</script><p>When $\omega_j$ is small, it can be driven <strong>directly to zero</strong> . This leads to <strong>sparsity</strong> → automatic feature selection </p>
+<h5 id="L2-Regularization-Ridge"><a href="#L2-Regularization-Ridge" class="headerlink" title="L2 Regularization (Ridge)"></a>L2 Regularization (Ridge)</h5><p><strong>Loss Function</strong></p>
+<script type="math/tex; mode=display">
+\text{Loss}_{L2} = \frac{1}{n} \left( \sum_{i=1}^{n} (f(x_i) - y_i)^2 + \lambda \sum_{j=1}^{k} \omega_j^2 \right)</script><p><strong>Gradient Derivation</strong></p>
+<script type="math/tex; mode=display">
+\frac{\partial \text{Loss}_{L2}}{\partial \omega_j}
+= \frac{1}{n} \left( 2 \sum_{i=1}^{n} x_{ij}(f(x_i) - y_i) + 2\lambda \omega_j \right)</script><p><strong>Parameter Update Rule</strong></p>
+<script type="math/tex; mode=display">
+\omega_j \leftarrow \omega_j - \alpha \left(
+\frac{2}{n} \sum_{i=1}^{n} x_{ij}(f(x_i) - y_i)
++ \frac{2\lambda}{n} \omega_j
+\right)</script><p><strong>Key Insight</strong></p>
+<ul>
+<li>The gradient of the L2 term is proportional to $\omega_j$:<script type="math/tex; mode=display">
+\frac{2\lambda}{n} \omega_j</script></li>
+<li>Each update <strong>shrinks</strong> the parameter toward zero  </li>
+<li>Parameters become <strong>small but not exactly zero</strong>  </li>
+<li>Leads to a <strong>smooth and stable model</strong></li>
+</ul>
+<h5 id="Comparison"><a href="#Comparison" class="headerlink" title="Comparison"></a><strong>Comparison</strong></h5><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>L1 (Lasso)</th>
+<th>L2 (Ridge)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Penalty</td>
+<td>$</td>
+<td>\omega</td>
+<td>$</td>
+<td>$\omega^2$</td>
+</tr>
+<tr>
+<td>Gradient</td>
+<td>Constant</td>
+<td>Proportional to $\omega$</td>
+</tr>
+<tr>
+<td>Sparsity</td>
+<td>Yes (many zeros)</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Feature Selection</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Model Behavior</td>
+<td>Sparse</td>
+<td>Smooth</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>L1 → drives parameters to zero → <strong>feature selection</strong>  </li>
+<li>L2 → shrinks parameters → <strong>stability &amp; regularization</strong>  </li>
+<li>Both reduce overfitting but behave differently during optimization</li>
+</ul>
+<h4 id="Newton’s-Method-and-Quasi-Newton-Methods-Overview"><a href="#Newton’s-Method-and-Quasi-Newton-Methods-Overview" class="headerlink" title="Newton’s Method and Quasi-Newton Methods (Overview)"></a>Newton’s Method and Quasi-Newton Methods (Overview)</h4><p><strong>Newton’s Method</strong> is a classical optimization technique for solving <strong>unconstrained optimization problems</strong>.<br>It uses <strong>second-order derivative information</strong> (the Hessian matrix) to iteratively approach the optimal solution.</p>
+<p><strong>Update Rule</strong></p>
+<script type="math/tex; mode=display">
+\theta_{k+1} = \theta_k - H^{-1}(\theta_k) \cdot \nabla L(\theta_k)</script><p>Where:</p>
+<ul>
+<li>$\nabla L(\theta_k)$ = gradient of the loss function  </li>
+<li>$H^{-1}(\theta_k)$ = inverse of the <strong>Hessian matrix</strong> at $\theta_k$  </li>
+<li>$H(\theta)$ = matrix of second-order partial derivatives  </li>
+</ul>
+<p><strong>Key Idea</strong></p>
+<ul>
+<li>Uses curvature (second-order information)  </li>
+<li>Adjusts both <strong>direction</strong> and <strong>step size</strong> automatically  </li>
+<li>Typically converges faster than first-order methods  </li>
+</ul>
+<p><strong>Advantages</strong></p>
+<ul>
+<li><strong>Fast convergence</strong> (often quadratic convergence near optimum)  </li>
+<li><strong>High precision</strong>  </li>
+</ul>
+<p><strong>Disadvantages</strong></p>
+<ul>
+<li><strong>High computational cost</strong> (computing and inverting Hessian)  </li>
+<li>May <strong>diverge</strong> if initialization is poor or function is not well-behaved  </li>
+<li>Not suitable for very high-dimensional problems </li>
+</ul>
+<h5 id="Quasi-Newton-Methods"><a href="#Quasi-Newton-Methods" class="headerlink" title="Quasi-Newton Methods"></a>Quasi-Newton Methods</h5><p>To avoid the expensive computation of the Hessian inverse, <strong>Quasi-Newton methods</strong> approximate it using a <strong>positive definite matrix</strong>.</p>
+<p>Instead of computing $H^{-1}(\theta_k)$ directly, construct an approximation:</p>
+<script type="math/tex; mode=display">
+H^{-1}(\theta_k) \approx B_k</script><p>Where $B_k$ is iteratively updated using gradient information.</p>
+<p><strong>Advantages</strong></p>
+<ul>
+<li>Lower computational cost than Newton’s method  </li>
+<li>Retains faster convergence than gradient descent  </li>
+<li>More practical for medium-scale problems  </li>
+</ul>
+<p><strong>Comparison</strong></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Order</th>
+<th>Speed</th>
+<th>Computation Cost</th>
+<th>Suitable For</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Gradient Descent</td>
+<td>1st</td>
+<td>Slow</td>
+<td>Low</td>
+<td>Large-scale problems</td>
+</tr>
+<tr>
+<td>Newton’s Method</td>
+<td>2nd</td>
+<td>Very Fast</td>
+<td>Very High</td>
+<td>Small/medium problems</td>
+</tr>
+<tr>
+<td>Quasi-Newton</td>
+<td>~2nd</td>
+<td>Fast</td>
+<td>Medium</td>
+<td>Medium-scale problems</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="Model-Evaluation-Metrics"><a href="#Model-Evaluation-Metrics" class="headerlink" title="Model Evaluation Metrics"></a>Model Evaluation Metrics</h2><p>Evaluating the generalization performance of a learning model requires not only effective and feasible experimental estimation methods, but also evaluation metrics that measure the model’s generalization ability, also known as performance measures.</p>
+<h3 id="Regression-Model-Evaluation-Metrics"><a href="#Regression-Model-Evaluation-Metrics" class="headerlink" title="Regression Model Evaluation Metrics"></a>Regression Model Evaluation Metrics</h3><p>Model evaluation metrics are used to measure the model’s performance on the training or test set. The evaluation results reflect the model’s predictive accuracy and generalization ability.</p>
+<p>For regression problems, the most commonly used performance metric is the Mean Squared Error (MSE).</p>
+<h4 id="Mean-Absolute-Error-MAE"><a href="#Mean-Absolute-Error-MAE" class="headerlink" title="Mean Absolute Error (MAE)"></a>Mean Absolute Error (MAE)</h4><script type="math/tex; mode=display">
+\text{MAE} = \frac{1}{n} \sum_{i=1}^{n} |f(x_i) - y_i|</script><p><strong>Characteristics</strong></p>
+<ul>
+<li>Measures the <strong>average absolute difference</strong> between predictions and true values  </li>
+<li><strong>Robust to outliers</strong> (does not heavily penalize large errors)  </li>
+<li>Easy to interpret  </li>
+</ul>
+<p><strong>Use Case</strong></p>
+<ul>
+<li>Suitable when the dataset contains <strong>outliers</strong>  </li>
+<li>When equal importance is given to all errors  </li>
+</ul>
+<h4 id="Mean-Squared-Error-MSE"><a href="#Mean-Squared-Error-MSE" class="headerlink" title="Mean Squared Error (MSE)"></a>Mean Squared Error (MSE)</h4><script type="math/tex; mode=display">
+\text{MSE} = \frac{1}{n} \sum_{i=1}^{n} (f(x_i) - y_i)^2</script><p><strong>Characteristics</strong></p>
+<ul>
+<li>Squares the errors → <strong>amplifies large errors</strong>  </li>
+<li><strong>Sensitive to outliers</strong>  </li>
+</ul>
+<p><strong>Use Case</strong></p>
+<ul>
+<li>Suitable when large errors should be <strong>penalized more heavily</strong>  </li>
+<li>Commonly used in optimization due to mathematical convenience  </li>
+</ul>
+<h4 id="Root-Mean-Squared-Error-RMSE"><a href="#Root-Mean-Squared-Error-RMSE" class="headerlink" title="Root Mean Squared Error (RMSE)"></a>Root Mean Squared Error (RMSE)</h4><script type="math/tex; mode=display">
+\text{RMSE} = \sqrt{ \frac{1}{n} \sum_{i=1}^{n} (f(x_i) - y_i)^2 }</script><p><strong>Characteristics</strong></p>
+<ul>
+<li>Same as MSE but with <strong>square root applied</strong>  </li>
+<li>Has the <strong>same unit</strong> as the target variable → easier interpretation  </li>
+<li>Still <strong>sensitive to outliers</strong> </li>
+</ul>
+<p><strong>Use Case</strong></p>
+<ul>
+<li>When interpretability of error magnitude is important  </li>
+</ul>
+<p>⚠️ Note: Minimizing RMSE excessively may cause the model to <strong>overfit outliers</strong>.</p>
+<h4 id="R²-Coefficient-of-Determination"><a href="#R²-Coefficient-of-Determination" class="headerlink" title="R² (Coefficient of Determination)"></a>R² (Coefficient of Determination)</h4><script type="math/tex; mode=display">
+R^2 = 1 - \frac{\sum_{i=1}^{n} (f(x_i) - y_i)^2}{\sum_{i=1}^{n} (y_i - \bar{y})^2}</script><p><strong>Characteristics</strong></p>
+<ul>
+<li>Measures how well the model <strong>explains the variance</strong> in the target variable  </li>
+<li>Value range: $(-\infty, 1]$  </li>
+<li>Closer to <strong>1</strong> → better fit  </li>
+</ul>
+<p><strong>Use Case</strong></p>
+<ul>
+<li>Useful for evaluating <strong>overall model performance</strong>  </li>
+<li>Common in regression analysis  </li>
+</ul>
+<p>⚠️ Note: Sensitive to outliers and may be misleading in some cases.</p>
+<h4 id="Summary-Comparison"><a href="#Summary-Comparison" class="headerlink" title="Summary Comparison"></a>Summary Comparison</h4><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Sensitive to Outliers</th>
+<th>Unit</th>
+<th>Key Feature</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MAE</td>
+<td>No</td>
+<td>Same as target</td>
+<td>Robust, simple</td>
+</tr>
+<tr>
+<td>MSE</td>
+<td>Yes</td>
+<td>Squared unit</td>
+<td>Penalizes large errors</td>
+</tr>
+<tr>
+<td>RMSE</td>
+<td>Yes</td>
+<td>Same as target</td>
+<td>Interpretable magnitude</td>
+</tr>
+<tr>
+<td>R²</td>
+<td>Yes</td>
+<td>Dimensionless</td>
+<td>Explains variance</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="Evaluation-Metrics-for-Classification-Models"><a href="#Evaluation-Metrics-for-Classification-Models" class="headerlink" title="Evaluation Metrics for Classification Models"></a>Evaluation Metrics for Classification Models</h3><p>For classification problems, the most commonly used metric is “accuracy,” defined as the ratio of the number of samples correctly classified on the test set to the total number of samples. In addition, there are a series of other commonly used evaluation metrics.</p>
+<ol>
+<li>Confusion Matrix<br> The confusion matrix is ​​a tool used to evaluate the performance of a classification model, showing the comparison between the model’s predictions and the actual labels. <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> confusion_matrix</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line"></span><br><span class="line">labels = [<span class="number">0</span>, <span class="number">1</span>]  <span class="comment"># Binary classification</span></span><br><span class="line">y_true = [<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>]  <span class="comment"># True labels</span></span><br><span class="line">y_pred = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>]  <span class="comment"># Predicted labels</span></span><br><span class="line">matrix1 = confusion_matrix(y_true, y_pred, labels=labels)</span><br><span class="line"><span class="built_in">print</span>(pd.DataFrame(matrix1, index=labels, columns=labels))</span><br><span class="line">sns.heatmap(matrix1, annot=<span class="literal">True</span>, fmt=<span class="string">&quot;d&quot;</span>, cmap=<span class="string">&quot;Blues&quot;</span>)</span><br></pre></td></tr></table></figure></li>
+<li>Accuracy<br> Accuracy is a commonly used metric for classification problems. It measures the proportion of correctly classified samples out of the total number of samples. The accuracy is calculated as:<script type="math/tex; mode=display">
+ \text{Accuracy} = \frac{\text{Number of Correct Predictions}}{\text{Total Number of Predictions}}</script> <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> accuracy_score</span><br><span class="line"></span><br><span class="line">y_true = [<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>]  <span class="comment"># True labels</span></span><br><span class="line">y_pred = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>]  <span class="comment"># Predicted labels</span></span><br><span class="line"><span class="built_in">print</span>(accuracy_score(y_true, y_pred))</span><br></pre></td></tr></table></figure></li>
+<li>Precision<br> Precision is a metric that measures the proportion of true positive predictions among all positive predictions made by the model. It is calculated as:<script type="math/tex; mode=display">
+ \text{Precision} = \frac{\text{True Positives}}{\text{True Positives} + \text{False Positives}}</script> <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> precision_score</span><br><span class="line"></span><br><span class="line">y_true = [<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>]  <span class="comment"># True labels</span></span><br><span class="line">y_pred = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>]  <span class="comment"># Predicted labels</span></span><br><span class="line"><span class="built_in">print</span>(precision_score(y_true, y_pred))</span><br></pre></td></tr></table></figure></li>
+<li>Recall<br> Recall, also known as sensitivity, measures the proportion of true positive predictions among all actual positive instances. It is calculated as:<script type="math/tex; mode=display">
+ \text{Recall} = \frac{\text{True Positives}}{\text{True Positives} + \text{False Negatives}}</script> <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> recall_score</span><br><span class="line"></span><br><span class="line">y_true = [<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>]  <span class="comment"># True labels</span></span><br><span class="line">y_pred = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>]  <span class="comment"># Predicted labels</span></span><br><span class="line"><span class="built_in">print</span>(recall_score(y_true, y_pred))</span><br></pre></td></tr></table></figure></li>
+<li>F1 Score<br> The F1 score is the harmonic mean of precision and recall. It provides a single metric that balances both precision and recall, and is calculated as:<script type="math/tex; mode=display">
+ \text{F1 Score} = \frac{2 \cdot \text{Precision} \cdot \text{Recall}}{\text{Precision} + \text{Recall}}</script> <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> f1_score</span><br><span class="line"></span><br><span class="line">y_true = [<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>]  <span class="comment"># True labels</span></span><br><span class="line">y_pred = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>]  <span class="comment"># Predicted labels</span></span><br><span class="line"><span class="built_in">print</span>(f1_score(y_true, y_pred))</span><br></pre></td></tr></table></figure></li>
+<li>ROC Curve and AUC<br> The ROC (Receiver Operating Characteristic) curve is a graphical representation of the trade-off between true positive rate and false positive rate at various classification thresholds. It is calculated by plotting the true positive rate (TPR) against the false positive rate (FPR) for different thresholds. <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> roc_curve, auc</span><br><span class="line"></span><br><span class="line">y_true = [<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>]  <span class="comment"># True labels</span></span><br><span class="line">y_pred = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>]  <span class="comment"># Predicted labels</span></span><br><span class="line">fpr, tpr, thresholds = roc_curve(y_true, y_pred)</span><br><span class="line"><span class="built_in">print</span>(auc(fpr, tpr))</span><br></pre></td></tr></table></figure>
+ <img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20260424195158481.png" alt="ROC"></li>
+<li>AUC (Area Under the Curve)<br> AUC is the area under the ROC curve, which quantifies the overall ability of the model to distinguish between positive and negative classes. A higher AUC indicates better model performance. <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> roc_auc_score</span><br><span class="line"></span><br><span class="line">y_true = [<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>]  <span class="comment"># True labels</span></span><br><span class="line">y_pred = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>]  <span class="comment"># Predicted labels</span></span><br><span class="line"><span class="built_in">print</span>(roc_auc_score(y_true, y_pred))</span><br></pre></td></tr></table></figure></li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://wenyupeng.github.io">Chris Wen</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://wenyupeng.github.io/2025/09/14/ai/ml/01-machine-learning/">https://wenyupeng.github.io/2025/09/14/ai/ml/01-machine-learning/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/ai/">ai</a></div><div class="post-share"><div class="social-share" data-image="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20250728225233182.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/10/05/leetcode/670-maximum-swap/" title="Leetcode - 670. Maximum Swap"><img class="cover" src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20250728225255149.png" onerror="onerror=null;src='/images/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">Leetcode - 670. Maximum Swap</div></div><div class="info-2"><div class="info-item-1">DescriptionYou are given an integer num. You can swap two digits at most once to get the maximum valued number. Return the maximum valued number you can get. 12345Example 1:Input: num = 2736Output: 7236Explanation: Swap the number 2 and the number 7. 12345Example 2:Input: num = 9973Output: 9973Explanation: No swap. 12Constraints:0 &lt;= num &lt;= 108 Approach1234567891011121314151617181920class Solution:    def maximumSwap(self, num: int) -&gt; int:        result = num        num_list = list(...</div></div></div></a><a class="pagination-related" href="/2025/09/09/math/03-probability-theory/" title="Probability Theory"><img class="cover" src="https://jsd.012700.xyz/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="onerror=null;src='/images/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">Probability Theory</div></div><div class="info-2"><div class="info-item-1">ProbabilityProbability is a measure of how likely an event is to occur.The probability of an event ( A ) is denoted as:  P(A)Probability Calculations    Event Formula     Complement of A P(A^c) = 1 - P(A)   Joint Probability (A and B) P(A \cap B)   Union Probability (A or B) P(A \cup B) = P(A) + P(B) - P(A \cap B)   Conditional Probability P(A \mid B) = \frac{P(A \cap B)}{P(B)}     ExampleA bag contains 10 balls: 6 red and 4 blue. Two balls are drawn randomly without replacement. Let:  Event ...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/07/19/ai/01-ai-foundation/" title="large language model"><img class="cover" src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251007095245295.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-07-19</div><div class="info-item-2">large language model</div></div><div class="info-2"><div class="info-item-1">Large Language ModelDefinitionA large language model is a machine learning model that is trained on a large corpus of text data, such as Wikipedia or the Web. These models can generate high-quality text that is similar to the training data, but can also generate text that is not present in the training data. History &lt; 1990s: IBM’s statistical language model (SLM) 1990s-2000s: Neural language models (NLLMs) 2001s: n-gram model 2010s: GPT-2, GPT-3  Dataset PreprocessingTokenizationSplitting ...</div></div></div></a><a class="pagination-related" href="/2025/07/19/ai/02-ai-deep-learning/" title="large language model"><img class="cover" src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20250728225255149.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-07-19</div><div class="info-item-2">large language model</div></div><div class="info-2"><div class="info-item-1">ReferencesDive Into Deep Learning Create Environmentuse conda or miniconda123conda env remove d2l-zhconda create -n d2l-zh -y python=3.8 pipconda activate d2l-zh install dependencies1pip install jupyter d2l torch torchvision download d2l-zh.zip123wget http://zh-v2.d2l.ai/d2l-zh.zipunzip d2l-zh.zipjupyter notebook </div></div></div></a><a class="pagination-related" href="/2025/06/19/ai/algorithm/01-classification-algorithms/" title="Classification Algorithms"><img class="cover" src="https://jsd.012700.xyz/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-06-19</div><div class="info-item-2">Classification Algorithms</div></div><div class="info-2"><div class="info-item-1">Dataset IntroductionNSL-KDDThe NSL-KDD dataset is a dataset for intrusion detection, which is a type of supervised learning problem. It consists of a large number of network traffic records that are labeled as either normal or malicious. The dataset contains a total of 41,478 network traffic records, which are categorized into 10 different types of attacks, such as DoS, Probe, U2R, R2L, etc. The dataset is publicly available and can be downloaded from the following link: https://www.unb.ca/ci...</div></div></div></a><a class="pagination-related" href="/2025/06/21/ai/algorithm/03-adversarial-machine-learning/" title="A Taxonomy and Terminology of Adversarial Machine Learning"><img class="cover" src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20250728225255149.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-06-21</div><div class="info-item-2">A Taxonomy and Terminology of Adversarial Machine Learning</div></div><div class="info-2"><div class="info-item-1">BackgroundMachine learning (ML) components are increasingly being deployed in critical applications, form computer vision to cybersecurity. However, the data-driven nature of ML introduces new security challenges compared to traditional knowledge-based AI systems. Adversaries can exploit vulnerabilities in ML models through a variety of adversarial attacks, posing significant risks to the integrity, availability, and confidentiality of these systems. Key Attack TypesThe taxonomy of adversaria...</div></div></div></a><a class="pagination-related" href="/2025/06/20/ai/algorithm/02-analysis-classification-algorithms/" title="Comparative Analysis of Classification Algorithms"><img class="cover" src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251007095245295.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-06-20</div><div class="info-item-2">Comparative Analysis of Classification Algorithms</div></div><div class="info-2"><div class="info-item-1">Comparative Analysis of Classification AlgorithmsAbstractThis report provides a comprehensive analysis of the performance of three popular classification algorithms:Decision Tree, Logistic Regression, Naive Bayes, Random Forest, Support Vector Machines (SVM) and Multilayer Perceptron.The purpose of the study is to evaluate and compare these algorithms based on key performance metrics such as accuracy, precision, recall, F1-score, and false alarm rate (www.evidentlyai.com, n.d.), using two dif...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/images/lucky-icon.png" onerror="this.onerror=null;this.src='/images/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Chris Wen</div><div class="author-info-description">Dwell not on the past, nor fear the future.</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">109</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">32</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">57</div></a></div><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/wenyupeng" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:chriswen430@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://www.linkedin.com/in/chriswen430" target="_blank" title="Linkedin"><i class="fab fa-linkedin" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">Maintain the motivation to learn and stay humble when facing every problem.</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Overview-of-Machine-Learning"><span class="toc-number">1.</span> <span class="toc-text">Overview of Machine Learning</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#What-is-Machine-Learning"><span class="toc-number">1.1.</span> <span class="toc-text">What is Machine Learning?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Key-Concepts-in-Machine-Learning"><span class="toc-number">1.2.</span> <span class="toc-text">Key Concepts in Machine Learning</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Machine-Learning-Fundamental-Theorem"><span class="toc-number">2.</span> <span class="toc-text">Machine Learning Fundamental Theorem</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Three-Elements-of-Machine-Learning"><span class="toc-number">2.1.</span> <span class="toc-text">Three Elements of Machine Learning</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Types-of-Machine-Learning"><span class="toc-number">2.2.</span> <span class="toc-text">Types of Machine Learning</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Modeling-Process"><span class="toc-number">2.3.</span> <span class="toc-text">Modeling Process</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Feature-Engineering"><span class="toc-number">2.4.</span> <span class="toc-text">Feature Engineering</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Low-Variance-Filtering-Method"><span class="toc-number">2.4.1.</span> <span class="toc-text">Low Variance Filtering Method</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Correlation-Based-Feature-Selection"><span class="toc-number">2.4.2.</span> <span class="toc-text">Correlation-Based Feature Selection</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Pearson-Correlation-Coefficient"><span class="toc-number">2.4.2.1.</span> <span class="toc-text">Pearson Correlation Coefficient</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Example"><span class="toc-number">2.4.2.1.1.</span> <span class="toc-text">Example</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Spearman-Rank-Correlation-Coefficient"><span class="toc-number">2.4.2.2.</span> <span class="toc-text">Spearman Rank Correlation Coefficient</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Example-1"><span class="toc-number">2.4.2.2.1.</span> <span class="toc-text">Example</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Principal-Component-Analysis-PCA"><span class="toc-number">2.4.2.3.</span> <span class="toc-text">Principal Component Analysis (PCA)</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Model-Evaluation-and-Model-Selection-Key-Topic"><span class="toc-number">2.5.</span> <span class="toc-text">Model Evaluation and Model Selection (Key Topic)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Loss-Function"><span class="toc-number">2.5.1.</span> <span class="toc-text">Loss Function</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Properties-of-Loss-Functions"><span class="toc-number">2.5.2.</span> <span class="toc-text">Properties of Loss Functions</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Common-Loss-Functions"><span class="toc-number">2.5.3.</span> <span class="toc-text">Common Loss Functions</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-0-1-Loss-Function"><span class="toc-number">2.5.3.1.</span> <span class="toc-text">1. 0-1 Loss Function</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-Squared-Loss-Function"><span class="toc-number">2.5.3.2.</span> <span class="toc-text">2. Squared Loss Function</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-Absolute-Loss-Function"><span class="toc-number">2.5.3.3.</span> <span class="toc-text">3. Absolute Loss Function</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-Log-Likelihood-Loss-Negative-Log-Likelihood"><span class="toc-number">2.5.3.4.</span> <span class="toc-text">4. Log-Likelihood Loss (Negative Log-Likelihood)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Empirical-Error-Empirical-Risk"><span class="toc-number">2.5.4.</span> <span class="toc-text">Empirical Error (Empirical Risk)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Generalization-Error"><span class="toc-number">2.5.4.1.</span> <span class="toc-text">Generalization Error</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Model-Evaluation-Strategy"><span class="toc-number">2.5.4.2.</span> <span class="toc-text">Model Evaluation Strategy</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Underfitting-and-Overfitting"><span class="toc-number">2.5.5.</span> <span class="toc-text">Underfitting and Overfitting</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Causes-and-Solutions"><span class="toc-number">2.5.5.1.</span> <span class="toc-text">Causes and Solutions</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Example-2"><span class="toc-number">2.5.5.2.</span> <span class="toc-text">Example</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Regularization"><span class="toc-number">2.5.6.</span> <span class="toc-text">Regularization</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Summary"><span class="toc-number">2.5.6.1.</span> <span class="toc-text">Summary</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Example-3"><span class="toc-number">2.5.6.2.</span> <span class="toc-text">Example</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Cross-Validation"><span class="toc-number">2.5.7.</span> <span class="toc-text">Cross-Validation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Summary-1"><span class="toc-number">2.5.8.</span> <span class="toc-text">Summary</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Model-Optimization-Algorithms"><span class="toc-number">2.6.</span> <span class="toc-text">Model Optimization Algorithms</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Solution-Methods"><span class="toc-number">2.6.1.</span> <span class="toc-text">Solution Methods</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Analytical-Solution"><span class="toc-number">2.6.1.1.</span> <span class="toc-text">Analytical Solution</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Example-Linear-Regression-Least-Squares"><span class="toc-number">2.6.1.1.1.</span> <span class="toc-text">Example: Linear Regression (Least Squares)</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Gradient-Descent-Key-Method"><span class="toc-number">2.6.1.2.</span> <span class="toc-text">Gradient Descent (Key Method)</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Types-of-Gradient-Descent"><span class="toc-number">2.6.1.2.1.</span> <span class="toc-text">Types of Gradient Descent</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#Batch-Gradient-Descent-BGD"><span class="toc-number">2.6.1.2.1.1.</span> <span class="toc-text">Batch Gradient Descent (BGD)</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#Stochastic-Gradient-Descent-SGD"><span class="toc-number">2.6.1.2.1.2.</span> <span class="toc-text">Stochastic Gradient Descent (SGD)</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#Mini-Batch-Gradient-Descent-MBGD"><span class="toc-number">2.6.1.2.1.3.</span> <span class="toc-text">Mini-Batch Gradient Descent (MBGD)</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Gradient-Descent-Procedure"><span class="toc-number">2.6.1.2.2.</span> <span class="toc-text">Gradient Descent Procedure</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Example-Gradient-Descent"><span class="toc-number">2.6.1.2.3.</span> <span class="toc-text">Example: Gradient Descent</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#L1-Regularization-Lasso"><span class="toc-number">2.6.1.2.4.</span> <span class="toc-text">L1 Regularization (Lasso)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#L2-Regularization-Ridge"><span class="toc-number">2.6.1.2.5.</span> <span class="toc-text">L2 Regularization (Ridge)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Comparison"><span class="toc-number">2.6.1.2.6.</span> <span class="toc-text">Comparison</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Newton%E2%80%99s-Method-and-Quasi-Newton-Methods-Overview"><span class="toc-number">2.6.1.3.</span> <span class="toc-text">Newton’s Method and Quasi-Newton Methods (Overview)</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Quasi-Newton-Methods"><span class="toc-number">2.6.1.3.1.</span> <span class="toc-text">Quasi-Newton Methods</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Model-Evaluation-Metrics"><span class="toc-number">2.7.</span> <span class="toc-text">Model Evaluation Metrics</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Regression-Model-Evaluation-Metrics"><span class="toc-number">2.7.1.</span> <span class="toc-text">Regression Model Evaluation Metrics</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Mean-Absolute-Error-MAE"><span class="toc-number">2.7.1.1.</span> <span class="toc-text">Mean Absolute Error (MAE)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Mean-Squared-Error-MSE"><span class="toc-number">2.7.1.2.</span> <span class="toc-text">Mean Squared Error (MSE)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Root-Mean-Squared-Error-RMSE"><span class="toc-number">2.7.1.3.</span> <span class="toc-text">Root Mean Squared Error (RMSE)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#R%C2%B2-Coefficient-of-Determination"><span class="toc-number">2.7.1.4.</span> <span class="toc-text">R² (Coefficient of Determination)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Summary-Comparison"><span class="toc-number">2.7.1.5.</span> <span class="toc-text">Summary Comparison</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Evaluation-Metrics-for-Classification-Models"><span class="toc-number">2.7.2.</span> <span class="toc-text">Evaluation Metrics for Classification Models</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/11/14/big_data/da/11-des-statistics-2/" title="Box-Cox and Yeo-Johnson Transformations"><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251118091603317.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="Box-Cox and Yeo-Johnson Transformations"/></a><div class="content"><a class="title" href="/2025/11/14/big_data/da/11-des-statistics-2/" title="Box-Cox and Yeo-Johnson Transformations">Box-Cox and Yeo-Johnson Transformations</a><time datetime="2025-11-14T00:14:08.000Z" title="Created 2025-11-14 11:14:08">2025-11-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/11/13/big_data/da/11-des-statistics-1/" title="Feature Selection"><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251118091603317.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="Feature Selection"/></a><div class="content"><a class="title" href="/2025/11/13/big_data/da/11-des-statistics-1/" title="Feature Selection">Feature Selection</a><time datetime="2025-11-13T22:22:12.000Z" title="Created 2025-11-14 09:22:12">2025-11-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/11/13/big_data/da/10-des-statistics/" title="GDPR"><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251118091603317.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="GDPR"/></a><div class="content"><a class="title" href="/2025/11/13/big_data/da/10-des-statistics/" title="GDPR">GDPR</a><time datetime="2025-11-13T05:01:22.000Z" title="Created 2025-11-13 16:01:22">2025-11-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/11/12/big_data/da/12-des-statistics/" title="Dimensionality Reduction and PCA"><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251118091603317.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="Dimensionality Reduction and PCA"/></a><div class="content"><a class="title" href="/2025/11/12/big_data/da/12-des-statistics/" title="Dimensionality Reduction and PCA">Dimensionality Reduction and PCA</a><time datetime="2025-11-12T04:02:22.000Z" title="Created 2025-11-12 15:02:22">2025-11-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/11/11/big_data/da/09-des-statistics/" title="Data Matching"><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251118091603317.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="Data Matching"/></a><div class="content"><a class="title" href="/2025/11/11/big_data/da/09-des-statistics/" title="Data Matching">Data Matching</a><time datetime="2025-11-11T23:11:03.000Z" title="Created 2025-11-12 10:11:03">2025-11-12</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;2025 - 2026 By Chris Wen</span></div><div class="footer_custom_text">Live each day with purpose.</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script></div><script src='/js/custom.js'></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="false" data-text="HAPPY,EVERY,DAY" data-fontsize="15px" data-random="true" async="async"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => fn())
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      const usePjax = true
+      false
+        ? (usePjax ? pjax.loadUrl('/404.html') : window.location.href = '/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})()</script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading Database</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><script src="https://cdn.jsdelivr.net/npm/live2d-widget@^3.1.3/lib/L2Dwidget.min.js"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"superSample":3,"position":"left","width":300,"height":600,"hOffset":90,"vOffset":-100},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.3,"opacityOnHover":0.3,"opacity":0.95},"log":false});</script></body></html>

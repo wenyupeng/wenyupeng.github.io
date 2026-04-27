@@ -1,0 +1,400 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Derivative | Chris Wen's Blog</title><meta name="author" content="Chris Wen"><meta name="copyright" content="Chris Wen"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="DerivativeThe derivative is a fundamental concept in calculus. The derivative of a function at a specific point represents the rate of change of the function near that point (i.e., the slope of the ta">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Derivative">
+<meta property="og:url" content="https://wenyupeng.github.io/2025/09/07/math/01-derivative/index.html">
+<meta property="og:site_name" content="Chris Wen&#39;s Blog">
+<meta property="og:description" content="DerivativeThe derivative is a fundamental concept in calculus. The derivative of a function at a specific point represents the rate of change of the function near that point (i.e., the slope of the ta">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251007095230189.png">
+<meta property="article:published_time" content="2025-09-07T10:19:35.000Z">
+<meta property="article:modified_time" content="2026-04-27T12:17:47.754Z">
+<meta property="article:author" content="Chris Wen">
+<meta property="article:tag" content="math">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251007095230189.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Derivative",
+  "url": "https://wenyupeng.github.io/2025/09/07/math/01-derivative/",
+  "image": "https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251007095230189.png",
+  "datePublished": "2025-09-07T10:19:35.000Z",
+  "dateModified": "2026-04-27T12:17:47.754Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Chris Wen",
+      "url": "https://wenyupeng.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/images/favicon.ico"><link rel="canonical" href="https://wenyupeng.github.io/2025/09/07/math/01-derivative/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.json","preload":true,"top_n_per_article":-1,"unescape":false,"languages":{"hits_empty":"No results found for: ${query}","hits_stats":"${hits} articles found"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"Author: Chris Wen","link":"Link: ","source":"Source: Chris Wen's Blog","info":"Copyright belongs to the author. For commercial use, please contact the author for authorization. For non-commercial use, please indicate the source."}},
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: true,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Derivative',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/custom-style.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/constown/HexoCustomFile@0.0.4/dist/css/custom.min.css"><meta name="generator" content="Hexo 8.1.1"><link rel="alternate" href="/atom.xml" title="Chris Wen's Blog" type="application/atom+xml">
+</head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load', preloader.endLoading)
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/images/lucky-icon.png" onerror="this.onerror=null;this.src='/images/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">109</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">32</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">57</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/project/"><i class="fa-fw fas fa-project-diagram"></i><span> Project</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251007095230189.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Chris Wen's Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">Derivative</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/project/"><i class="fa-fw fas fa-project-diagram"></i><span> Project</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Derivative</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-09-07T10:19:35.000Z" title="Created 2025-09-07 20:19:35">2025-09-07</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2026-04-27T12:17:47.754Z" title="Updated 2026-04-27 22:17:47">2026-04-27</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/math/">math</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">827</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>5mins</span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:30,&quot;messagePrev&quot;:&quot;It has been&quot;,&quot;messageNext&quot;:&quot;days since the last update, the content of the article may be outdated.&quot;,&quot;postUpdate&quot;:&quot;2026-04-27 22:17:47&quot;}" hidden></div><h1 id="Derivative"><a href="#Derivative" class="headerlink" title="Derivative"></a>Derivative</h1><p>The <strong>derivative</strong> is a fundamental concept in calculus. The derivative of a function at a specific point represents the <strong>rate of change</strong> of the function near that point (i.e., the slope of the tangent line to the function’s graph at that point). The essence of a derivative is to provide a local linear approximation of a function using the concept of limits.</p>
+<p><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20260421211652240.png" alt="Derivative"></p>
+<p>When the independent variable of function $f(x)$ produces an increment $\Delta x$ at point $x_0$, if the limit of the ratio between the function value increment $\Delta y$ and the variable increment $\Delta x$ exists as $\Delta x \to 0$, it is called the derivative of $f(x)$ at $x_0$, denoted as $f’(x_0)$, $y’$, or $\frac{dy}{dx}$.</p>
+<script type="math/tex; mode=display">f'(x_0) = \lim_{\Delta x \to 0} \frac{\Delta y}{\Delta x} = \lim_{\Delta x \to 0} \frac{f(x_0 + \Delta x) - f(x_0)}{\Delta x}</script><blockquote>
+<p><strong>Example:</strong> In kinematics, the derivative of an object’s displacement with respect to time is its instantaneous velocity: $v = \frac{ds}{dt}$.</p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20260421211857599.png" alt="Instantaneous velocity"></p>
+<p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Derivative">Derivate</a></p>
+<h2 id="Derivatives-of-Basic-Functions"><a href="#Derivatives-of-Basic-Functions" class="headerlink" title="Derivatives of Basic Functions"></a>Derivatives of Basic Functions</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Description</th>
+<th style="text-align:left">Formula</th>
+<th style="text-align:left">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Constant</strong></td>
+<td style="text-align:left">$\frac{d}{dx}c = 0$</td>
+<td style="text-align:left">$\frac{d}{dx}5 = 0$</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Power Function</strong></td>
+<td style="text-align:left">$\frac{d}{dx}x^n = nx^{n-1}$</td>
+<td style="text-align:left">$\frac{d}{dx}x^3 = 3x^2$</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Exponential</strong></td>
+<td style="text-align:left">$\frac{d}{dx}e^x = e^x$</td>
+<td style="text-align:left">—</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Exponential (General)</strong></td>
+<td style="text-align:left">$\frac{d}{dx}a^x = a^x \ln a$</td>
+<td style="text-align:left">$\frac{d}{dx}2^x = 2^x \ln 2$</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Logarithm (Natural)</strong></td>
+<td style="text-align:left">$\frac{d}{dx}(\ln x) = \frac{1}{x}$</td>
+<td style="text-align:left">—</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Logarithm (General)</strong></td>
+<td style="text-align:left">$\frac{d}{dx}(\log_a x) = \frac{1}{x \ln a}$</td>
+<td style="text-align:left">$\frac{d}{dx}(\log_{10} x) = \frac{1}{x \ln 10}$</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Sine</strong></td>
+<td style="text-align:left">$\frac{d}{dx}(\sin x) = \cos x$</td>
+<td style="text-align:left">—</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Cosine</strong></td>
+<td style="text-align:left">$\frac{d}{dx}(\cos x) = -\sin x$</td>
+<td style="text-align:left">—</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Tangent</strong></td>
+<td style="text-align:left">$\frac{d}{dx}(\tan x) = \sec^2 x$</td>
+<td style="text-align:left">—</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Cotangent</strong></td>
+<td style="text-align:left">$\frac{d}{dx}(\cot x) = -\csc^2 x$</td>
+<td style="text-align:left">—</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="Differentiation-Rules"><a href="#Differentiation-Rules" class="headerlink" title="Differentiation Rules"></a>Differentiation Rules</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Description</th>
+<th style="text-align:left">Formula</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Sum Rule</strong></td>
+<td style="text-align:left">$(u \pm v)’ = u’ \pm v’$</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Product Rule</strong></td>
+<td style="text-align:left">$(uv)’ = u’v + uv’$</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Quotient Rule</strong></td>
+<td style="text-align:left">$(\frac{u}{v})’ = \frac{u’v - uv’}{v^2}$</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Chain Rule</strong></td>
+<td style="text-align:left">$\frac{dy}{dx} = \frac{dy}{du} \cdot \frac{du}{dx}$</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Example:</strong> Find the derivative of $y = \sin(x^2)$ at $x$.<br>Applying the Chain Rule: $y’ = \cos(x^2) \cdot (x^2)’ = 2x \cos(x^2)$.</p>
+<h2 id="Finding-Extrema-Using-Derivatives"><a href="#Finding-Extrema-Using-Derivatives" class="headerlink" title="Finding Extrema Using Derivatives"></a>Finding Extrema Using Derivatives</h2><p>Points where the derivative equals zero ($f’(x) = 0$) are called <strong>stationary points</strong> (or critical points). At these points, the function may achieve a local maximum or minimum. Further judgment requires analyzing the sign of the derivative in the neighborhood of these points.</p>
+<p><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20260421214418807.png" alt="Finding Extrema"></p>
+<h2 id="The-Second-Derivative"><a href="#The-Second-Derivative" class="headerlink" title="The Second Derivative"></a>The Second Derivative</h2><p>In calculus, the second derivative is the derivative of the derivative of a function. Roughly speaking, it describes how the rate of change of a quantity is itself changing. For example, the second derivative of an object’s position with respect to time is its instantaneous <strong>acceleration</strong>:</p>
+<script type="math/tex; mode=display">a = \frac{d^2s}{dt^2}</script><p>The second derivative of $f(x)$ is usually denoted as $f’’(x)$, $y’’$, or $\frac{d^2y}{dx^2}$.</p>
+<h3 id="Relationship-with-Concavity"><a href="#Relationship-with-Concavity" class="headerlink" title="Relationship with Concavity"></a>Relationship with Concavity</h3><p>The second derivative describes the direction and degree of the function’s curvature:</p>
+<ul>
+<li>If $f’’(x) &gt; 0$ on an interval, the function is <strong>concave up</strong> (upward bend).</li>
+<li>If $f’’(x) &lt; 0$ on an interval, the function is <strong>concave down</strong> (downward bend).</li>
+<li>An <strong>inflection point</strong> occurs where the second derivative changes sign. If the second derivative is continuous, it must be 0 at the inflection point (though $f’’(x)=0$ does not always guarantee an inflection point, e.g., $y=x^4$).</li>
+</ul>
+<p><strong>Second Derivative Test for Extrema:</strong></p>
+<ul>
+<li>If $f’(x_0) = 0$ and $f’’(x_0) &lt; 0$, then $f(x_0)$ is a <strong>Local Maximum</strong>.</li>
+<li>If $f’(x_0) = 0$ and $f’’(x_0) &gt; 0$, then $f(x_0)$ is a <strong>Local Minimum</strong>.</li>
+<li>If $f’(x_0) = 0$ and $f’’(x_0) = 0$, the point could be an inflection point or an extremum.</li>
+</ul>
+<h2 id="Partial-Derivatives-and-Gradients"><a href="#Partial-Derivatives-and-Gradients" class="headerlink" title="Partial Derivatives and Gradients"></a>Partial Derivatives and Gradients</h2><h3 id="Partial-Derivatives"><a href="#Partial-Derivatives" class="headerlink" title="Partial Derivatives"></a>Partial Derivatives</h3><p>If a function $f$ has multiple independent variables (e.g., $z = f(x, y)$), we can treat one variable (say $y$) as a constant. Then $f$ can be viewed as a function of the other variable $x$ alone.</p>
+<p>The derivative of $f$ with respect to $x$ while holding $y$ constant is called the <strong>partial derivative</strong>, denoted as:</p>
+<script type="math/tex; mode=display">\frac{\partial f}{\partial x} \text{ or } f_x</script><p>More generally, the partial derivative of a multivariable function $f(x_1, x_2, \dots, x_n)$ with respect to $x_i$ at point $(x_1, \dots, x_n)$ is defined as:</p>
+<script type="math/tex; mode=display">\frac{\partial f}{\partial x_i} = \lim_{\Delta x \to 0} \frac{f(x_1, \dots, x_i + \Delta x, \dots, x_n) - f(x_1, \dots, x_n)}{\Delta x}</script><p><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20260421230235726.png" alt="Partial Derivatives"></p>
+<h3 id="Gradient"><a href="#Gradient" class="headerlink" title="Gradient"></a>Gradient</h3><p>A multivariable function $f$ has partial derivatives $\frac{\partial f}{\partial x_i}$ for each variable. At a specific point, these partial derivatives form a vector:</p>
+<script type="math/tex; mode=display">\nabla f = \left( \frac{\partial f}{\partial x_1}, \frac{\partial f}{\partial x_2}, \dots, \frac{\partial f}{\partial x_n} \right)</script><p>This vector is called the <strong>gradient</strong> of $f$.</p>
+<p><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20260421230454532.png" alt="Gradient"></p>
+<p><strong>Example:</strong> The gradient of $f(x, y) = x^2 + y^2$ is $\nabla f = (2x, 2y)$.<br>At point $(1, 2)$, the gradient is $(2, 4)$.</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://wenyupeng.github.io">Chris Wen</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://wenyupeng.github.io/2025/09/07/math/01-derivative/">https://wenyupeng.github.io/2025/09/07/math/01-derivative/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/math/">math</a></div><div class="post-share"><div class="social-share" data-image="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251007095230189.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/09/08/math/02-linear-algebra/" title="Linear Algebra"><img class="cover" src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251007095245295.png" onerror="onerror=null;src='/images/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">Linear Algebra</div></div><div class="info-2"><div class="info-item-1">Linear AlgebraScalars and Vectors Scalar: A single number representing magnitude only. Vector: An ordered array of scalars representing both magnitude and direction. Row Vector: $\mathbf{x} = [x_1, x_2, \dots, x_n]$ Column Vector: $\mathbf{x} = \begin{bmatrix} x_1 \ x_2 \ \vdots \ x_n \end{bmatrix}$    Vector Operations Transpose: Converts a column vector into a row vector.\mathbf{x}^T = [x_1, x_2, \dots, x_n] Addition: Element-wise addition of two vectors.\mathbf{x} + \mathbf{y} = [x_1+y_1, ...</div></div></div></a><a class="pagination-related" href="/2025/08/24/interview/02-java-backend/" title="interview question of Java Backend"><img class="cover" src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251026173458667.png" onerror="onerror=null;src='/images/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">interview question of Java Backend</div></div><div class="info-2"><div class="info-item-1">Interview QuestionsCore Java (OOPs, Collections, Concurrency Basics)Explain difference between HashMap, HashTable, and ConcurrentHashMap.    Feature HashMap Hashtable ConcurrentHashMap     Thread Safety Not thread-safe Thread-safe (synchronized methods) Thread-safe (lock segmentation / fine-grained locking)   Null Keys/Values Allows one null key and multiple null values Does not allow any null keys/values Does not allow null keys/values   Performance Faster (no synchronization overhead) Slowe...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/09/09/math/03-probability-theory/" title="Probability Theory"><img class="cover" src="https://jsd.012700.xyz/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-09</div><div class="info-item-2">Probability Theory</div></div><div class="info-2"><div class="info-item-1">ProbabilityProbability is a measure of how likely an event is to occur.The probability of an event ( A ) is denoted as:  P(A)Probability Calculations    Event Formula     Complement of A P(A^c) = 1 - P(A)   Joint Probability (A and B) P(A \cap B)   Union Probability (A or B) P(A \cup B) = P(A) + P(B) - P(A \cap B)   Conditional Probability P(A \mid B) = \frac{P(A \cap B)}{P(B)}     ExampleA bag contains 10 balls: 6 red and 4 blue. Two balls are drawn randomly without replacement. Let:  Event ...</div></div></div></a><a class="pagination-related" href="/2025/09/08/math/02-linear-algebra/" title="Linear Algebra"><img class="cover" src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251007095245295.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-08</div><div class="info-item-2">Linear Algebra</div></div><div class="info-2"><div class="info-item-1">Linear AlgebraScalars and Vectors Scalar: A single number representing magnitude only. Vector: An ordered array of scalars representing both magnitude and direction. Row Vector: $\mathbf{x} = [x_1, x_2, \dots, x_n]$ Column Vector: $\mathbf{x} = \begin{bmatrix} x_1 \ x_2 \ \vdots \ x_n \end{bmatrix}$    Vector Operations Transpose: Converts a column vector into a row vector.\mathbf{x}^T = [x_1, x_2, \dots, x_n] Addition: Element-wise addition of two vectors.\mathbf{x} + \mathbf{y} = [x_1+y_1, ...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/images/lucky-icon.png" onerror="this.onerror=null;this.src='/images/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Chris Wen</div><div class="author-info-description">Dwell not on the past, nor fear the future.</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">109</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">32</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">57</div></a></div><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/wenyupeng" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:chriswen430@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://www.linkedin.com/in/chriswen430" target="_blank" title="Linkedin"><i class="fab fa-linkedin" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">Maintain the motivation to learn and stay humble when facing every problem.</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Derivative"><span class="toc-number">1.</span> <span class="toc-text">Derivative</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Derivatives-of-Basic-Functions"><span class="toc-number">1.1.</span> <span class="toc-text">Derivatives of Basic Functions</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Differentiation-Rules"><span class="toc-number">1.2.</span> <span class="toc-text">Differentiation Rules</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Finding-Extrema-Using-Derivatives"><span class="toc-number">1.3.</span> <span class="toc-text">Finding Extrema Using Derivatives</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#The-Second-Derivative"><span class="toc-number">1.4.</span> <span class="toc-text">The Second Derivative</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Relationship-with-Concavity"><span class="toc-number">1.4.1.</span> <span class="toc-text">Relationship with Concavity</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Partial-Derivatives-and-Gradients"><span class="toc-number">1.5.</span> <span class="toc-text">Partial Derivatives and Gradients</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Partial-Derivatives"><span class="toc-number">1.5.1.</span> <span class="toc-text">Partial Derivatives</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Gradient"><span class="toc-number">1.5.2.</span> <span class="toc-text">Gradient</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/11/14/big_data/da/11-des-statistics-2/" title="Box-Cox and Yeo-Johnson Transformations"><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251118091603317.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="Box-Cox and Yeo-Johnson Transformations"/></a><div class="content"><a class="title" href="/2025/11/14/big_data/da/11-des-statistics-2/" title="Box-Cox and Yeo-Johnson Transformations">Box-Cox and Yeo-Johnson Transformations</a><time datetime="2025-11-14T00:14:08.000Z" title="Created 2025-11-14 11:14:08">2025-11-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/11/13/big_data/da/11-des-statistics-1/" title="Feature Selection"><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251118091603317.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="Feature Selection"/></a><div class="content"><a class="title" href="/2025/11/13/big_data/da/11-des-statistics-1/" title="Feature Selection">Feature Selection</a><time datetime="2025-11-13T22:22:12.000Z" title="Created 2025-11-14 09:22:12">2025-11-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/11/13/big_data/da/10-des-statistics/" title="GDPR"><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251118091603317.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="GDPR"/></a><div class="content"><a class="title" href="/2025/11/13/big_data/da/10-des-statistics/" title="GDPR">GDPR</a><time datetime="2025-11-13T05:01:22.000Z" title="Created 2025-11-13 16:01:22">2025-11-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/11/12/big_data/da/12-des-statistics/" title="Dimensionality Reduction and PCA"><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251118091603317.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="Dimensionality Reduction and PCA"/></a><div class="content"><a class="title" href="/2025/11/12/big_data/da/12-des-statistics/" title="Dimensionality Reduction and PCA">Dimensionality Reduction and PCA</a><time datetime="2025-11-12T04:02:22.000Z" title="Created 2025-11-12 15:02:22">2025-11-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/11/11/big_data/da/09-des-statistics/" title="Data Matching"><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251118091603317.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="Data Matching"/></a><div class="content"><a class="title" href="/2025/11/11/big_data/da/09-des-statistics/" title="Data Matching">Data Matching</a><time datetime="2025-11-11T23:11:03.000Z" title="Created 2025-11-12 10:11:03">2025-11-12</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;2025 - 2026 By Chris Wen</span></div><div class="footer_custom_text">Live each day with purpose.</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script></div><script src='/js/custom.js'></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="false" data-text="HAPPY,EVERY,DAY" data-fontsize="15px" data-random="true" async="async"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => fn())
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      const usePjax = true
+      false
+        ? (usePjax ? pjax.loadUrl('/404.html') : window.location.href = '/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})()</script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading Database</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><script src="https://cdn.jsdelivr.net/npm/live2d-widget@^3.1.3/lib/L2Dwidget.min.js"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"superSample":3,"position":"left","width":300,"height":600,"hOffset":90,"vOffset":-100},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.3,"opacityOnHover":0.3,"opacity":0.95},"log":false});</script></body></html>

@@ -1,0 +1,447 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>MySQL Data Types | Chris Wen's Blog</title><meta name="author" content="Chris Wen"><meta name="copyright" content="Chris Wen"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="MySQL Data TypesThis chapter provides a structured overview of MySQL data types, including numeric, string, temporal, and other specialized types. Understanding these types is essential for esigning e">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL Data Types">
+<meta property="og:url" content="https://wenyupeng.github.io/2025/06/04/database/mysql/02-data%20type/index.html">
+<meta property="og:site_name" content="Chris Wen&#39;s Blog">
+<meta property="og:description" content="MySQL Data TypesThis chapter provides a structured overview of MySQL data types, including numeric, string, temporal, and other specialized types. Understanding these types is essential for esigning e">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20250728225255149.png">
+<meta property="article:published_time" content="2025-06-04T03:44:26.000Z">
+<meta property="article:modified_time" content="2026-04-27T12:17:47.752Z">
+<meta property="article:author" content="Chris Wen">
+<meta property="article:tag" content="mysql">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20250728225255149.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "MySQL Data Types",
+  "url": "https://wenyupeng.github.io/2025/06/04/database/mysql/02-data%20type/",
+  "image": "https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20250728225255149.png",
+  "datePublished": "2025-06-04T03:44:26.000Z",
+  "dateModified": "2026-04-27T12:17:47.752Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Chris Wen",
+      "url": "https://wenyupeng.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/images/favicon.ico"><link rel="canonical" href="https://wenyupeng.github.io/2025/06/04/database/mysql/02-data%20type/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.json","preload":true,"top_n_per_article":-1,"unescape":false,"languages":{"hits_empty":"No results found for: ${query}","hits_stats":"${hits} articles found"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"Author: Chris Wen","link":"Link: ","source":"Source: Chris Wen's Blog","info":"Copyright belongs to the author. For commercial use, please contact the author for authorization. For non-commercial use, please indicate the source."}},
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: true,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'MySQL Data Types',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/custom-style.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/constown/HexoCustomFile@0.0.4/dist/css/custom.min.css"><meta name="generator" content="Hexo 8.1.1"><link rel="alternate" href="/atom.xml" title="Chris Wen's Blog" type="application/atom+xml">
+</head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load', preloader.endLoading)
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/images/lucky-icon.png" onerror="this.onerror=null;this.src='/images/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">109</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">32</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">57</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/project/"><i class="fa-fw fas fa-project-diagram"></i><span> Project</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post type-page" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20250728225255149.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Chris Wen's Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">MySQL Data Types</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/project/"><i class="fa-fw fas fa-project-diagram"></i><span> Project</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">MySQL Data Types</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-06-04T03:44:26.000Z" title="Created 2025-06-04 13:44:26">2025-06-04</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2026-04-27T12:17:47.752Z" title="Updated 2026-04-27 22:17:47">2026-04-27</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/database/">database</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/database/mysql/">mysql</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">1.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>6mins</span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:30,&quot;messagePrev&quot;:&quot;It has been&quot;,&quot;messageNext&quot;:&quot;days since the last update, the content of the article may be outdated.&quot;,&quot;postUpdate&quot;:&quot;2026-04-27 22:17:47&quot;}" hidden></div><h1 id="MySQL-Data-Types"><a href="#MySQL-Data-Types" class="headerlink" title="MySQL Data Types"></a>MySQL Data Types</h1><p>This chapter provides a structured overview of MySQL data types, including numeric, string, temporal, and other specialized types. Understanding these types is essential for esigning efficient and reliable database schemas.</p>
+<hr>
+<h2 id="Numeric-Types"><a href="#Numeric-Types" class="headerlink" title="Numeric Types"></a>Numeric Types</h2><h3 id="Integer-Types"><a href="#Integer-Types" class="headerlink" title="Integer Types"></a>Integer Types</h3><p>MySQL provides several integer types (e.g., <code>TINYINT</code>, <code>INT</code>, <code>BIGINT</code>) to store whole numbers. Historically, these types allowed an optional display width <code>(M)</code>.</p>
+<p>Key points:</p>
+<ul>
+<li>The display width <code>(M)</code> defines the <em>minimum display width</em>, not the storage size.</li>
+<li>It is only meaningful when used with:<ul>
+<li><code>UNSIGNED</code>: disallows negative values</li>
+<li><code>ZEROFILL</code>: pads the number with leading zeros to match width <code>M</code></li>
+</ul>
+</li>
+<li>If the actual value exceeds <code>M</code>, it is still stored correctly (no truncation).</li>
+</ul>
+<p>⚠️ <strong>Important (MySQL 8+)</strong>:</p>
+<ul>
+<li>As of MySQL 8.0.17, integer display width is deprecated and ignored.</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE TABLE</span> t_int(</span><br><span class="line">    i1 <span class="type">INT</span>,</span><br><span class="line">    i2 <span class="type">INT</span>(<span class="number">2</span>) <span class="comment">-- No effect without ZEROFILL</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">DESC</span> t_int;</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE TABLE</span> t_int2(</span><br><span class="line">    i1 <span class="type">INT</span>,</span><br><span class="line">    i2 <span class="type">INT</span>(<span class="number">2</span>) UNSIGNED ZEROFILL</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">DESC</span> t_int2;</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT INTO</span> t_int2 <span class="keyword">VALUES</span>(<span class="number">1234</span>,<span class="number">1234</span>);</span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> t_int2;</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT INTO</span> t_int2 <span class="keyword">VALUES</span>(<span class="number">1</span>,<span class="number">1</span>);</span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> t_int2;</span><br></pre></td></tr></table></figure>
+<p>👉 <strong>Takeaway</strong>: Avoid using <code>(M)</code> in modern MySQL. Focus on choosing the correct integer type and constraints instead.</p>
+<hr>
+<h3 id="Floating-Point-and-Fixed-Point-Types"><a href="#Floating-Point-and-Fixed-Point-Types" class="headerlink" title="Floating-Point and Fixed-Point Types"></a>Floating-Point and Fixed-Point Types</h3><p>MySQL supports two categories for storing decimal numbers:</p>
+<h4 id="Floating-Point-Types"><a href="#Floating-Point-Types" class="headerlink" title="Floating-Point Types"></a>Floating-Point Types</h4><ul>
+<li><code>FLOAT</code> (single precision)</li>
+<li><code>DOUBLE</code> (double precision)</li>
+</ul>
+<p>These types store <em>approximate values</em> and may introduce rounding errors due to binary representation.</p>
+<h4 id="Fixed-Point-Type"><a href="#Fixed-Point-Type" class="headerlink" title="Fixed-Point Type"></a>Fixed-Point Type</h4><ul>
+<li><code>DECIMAL</code></li>
+</ul>
+<p>This type stores <em>exact values</em> and is ideal for financial or high-precision data.</p>
+<h4 id="Precision-Definition-M-D"><a href="#Precision-Definition-M-D" class="headerlink" title="Precision Definition (M, D)"></a>Precision Definition <code>(M, D)</code></h4><ul>
+<li><code>M</code> (precision): total number of digits</li>
+<li><code>D</code> (scale): number of digits after the decimal point</li>
+<li>Must satisfy: <code>0 ≤ D ≤ M</code></li>
+</ul>
+<p>Example:</p>
+<ul>
+<li><code>DECIMAL(5,2)</code> → range: <code>-999.99</code> to <code>999.99</code></li>
+</ul>
+<p>Behavior:</p>
+<ul>
+<li>Extra decimal digits → rounded</li>
+<li>Excess integer digits → <strong>error (Out of range)</strong></li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE TABLE</span> t_double(</span><br><span class="line">    d1 <span class="keyword">DOUBLE</span>,</span><br><span class="line">    d2 <span class="keyword">DOUBLE</span>(<span class="number">5</span>,<span class="number">2</span>)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT INTO</span> t_double <span class="keyword">VALUES</span>(<span class="number">2.5</span>,<span class="number">2.5</span>);</span><br><span class="line"><span class="keyword">INSERT INTO</span> t_double <span class="keyword">VALUES</span>(<span class="number">2.5526</span>,<span class="number">2.5526</span>);</span><br><span class="line"><span class="keyword">INSERT INTO</span> t_double <span class="keyword">VALUES</span>(<span class="number">2.5586</span>,<span class="number">2.5586</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- Error: integer part exceeds limit</span></span><br><span class="line"><span class="keyword">INSERT INTO</span> t_double <span class="keyword">VALUES</span>(<span class="number">12852.5526</span>,<span class="number">12852.5526</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE TABLE</span> t_decimal(</span><br><span class="line">    d1 <span class="type">DECIMAL</span>,      <span class="comment">-- default (10,0)</span></span><br><span class="line">    d2 <span class="type">DECIMAL</span>(<span class="number">5</span>,<span class="number">2</span>)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT INTO</span> t_decimal <span class="keyword">VALUES</span>(<span class="number">2.5</span>,<span class="number">2.5</span>);</span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> t_decimal;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- Decimal assigned to INT → fractional part truncated</span></span><br><span class="line"><span class="keyword">INSERT INTO</span> t_int2 <span class="keyword">VALUES</span>(<span class="number">1.5</span>,<span class="number">1.5</span>);</span><br></pre></td></tr></table></figure>
+<p>👉 <strong>Best Practice</strong>:</p>
+<ul>
+<li>Use <code>DECIMAL</code> for money and precise calculations</li>
+<li>Use <code>FLOAT/DOUBLE</code> for scientific or approximate data</li>
+</ul>
+<hr>
+<h3 id="BIT-Type"><a href="#BIT-Type" class="headerlink" title="BIT Type"></a>BIT Type</h3><p>The <code>BIT</code> type is used to store binary values.</p>
+<ul>
+<li>Length range: 1 to 64 bits</li>
+<li>Storage is byte-aligned (minimum 1 byte)</li>
+</ul>
+<p>Input formats:</p>
+<ul>
+<li>Integer (e.g., <code>5</code>)</li>
+<li>Binary literal</li>
+<li>Hexadecimal</li>
+</ul>
+<p>Important constraints:</p>
+<ul>
+<li>The value must fit within the defined number of bits</li>
+</ul>
+<p>Display behavior:</p>
+<ul>
+<li>Returned as binary by default</li>
+<li>Use conversion functions for readability:<ul>
+<li><code>BIN()</code> → binary string</li>
+<li><code>CONV()</code> → base conversion</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE TABLE</span> t_bit(</span><br><span class="line">    b1 BIT,       <span class="comment">-- default: 1 bit</span></span><br><span class="line">    b2 BIT(<span class="number">4</span>)     <span class="comment">-- range: 0000–1111</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT INTO</span> t_bit <span class="keyword">VALUES</span>(<span class="number">1</span>,<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> BIN(b1), BIN(b2) <span class="keyword">FROM</span> t_bit;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- Error: exceeds bit capacity</span></span><br><span class="line"><span class="keyword">INSERT INTO</span> t_bit <span class="keyword">VALUES</span>(<span class="number">2</span>,<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT INTO</span> t_bit <span class="keyword">VALUES</span>(<span class="number">1</span>,<span class="number">8</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> CONV(b1,<span class="number">2</span>,<span class="number">10</span>), CONV(b2,<span class="number">2</span>,<span class="number">10</span>) <span class="keyword">FROM</span> t_bit;</span><br></pre></td></tr></table></figure>
+<p>👉 <strong>Use Case</strong>: Flags, bitmasks, and compact boolean storage.</p>
+<hr>
+<h2 id="String-Types"><a href="#String-Types" class="headerlink" title="String Types"></a>String Types</h2><h3 id="Fixed-Length-vs-Variable-Length-Strings"><a href="#Fixed-Length-vs-Variable-Length-Strings" class="headerlink" title="Fixed-Length vs Variable-Length Strings"></a>Fixed-Length vs Variable-Length Strings</h3><h4 id="CHAR-M"><a href="#CHAR-M" class="headerlink" title="CHAR(M)"></a>CHAR(M)</h4><ul>
+<li>Fixed-length string</li>
+<li>Range: 0–255 characters</li>
+<li>Right-padded with spaces if shorter than <code>M</code></li>
+<li>Trailing spaces are removed when retrieved</li>
+</ul>
+<h4 id="VARCHAR-M"><a href="#VARCHAR-M" class="headerlink" title="VARCHAR(M)"></a>VARCHAR(M)</h4><ul>
+<li>Variable-length string</li>
+<li>Stores only actual content</li>
+<li>Requires 1–2 extra bytes for length metadata</li>
+</ul>
+<p>Maximum length depends on:</p>
+<ul>
+<li>Row size limit (65,535 bytes)</li>
+<li>Character set (e.g., <code>utf8mb4</code> uses up to 4 bytes per character)</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE TABLE</span> t_char (</span><br><span class="line">    c1 <span class="type">CHAR</span>,</span><br><span class="line">    c2 <span class="type">CHAR</span>(<span class="number">3</span>)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT INTO</span> t_char <span class="keyword">VALUES</span>(<span class="string">&#x27;M&#x27;</span>,<span class="string">&#x27;mal&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT INTO</span> t_char <span class="keyword">VALUES</span>(<span class="string">&#x27;F&#x27;</span>,<span class="string">&#x27;fel&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> t_char;</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE TABLE</span> t_char (</span><br><span class="line">    c1 <span class="type">VARCHAR</span>(<span class="number">3</span>)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT INTO</span> t_char <span class="keyword">VALUES</span>(<span class="string">&#x27;fem&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT INTO</span> t_char <span class="keyword">VALUES</span>(<span class="string">&#x27;female&#x27;</span>); <span class="comment">-- Error</span></span><br></pre></td></tr></table></figure>
+<h4 id="Choosing-Between-CHAR-and-VARCHAR"><a href="#Choosing-Between-CHAR-and-VARCHAR" class="headerlink" title="Choosing Between CHAR and VARCHAR"></a>Choosing Between CHAR and VARCHAR</h4><ul>
+<li>Use <code>CHAR</code> for fixed-length data (e.g., country codes, IDs)</li>
+<li>Use <code>VARCHAR</code> for variable-length data (e.g., names, comments)</li>
+</ul>
+<p>Storage engine considerations:</p>
+<ul>
+<li><strong>MyISAM</strong>: <code>CHAR</code> may improve read performance</li>
+<li><strong>InnoDB</strong>: <code>VARCHAR</code> is usually more space-efficient</li>
+</ul>
+<hr>
+<h3 id="ENUM-and-SET"><a href="#ENUM-and-SET" class="headerlink" title="ENUM and SET"></a>ENUM and SET</h3><p>These types restrict values to predefined lists.</p>
+<h4 id="ENUM"><a href="#ENUM" class="headerlink" title="ENUM"></a>ENUM</h4><ul>
+<li>Allows only <strong>one</strong> value</li>
+<li>Internally stored as an integer index</li>
+<li>Max: 65,535 values</li>
+</ul>
+<h4 id="SET"><a href="#SET" class="headerlink" title="SET"></a>SET</h4><ul>
+<li>Allows <strong>multiple</strong> values (combinations)</li>
+<li>Internally stored as bitmask values (powers of 2)</li>
+<li>Max: 64 members</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE TABLE</span> t_enum (</span><br><span class="line">    gender ENUM(<span class="string">&#x27;Male&#x27;</span>,<span class="string">&#x27;Female&#x27;</span>),</span><br><span class="line">    hobby <span class="keyword">SET</span>(<span class="string">&#x27;Sleep&#x27;</span>,<span class="string">&#x27;Game&#x27;</span>,<span class="string">&#x27;Sport&#x27;</span>,<span class="string">&#x27;Coding&#x27;</span>)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT INTO</span> t_enum <span class="keyword">VALUES</span>(<span class="string">&#x27;Male&#x27;</span>,<span class="string">&#x27;Sleep,Game&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- Using numeric representation</span></span><br><span class="line"><span class="keyword">INSERT INTO</span> t_enum <span class="keyword">VALUES</span>(<span class="number">2</span>, <span class="number">2</span>);</span><br><span class="line"><span class="keyword">INSERT INTO</span> t_enum <span class="keyword">VALUES</span>(<span class="number">1</span>, <span class="number">5</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> t_enum;</span><br></pre></td></tr></table></figure>
+<p>👉 <strong>Use Case</strong>:</p>
+<ul>
+<li>ENUM: status, category</li>
+<li>SET: tags, multi-select attributes</li>
+</ul>
+<hr>
+<h3 id="TEXT-Types"><a href="#TEXT-Types" class="headerlink" title="TEXT Types"></a>TEXT Types</h3><p>TEXT types are used to store large amounts of text data (e.g., articles, logs).<br>Variants include:</p>
+<ul>
+<li><code>TINYTEXT</code></li>
+<li><code>TEXT</code></li>
+<li><code>MEDIUMTEXT</code></li>
+<li><code>LONGTEXT</code></li>
+</ul>
+<hr>
+<h3 id="Binary-String-Types"><a href="#Binary-String-Types" class="headerlink" title="Binary String Types"></a>Binary String Types</h3><p>Binary types store raw byte data rather than character data.</p>
+<h4 id="BINARY-M"><a href="#BINARY-M" class="headerlink" title="BINARY(M)"></a>BINARY(M)</h4><ul>
+<li>Fixed-length binary data</li>
+<li>Padded with <code>\0</code> if shorter than <code>M</code></li>
+</ul>
+<h4 id="VARBINARY-M"><a href="#VARBINARY-M" class="headerlink" title="VARBINARY(M)"></a>VARBINARY(M)</h4><ul>
+<li>Variable-length binary data</li>
+<li>Requires length specification</li>
+<li>Includes additional bytes for length storage</li>
+</ul>
+<p>👉 <strong>Use Case</strong>: Images, encrypted data, or non-text binary content.</p>
+<hr>
+<h2 id="Date-and-Time-Types"><a href="#Date-and-Time-Types" class="headerlink" title="Date and Time Types"></a>Date and Time Types</h2><p>MySQL provides several types for handling temporal data.</p>
+<h4 id="YEAR"><a href="#YEAR" class="headerlink" title="YEAR"></a>YEAR</h4><ul>
+<li>Format: <code>YYYY</code></li>
+<li>Range: 1901–2155</li>
+<li>2-digit format is deprecated</li>
+</ul>
+<p>Special cases:</p>
+<ul>
+<li><code>0</code> → <code>0000</code></li>
+<li><code>&#39;0&#39;</code> → <code>2000</code></li>
+</ul>
+<h4 id="DATE"><a href="#DATE" class="headerlink" title="DATE"></a>DATE</h4><ul>
+<li>Format: <code>YYYY-MM-DD</code></li>
+</ul>
+<h4 id="TIME"><a href="#TIME" class="headerlink" title="TIME"></a>TIME</h4><ul>
+<li>Format: <code>HH:MM:SS</code></li>
+</ul>
+<h4 id="DATETIME"><a href="#DATETIME" class="headerlink" title="DATETIME"></a>DATETIME</h4><ul>
+<li>Stores date and time without timezone conversion</li>
+</ul>
+<h4 id="TIMESTAMP"><a href="#TIMESTAMP" class="headerlink" title="TIMESTAMP"></a>TIMESTAMP</h4><ul>
+<li>Range: 1970–2038 (UTC)</li>
+<li>Automatically converts between time zones</li>
+</ul>
+<h4 id="Key-Difference"><a href="#Key-Difference" class="headerlink" title="Key Difference"></a>Key Difference</h4><ul>
+<li><code>TIMESTAMP</code>: timezone-aware</li>
+<li><code>DATETIME</code>: timezone-independent</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE TABLE</span> t_date (</span><br><span class="line">    d1 DATETIME,</span><br><span class="line">    d2 <span class="type">TIMESTAMP</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT INTO</span> t_date <span class="keyword">VALUES</span>(<span class="string">&#x27;2025-6-4 14:45:52&#x27;</span>,<span class="string">&#x27;2025-6-4 14:45:52&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">SET</span> time_zone <span class="operator">=</span> <span class="string">&#x27;+2:00&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT INTO</span> t_date <span class="keyword">VALUES</span>(<span class="string">&#x27;2025-6-4 14:45:52&#x27;</span>,<span class="string">&#x27;2025-6-4 14:45:52&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> t_date;</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE TABLE</span> t_date (</span><br><span class="line">    d <span class="keyword">YEAR</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT INTO</span> t_date <span class="keyword">VALUES</span>(<span class="number">2025</span>),(<span class="number">85</span>),(<span class="number">22</span>),(<span class="number">69</span>),(<span class="number">0</span>),(<span class="string">&#x27;0&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<p>👉 <strong>Best Practice</strong>:</p>
+<ul>
+<li>Use <code>TIMESTAMP</code> for system-generated time (logs, updates)</li>
+<li>Use <code>DATETIME</code> for business data (appointments, schedules)</li>
+</ul>
+<hr>
+<h2 id="Other-Data-Types"><a href="#Other-Data-Types" class="headerlink" title="Other Data Types"></a>Other Data Types</h2><h3 id="JSON-Type"><a href="#JSON-Type" class="headerlink" title="JSON Type"></a>JSON Type</h3><ul>
+<li>Supported since MySQL 5.7.8</li>
+<li>Enables structured document storage</li>
+<li>Provides built-in JSON functions for querying</li>
+</ul>
+<hr>
+<h3 id="Spatial-Types"><a href="#Spatial-Types" class="headerlink" title="Spatial Types"></a>Spatial Types</h3><p>MySQL supports spatial (geographic) data based on OpenGIS standards.</p>
+<p>Core type:</p>
+<ul>
+<li><code>GEOMETRY</code></li>
+</ul>
+<p>Common subtypes:</p>
+<ul>
+<li><code>POINT</code></li>
+<li><code>LINESTRING</code></li>
+<li><code>POLYGON</code></li>
+</ul>
+<p>Collection types:</p>
+<ul>
+<li><code>MULTIPOINT</code></li>
+<li><code>MULTILINESTRING</code></li>
+<li><code>MULTIPOLYGON</code></li>
+<li><code>GEOMETRYCOLLECTION</code></li>
+</ul>
+<p>👉 <strong>Use Cases</strong>:</p>
+<ul>
+<li>Location-based services (maps, ride-sharing)</li>
+<li>Geofencing (e.g., attendance systems)</li>
+<li>Route and spatial analysis</li>
+</ul>
+<hr>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><ul>
+<li>Choose data types based on <strong>precision, storage, and use case</strong></li>
+<li>Prefer modern practices (avoid deprecated features like integer display width)</li>
+<li>Use appropriate types to balance <strong>performance, accuracy, and storage efficiency</strong></li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://wenyupeng.github.io">Chris Wen</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://wenyupeng.github.io/2025/06/04/database/mysql/02-data%20type/">https://wenyupeng.github.io/2025/06/04/database/mysql/02-data%20type/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/mysql/">mysql</a></div><div class="post-share"><div class="social-share" data-image="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20250728225255149.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/06/04/database/mongodb/02-replication/" title="Replication Support in MongoDB"><img class="cover" src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20250728225233182.png" onerror="onerror=null;src='/images/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">Replication Support in MongoDB</div></div><div class="info-2"><div class="info-item-1">OverviewMongoDB is a document-oriented NoSQL database that stores data in flexible, JSON-like documents (Wikipedia Contributors 2019). Unlike traditional relational databases, MongoDB does not require a predefined schema, allowing for dynamic and hierarchical data structures. This flexibility makes it particularly suitable for applications that handle diverse and evolving data formats, such as content management systems, real-time analytics platforms, and Internet of Things (IoT) applications...</div></div></div></a><a class="pagination-related" href="/2025/06/04/database/mongodb/01-install/" title="MongoDB Basic Information"><img class="cover" src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251007095245295.png" onerror="onerror=null;src='/images/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">MongoDB Basic Information</div></div><div class="info-2"><div class="info-item-1">MongoDB Basic InformationMongoDB is a popular NoSQL database known for its flexibility, scalability, and ease of use. It stores data in a JSON-like format called BSON (Binary JSON), which allows for dynamic schemas and makes it easy to work with complex data structures. Key Features of MongoDB Document-Oriented Storage: MongoDB stores data in collections of documents, which can have varying structures. This allows for greater flexibility compared to traditional relational databases. Scalabili...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/08/04/container/docker/03-docker-mysql/" title="Docker Compose Install Mysql"><img class="cover" src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251007095245295.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-08-04</div><div class="info-item-2">Docker Compose Install Mysql</div></div><div class="info-2"><div class="info-item-1">Installing Mysql using Docker Compose12345678910111213141516version: &#x27;3&#x27;services:  mysql:    image: mysql:8.0.18    container_name: mysql8    environment:      - MYSQL_ROOT_PASSWORD=root#      - TZ=Asia/Shanghai    volumes:      - ./log:/var/log/mysql      - ./data:/var/lib/mysql      - ./conf/conf.d:/etc/mysql/conf.d      # - /etc/localtime:/etc/localtime:ro    ports:      - 3306:3306    restart: always</div></div></div></a><a class="pagination-related" href="/2025/06/04/database/mysql/01-fundamental/" title="MySQL Installation Guide"><img class="cover" src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251007095230189.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-06-04</div><div class="info-item-2">MySQL Installation Guide</div></div><div class="info-2"><div class="info-item-1">MySQL Basic InformationMySQL is an open-source relational database management system (RDBMS) that uses Structured Query Language (SQL) for managing and manipulating data. It is widely used for web applications, data warehousing, and various other applications due to its reliability, performance, and ease of use. MySQL ArchitectureMySQL follows a client-server architecture, where the MySQL server manages the database and handles client requests. The server consists of several components, inclu...</div></div></div></a><a class="pagination-related" href="/2025/06/06/database/mysql/04-query/" title="MySQL Query"><img class="cover" src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251007095230189.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-06-06</div><div class="info-item-2">MySQL Query</div></div><div class="info-2"><div class="info-item-1">Join QueryA JOIN query is used to combine rows from two or more tables based on a related column between them. There are several types of JOINs in MySQL, including INNER JOIN, LEFT JOIN, RIGHT JOIN, and FULL OUTER JOIN. INNER JOINThe INNER JOIN returns only the rows that have matching values in both tables.1234SELECT columnsFROM table1INNER JOIN table2ON table1.common_column = table2.common_column; LEFT JOINThe LEFT JOIN returns all rows from the left table and the matched rows from the right...</div></div></div></a><a class="pagination-related" href="/2025/06/08/database/mysql/06-engine/" title="MySQL Storage Engine"><img class="cover" src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20250728225233182.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-06-08</div><div class="info-item-2">MySQL Storage Engine</div></div><div class="info-2"><div class="info-item-1">MySQL Storage EngineMySQL supports multiple storage engines, each with its own features and use cases. The most commonly used storage engines are InnoDB and MyISAM.  InnoDB: This is the default storage engine in MySQL. It supports transactions, foreign keys, and row-level locking, making it suitable for high-concurrency applications. InnoDB is designed for reliability and performance, and it is the recommended storage engine for most applications. MyISAM: This storage engine is older and does...</div></div></div></a><a class="pagination-related" href="/2025/06/04/database/mysql/03-functions/" title="MySQL Functions"><img class="cover" src="https://jsd.012700.xyz/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-06-05</div><div class="info-item-2">MySQL Functions</div></div><div class="info-2"><div class="info-item-1">MySQL FunctionsMySQL provides a wide range of built-in functions that can be used to perform various operations on data. These functions can be categorized into several types, including string functions, numeric functions, date and time functions, and aggregate functions. String FunctionsString functions are used to manipulate and analyze string data. Some common string functions include:  CONCAT(): Concatenates two or more strings. COMPARE(): Compares two strings and returns 0 if they are eq...</div></div></div></a><a class="pagination-related" href="/2025/06/09/database/mysql/07-index/" title="MySQL Index"><img class="cover" src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251007095210307.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-06-09</div><div class="info-item-2">MySQL Index</div></div><div class="info-2"><div class="info-item-1">MySQL IndexIndexes are data structures that improve the speed of data retrieval operations on a database table at the cost of additional storage space and maintenance overhead. In MySQL, indexes are used to quickly locate and access the data in a table without having to scan the entire table. There are several types of indexes in MySQL, including:  B-Tree Indexes: This is the most common type of index in MySQL. It organizes the data in a balanced tree structure, allowing for efficient searchi...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/images/lucky-icon.png" onerror="this.onerror=null;this.src='/images/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Chris Wen</div><div class="author-info-description">Dwell not on the past, nor fear the future.</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">109</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">32</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">57</div></a></div><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/wenyupeng" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:chriswen430@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://www.linkedin.com/in/chriswen430" target="_blank" title="Linkedin"><i class="fab fa-linkedin" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">Maintain the motivation to learn and stay humble when facing every problem.</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#MySQL-Data-Types"><span class="toc-number">1.</span> <span class="toc-text">MySQL Data Types</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Numeric-Types"><span class="toc-number">1.1.</span> <span class="toc-text">Numeric Types</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Integer-Types"><span class="toc-number">1.1.1.</span> <span class="toc-text">Integer Types</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Floating-Point-and-Fixed-Point-Types"><span class="toc-number">1.1.2.</span> <span class="toc-text">Floating-Point and Fixed-Point Types</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Floating-Point-Types"><span class="toc-number">1.1.2.1.</span> <span class="toc-text">Floating-Point Types</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Fixed-Point-Type"><span class="toc-number">1.1.2.2.</span> <span class="toc-text">Fixed-Point Type</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Precision-Definition-M-D"><span class="toc-number">1.1.2.3.</span> <span class="toc-text">Precision Definition (M, D)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#BIT-Type"><span class="toc-number">1.1.3.</span> <span class="toc-text">BIT Type</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#String-Types"><span class="toc-number">1.2.</span> <span class="toc-text">String Types</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Fixed-Length-vs-Variable-Length-Strings"><span class="toc-number">1.2.1.</span> <span class="toc-text">Fixed-Length vs Variable-Length Strings</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#CHAR-M"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">CHAR(M)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#VARCHAR-M"><span class="toc-number">1.2.1.2.</span> <span class="toc-text">VARCHAR(M)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Choosing-Between-CHAR-and-VARCHAR"><span class="toc-number">1.2.1.3.</span> <span class="toc-text">Choosing Between CHAR and VARCHAR</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ENUM-and-SET"><span class="toc-number">1.2.2.</span> <span class="toc-text">ENUM and SET</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ENUM"><span class="toc-number">1.2.2.1.</span> <span class="toc-text">ENUM</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SET"><span class="toc-number">1.2.2.2.</span> <span class="toc-text">SET</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TEXT-Types"><span class="toc-number">1.2.3.</span> <span class="toc-text">TEXT Types</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Binary-String-Types"><span class="toc-number">1.2.4.</span> <span class="toc-text">Binary String Types</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#BINARY-M"><span class="toc-number">1.2.4.1.</span> <span class="toc-text">BINARY(M)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#VARBINARY-M"><span class="toc-number">1.2.4.2.</span> <span class="toc-text">VARBINARY(M)</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Date-and-Time-Types"><span class="toc-number">1.3.</span> <span class="toc-text">Date and Time Types</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#YEAR"><span class="toc-number">1.3.1.</span> <span class="toc-text">YEAR</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DATE"><span class="toc-number">1.3.2.</span> <span class="toc-text">DATE</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#TIME"><span class="toc-number">1.3.3.</span> <span class="toc-text">TIME</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DATETIME"><span class="toc-number">1.3.4.</span> <span class="toc-text">DATETIME</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#TIMESTAMP"><span class="toc-number">1.3.5.</span> <span class="toc-text">TIMESTAMP</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Key-Difference"><span class="toc-number">1.3.6.</span> <span class="toc-text">Key Difference</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Other-Data-Types"><span class="toc-number">1.4.</span> <span class="toc-text">Other Data Types</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#JSON-Type"><span class="toc-number">1.4.1.</span> <span class="toc-text">JSON Type</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Spatial-Types"><span class="toc-number">1.4.2.</span> <span class="toc-text">Spatial Types</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Summary"><span class="toc-number">1.5.</span> <span class="toc-text">Summary</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/11/14/big_data/da/11-des-statistics-2/" title="Box-Cox and Yeo-Johnson Transformations"><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251118091603317.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="Box-Cox and Yeo-Johnson Transformations"/></a><div class="content"><a class="title" href="/2025/11/14/big_data/da/11-des-statistics-2/" title="Box-Cox and Yeo-Johnson Transformations">Box-Cox and Yeo-Johnson Transformations</a><time datetime="2025-11-14T00:14:08.000Z" title="Created 2025-11-14 11:14:08">2025-11-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/11/13/big_data/da/11-des-statistics-1/" title="Feature Selection"><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251118091603317.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="Feature Selection"/></a><div class="content"><a class="title" href="/2025/11/13/big_data/da/11-des-statistics-1/" title="Feature Selection">Feature Selection</a><time datetime="2025-11-13T22:22:12.000Z" title="Created 2025-11-14 09:22:12">2025-11-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/11/13/big_data/da/10-des-statistics/" title="GDPR"><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251118091603317.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="GDPR"/></a><div class="content"><a class="title" href="/2025/11/13/big_data/da/10-des-statistics/" title="GDPR">GDPR</a><time datetime="2025-11-13T05:01:22.000Z" title="Created 2025-11-13 16:01:22">2025-11-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/11/12/big_data/da/12-des-statistics/" title="Dimensionality Reduction and PCA"><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251118091603317.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="Dimensionality Reduction and PCA"/></a><div class="content"><a class="title" href="/2025/11/12/big_data/da/12-des-statistics/" title="Dimensionality Reduction and PCA">Dimensionality Reduction and PCA</a><time datetime="2025-11-12T04:02:22.000Z" title="Created 2025-11-12 15:02:22">2025-11-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/11/11/big_data/da/09-des-statistics/" title="Data Matching"><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251118091603317.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="Data Matching"/></a><div class="content"><a class="title" href="/2025/11/11/big_data/da/09-des-statistics/" title="Data Matching">Data Matching</a><time datetime="2025-11-11T23:11:03.000Z" title="Created 2025-11-12 10:11:03">2025-11-12</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;2025 - 2026 By Chris Wen</span></div><div class="footer_custom_text">Live each day with purpose.</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><div class="js-pjax"></div><script src='/js/custom.js'></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="false" data-text="HAPPY,EVERY,DAY" data-fontsize="15px" data-random="true" async="async"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => fn())
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      const usePjax = true
+      false
+        ? (usePjax ? pjax.loadUrl('/404.html') : window.location.href = '/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})()</script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading Database</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><script src="https://cdn.jsdelivr.net/npm/live2d-widget@^3.1.3/lib/L2Dwidget.min.js"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"superSample":3,"position":"left","width":300,"height":600,"hOffset":90,"vOffset":-100},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.3,"opacityOnHover":0.3,"opacity":0.95},"log":false});</script></body></html>

@@ -1,0 +1,395 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>MySQL Transaction | Chris Wen's Blog</title><meta name="author" content="Chris Wen"><meta name="copyright" content="Chris Wen"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="TransactionA transaction in MySQL is a sequence of one or more SQL operations that are executed as a single unit of work. Transactions ensure that either all operations are completed successfully or n">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL Transaction">
+<meta property="og:url" content="https://wenyupeng.github.io/2025/06/07/database/mysql/05-transaction/index.html">
+<meta property="og:site_name" content="Chris Wen&#39;s Blog">
+<meta property="og:description" content="TransactionA transaction in MySQL is a sequence of one or more SQL operations that are executed as a single unit of work. Transactions ensure that either all operations are completed successfully or n">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251007095245295.png">
+<meta property="article:published_time" content="2025-06-07T01:34:08.000Z">
+<meta property="article:modified_time" content="2026-04-27T12:17:47.752Z">
+<meta property="article:author" content="Chris Wen">
+<meta property="article:tag" content="mysql">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251007095245295.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "MySQL Transaction",
+  "url": "https://wenyupeng.github.io/2025/06/07/database/mysql/05-transaction/",
+  "image": "https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251007095245295.png",
+  "datePublished": "2025-06-07T01:34:08.000Z",
+  "dateModified": "2026-04-27T12:17:47.752Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Chris Wen",
+      "url": "https://wenyupeng.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/images/favicon.ico"><link rel="canonical" href="https://wenyupeng.github.io/2025/06/07/database/mysql/05-transaction/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.json","preload":true,"top_n_per_article":-1,"unescape":false,"languages":{"hits_empty":"No results found for: ${query}","hits_stats":"${hits} articles found"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"Author: Chris Wen","link":"Link: ","source":"Source: Chris Wen's Blog","info":"Copyright belongs to the author. For commercial use, please contact the author for authorization. For non-commercial use, please indicate the source."}},
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: true,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'MySQL Transaction',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/custom-style.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/constown/HexoCustomFile@0.0.4/dist/css/custom.min.css"><meta name="generator" content="Hexo 8.1.1"><link rel="alternate" href="/atom.xml" title="Chris Wen's Blog" type="application/atom+xml">
+</head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load', preloader.endLoading)
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/images/lucky-icon.png" onerror="this.onerror=null;this.src='/images/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">109</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">32</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">57</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/project/"><i class="fa-fw fas fa-project-diagram"></i><span> Project</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post type-page" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251007095245295.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Chris Wen's Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">MySQL Transaction</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/project/"><i class="fa-fw fas fa-project-diagram"></i><span> Project</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">MySQL Transaction</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-06-07T01:34:08.000Z" title="Created 2025-06-07 11:34:08">2025-06-07</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2026-04-27T12:17:47.752Z" title="Updated 2026-04-27 22:17:47">2026-04-27</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/database/">database</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/database/mysql/">mysql</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">2.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>12mins</span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:30,&quot;messagePrev&quot;:&quot;It has been&quot;,&quot;messageNext&quot;:&quot;days since the last update, the content of the article may be outdated.&quot;,&quot;postUpdate&quot;:&quot;2026-04-27 22:17:47&quot;}" hidden></div><h1 id="Transaction"><a href="#Transaction" class="headerlink" title="Transaction"></a>Transaction</h1><p>A transaction in MySQL is a sequence of one or more SQL operations that are executed as a single unit of work. Transactions ensure that either all operations are completed successfully or none of them are applied, maintaining the integrity of the database. This is particularly important in scenarios where multiple operations need to be performed together, such as transferring funds between accounts.</p>
+<ul>
+<li>DDL (Data Definition Language) statements like <code>CREATE</code>, <code>ALTER</code>, and <code>DROP</code> are not part of transactions and will cause an implicit commit.</li>
+<li>DML (Data Manipulation Language) statements like <code>INSERT</code>, <code>UPDATE</code>, and <code>DELETE</code> can be included in transactions and will not take effect until the transaction is committed.</li>
+<li>Truncation of a table using <code>TRUNCATE</code> is also not part of a transaction and will cause an implicit commit.</li>
+</ul>
+<h2 id="ACID-Properties"><a href="#ACID-Properties" class="headerlink" title="ACID Properties"></a>ACID Properties</h2><p>Transactions in MySQL adhere to the ACID properties, which stand for Atomicity, Consistency, Isolation, and Durability:</p>
+<ol>
+<li>Atomicity: Ensures that all operations within a transaction are treated as a single unit. If any operation fails, the entire transaction is rolled back, and the database remains unchanged.</li>
+<li>Consistency: Ensures that a transaction brings the database from one valid state to another valid state, maintaining the integrity of the database.</li>
+<li>Isolation: Ensures that the operations of one transaction are isolated from those of other transactions, preventing interference and ensuring that concurrent transactions do not affect each other.</li>
+<li>Durability: Ensures that once a transaction is committed, its changes are permanent and will survive any subsequent system failures.</li>
+</ol>
+<h2 id="Transaction-Control-Commands"><a href="#Transaction-Control-Commands" class="headerlink" title="Transaction Control Commands"></a>Transaction Control Commands</h2><p>MySQL provides several commands to control transactions:</p>
+<ul>
+<li><code>START TRANSACTION</code>: Begins a new transaction.</li>
+<li><code>COMMIT</code>: Saves all changes made during the transaction to the database.</li>
+<li><code>ROLLBACK</code>: Undoes all changes made during the transaction, reverting the database to its previous state.</li>
+</ul>
+<h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SET</span> autocommit <span class="operator">=</span> <span class="number">0</span>; <span class="comment">-- Disable autocommit mode</span></span><br><span class="line"><span class="keyword">START</span> TRANSACTION; <span class="comment">-- Start a new transaction</span></span><br><span class="line"><span class="keyword">INSERT INTO</span> accounts (account_id, balance) <span class="keyword">VALUES</span> (<span class="number">1</span>, <span class="number">1000</span>);</span><br><span class="line"><span class="keyword">INSERT INTO</span> accounts (account_id, balance) <span class="keyword">VALUES</span> (<span class="number">2</span>, <span class="number">500</span>);</span><br><span class="line"><span class="comment">-- Simulate a transfer of $200 from account 1 to account 2</span></span><br><span class="line"><span class="keyword">UPDATE</span> accounts <span class="keyword">SET</span> balance <span class="operator">=</span> balance <span class="operator">-</span> <span class="number">200</span> <span class="keyword">WHERE</span> account_id <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line"><span class="keyword">UPDATE</span> accounts <span class="keyword">SET</span> balance <span class="operator">=</span> balance <span class="operator">+</span> <span class="number">200</span> <span class="keyword">WHERE</span> account_id <span class="operator">=</span> <span class="number">2</span>;</span><br><span class="line"><span class="keyword">COMMIT</span>; <span class="comment">-- Commit the transaction to save changes</span></span><br></pre></td></tr></table></figure>
+<p>In this example, we start a transaction to transfer funds between two accounts. If any of the operations fail, we can use <code>ROLLBACK</code> to undo the changes and maintain the integrity of the database.<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SET</span> autocommit <span class="operator">=</span> <span class="number">0</span>; <span class="comment">-- Disable autocommit mode</span></span><br><span class="line"><span class="keyword">START</span> TRANSACTION; <span class="comment">-- Start a new transaction</span></span><br><span class="line"><span class="keyword">INSERT INTO</span> accounts (account_id, balance) <span class="keyword">VALUES</span> (<span class="number">1</span>, <span class="number">1000</span>);</span><br><span class="line"><span class="keyword">INSERT INTO</span> accounts (account_id, balance) <span class="keyword">VALUES</span> (<span class="number">2</span>, <span class="number">500</span>);</span><br><span class="line"><span class="comment">-- Simulate a transfer of $200 from account 1 to account 2</span></span><br><span class="line"><span class="keyword">UPDATE</span> accounts <span class="keyword">SET</span> balance <span class="operator">=</span> balance <span class="operator">-</span> <span class="number">200</span> <span class="keyword">WHERE</span> account_id <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line"><span class="keyword">UPDATE</span> accounts <span class="keyword">SET</span> balance <span class="operator">=</span> balance <span class="operator">+</span> <span class="number">200</span> <span class="keyword">WHERE</span> account_id <span class="operator">=</span> <span class="number">2</span>;</span><br><span class="line"><span class="keyword">ROLLBACK</span>; <span class="comment">-- Rollback the transaction to undo changes</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="Transaction-Isolation-Levels"><a href="#Transaction-Isolation-Levels" class="headerlink" title="Transaction Isolation Levels"></a>Transaction Isolation Levels</h2><p>MySQL supports different transaction isolation levels that determine how transactions interact with each other. The isolation levels include:</p>
+<ol>
+<li>Read Uncommitted: Allows transactions to read uncommitted changes made by other transactions, which can lead to dirty reads.</li>
+<li>Read Committed: Allows transactions to read only committed changes made by other transactions, preventing dirty reads but allowing non-repeatable reads and phantom reads.</li>
+<li>Repeatable Read: Ensures that if a transaction reads a row, it will see the same value for that row throughout the transaction, preventing non-repeatable reads but allowing phantom reads.</li>
+<li>Serializable: The highest isolation level that ensures complete isolation between transactions, preventing dirty reads, non-repeatable reads, and phantom reads, but can lead to reduced concurrency and performance.</li>
+</ol>
+<p>To set the transaction isolation level in MySQL, you can use the following command:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- query the current transaction isolation level</span></span><br><span class="line"><span class="keyword">SELECT</span> @<span class="variable">@transaction_isolation</span>;</span><br><span class="line"><span class="comment">-- Set the transaction isolation level for the current session</span></span><br><span class="line"><span class="keyword">SET</span> TRANSACTION ISOLATION LEVEL isolation_level;</span><br></pre></td></tr></table></figure><br>Replace <code>isolation_level</code> with one of the isolation levels mentioned above (e.g., <code>READ COMMITTED</code>, <code>REPEATABLE READ</code>, etc.).</p>
+<h2 id="Transaction-Merchanisms"><a href="#Transaction-Merchanisms" class="headerlink" title="Transaction Merchanisms"></a>Transaction Merchanisms</h2><p>In InnoDB, the default storage engine for MySQL, transactions are implemented using a combination of locking mechanisms and Multi-Version Concurrency Control (MVCC). These mechanisms work together to ensure data integrity and consistency while allowing for high concurrency in multi-user environments.<br>And the transaction will involve these files:</p>
+<ol>
+<li><code>Buffer Pool</code>: This is an in-memory cache that stores frequently accessed data and indexes for InnoDB tables. It helps to improve performance by reducing the number of disk reads and writes during transactions.<ul>
+<li>The buffer pool is used to store data pages, index pages, and other internal structures needed for transaction processing. When a transaction modifies data, the changes are first made in the buffer pool and then written to disk when the transaction is committed.</li>
+</ul>
+</li>
+<li><code>Redo Logs</code>: These are log files that store the changes made to the database during a transaction. They are used to recover the database in case of a crash or unexpected shutdown. When a transaction is committed, the changes are written to the redo logs before being applied to the data files.<ul>
+<li><code>ib_logfile0</code> and <code>ib_logfile1</code>: These are the InnoDB log files that store the redo logs for transactions. They are used to recover the database in case of a crash or unexpected shutdown.<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">-- Example of a redo log entry for a transaction</span><br><span class="line">page_id = 45</span><br><span class="line">offset = 128</span><br><span class="line">before: 0x1234</span><br><span class="line">after : 0x5678</span><br><span class="line">-- More realistic redo log entry</span><br><span class="line">MLOG_WRITE_STRING</span><br><span class="line">space_id: 10</span><br><span class="line">page_no: 200</span><br><span class="line">offset: 350</span><br><span class="line">len: 4</span><br><span class="line">data: 0xDEADBEEF</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><code>Undo Logs</code>: These are log files that store the previous state of the data before it is modified by a transaction. They are used to roll back transactions if necessary and to provide support for MVCC. When a transaction modifies data, the previous state of the data is stored in the undo logs, allowing for rollback if the transaction fails or is rolled back by the user.<ul>
+<li>The undo logs are stored in the system tablespace (<code>ibdata1</code>) and are used to maintain the previous state of the data for transactions. They allow for rolling back changes made by a transaction if it fails or is rolled back by the user.<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">+----------------------+</span><br><span class="line">| Log Type             |</span><br><span class="line">+----------------------+</span><br><span class="line">| Space ID             |</span><br><span class="line">+----------------------+</span><br><span class="line">| Page Number          |</span><br><span class="line">+----------------------+</span><br><span class="line">| Offset               |</span><br><span class="line">+----------------------+</span><br><span class="line">| Data Length          |</span><br><span class="line">+----------------------+</span><br><span class="line">| New Data             |</span><br><span class="line">+----------------------+</span><br><span class="line">| LSN (log sequence #) |</span><br><span class="line">+----------------------+</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><code>Data Files</code>: These are the files that store the actual data for InnoDB tables. When a transaction modifies data, the changes are first made in the buffer pool and then written to the data files when the transaction is committed.<ul>
+<li><code>ibdata1</code>: This is the system tablespace file that contains the data and indexes for InnoDB tables, as well as the undo logs for transactions. It is used to store the actual data for InnoDB tables and is updated when transactions are committed.</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p><code>Binlog</code>: This is the binary log file that records all changes made to the database, including transactions. It is used for replication and point-in-time recovery. When a transaction is committed, the changes are written to the binlog, allowing for replication to other servers and recovery in case of a crash or data loss.</p>
+</blockquote>
+<p>When a transaction is executed, the following sequence of events occurs:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE TABLE</span> <span class="keyword">user</span> (</span><br><span class="line">  id <span class="type">INT</span> <span class="keyword">PRIMARY KEY</span>,</span><br><span class="line">  name <span class="type">VARCHAR</span>(<span class="number">50</span>),</span><br><span class="line">  age <span class="type">INT</span>,</span><br><span class="line">  address <span class="type">VARCHAR</span>(<span class="number">100</span>),</span><br><span class="line">  <span class="keyword">UNIQUE</span> KEY (name)</span><br><span class="line">) ENGINE<span class="operator">=</span>InnoDB <span class="keyword">DEFAULT</span> CHARSET<span class="operator">=</span>utf8mb4;</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT INTO</span> <span class="keyword">user</span> (id, name, age, address) <span class="keyword">VALUES</span> (<span class="number">1</span>, <span class="string">&#x27;Alice&#x27;</span>, <span class="number">18</span>, <span class="string">&#x27;123 Main St&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">BEGIN</span>;</span><br><span class="line"><span class="keyword">UPDATE</span> <span class="keyword">user</span> <span class="keyword">SET</span> age <span class="operator">=</span> <span class="number">20</span> <span class="keyword">WHERE</span> name <span class="operator">=</span> <span class="string">&#x27;Alice&#x27;</span>;</span><br><span class="line"><span class="keyword">COMMIT</span>;</span><br></pre></td></tr></table></figure></p>
+<ol>
+<li>Transaction starts, assign transaction ID(trx_id):<ul>
+<li>Assigns a globally unique transaction ID (trx_id) to the current transaction (monotonically increasing);</li>
+<li>Initializes the transaction context, recording the current write positions of redo log and undo log;</li>
+<li>Marks the transaction state as ACTIVE;</li>
+<li>Disables auto-commit (autocommit = 0) until COMMIT or ROLLBACK, after which it is restored.</li>
+</ul>
+</li>
+<li>Parse SQL and Locate Rows via Secondary Index (Index Lookup)<br>When executing: <code>UPDATE ... WHERE name = &#39;Alice&#39;;</code><ul>
+<li>Parse the WHERE condition and identify the index to use (in this case, the unique index on <code>name</code>).</li>
+<li>Secondary index lookup, traverse the B+ tree of the secondary index to find the leaf node containing the entry for <code>name = &#39;Alice&#39;</code>.</li>
+<li>Clustered index lookup, using the primary key (id) obtained from the secondary index to locate the corresponding row in the clustered index.</li>
+<li>Record row version information for MVCC, including the transaction ID (trx_id) and the undo log pointer (roll_pointer) for the current transaction.</li>
+</ul>
+</li>
+<li>Acquire Row Locks to Ensure Mutual Exclusion (InnoDB follows a “lock first, then modify” strategy)<ul>
+<li>Lock secondary index entry, add a record lock on the secondary index entry for <code>name = &#39;Alice&#39;</code> to prevent other transactions from modifying it concurrently.</li>
+<li>Lock clustered index entry, add a record lock on the clustered index entry for the corresponding</li>
+<li>Important behavior:<ul>
+<li>For unique index equality queries: Next-Key Lock is downgraded to Record Lock</li>
+<li>For non-unique indexes: Next-Key Lock (Record Lock + Gap Lock) is used to prevent phantom reads</li>
+</ul>
+</li>
+<li>Lock conflict check<ul>
+<li>If no other transaction holds the lock → proceed</li>
+<li>If already locked → current transaction waits (or times out)<blockquote>
+<p>Locks are applied on index entries, not physical rows. If the WHERE clause does not use an index, a full table scan occurs, locking all index entries (effectively a table lock), which can cause severe performance degradation.</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Write Undo Log (Prepare for Rollback)<br>Before modifying data, InnoDB records the original version into the undo log:<ul>
+<li>Generate undo log record (logical log storing reverse operation):<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">trx_id = 1001,</span><br><span class="line">table = user</span><br><span class="line">row = id = 1</span><br><span class="line">age = 18 (original value)</span><br><span class="line">roll_pointer = 0x12345678 (pointer to undo log record)</span><br></pre></td></tr></table></figure></li>
+<li>Write into undo log segment, stored in<ul>
+<li>Shared tablespace (ibdata1) or</li>
+<li>Separate undo tablespace (if configured)</li>
+</ul>
+</li>
+<li>Update row’s rollback pointer, the row’s hidden roll_pointer now points to this undo record, forming a version chain for MVCC.<blockquote>
+<p>Core Functions of Undo Log:</p>
+<ol>
+<li>Transaction Rollback: If the transaction is rolled back, InnoDB uses the undo log to restore the original data.</li>
+<li>MVCC Read Consistency: When a transaction reads data, it checks the undo log to determine if the data has been modified by other active transactions, ensuring that it sees a consistent snapshot of the database.</li>
+</ol>
+</blockquote>
+</li>
+</ul>
+</li>
+<li>Modify Memory Data and Write Redo Log (WAL Principle: Write logs before modifying data)<ul>
+<li>Modify data in the buffer pool, the in-memory representation of the data file.<ul>
+<li>Update the value;</li>
+<li>Mark the page as dirty (indicating it has been modified and needs to be flushed to disk).</li>
+<li>Update hidden column trx_id to the current transaction ID (1001) to indicate that this row is modified by the current transaction.</li>
+</ul>
+</li>
+<li>Generate redo log record (physical log storing changes):<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">trx_id = 1001,</span><br><span class="line">table = user</span><br><span class="line">page_id = 1234</span><br><span class="line">offset = 128</span><br><span class="line">before_image = 0x1234 (original data)</span><br><span class="line">after_image = 0x5678 (modified data)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Written into redo log buffer in memory, which is flushed to disk when the transaction commits or when the buffer is full.</li>
+<li>Not immediately written to the data file, allowing for efficient batching of disk writes and improved performance.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Commit Transaction (Durability via Two-Phase Commit)<br>On COMMIT, InnoDB ensures durability and consistency between redo log and binlog:<ul>
+<li>Phase 1: Prepare Phase (Flush Redo Log)<ul>
+<li>Flush redo log buffer to disk (controlled by innodb_flush_log_at_trx_commit = 1) to ensure that all changes are safely stored in the redo log before committing.</li>
+<li>Mark transaction as PREPARED in redo log, indicating that it is ready to commit.</li>
+<li>At this point, redo log is durable, but transaction not yet fully committed (binlog not yet written).</li>
+</ul>
+</li>
+<li>Phase 2: Commit Phase (Write Binlog + Final Commit)<ul>
+<li>Write SQL to binlog and flush to disk (controlled by sync_binlog = 1) to ensure that the transaction is recorded for replication and recovery.</li>
+<li>Write COMMIT marker into redo log to indicate that the transaction is fully committed.</li>
+<li>Release all locks held by the transaction, allowing other transactions to proceed.</li>
+<li>Mark transaction as COMMITTED, making all changes visible to other transactions.<blockquote>
+<p>If the server crashes after Phase 1 but before Phase 2, InnoDB can use the redo log to recover the database to a consistent state, ensuring that either all changes are applied or none of them are applied, maintaining the integrity of the database. If the server crashes after Phase 2, the transaction is already fully committed and will be recovered as such during crash recovery.<br>Crash scenarios:</p>
+</blockquote>
+</li>
+<li>Crash after prepare → rollback</li>
+<li>Crash after binlog write → check binlog:<ul>
+<li>complete → commit</li>
+<li>incomplete → rollback</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Asynchronous Flush of Dirty Pages (Background Threads)<br>After commit, dirty pages are not immediately flushed to disk. Flush is triggered when:<ul>
+<li>Redo log is nearly full</li>
+<li>Buffer pool is running low on free pages</li>
+<li>Periodic flush (controlled by innodb_max_dirty_pages_pct)</li>
+<li>Manual operations (FLUSH TABLES, ALTER TABLE, etc.)<blockquote>
+<p>Flush process:</p>
+<ul>
+<li>Background thread writes dirty pages to .ibd files</li>
+<li>Marks pages as clean after flushing</li>
+<li>Updates checkpoint in redo log<br><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20260425003216359.png" alt="Process"></li>
+</ul>
+</blockquote>
+</li>
+</ul>
+</li>
+</ol>
+<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://dev.mysql.com/doc/refman/8.4/en/sql-transactional-statements.html">MySQL 8.0 Reference Manual - Transactions</a></li>
+<li><a target="_blank" rel="noopener" href="https://dev.mysql.com/doc/refman/8.4/en/innodb-storage-engine.html">MySQL 8.0 Reference Manual - InnoDB Storage Engine</a></li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://wenyupeng.github.io">Chris Wen</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://wenyupeng.github.io/2025/06/07/database/mysql/05-transaction/">https://wenyupeng.github.io/2025/06/07/database/mysql/05-transaction/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/mysql/">mysql</a></div><div class="post-share"><div class="social-share" data-image="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251007095245295.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/06/08/database/mysql/06-engine/" title="MySQL Storage Engine"><img class="cover" src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20250728225233182.png" onerror="onerror=null;src='/images/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">MySQL Storage Engine</div></div><div class="info-2"><div class="info-item-1">MySQL Storage EngineMySQL supports multiple storage engines, each with its own features and use cases. The most commonly used storage engines are InnoDB and MyISAM.  InnoDB: This is the default storage engine in MySQL. It supports transactions, foreign keys, and row-level locking, making it suitable for high-concurrency applications. InnoDB is designed for reliability and performance, and it is the recommended storage engine for most applications. MyISAM: This storage engine is older and does...</div></div></div></a><a class="pagination-related" href="/2025/06/06/database/mysql/04-query/" title="MySQL Query"><img class="cover" src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251007095230189.png" onerror="onerror=null;src='/images/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">MySQL Query</div></div><div class="info-2"><div class="info-item-1">Join QueryA JOIN query is used to combine rows from two or more tables based on a related column between them. There are several types of JOINs in MySQL, including INNER JOIN, LEFT JOIN, RIGHT JOIN, and FULL OUTER JOIN. INNER JOINThe INNER JOIN returns only the rows that have matching values in both tables.1234SELECT columnsFROM table1INNER JOIN table2ON table1.common_column = table2.common_column; LEFT JOINThe LEFT JOIN returns all rows from the left table and the matched rows from the right...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/08/04/container/docker/03-docker-mysql/" title="Docker Compose Install Mysql"><img class="cover" src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251007095245295.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-08-04</div><div class="info-item-2">Docker Compose Install Mysql</div></div><div class="info-2"><div class="info-item-1">Installing Mysql using Docker Compose12345678910111213141516version: &#x27;3&#x27;services:  mysql:    image: mysql:8.0.18    container_name: mysql8    environment:      - MYSQL_ROOT_PASSWORD=root#      - TZ=Asia/Shanghai    volumes:      - ./log:/var/log/mysql      - ./data:/var/lib/mysql      - ./conf/conf.d:/etc/mysql/conf.d      # - /etc/localtime:/etc/localtime:ro    ports:      - 3306:3306    restart: always</div></div></div></a><a class="pagination-related" href="/2025/06/04/database/mysql/01-fundamental/" title="MySQL Installation Guide"><img class="cover" src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251007095230189.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-06-04</div><div class="info-item-2">MySQL Installation Guide</div></div><div class="info-2"><div class="info-item-1">MySQL Basic InformationMySQL is an open-source relational database management system (RDBMS) that uses Structured Query Language (SQL) for managing and manipulating data. It is widely used for web applications, data warehousing, and various other applications due to its reliability, performance, and ease of use. MySQL ArchitectureMySQL follows a client-server architecture, where the MySQL server manages the database and handles client requests. The server consists of several components, inclu...</div></div></div></a><a class="pagination-related" href="/2025/06/04/database/mysql/02-data%20type/" title="MySQL Data Types"><img class="cover" src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20250728225255149.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-06-04</div><div class="info-item-2">MySQL Data Types</div></div><div class="info-2"><div class="info-item-1">MySQL Data TypesThis chapter provides a structured overview of MySQL data types, including numeric, string, temporal, and other specialized types. Understanding these types is essential for esigning efficient and reliable database schemas.  Numeric TypesInteger TypesMySQL provides several integer types (e.g., TINYINT, INT, BIGINT) to store whole numbers. Historically, these types allowed an optional display width (M). Key points:  The display width (M) defines the minimum display width, not t...</div></div></div></a><a class="pagination-related" href="/2025/06/06/database/mysql/04-query/" title="MySQL Query"><img class="cover" src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251007095230189.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-06-06</div><div class="info-item-2">MySQL Query</div></div><div class="info-2"><div class="info-item-1">Join QueryA JOIN query is used to combine rows from two or more tables based on a related column between them. There are several types of JOINs in MySQL, including INNER JOIN, LEFT JOIN, RIGHT JOIN, and FULL OUTER JOIN. INNER JOINThe INNER JOIN returns only the rows that have matching values in both tables.1234SELECT columnsFROM table1INNER JOIN table2ON table1.common_column = table2.common_column; LEFT JOINThe LEFT JOIN returns all rows from the left table and the matched rows from the right...</div></div></div></a><a class="pagination-related" href="/2025/06/08/database/mysql/06-engine/" title="MySQL Storage Engine"><img class="cover" src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20250728225233182.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-06-08</div><div class="info-item-2">MySQL Storage Engine</div></div><div class="info-2"><div class="info-item-1">MySQL Storage EngineMySQL supports multiple storage engines, each with its own features and use cases. The most commonly used storage engines are InnoDB and MyISAM.  InnoDB: This is the default storage engine in MySQL. It supports transactions, foreign keys, and row-level locking, making it suitable for high-concurrency applications. InnoDB is designed for reliability and performance, and it is the recommended storage engine for most applications. MyISAM: This storage engine is older and does...</div></div></div></a><a class="pagination-related" href="/2025/06/04/database/mysql/03-functions/" title="MySQL Functions"><img class="cover" src="https://jsd.012700.xyz/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-06-05</div><div class="info-item-2">MySQL Functions</div></div><div class="info-2"><div class="info-item-1">MySQL FunctionsMySQL provides a wide range of built-in functions that can be used to perform various operations on data. These functions can be categorized into several types, including string functions, numeric functions, date and time functions, and aggregate functions. String FunctionsString functions are used to manipulate and analyze string data. Some common string functions include:  CONCAT(): Concatenates two or more strings. COMPARE(): Compares two strings and returns 0 if they are eq...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/images/lucky-icon.png" onerror="this.onerror=null;this.src='/images/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Chris Wen</div><div class="author-info-description">Dwell not on the past, nor fear the future.</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">109</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">32</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">57</div></a></div><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/wenyupeng" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:chriswen430@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://www.linkedin.com/in/chriswen430" target="_blank" title="Linkedin"><i class="fab fa-linkedin" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">Maintain the motivation to learn and stay humble when facing every problem.</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Transaction"><span class="toc-number">1.</span> <span class="toc-text">Transaction</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#ACID-Properties"><span class="toc-number">1.1.</span> <span class="toc-text">ACID Properties</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Transaction-Control-Commands"><span class="toc-number">1.2.</span> <span class="toc-text">Transaction Control Commands</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Example"><span class="toc-number">1.3.</span> <span class="toc-text">Example</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Transaction-Isolation-Levels"><span class="toc-number">1.4.</span> <span class="toc-text">Transaction Isolation Levels</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Transaction-Merchanisms"><span class="toc-number">1.5.</span> <span class="toc-text">Transaction Merchanisms</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#References"><span class="toc-number">2.</span> <span class="toc-text">References</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/11/14/big_data/da/11-des-statistics-2/" title="Box-Cox and Yeo-Johnson Transformations"><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251118091603317.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="Box-Cox and Yeo-Johnson Transformations"/></a><div class="content"><a class="title" href="/2025/11/14/big_data/da/11-des-statistics-2/" title="Box-Cox and Yeo-Johnson Transformations">Box-Cox and Yeo-Johnson Transformations</a><time datetime="2025-11-14T00:14:08.000Z" title="Created 2025-11-14 11:14:08">2025-11-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/11/13/big_data/da/11-des-statistics-1/" title="Feature Selection"><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251118091603317.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="Feature Selection"/></a><div class="content"><a class="title" href="/2025/11/13/big_data/da/11-des-statistics-1/" title="Feature Selection">Feature Selection</a><time datetime="2025-11-13T22:22:12.000Z" title="Created 2025-11-14 09:22:12">2025-11-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/11/13/big_data/da/10-des-statistics/" title="GDPR"><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251118091603317.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="GDPR"/></a><div class="content"><a class="title" href="/2025/11/13/big_data/da/10-des-statistics/" title="GDPR">GDPR</a><time datetime="2025-11-13T05:01:22.000Z" title="Created 2025-11-13 16:01:22">2025-11-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/11/12/big_data/da/12-des-statistics/" title="Dimensionality Reduction and PCA"><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251118091603317.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="Dimensionality Reduction and PCA"/></a><div class="content"><a class="title" href="/2025/11/12/big_data/da/12-des-statistics/" title="Dimensionality Reduction and PCA">Dimensionality Reduction and PCA</a><time datetime="2025-11-12T04:02:22.000Z" title="Created 2025-11-12 15:02:22">2025-11-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/11/11/big_data/da/09-des-statistics/" title="Data Matching"><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251118091603317.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="Data Matching"/></a><div class="content"><a class="title" href="/2025/11/11/big_data/da/09-des-statistics/" title="Data Matching">Data Matching</a><time datetime="2025-11-11T23:11:03.000Z" title="Created 2025-11-12 10:11:03">2025-11-12</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;2025 - 2026 By Chris Wen</span></div><div class="footer_custom_text">Live each day with purpose.</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><div class="js-pjax"></div><script src='/js/custom.js'></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="false" data-text="HAPPY,EVERY,DAY" data-fontsize="15px" data-random="true" async="async"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => fn())
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      const usePjax = true
+      false
+        ? (usePjax ? pjax.loadUrl('/404.html') : window.location.href = '/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})()</script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading Database</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><script src="https://cdn.jsdelivr.net/npm/live2d-widget@^3.1.3/lib/L2Dwidget.min.js"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"superSample":3,"position":"left","width":300,"height":600,"hOffset":90,"vOffset":-100},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.3,"opacityOnHover":0.3,"opacity":0.95},"log":false});</script></body></html>
