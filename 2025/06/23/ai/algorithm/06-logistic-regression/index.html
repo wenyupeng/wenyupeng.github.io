@@ -1,0 +1,613 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Logistic Regression | Chris Wen's Blog</title><meta name="author" content="Chris Wen"><meta name="copyright" content="Chris Wen"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Logistic RegressionLogistic Regression is a binary classification technique that assumes numeric input variables with a Gaussian distribution. Although this assumption is not mandatory, the algorithm">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Logistic Regression">
+<meta property="og:url" content="https://wenyupeng.github.io/2025/06/23/ai/algorithm/06-logistic-regression/index.html">
+<meta property="og:site_name" content="Chris Wen&#39;s Blog">
+<meta property="og:description" content="Logistic RegressionLogistic Regression is a binary classification technique that assumes numeric input variables with a Gaussian distribution. Although this assumption is not mandatory, the algorithm">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251007095230189.png">
+<meta property="article:published_time" content="2025-06-23T04:42:22.000Z">
+<meta property="article:modified_time" content="2026-06-24T01:59:03.578Z">
+<meta property="article:author" content="Chris Wen">
+<meta property="article:tag" content="ai-algorithm">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251007095230189.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Logistic Regression",
+  "url": "https://wenyupeng.github.io/2025/06/23/ai/algorithm/06-logistic-regression/",
+  "image": "https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251007095230189.png",
+  "datePublished": "2025-06-23T04:42:22.000Z",
+  "dateModified": "2026-06-24T01:59:03.578Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Chris Wen",
+      "url": "https://wenyupeng.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/images/favicon.ico"><link rel="canonical" href="https://wenyupeng.github.io/2025/06/23/ai/algorithm/06-logistic-regression/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.json","preload":true,"top_n_per_article":-1,"unescape":false,"languages":{"hits_empty":"No results found for: ${query}","hits_stats":"${hits} articles found"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"Author: Chris Wen","link":"Link: ","source":"Source: Chris Wen's Blog","info":"Copyright belongs to the author. For commercial use, please contact the author for authorization. For non-commercial use, please indicate the source."}},
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: true,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Logistic Regression',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/custom-style.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/constown/HexoCustomFile@0.0.4/dist/css/custom.min.css"><meta name="generator" content="Hexo 8.1.1"><link rel="alternate" href="/atom.xml" title="Chris Wen's Blog" type="application/atom+xml">
+</head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load', preloader.endLoading)
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/images/lucky-icon.png" onerror="this.onerror=null;this.src='/images/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">119</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">35</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">59</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/project/"><i class="fa-fw fas fa-project-diagram"></i><span> Project</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251007095230189.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Chris Wen's Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">Logistic Regression</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/project/"><i class="fa-fw fas fa-project-diagram"></i><span> Project</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Logistic Regression</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-06-23T04:42:22.000Z" title="Created 2025-06-23 14:42:22">2025-06-23</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2026-06-24T01:59:03.578Z" title="Updated 2026-06-24 11:59:03">2026-06-24</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/ai/">ai</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/ai/foundation/">foundation</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/ai/foundation/algorithm/">algorithm</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">1.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>11mins</span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:30,&quot;messagePrev&quot;:&quot;It has been&quot;,&quot;messageNext&quot;:&quot;days since the last update, the content of the article may be outdated.&quot;,&quot;postUpdate&quot;:&quot;2026-06-24 11:59:03&quot;}" hidden></div><h2 id="Logistic-Regression"><a href="#Logistic-Regression" class="headerlink" title="Logistic Regression"></a>Logistic Regression</h2><p>Logistic Regression is a binary classification technique that assumes numeric input variables with a Gaussian distribution. Although this assumption is not mandatory, the algorithm performs well even if the data does not adhere to this pattern. Logistic regression calculates coefficients for each input variable, combining them linearly into a regression function and applying a logistic transformation. While it is simple and fast, its effectiveness depends on the characteristics of the dataset. For this dataset, logistic regression may face limitations due to the non-Gaussian distribution of many attributes.</p>
+<h2 id="What-Is-Logistic-Regression"><a href="#What-Is-Logistic-Regression" class="headerlink" title="What Is Logistic Regression?"></a>What Is Logistic Regression?</h2><p>Logistic Regression is a statistical method used for classification problems.</p>
+<p>It is especially common in binary classification tasks.</p>
+<p>Although the name contains the word “Regression”, Logistic Regression is mainly used for classification, not regression.</p>
+<p>The core idea is:</p>
+<blockquote>
+<p>Use a linear model to calculate a score, then convert this score into a probability between 0 and 1.</p>
+</blockquote>
+<p>The linear output is:</p>
+<script type="math/tex; mode=display">
+z = \beta_0 + \beta_1x_1 + \beta_2x_2 + \cdots + \beta_nx_n</script><p>Then Logistic Regression applies the sigmoid function to map this value into the range ([0, 1]):</p>
+<script type="math/tex; mode=display">
+sigmoid(z)=\frac{1}{1+e^{-z}}</script><p>The derivative of the sigmoid function is:</p>
+<script type="math/tex; mode=display">
+sigmoid'(z)=sigmoid(z)(1-sigmoid(z))</script><p>Therefore, the Logistic Regression prediction can be written as:</p>
+<script type="math/tex; mode=display">
+P(y=1|x)=\frac{1}{1+e^{-(\beta_0+\beta_1x_1+\beta_2x_2+\cdots+\beta_nx_n)}}</script><p>Where:</p>
+<ul>
+<li>(P(y=1|x)) represents the probability that the sample belongs to class 1.</li>
+<li>(\beta_0) is the intercept.</li>
+<li>(\beta_1, \beta_2, …, \beta_n) are model coefficients.</li>
+<li>(x_1, x_2, …, x_n) are input features.</li>
+</ul>
+<p>After getting the probability, we compare it with a threshold.</p>
+<p>Usually, the threshold is 0.5.</p>
+<p>If the predicted probability is greater than 0.5, the model predicts class 1.</p>
+<p>Otherwise, it predicts class 0.</p>
+<hr>
+<h2 id="Simple-Example"><a href="#Simple-Example" class="headerlink" title="Simple Example"></a>Simple Example</h2><p>Suppose we have the following feature matrix:</p>
+<script type="math/tex; mode=display">
+X =
+\begin{bmatrix}
+0.5 & 0 & 0.7 \\\\
+0.5 & 0.5 & 0.9 \\\\
+0.1 & 1 & 0.6 \\\\
+0.6 & 0.1 & 0
+\end{bmatrix}</script><p>And the parameter vector:</p>
+<script type="math/tex; mode=display">
+\beta =
+\begin{bmatrix}
+-1 \\\\
+2 \\\\
+0.5
+\end{bmatrix}</script><p>First, we calculate the linear output:</p>
+<script type="math/tex; mode=display">
+X\beta =
+\begin{bmatrix}
+-0.15 \\\\
+0.95 \\\\
+2.2 \\\\
+-0.4
+\end{bmatrix}</script><p>Then we apply the sigmoid function:</p>
+<script type="math/tex; mode=display">
+sigmoid(X\beta)=
+\begin{bmatrix}
+0.4626 \\\\
+0.7211 \\\\
+0.9002 \\\\
+0.4013
+\end{bmatrix}</script><p>If the threshold is 0.5, the final prediction is:</p>
+<script type="math/tex; mode=display">
+\hat{y}=
+\begin{bmatrix}
+0 \\\\
+1 \\\\
+1 \\\\
+0
+\end{bmatrix}</script><p>This means:</p>
+<ul>
+<li>Sample 1 is predicted as class 0.</li>
+<li>Sample 2 is predicted as class 1.</li>
+<li>Sample 3 is predicted as class 1.</li>
+<li>Sample 4 is predicted as class 0.</li>
+</ul>
+<hr>
+<h2 id="Common-Use-Cases-of-Logistic-Regression"><a href="#Common-Use-Cases-of-Logistic-Regression" class="headerlink" title="Common Use Cases of Logistic Regression"></a>Common Use Cases of Logistic Regression</h2><p>Logistic Regression can be used in many real-world classification tasks.</p>
+<p>Common examples include:</p>
+<ul>
+<li>Credit scoring: predicting whether a customer will default.</li>
+<li>Fraud detection: predicting whether a transaction is fraudulent.</li>
+<li>Spam detection: predicting whether an email is spam.</li>
+<li>Ad click prediction: predicting whether a user will click an advertisement.</li>
+<li>Image classification: classifying images into categories such as cats, dogs, or birds.</li>
+<li>Sentiment analysis: classifying text as positive, negative, or neutral.</li>
+<li>Product quality classification: predicting whether a product is qualified.</li>
+<li>Medical diagnosis: predicting whether a patient has a disease.</li>
+<li>Protein function prediction: predicting protein function based on sequence and structural features.</li>
+</ul>
+<hr>
+<h2 id="Loss-Function-of-Logistic-Regression"><a href="#Loss-Function-of-Logistic-Regression" class="headerlink" title="Loss Function of Logistic Regression"></a>Loss Function of Logistic Regression</h2><p>Logistic Regression usually uses Log Loss, also known as Binary Cross-Entropy Loss.</p>
+<p>It measures the difference between the predicted probability distribution and the true label.</p>
+<p>The loss function of Logistic Regression comes from Maximum Likelihood Estimation, MLE.</p>
+<p>For a binary classification problem:</p>
+<script type="math/tex; mode=display">
+P(y=1|x;\beta)=\frac{1}{1+e^{-\beta^Tx}}</script><script type="math/tex; mode=display">
+P(y=0|x;\beta)=1-P(y=1|x;\beta)</script><p>These two cases can be combined as:</p>
+<script type="math/tex; mode=display">
+P(y|x;\beta)=P(y=1|x;\beta)^y(1-P(y=1|x;\beta))^{1-y}</script><p>Substituting the sigmoid function:</p>
+<script type="math/tex; mode=display">
+P(y|x;\beta)
+=
+\left(\frac{1}{1+e^{-\beta^Tx}}\right)^y
+\left(1-\frac{1}{1+e^{-\beta^Tx}}\right)^{1-y}</script><hr>
+<h2 id="Likelihood-Function"><a href="#Likelihood-Function" class="headerlink" title="Likelihood Function"></a>Likelihood Function</h2><p>For one sample, the likelihood function is:</p>
+<script type="math/tex; mode=display">
+L(\beta)=P(y|x;\beta)</script><p>For (n) samples, the likelihood function is:</p>
+<script type="math/tex; mode=display">
+L(\beta)=\prod_{i=1}^{n}P(y_i|x_i;\beta)</script><p>That is:</p>
+<script type="math/tex; mode=display">
+L(\beta)=
+\prod_{i=1}^{n}
+P(y_i=1|x_i;\beta)^{y_i}
+(1-P(y_i=1|x_i;\beta))^{1-y_i}</script><p>Taking the logarithm, we get the log-likelihood function:</p>
+<script type="math/tex; mode=display">
+\log L(\beta)
+=
+\sum_{i=1}^{n}
+\left[
+y_i\log P(y_i=1|x_i;\beta)
++
+(1-y_i)\log(1-P(y_i=1|x_i;\beta))
+\right]</script><p>The training process tries to maximize the likelihood function.</p>
+<p>For easier optimization, we usually minimize the negative average log-likelihood:</p>
+<script type="math/tex; mode=display">
+Loss
+=
+-\frac{1}{n}\log L(\beta)</script><p>Therefore:</p>
+<script type="math/tex; mode=display">
+Loss
+=
+-\frac{1}{n}
+\sum_{i=1}^{n}
+\left[
+y_i\log P(y_i=1|x_i;\beta)
++
+(1-y_i)\log(1-P(y_i=1|x_i;\beta))
+\right]</script><p>This is the Binary Cross-Entropy Loss.</p>
+<hr>
+<h2 id="Intuition-Behind-Log-Loss"><a href="#Intuition-Behind-Log-Loss" class="headerlink" title="Intuition Behind Log Loss"></a>Intuition Behind Log Loss</h2><p>Log Loss punishes confident wrong predictions heavily.</p>
+<p>For example, if the true label is 1:</p>
+<ul>
+<li>Predicting 0.9 gives a small loss.</li>
+<li>Predicting 0.6 gives a larger loss.</li>
+<li>Predicting 0.01 gives a very large loss.</li>
+</ul>
+<p>This encourages the model to output high probabilities for correct classes and low probabilities for incorrect classes.</p>
+<hr>
+<h2 id="Gradient-of-the-Loss-Function"><a href="#Gradient-of-the-Loss-Function" class="headerlink" title="Gradient of the Loss Function"></a>Gradient of the Loss Function</h2><p>The loss function can be written in vectorized form:</p>
+<script type="math/tex; mode=display">
+Loss = -\frac{1}{n}\left[y^T\log p + (1-y)^T\log(1-p)\right]</script><p>Where:</p>
+<script type="math/tex; mode=display">
+y =
+\begin{bmatrix}
+y_1 \\\\
+y_2 \\\\
+\vdots \\\\
+y_n
+\end{bmatrix}</script><p>and:</p>
+<script type="math/tex; mode=display">
+p =
+\begin{bmatrix}
+P(y_1=1|x_1;\beta) \\\\
+P(y_2=1|x_2;\beta) \\\\
+\vdots \\\\
+P(y_n=1|x_n;\beta)
+\end{bmatrix}</script><p>Since:</p>
+<script type="math/tex; mode=display">
+p = \frac{1}{1+e^{-X\beta}}</script><p>The gradient of the loss function is:</p>
+<script type="math/tex; mode=display">
+\nabla Loss = \frac{1}{n}X^T(p-y)</script><p>Or:</p>
+<script type="math/tex; mode=display">
+\nabla Loss
+=
+\frac{1}{n}X^T
+\left(
+\frac{1}{1+e^{-X\beta}} - y
+\right)</script><p>This gradient is used by optimization algorithms to update model parameters.</p>
+<hr>
+<h2 id="Scikit-Learn-API-LogisticRegression"><a href="#Scikit-Learn-API-LogisticRegression" class="headerlink" title="Scikit-Learn API: LogisticRegression"></a>Scikit-Learn API: LogisticRegression</h2><p>In scikit-learn, LogisticRegression is used to implement Logistic Regression.</p>
+<p>It supports both binary classification and multi-class classification.</p>
+<p>It also provides different optimization algorithms and regularization options.</p>
+<p>Important parameters include:</p>
+<ul>
+<li><code>solver</code>: the optimization algorithm.</li>
+<li><code>penalty</code>: the regularization type.</li>
+<li><code>C</code>: inverse of regularization strength.</li>
+<li><code>class_weight</code>: class weight strategy.</li>
+</ul>
+<p>Common solver options:</p>
+<ul>
+<li><code>lbfgs</code>: quasi-Newton method, default solver, supports L2 regularization.</li>
+<li><code>newton-cg</code>: Newton method, supports L2 regularization.</li>
+<li><code>liblinear</code>: coordinate descent method, suitable for small datasets, supports L1 and L2 regularization.</li>
+<li><code>sag</code>: Stochastic Average Gradient, suitable for large datasets, supports L2 regularization.</li>
+<li><code>saga</code>: improved stochastic optimization, suitable for large datasets, supports L1, L2, and ElasticNet regularization.</li>
+</ul>
+<p>Example:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LogisticRegression</span><br><span class="line"></span><br><span class="line">model = LogisticRegression(</span><br><span class="line">    solver=<span class="string">&quot;lbfgs&quot;</span>,</span><br><span class="line">    penalty=<span class="string">&quot;l2&quot;</span>,</span><br><span class="line">    C=<span class="number">1</span>,</span><br><span class="line">    class_weight=<span class="string">&quot;balanced&quot;</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>Explanation:</p>
+<ul>
+<li><code>solver=&quot;lbfgs&quot;</code> means using the L-BFGS optimization algorithm.</li>
+<li><code>penalty=&quot;l2&quot;</code> means using L2 regularization.</li>
+<li><code>C=1</code> controls regularization strength.</li>
+<li>Smaller <code>C</code> means stronger regularization.</li>
+<li><code>class_weight=&quot;balanced&quot;</code> adjusts class weights automatically for imbalanced datasets.</li>
+</ul>
+<hr>
+<h2 id="Why-Use-StandardScaler"><a href="#Why-Use-StandardScaler" class="headerlink" title="Why Use StandardScaler?"></a>Why Use StandardScaler?</h2><p>Logistic Regression is optimized using iterative algorithms.</p>
+<p>If numerical features have very different scales, optimization can become slow or unstable.</p>
+<p>For example:</p>
+<ul>
+<li>Age may range from 20 to 80.</li>
+<li>Cholesterol may range from 100 to 400.</li>
+<li>ST depression may range from 0 to 6.</li>
+</ul>
+<p>StandardScaler transforms numerical features using:</p>
+<script type="math/tex; mode=display">
+z = \frac{x-\mu}{\sigma}</script><p>Where:</p>
+<ul>
+<li>(\mu) is the mean.</li>
+<li>(\sigma) is the standard deviation.</li>
+</ul>
+<p>After standardization:</p>
+<ul>
+<li>The mean is approximately 0.</li>
+<li>The standard deviation is approximately 1.</li>
+</ul>
+<p>This helps the optimization algorithm converge faster.</p>
+<hr>
+<h2 id="Why-Use-OneHotEncoder"><a href="#Why-Use-OneHotEncoder" class="headerlink" title="Why Use OneHotEncoder?"></a>Why Use OneHotEncoder?</h2><p>Some features are categorical.</p>
+<p>For example, chest pain type may have values such as 1, 2, 3, and 4.</p>
+<p>These numbers represent categories, not numerical order.</p>
+<p>If we directly use them as numbers, the model may incorrectly assume that category 4 is larger than category 1.</p>
+<p>OneHotEncoder converts categorical values into separate binary columns.</p>
+<p>Example:</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Chest Pain Type</span><br><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td></tr></table></figure>
+<p>After one-hot encoding with <code>drop=&quot;first&quot;</code>:</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ChestPain_2  ChestPain_3  ChestPain_4</span><br><span class="line">0            0            0</span><br><span class="line">1            0            0</span><br><span class="line">0            1            0</span><br><span class="line">0            0            1</span><br></pre></td></tr></table></figure>
+<p>The first category is dropped to reduce multicollinearity.</p>
+<hr>
+<h2 id="Why-Use-Passthrough-for-Binary-Features"><a href="#Why-Use-Passthrough-for-Binary-Features" class="headerlink" title="Why Use Passthrough for Binary Features?"></a>Why Use Passthrough for Binary Features?</h2><p>Binary features already contain only two values, such as 0 and 1.</p>
+<p>For example:</p>
+<ul>
+<li>Sex: 0 or 1.</li>
+<li>Fasting blood sugar: 0 or 1.</li>
+<li>Exercise-induced angina: 0 or 1.</li>
+</ul>
+<p>These features can usually be passed directly into the model.</p>
+<p>That is why the code uses:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="string">&quot;binary&quot;</span>, <span class="string">&quot;passthrough&quot;</span>, binary_features)</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="Multi-Class-Classification"><a href="#Multi-Class-Classification" class="headerlink" title="Multi-Class Classification"></a>Multi-Class Classification</h2><p>Logistic Regression is commonly used for binary classification.</p>
+<p>However, it can also be extended to multi-class classification.</p>
+<p>Two common methods are:</p>
+<ul>
+<li>One-vs-Rest, OvR.</li>
+<li>Softmax Regression, also known as Multinomial Logistic Regression.</li>
+</ul>
+<hr>
+<h2 id="One-vs-Rest-OvR"><a href="#One-vs-Rest-OvR" class="headerlink" title="One-vs-Rest, OvR"></a>One-vs-Rest, OvR</h2><p>In One-vs-Rest classification, if there are (C) classes, the model trains (C) binary classifiers.</p>
+<p>Each classifier treats one class as the positive class and all other classes as the negative class.</p>
+<p>During prediction, the model calculates the probability from each classifier and selects the class with the highest probability.</p>
+<p>For class (c):</p>
+<script type="math/tex; mode=display">
+P(y=c|x;\beta)=\frac{1}{1+e^{-\beta^Tx}}</script><p>The loss function is:</p>
+<script type="math/tex; mode=display">
+Loss
+=
+-\frac{1}{n}
+\sum_{i=1}^{n}
+\left[
+y_i\log P(y_i=c|x_i;\beta)
++
+(1-y_i)\log(1-P(y_i=c|x_i;\beta))
+\right]</script><p>Advantages:</p>
+<ul>
+<li>Simple and easy to implement.</li>
+<li>Suitable when the number of classes is small.</li>
+</ul>
+<p>Disadvantages:</p>
+<ul>
+<li>It trains one classifier for each class.</li>
+<li>Training time can become long when there are many classes.</li>
+</ul>
+<p>API example:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LogisticRegression</span><br><span class="line"></span><br><span class="line">model = LogisticRegression(multi_class=<span class="string">&quot;ovr&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p>Or:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LogisticRegression</span><br><span class="line"><span class="keyword">from</span> sklearn.multiclass <span class="keyword">import</span> OneVsRestClassifier</span><br><span class="line"></span><br><span class="line">model = OneVsRestClassifier(LogisticRegression())</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="Softmax-Regression"><a href="#Softmax-Regression" class="headerlink" title="Softmax Regression"></a>Softmax Regression</h2><p>Softmax Regression directly extends Logistic Regression to multi-class classification.</p>
+<p>Instead of training multiple binary classifiers, it trains one model to output probabilities for all classes.</p>
+<p>If there are (C) classes, the model outputs (C) scores.</p>
+<p>The Softmax function converts these scores into probabilities.</p>
+<p>For class (c):</p>
+<script type="math/tex; mode=display">
+P(y=c|x)=
+\frac{e^{\beta_c^Tx}}
+{\sum_{j=1}^{C}e^{\beta_j^Tx}}</script><p>The loss function is:</p>
+<script type="math/tex; mode=display">
+Loss
+=
+-\frac{1}{n}
+\sum_{i=1}^{n}
+\sum_{c=1}^{C}
+I(y_i=c)\log P(y_i=c|x_i)</script><p>Where:</p>
+<ul>
+<li>(I(y_i=c)) is an indicator function.</li>
+<li>If (y_i=c), then (I(y_i=c)=1).</li>
+<li>Otherwise, (I(y_i=c)=0).</li>
+</ul>
+<p>Advantages:</p>
+<ul>
+<li>Only one model is trained.</li>
+<li>It is usually more efficient and more consistent for multi-class classification.</li>
+</ul>
+<p>Disadvantages:</p>
+<ul>
+<li>Softmax needs to calculate exponentials for all classes.</li>
+<li>The computational cost can be high when there are many classes.</li>
+</ul>
+<p>API example:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LogisticRegression</span><br><span class="line"></span><br><span class="line">model = LogisticRegression(multi_class=<span class="string">&quot;multinomial&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p>In many modern versions of scikit-learn, LogisticRegression can automatically handle multi-class classification.</p>
+<p>Therefore, the parameter can often be omitted:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">model = LogisticRegression()</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>Logistic Regression is a classification algorithm.</p>
+<p>It uses a linear model to calculate a score.</p>
+<p>Then it uses the sigmoid function to convert the score into a probability.</p>
+<p>For binary classification, the model predicts class 1 if the probability is greater than the threshold.</p>
+<p>The most common loss function is Binary Cross-Entropy Loss, also known as Log Loss.</p>
+<p>The loss function comes from Maximum Likelihood Estimation.</p>
+<p>Logistic Regression can be used in many practical tasks, such as fraud detection, spam detection, medical diagnosis, and ad click prediction.</p>
+<p>For categorical features, OneHotEncoder is usually needed.</p>
+<p>For numerical features, StandardScaler is often used to improve optimization.</p>
+<p>For binary features, we can usually keep them unchanged.</p>
+<p>Logistic Regression can also be extended to multi-class classification using One-vs-Rest or Softmax Regression.<br>```</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://wenyupeng.github.io">Chris Wen</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://wenyupeng.github.io/2025/06/23/ai/algorithm/06-logistic-regression/">https://wenyupeng.github.io/2025/06/23/ai/algorithm/06-logistic-regression/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/ai-algorithm/">ai-algorithm</a></div><div class="post-share"><div class="social-share" data-image="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251007095230189.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/06/23/ai/algorithm/07-perceptron/" title="Perceptron"><img class="cover" src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251007095245295.png" onerror="onerror=null;src='/images/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">Perceptron</div></div><div class="info-2"><div class="info-item-1">PerceptronWhat Is a Perceptron?A Perceptron is a simple binary classification model. It receives multiple input signals and produces one output signal. The output of a perceptron can only be one of two values:  0 1  A perceptron with two input signals can be represented as:  x_1, x_2 \rightarrow yWhere:  (x_1, x_2) are input signals. (w_1, w_2) are weights. (y) is the output signal. The circle, or node, is called a neuron.  Each input signal is multiplied by its corresponding weight before be...</div></div></div></a><a class="pagination-related" href="/2025/06/23/ai/algorithm/04-1-ways-to-measure-distance/" title="Ways to Measure Distance"><img class="cover" src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251007095210307.png" onerror="onerror=null;src='/images/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">Ways to Measure Distance</div></div><div class="info-2"><div class="info-item-1">Ways to Measure DistanceThere are several ways to measure distance between two points in a multidimensional space. The choice of distance metric depends on the specific problem and the characteristics of the data. Euclidean DistanceThe Euclidean distance is the straight-line distance between two points in a multidimensional space. It is calculated as the square root of the sum of the squared differences between the corresponding coordinates of the two points. 1d(A, B) = sqrt((x1 - y1)^2 + (x2...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/06/19/ai/algorithm/01-classification-algorithms/" title="Classification Algorithms"><img class="cover" src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20250728225233182.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-06-19</div><div class="info-item-2">Classification Algorithms</div></div><div class="info-2"><div class="info-item-1">Dataset IntroductionNSL-KDDThe NSL-KDD dataset is a dataset for intrusion detection, which is a type of supervised learning problem. It consists of a large number of network traffic records that are labeled as either normal or malicious. The dataset contains a total of 41,478 network traffic records, which are categorized into 10 different types of attacks, such as DoS, Probe, U2R, R2L, etc. The dataset is publicly available and can be downloaded from the following link: https://www.unb.ca/ci...</div></div></div></a><a class="pagination-related" href="/2025/06/20/ai/algorithm/02-analysis-classification-algorithms/" title="Comparative Analysis of Classification Algorithms"><img class="cover" src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251007095210307.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-06-20</div><div class="info-item-2">Comparative Analysis of Classification Algorithms</div></div><div class="info-2"><div class="info-item-1">Comparative Analysis of Classification AlgorithmsAbstractThis report provides a comprehensive analysis of the performance of three popular classification algorithms:Decision Tree, Logistic Regression, Naive Bayes, Random Forest, Support Vector Machines (SVM) and Multilayer Perceptron.The purpose of the study is to evaluate and compare these algorithms based on key performance metrics such as accuracy, precision, recall, F1-score, and false alarm rate (www.evidentlyai.com, n.d.), using two dif...</div></div></div></a><a class="pagination-related" href="/2025/06/21/ai/algorithm/03-adversarial-machine-learning/" title="A Taxonomy and Terminology of Adversarial Machine Learning"><img class="cover" src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20250728225255149.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-06-21</div><div class="info-item-2">A Taxonomy and Terminology of Adversarial Machine Learning</div></div><div class="info-2"><div class="info-item-1">BackgroundMachine learning (ML) components are increasingly being deployed in critical applications, form computer vision to cybersecurity. However, the data-driven nature of ML introduces new security challenges compared to traditional knowledge-based AI systems. Adversaries can exploit vulnerabilities in ML models through a variety of adversarial attacks, posing significant risks to the integrity, availability, and confidentiality of these systems. Key Attack TypesThe taxonomy of adversaria...</div></div></div></a><a class="pagination-related" href="/2025/06/23/ai/algorithm/04-1-ways-to-measure-distance/" title="Ways to Measure Distance"><img class="cover" src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251007095210307.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-06-23</div><div class="info-item-2">Ways to Measure Distance</div></div><div class="info-2"><div class="info-item-1">Ways to Measure DistanceThere are several ways to measure distance between two points in a multidimensional space. The choice of distance metric depends on the specific problem and the characteristics of the data. Euclidean DistanceThe Euclidean distance is the straight-line distance between two points in a multidimensional space. It is calculated as the square root of the sum of the squared differences between the corresponding coordinates of the two points. 1d(A, B) = sqrt((x1 - y1)^2 + (x2...</div></div></div></a><a class="pagination-related" href="/2025/06/22/ai/algorithm/04-knn-algorithms/" title="KNN Algorithms"><img class="cover" src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251007095245295.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-06-22</div><div class="info-item-2">KNN Algorithms</div></div><div class="info-2"><div class="info-item-1">KNN AlgorithmsK-Nearest Neighbors (KNN) is a simple, non-parametric, and lazy learning algorithm used for classification and regression tasks. Working PrincipleThe KNN algorithm works by finding the K nearest neighbors to a given data point and making predictions based on the majority class (for classification) or the average value (for regression) of those neighbors.Normally, when we do prediction, there are two main methods: classification and regression. KNN can be used for both of these m...</div></div></div></a><a class="pagination-related" href="/2025/06/22/ai/algorithm/05-linear-regression/" title="Linear Regression"><img class="cover" src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20250728225233182.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-06-22</div><div class="info-item-2">Linear Regression</div></div><div class="info-2"><div class="info-item-1">Logistic RegressionLinear RegressionLinear regression is a statistical method for modeling the relationship between a dependent variable and one or more independent variables. It is used to predict the value of the dependent variable based on the values of the independent variables. Working PrincipleThe linear regression model is based on the assumption that there is a linear relationship between the dependent variable and the independent variables. The model is trained on a dataset of input-...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/images/lucky-icon.png" onerror="this.onerror=null;this.src='/images/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Chris Wen</div><div class="author-info-description">Dwell not on the past, nor fear the future.</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">119</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">35</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">59</div></a></div><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/wenyupeng" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:chriswen430@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://www.linkedin.com/in/chriswen430" target="_blank" title="Linkedin"><i class="fab fa-linkedin" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">Maintain the motivation to learn and stay humble when facing every problem.</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Logistic-Regression"><span class="toc-number">1.</span> <span class="toc-text">Logistic Regression</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#What-Is-Logistic-Regression"><span class="toc-number">2.</span> <span class="toc-text">What Is Logistic Regression?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Simple-Example"><span class="toc-number">3.</span> <span class="toc-text">Simple Example</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Common-Use-Cases-of-Logistic-Regression"><span class="toc-number">4.</span> <span class="toc-text">Common Use Cases of Logistic Regression</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Loss-Function-of-Logistic-Regression"><span class="toc-number">5.</span> <span class="toc-text">Loss Function of Logistic Regression</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Likelihood-Function"><span class="toc-number">6.</span> <span class="toc-text">Likelihood Function</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Intuition-Behind-Log-Loss"><span class="toc-number">7.</span> <span class="toc-text">Intuition Behind Log Loss</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Gradient-of-the-Loss-Function"><span class="toc-number">8.</span> <span class="toc-text">Gradient of the Loss Function</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Scikit-Learn-API-LogisticRegression"><span class="toc-number">9.</span> <span class="toc-text">Scikit-Learn API: LogisticRegression</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Why-Use-StandardScaler"><span class="toc-number">10.</span> <span class="toc-text">Why Use StandardScaler?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Why-Use-OneHotEncoder"><span class="toc-number">11.</span> <span class="toc-text">Why Use OneHotEncoder?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Why-Use-Passthrough-for-Binary-Features"><span class="toc-number">12.</span> <span class="toc-text">Why Use Passthrough for Binary Features?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Multi-Class-Classification"><span class="toc-number">13.</span> <span class="toc-text">Multi-Class Classification</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#One-vs-Rest-OvR"><span class="toc-number">14.</span> <span class="toc-text">One-vs-Rest, OvR</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Softmax-Regression"><span class="toc-number">15.</span> <span class="toc-text">Softmax Regression</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Summary"><span class="toc-number">16.</span> <span class="toc-text">Summary</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/04/11/others/evolze/01-ai-foundation/" title="Digital Empowerment - Smart Future"><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251007095230189.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="Digital Empowerment - Smart Future"/></a><div class="content"><a class="title" href="/2026/04/11/others/evolze/01-ai-foundation/" title="Digital Empowerment - Smart Future">Digital Empowerment - Smart Future</a><time datetime="2026-04-11T02:56:01.000Z" title="Created 2026-04-11 12:56:01">2026-04-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/11/14/big_data/da/11-des-statistics-2/" title="Box-Cox and Yeo-Johnson Transformations"><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251118091603317.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="Box-Cox and Yeo-Johnson Transformations"/></a><div class="content"><a class="title" href="/2025/11/14/big_data/da/11-des-statistics-2/" title="Box-Cox and Yeo-Johnson Transformations">Box-Cox and Yeo-Johnson Transformations</a><time datetime="2025-11-14T00:14:08.000Z" title="Created 2025-11-14 11:14:08">2025-11-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/11/13/big_data/da/11-des-statistics-1/" title="Feature Selection"><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251118091603317.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="Feature Selection"/></a><div class="content"><a class="title" href="/2025/11/13/big_data/da/11-des-statistics-1/" title="Feature Selection">Feature Selection</a><time datetime="2025-11-13T22:22:12.000Z" title="Created 2025-11-14 09:22:12">2025-11-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/11/13/big_data/da/10-des-statistics/" title="GDPR"><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251118091603317.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="GDPR"/></a><div class="content"><a class="title" href="/2025/11/13/big_data/da/10-des-statistics/" title="GDPR">GDPR</a><time datetime="2025-11-13T05:01:22.000Z" title="Created 2025-11-13 16:01:22">2025-11-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/11/12/big_data/da/12-des-statistics/" title="Dimensionality Reduction and PCA"><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251118091603317.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="Dimensionality Reduction and PCA"/></a><div class="content"><a class="title" href="/2025/11/12/big_data/da/12-des-statistics/" title="Dimensionality Reduction and PCA">Dimensionality Reduction and PCA</a><time datetime="2025-11-12T04:02:22.000Z" title="Created 2025-11-12 15:02:22">2025-11-12</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;2025 - 2026 By Chris Wen</span></div><div class="footer_custom_text">Live each day with purpose.</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script></div><script src='/js/custom.js'></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="false" data-text="HAPPY,EVERY,DAY" data-fontsize="15px" data-random="true" async="async"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => fn())
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      const usePjax = true
+      false
+        ? (usePjax ? pjax.loadUrl('/404.html') : window.location.href = '/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})()</script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading Database</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><script src="https://cdn.jsdelivr.net/npm/live2d-widget@^3.1.3/lib/L2Dwidget.min.js"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":0.5,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"superSample":3,"position":"left","width":300,"height":600,"hOffset":90,"vOffset":-100},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.3,"opacityOnHover":0.3,"opacity":0.95},"log":false});</script></body></html>
