@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <author>
+    <name>Chris Wen</name>
+  </author>
+  <generator uri="https://hexo.io/">Hexo</generator>
+  <icon>https://wenyupeng.github.io/icon.png</icon>
+  <id>https://wenyupeng.github.io/</id>
+  <link href="https://wenyupeng.github.io/" rel="alternate"/>
+  <link href="https://wenyupeng.github.io/atom.xml" rel="self"/>
+  <rights>All rights reserved 2026, Chris Wen</rights>
+  <subtitle>study record</subtitle>
+  <title>Chris Wen's Blog</title>
+  <updated>2026-07-01T05:37:17.845Z</updated>
+  <entry>
+    <author>
+      <name>Chris Wen</name>
+    </author>
+    <category term="intelligent industry" scheme="https://wenyupeng.github.io/categories/intelligent-industry/"/>
+    <category term="intelligent industry" scheme="https://wenyupeng.github.io/tags/intelligent-industry/"/>
+    <id>https://wenyupeng.github.io/2026/04/11/others/evolze/01-ai-foundation/</id>
+    <link href="https://wenyupeng.github.io/2026/04/11/others/evolze/01-ai-foundation/"/>
+    <published>2026-04-11T02:56:01.000Z</published>
+    <summary>
+      <![CDATA[<h1 id="Digital-Empowerment-Smart-Future"><a href="#Digital-Empowerment-Smart-Future" class="headerlink" title="Digital Empowerment - Smart Future"></a>Digital Empowerment - Smart Future</h1><ol>
+<li><strong>Predictive Maintenance</strong>:]]>
+    </summary>
+    <title>Digital Empowerment - Smart Future</title>
+    <updated>2026-07-01T05:37:17.845Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>Chris Wen</name>
+    </author>
+    <category term="da" scheme="https://wenyupeng.github.io/categories/da/"/>
+    <category term="da" scheme="https://wenyupeng.github.io/tags/da/"/>
+    <id>https://wenyupeng.github.io/2025/11/14/big_data/da/11-des-statistics-2/</id>
+    <link href="https://wenyupeng.github.io/2025/11/14/big_data/da/11-des-statistics-2/"/>
+    <published>2025-11-14T00:14:08.000Z</published>
+    <summary>
+      <![CDATA[<h1 id="Box-Cox-and-Yeo-Johnson-Transformations"><a href="#Box-Cox-and-Yeo-Johnson-Transformations" class="headerlink" title="Box-Cox and Yeo-Johnson Transformations"></a>Box-Cox and Yeo-Johnson Transformations</h1><p>The main motivations for]]>
+    </summary>
+    <title>Box-Cox and Yeo-Johnson Transformations</title>
+    <updated>2026-07-01T05:37:17.839Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>Chris Wen</name>
+    </author>
+    <category term="da" scheme="https://wenyupeng.github.io/categories/da/"/>
+    <category term="da" scheme="https://wenyupeng.github.io/tags/da/"/>
+    <id>https://wenyupeng.github.io/2025/11/13/big_data/da/11-des-statistics-1/</id>
+    <link href="https://wenyupeng.github.io/2025/11/13/big_data/da/11-des-statistics-1/"/>
+    <published>2025-11-13T22:22:12.000Z</published>
+    <summary>
+      <![CDATA[<h1 id="Feature-Selection"><a href="#Feature-Selection" class="headerlink" title="Feature Selection"></a>Feature Selection</h1><p><a]]>
+    </summary>
+    <title>Feature Selection</title>
+    <updated>2026-07-01T05:37:17.839Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>Chris Wen</name>
+    </author>
+    <category term="da" scheme="https://wenyupeng.github.io/categories/da/"/>
+    <category term="da" scheme="https://wenyupeng.github.io/tags/da/"/>
+    <id>https://wenyupeng.github.io/2025/11/13/big_data/da/10-des-statistics/</id>
+    <link href="https://wenyupeng.github.io/2025/11/13/big_data/da/10-des-statistics/"/>
+    <published>2025-11-13T05:01:22.000Z</published>
+    <summary>
+      <![CDATA[<h1 id="General-Data-Protection-Regulation"><a href="#General-Data-Protection-Regulation" class="headerlink" title="General Data Protection Regulation"></a>General Data Protection Regulation</h1><p><a href="https://gdpr-info.eu/">GDPR</a><br>The]]>
+    </summary>
+    <title>GDPR</title>
+    <updated>2026-07-01T05:37:17.839Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>Chris Wen</name>
+    </author>
+    <category term="da" scheme="https://wenyupeng.github.io/categories/da/"/>
+    <category term="da" scheme="https://wenyupeng.github.io/tags/da/"/>
+    <id>https://wenyupeng.github.io/2025/11/12/big_data/da/12-des-statistics/</id>
+    <link href="https://wenyupeng.github.io/2025/11/12/big_data/da/12-des-statistics/"/>
+    <published>2025-11-12T04:02:22.000Z</published>
+    <summary>
+      <![CDATA[<h1 id="Dimensionality-Reduction-and-PCA"><a href="#Dimensionality-Reduction-and-PCA" class="headerlink" title="Dimensionality Reduction and PCA"></a>Dimensionality Reduction and PCA</h1><p><a]]>
+    </summary>
+    <title>Dimensionality Reduction and PCA</title>
+    <updated>2026-07-01T05:37:17.839Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>Chris Wen</name>
+    </author>
+    <category term="da" scheme="https://wenyupeng.github.io/categories/da/"/>
+    <category term="da" scheme="https://wenyupeng.github.io/tags/da/"/>
+    <id>https://wenyupeng.github.io/2025/11/11/big_data/da/09-des-statistics/</id>
+    <link href="https://wenyupeng.github.io/2025/11/11/big_data/da/09-des-statistics/"/>
+    <published>2025-11-11T23:11:03.000Z</published>
+    <summary>
+      <![CDATA[<h1 id="Data-Matching"><a href="#Data-Matching" class="headerlink" title="Data Matching"></a>Data Matching</h1><p><a]]>
+    </summary>
+    <title>Data Matching</title>
+    <updated>2026-07-01T05:37:17.839Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>Chris Wen</name>
+    </author>
+    <category term="da" scheme="https://wenyupeng.github.io/categories/da/"/>
+    <category term="da" scheme="https://wenyupeng.github.io/tags/da/"/>
+    <id>https://wenyupeng.github.io/2025/11/11/big_data/da/08-des-statistics/</id>
+    <link href="https://wenyupeng.github.io/2025/11/11/big_data/da/08-des-statistics/"/>
+    <published>2025-11-11T09:34:31.000Z</published>
+    <summary>
+      <![CDATA[<h1 id="Imbalanced-Data"><a href="#Imbalanced-Data" class="headerlink" title="Imbalanced Data"></a>Imbalanced Data</h1><p><a]]>
+    </summary>
+    <title>Imbalanced Data</title>
+    <updated>2026-07-01T05:37:17.839Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>Chris Wen</name>
+    </author>
+    <category term="da" scheme="https://wenyupeng.github.io/categories/da/"/>
+    <category term="da" scheme="https://wenyupeng.github.io/tags/da/"/>
+    <id>https://wenyupeng.github.io/2025/11/11/big_data/da/07-des-statistics/</id>
+    <link href="https://wenyupeng.github.io/2025/11/11/big_data/da/07-des-statistics/"/>
+    <published>2025-11-11T08:34:31.000Z</published>
+    <summary>
+      <![CDATA[<h1 id="Outliers"><a href="#Outliers" class="headerlink" title="Outliers"></a>Outliers</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span]]>
+    </summary>
+    <title>Outlier</title>
+    <updated>2026-07-01T05:37:17.839Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>Chris Wen</name>
+    </author>
+    <category term="DA" scheme="https://wenyupeng.github.io/categories/DA/"/>
+    <category term="EDA" scheme="https://wenyupeng.github.io/categories/DA/EDA/"/>
+    <category term="EDA" scheme="https://wenyupeng.github.io/tags/EDA/"/>
+    <id>https://wenyupeng.github.io/2025/11/10/big_data/eda/01-concept/</id>
+    <link href="https://wenyupeng.github.io/2025/11/10/big_data/eda/01-concept/"/>
+    <published>2025-11-10T11:08:15.000Z</published>
+    <summary>
+      <![CDATA[<h1 id="Exploratory-Data-Analysis"><a href="#Exploratory-Data-Analysis" class="headerlink" title="Exploratory Data Analysis"></a>Exploratory Data Analysis</h1><p><a]]>
+    </summary>
+    <title>Exploratory Data Analysis</title>
+    <updated>2026-07-01T05:37:17.839Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>Chris Wen</name>
+    </author>
+    <category term="da" scheme="https://wenyupeng.github.io/categories/da/"/>
+    <category term="da" scheme="https://wenyupeng.github.io/tags/da/"/>
+    <id>https://wenyupeng.github.io/2025/11/10/big_data/da/06-des-statistics/</id>
+    <link href="https://wenyupeng.github.io/2025/11/10/big_data/da/06-des-statistics/"/>
+    <published>2025-11-10T08:34:31.000Z</published>
+    <summary>
+      <![CDATA[<h1 id="Continuous-Probability-Distributions"><a href="#Continuous-Probability-Distributions" class="headerlink" title="Continuous Probability Distributions"></a>Continuous Probability Distributions</h1><figure class="highlight]]>
+    </summary>
+    <title>Continuous Probability Distributions</title>
+    <updated>2026-07-01T05:37:17.839Z</updated>
+  </entry>
+</feed>
