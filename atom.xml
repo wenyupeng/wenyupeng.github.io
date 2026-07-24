@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <author>
+    <name>Chris Wen</name>
+  </author>
+  <generator uri="https://hexo.io/">Hexo</generator>
+  <icon>https://wenyupeng.github.io/icon.png</icon>
+  <id>https://wenyupeng.github.io/</id>
+  <link href="https://wenyupeng.github.io/" rel="alternate"/>
+  <link href="https://wenyupeng.github.io/atom.xml" rel="self"/>
+  <rights>All rights reserved 2026, Chris Wen</rights>
+  <subtitle>study record</subtitle>
+  <title>Chris Wen's Blog</title>
+  <updated>2026-07-24T05:02:15.894Z</updated>
+  <entry>
+    <author>
+      <name>Chris Wen</name>
+    </author>
+    <category term="java" scheme="https://wenyupeng.github.io/categories/java/"/>
+    <category term="swing" scheme="https://wenyupeng.github.io/categories/java/swing/"/>
+    <category term="swing" scheme="https://wenyupeng.github.io/tags/swing/"/>
+    <id>https://wenyupeng.github.io/2026/07/10/java/swing/01/</id>
+    <link href="https://wenyupeng.github.io/2026/07/10/java/swing/01/"/>
+    <published>2026-07-10T01:10:32.000Z</published>
+    <summary>
+      <![CDATA[<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>Java Swing is a graphical user interface toolkit included in the Java Development Kit. It allows developers to build cross-platform desktop]]>
+    </summary>
+    <title>Java Swing Practical Project - Residential Energy Rating Tool</title>
+    <updated>2026-07-24T05:02:15.894Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>Chris Wen</name>
+    </author>
+    <category term="interview-question" scheme="https://wenyupeng.github.io/categories/interview-question/"/>
+    <category term="interview-question" scheme="https://wenyupeng.github.io/tags/interview-question/"/>
+    <id>https://wenyupeng.github.io/2026/07/08/interview/03-common08072026/</id>
+    <link href="https://wenyupeng.github.io/2026/07/08/interview/03-common08072026/"/>
+    <published>2026-07-08T00:35:33.000Z</published>
+    <summary>
+      <![CDATA[<h1 id="What-makes-code-maintainable"><a href="#What-makes-code-maintainable" class="headerlink" title="What makes code maintainable?"></a>What makes code maintainable?</h1><p>Maintainable code is code that is easy to understand, modify, test and]]>
+    </summary>
+    <title>interview question 07082026</title>
+    <updated>2026-07-24T05:02:15.893Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>Chris Wen</name>
+    </author>
+    <category term="cert" scheme="https://wenyupeng.github.io/categories/cert/"/>
+    <category term="databricks" scheme="https://wenyupeng.github.io/categories/cert/databricks/"/>
+    <category term="cert" scheme="https://wenyupeng.github.io/tags/cert/"/>
+    <id>https://wenyupeng.github.io/2026/06/15/cert/databricks/03/</id>
+    <link href="https://wenyupeng.github.io/2026/06/15/cert/databricks/03/"/>
+    <published>2026-06-15T02:19:33.000Z</published>
+    <summary>
+      <![CDATA[<h1 id="Certified-Data-Engineer-Associate-2026"><a href="#Certified-Data-Engineer-Associate-2026" class="headerlink" title="Certified Data Engineer Associate 2026"></a>Certified Data Engineer Associate 2026</h1><h2]]>
+    </summary>
+    <title>Certified Data Engineer Associate 2026</title>
+    <updated>2026-07-24T05:02:15.890Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>Chris Wen</name>
+    </author>
+    <category term="databricks" scheme="https://wenyupeng.github.io/categories/databricks/"/>
+    <category term="data-engineer" scheme="https://wenyupeng.github.io/categories/databricks/data-engineer/"/>
+    <category term="databricks" scheme="https://wenyupeng.github.io/tags/databricks/"/>
+    <id>https://wenyupeng.github.io/2026/05/11/cloud/databricks/01-data-engineer-associate/</id>
+    <link href="https://wenyupeng.github.io/2026/05/11/cloud/databricks/01-data-engineer-associate/"/>
+    <published>2026-05-11T23:12:42.000Z</published>
+    <summary>
+      <![CDATA[<h1 id="What-is-Databricks"><a href="#What-is-Databricks" class="headerlink" title="What is Databricks?"></a>What is Databricks?</h1><p>Databricks is multi-cloud lakehouse platform based on Apache Spark. It provides a unified analytics platform that]]>
+    </summary>
+    <title>Databricks Data Engineer Associate</title>
+    <updated>2026-07-24T05:02:15.890Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>Chris Wen</name>
+    </author>
+    <category term="intelligent industry" scheme="https://wenyupeng.github.io/categories/intelligent-industry/"/>
+    <category term="intelligent industry" scheme="https://wenyupeng.github.io/tags/intelligent-industry/"/>
+    <id>https://wenyupeng.github.io/2026/04/11/others/evolze/01-ai-foundation/</id>
+    <link href="https://wenyupeng.github.io/2026/04/11/others/evolze/01-ai-foundation/"/>
+    <published>2026-04-11T02:56:01.000Z</published>
+    <summary>
+      <![CDATA[<h1 id="Digital-Empowerment-Smart-Future"><a href="#Digital-Empowerment-Smart-Future" class="headerlink" title="Digital Empowerment - Smart Future"></a>Digital Empowerment - Smart Future</h1><ol>
+<li><strong>Predictive Maintenance</strong>:]]>
+    </summary>
+    <title>Digital Empowerment - Smart Future</title>
+    <updated>2026-07-24T05:02:15.896Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>Chris Wen</name>
+    </author>
+    <category term="da" scheme="https://wenyupeng.github.io/categories/da/"/>
+    <category term="da" scheme="https://wenyupeng.github.io/tags/da/"/>
+    <id>https://wenyupeng.github.io/2025/11/14/big_data/da/11-des-statistics-2/</id>
+    <link href="https://wenyupeng.github.io/2025/11/14/big_data/da/11-des-statistics-2/"/>
+    <published>2025-11-14T00:14:08.000Z</published>
+    <summary>
+      <![CDATA[<h1 id="Box-Cox-and-Yeo-Johnson-Transformations"><a href="#Box-Cox-and-Yeo-Johnson-Transformations" class="headerlink" title="Box-Cox and Yeo-Johnson Transformations"></a>Box-Cox and Yeo-Johnson Transformations</h1><p>The main motivations for]]>
+    </summary>
+    <title>Box-Cox and Yeo-Johnson Transformations</title>
+    <updated>2026-07-24T05:02:15.889Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>Chris Wen</name>
+    </author>
+    <category term="da" scheme="https://wenyupeng.github.io/categories/da/"/>
+    <category term="da" scheme="https://wenyupeng.github.io/tags/da/"/>
+    <id>https://wenyupeng.github.io/2025/11/13/big_data/da/11-des-statistics-1/</id>
+    <link href="https://wenyupeng.github.io/2025/11/13/big_data/da/11-des-statistics-1/"/>
+    <published>2025-11-13T22:22:12.000Z</published>
+    <summary>
+      <![CDATA[<h1 id="Feature-Selection"><a href="#Feature-Selection" class="headerlink" title="Feature Selection"></a>Feature Selection</h1><p><a]]>
+    </summary>
+    <title>Feature Selection</title>
+    <updated>2026-07-24T05:02:15.889Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>Chris Wen</name>
+    </author>
+    <category term="da" scheme="https://wenyupeng.github.io/categories/da/"/>
+    <category term="da" scheme="https://wenyupeng.github.io/tags/da/"/>
+    <id>https://wenyupeng.github.io/2025/11/13/big_data/da/10-des-statistics/</id>
+    <link href="https://wenyupeng.github.io/2025/11/13/big_data/da/10-des-statistics/"/>
+    <published>2025-11-13T05:01:22.000Z</published>
+    <summary>
+      <![CDATA[<h1 id="General-Data-Protection-Regulation"><a href="#General-Data-Protection-Regulation" class="headerlink" title="General Data Protection Regulation"></a>General Data Protection Regulation</h1><p><a href="https://gdpr-info.eu/">GDPR</a><br>The]]>
+    </summary>
+    <title>GDPR</title>
+    <updated>2026-07-24T05:02:15.889Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>Chris Wen</name>
+    </author>
+    <category term="da" scheme="https://wenyupeng.github.io/categories/da/"/>
+    <category term="da" scheme="https://wenyupeng.github.io/tags/da/"/>
+    <id>https://wenyupeng.github.io/2025/11/12/big_data/da/12-des-statistics/</id>
+    <link href="https://wenyupeng.github.io/2025/11/12/big_data/da/12-des-statistics/"/>
+    <published>2025-11-12T04:02:22.000Z</published>
+    <summary>
+      <![CDATA[<h1 id="Dimensionality-Reduction-and-PCA"><a href="#Dimensionality-Reduction-and-PCA" class="headerlink" title="Dimensionality Reduction and PCA"></a>Dimensionality Reduction and PCA</h1><p><a]]>
+    </summary>
+    <title>Dimensionality Reduction and PCA</title>
+    <updated>2026-07-24T05:02:15.889Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>Chris Wen</name>
+    </author>
+    <category term="da" scheme="https://wenyupeng.github.io/categories/da/"/>
+    <category term="da" scheme="https://wenyupeng.github.io/tags/da/"/>
+    <id>https://wenyupeng.github.io/2025/11/11/big_data/da/09-des-statistics/</id>
+    <link href="https://wenyupeng.github.io/2025/11/11/big_data/da/09-des-statistics/"/>
+    <published>2025-11-11T23:11:03.000Z</published>
+    <summary>
+      <![CDATA[<h1 id="Data-Matching"><a href="#Data-Matching" class="headerlink" title="Data Matching"></a>Data Matching</h1><p><a]]>
+    </summary>
+    <title>Data Matching</title>
+    <updated>2026-07-24T05:02:15.889Z</updated>
+  </entry>
+</feed>

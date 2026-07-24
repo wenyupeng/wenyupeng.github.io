@@ -1,0 +1,792 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Java Swing Practical Project - Residential Energy Rating Tool | Chris Wen's Blog</title><meta name="author" content="Chris Wen"><meta name="copyright" content="Chris Wen"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="IntroductionJava Swing is a graphical user interface toolkit included in the Java Development Kit. It allows developers to build cross-platform desktop applications using standard Java. Swing provides">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java Swing Practical Project - Residential Energy Rating Tool">
+<meta property="og:url" content="https://wenyupeng.github.io/2026/07/10/java/swing/01/index.html">
+<meta property="og:site_name" content="Chris Wen&#39;s Blog">
+<meta property="og:description" content="IntroductionJava Swing is a graphical user interface toolkit included in the Java Development Kit. It allows developers to build cross-platform desktop applications using standard Java. Swing provides">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251007095210307.png">
+<meta property="article:published_time" content="2026-07-10T01:10:32.000Z">
+<meta property="article:modified_time" content="2026-07-24T05:02:15.894Z">
+<meta property="article:author" content="Chris Wen">
+<meta property="article:tag" content="swing">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251007095210307.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Java Swing Practical Project - Residential Energy Rating Tool",
+  "url": "https://wenyupeng.github.io/2026/07/10/java/swing/01/",
+  "image": "https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251007095210307.png",
+  "datePublished": "2026-07-10T01:10:32.000Z",
+  "dateModified": "2026-07-24T05:02:15.894Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Chris Wen",
+      "url": "https://wenyupeng.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/images/favicon.ico"><link rel="canonical" href="https://wenyupeng.github.io/2026/07/10/java/swing/01/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.json","preload":true,"top_n_per_article":-1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"No results found for: ${query}","hits_stats":"${hits} articles found"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"Author: Chris Wen","link":"Link: ","source":"Source: Chris Wen's Blog","info":"Copyright belongs to the author. For commercial use, please contact the author for authorization. For non-commercial use, please indicate the source."}},
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: true,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Java Swing Practical Project - Residential Energy Rating Tool',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/custom-style.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/constown/HexoCustomFile@0.0.4/dist/css/custom.min.css"><meta name="generator" content="Hexo 8.1.2"><link rel="alternate" href="/atom.xml" title="Chris Wen's Blog" type="application/atom+xml">
+</head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      if ($loadingBox.classList.contains('loaded')) return
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+
+  if (document.readyState === 'complete') {
+    preloader.endLoading()
+  } else {
+    window.addEventListener('load', preloader.endLoading)
+    document.addEventListener('DOMContentLoaded', preloader.endLoading)
+    // Add timeout protection: force end after 7 seconds
+    setTimeout(preloader.endLoading, 7000)
+  }
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/images/lucky-icon.png" onerror="this.onerror=null;this.src='/images/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">124</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">38</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">63</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/project/"><i class="fa-fw fas fa-project-diagram"></i><span> Project</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post type-page" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251007095210307.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Chris Wen's Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">Java Swing Practical Project - Residential Energy Rating Tool</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/project/"><i class="fa-fw fas fa-project-diagram"></i><span> Project</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Java Swing Practical Project - Residential Energy Rating Tool</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2026-07-10T01:10:32.000Z" title="Created 2026-07-10 11:10:32">2026-07-10</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2026-07-24T05:02:15.894Z" title="Updated 2026-07-24 15:02:15">2026-07-24</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/java/">java</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/java/swing/">swing</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">2.8k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>17mins</span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:30,&quot;messagePrev&quot;:&quot;It has been&quot;,&quot;messageNext&quot;:&quot;days since the last update, the content of the article may be outdated.&quot;,&quot;postUpdate&quot;:&quot;2026-07-24 15:02:15&quot;}" hidden></div><h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>Java Swing is a graphical user interface toolkit included in the Java Development Kit. It allows developers to build cross-platform desktop applications using standard Java.</p>
+<p>Swing provides many commonly used desktop components, including:</p>
+<ul>
+<li>Windows</li>
+<li>Buttons</li>
+<li>Text fields</li>
+<li>Drop-down lists</li>
+<li>Tables</li>
+<li>Dialog boxes</li>
+<li>Menu bars</li>
+<li>File selectors</li>
+</ul>
+<p>Although many modern applications are developed as web applications, Swing is still used in mature enterprise desktop systems, internal business applications, engineering software, development tools, and applications that need to work offline.</p>
+<p>In this post, I will first introduce the fundamental concepts and commonly used APIs in Java Swing. After that, I will use these components to build a simplified Residential Energy Rating Tool.</p>
+<blockquote>
+<p>The energy calculation in this project is only for learning purposes. It is not an official NatHERS, FirstRate5, or regulatory energy assessment model.</p>
+</blockquote>
+<h1 id="Why-Learn-Java-Swing"><a href="#Why-Learn-Java-Swing" class="headerlink" title="Why Learn Java Swing?"></a>Why Learn Java Swing?</h1><p>Java Swing is particularly useful in the following situations:</p>
+<ol>
+<li>The application must run directly on a desktop operating system.</li>
+<li>The application needs to work without an internet connection.</li>
+<li>The project already has an existing Java Swing codebase.</li>
+<li>The system requires long-term stability and maintainability.</li>
+<li>The application needs access to local files or operating system resources.</li>
+<li>The development team wants to use Java for both business logic and the desktop interface.</li>
+</ol>
+<h1 id="Basic-Structure-of-a-Swing-Application"><a href="#Basic-Structure-of-a-Swing-Application" class="headerlink" title="Basic Structure of a Swing Application"></a>Basic Structure of a Swing Application</h1><p>A typical Swing application contains one main window and several child components.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">JFrame</span><br><span class="line">└── JPanel</span><br><span class="line">    ├── JLabel</span><br><span class="line">    ├── JTextField</span><br><span class="line">    ├── JComboBox</span><br><span class="line">    ├── JCheckBox</span><br><span class="line">    ├── JButton</span><br><span class="line">    └── JTable</span><br></pre></td></tr></table></figure>
+<p>The most important Swing classes include:</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Class</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>JFrame</td>
+<td>Represents the main application window</td>
+</tr>
+<tr>
+<td>JPanel</td>
+<td>Groups and organizes components</td>
+</tr>
+<tr>
+<td>JLabel</td>
+<td>Displays text or images</td>
+</tr>
+<tr>
+<td>JTextField</td>
+<td>Accepts single-line text input</td>
+</tr>
+<tr>
+<td>JTextArea</td>
+<td>Accepts multi-line text input</td>
+</tr>
+<tr>
+<td>JButton</td>
+<td>Performs an action when clicked</td>
+</tr>
+<tr>
+<td>JCheckBox</td>
+<td>Represents a true or false option</td>
+</tr>
+<tr>
+<td>JRadioButton</td>
+<td>Allows selection from a group of options</td>
+</tr>
+<tr>
+<td>JComboBox</td>
+<td>Displays a drop-down list</td>
+</tr>
+<tr>
+<td>JSpinner</td>
+<td>Accepts values within a defined range</td>
+</tr>
+<tr>
+<td>JTable</td>
+<td>Displays tabular data</td>
+</tr>
+<tr>
+<td>JScrollPane</td>
+<td>Adds scrolling support</td>
+</tr>
+<tr>
+<td>JOptionPane</td>
+<td>Displays messages and confirmation dialogs</td>
+</tr>
+<tr>
+<td>JFileChooser</td>
+<td>Allows users to select files</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h1 id="Creating-The-First-Swing-Window"><a href="#Creating-The-First-Swing-Window" class="headerlink" title="Creating The First Swing Window"></a>Creating The First Swing Window</h1><p>The following example creates a basic desktop window.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> javax.swing.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HelloSwing</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        SwingUtilities.invokeLater(() -&gt; &#123;</span><br><span class="line">            <span class="type">JFrame</span> <span class="variable">frame</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JFrame</span>(<span class="string">&quot;Hello Swing&quot;</span>);</span><br><span class="line">            frame.add(<span class="keyword">new</span> <span class="title class_">JLabel</span>(<span class="string">&quot;Hello, Java Swing!&quot;</span>));</span><br><span class="line"></span><br><span class="line">            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);</span><br><span class="line">            <span class="comment">// set size of the window</span></span><br><span class="line">            <span class="comment">// frame.setSize(300, 200);</span></span><br><span class="line">            <span class="comment">// set the absolute location to the window</span></span><br><span class="line">            <span class="comment">// frame.setLocation(300, 300);</span></span><br><span class="line">            <span class="comment">// set the window to the center of the screen</span></span><br><span class="line">            <span class="comment">// frame.setLocationRelativeTo(null);</span></span><br><span class="line">            frame.setBounds(<span class="number">100</span>, <span class="number">100</span>, <span class="number">450</span>, <span class="number">300</span>);</span><br><span class="line">            frame.setVisible(<span class="literal">true</span>);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>The application performs the following steps:</p>
+<ol>
+<li>Creates a <code>JFrame</code> object, which represents the main window.</li>
+<li>Adds a <code>JLabel</code> component to the window, which displays the text “Hello, Java Swing!”.</li>
+<li>Sets the default close operation to exit the application when the window is closed.</li>
+<li>Sets the size and position of the window using <code>setBounds()</code>. You can also use <code>setSize()</code> and <code>setLocation()</code> to set the size and position separately, or use <code>setLocationRelativeTo(null)</code> to center the window on the screen.</li>
+<li>Makes the window visible by calling <code>setVisible(true)</code>.</li>
+</ol>
+<h1 id="The-Event-Dispatch-Thread-EDT"><a href="#The-Event-Dispatch-Thread-EDT" class="headerlink" title="The Event Dispatch Thread (EDT)"></a>The Event Dispatch Thread (EDT)</h1><p>Swing uses a special thread called the Event Dispatch Thread, commonly abbreviated as EDT.<br>The EDT is responsible for:</p>
+<ul>
+<li>Creating Swing components</li>
+<li>Updating the interface</li>
+<li>Handling button clicks</li>
+<li>Handling keyboard events</li>
+<li>Processing mouse events</li>
+<li>Repainting the application window</li>
+</ul>
+<p>Swing components are generally not thread-safe. Therefore, Swing interfaces should be created and updated on the EDT.</p>
+<p>The recommended application entry point is:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    SwingUtilities.invokeLater(() -&gt; &#123;</span><br><span class="line">        <span class="type">JFrame</span> <span class="variable">frame</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JFrame</span>(<span class="string">&quot;My Application&quot;</span>);</span><br><span class="line">        frame.setVisible(<span class="literal">true</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>SwingUtilities.invokeLater()</code> places the interface creation task on the Event Dispatch Thread.</p>
+</blockquote>
+<h1 id="Commonly-Used-Swing-Components"><a href="#Commonly-Used-Swing-Components" class="headerlink" title="Commonly Used Swing Components"></a>Commonly Used Swing Components</h1><h2 id="JFrame"><a href="#JFrame" class="headerlink" title="JFrame"></a>JFrame</h2><p>JFrame represents the main application window.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">JFrame</span> <span class="variable">frame</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JFrame</span>(<span class="string">&quot;Residential Energy Rating Tool&quot;</span>);</span><br><span class="line">frame.setSize(<span class="number">900</span>, <span class="number">600</span>);</span><br><span class="line">frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);</span><br><span class="line">frame.setLocationRelativeTo(<span class="literal">null</span>);</span><br><span class="line">frame.setVisible(<span class="literal">true</span>);</span><br></pre></td></tr></table></figure>
+<p>Commonly used methods include:</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>setTitle()</td>
+<td>Changes the window title</td>
+</tr>
+<tr>
+<td>setSize()</td>
+<td>Sets the window width and height</td>
+</tr>
+<tr>
+<td>setMinimumSize()</td>
+<td>Sets the minimum window size</td>
+</tr>
+<tr>
+<td>setDefaultCloseOperation()</td>
+<td>Defines the close behaviour</td>
+</tr>
+<tr>
+<td>setLocationRelativeTo(null)</td>
+<td>Centers the window</td>
+</tr>
+<tr>
+<td>setResizable()</td>
+<td>Controls whether resizing is allowed</td>
+</tr>
+<tr>
+<td>setVisible(true)</td>
+<td>Displays the window</td>
+</tr>
+<tr>
+<td>pack()</td>
+<td>Calculates the window size from its components</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>In most applications, <code>pack()</code> is preferred over a hard-coded size because it calculates the required window size automatically.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">frame.pack();</span><br><span class="line">frame.setLocationRelativeTo(<span class="literal">null</span>);</span><br><span class="line">frame.setVisible(<span class="literal">true</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="JPanel"><a href="#JPanel" class="headerlink" title="JPanel"></a>JPanel</h2><p><code>JPanel</code> is a container used to group related components.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">JPanel</span> <span class="variable">panel</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JPanel</span>();</span><br><span class="line">panel.add(<span class="keyword">new</span> <span class="title class_">JLabel</span>(<span class="string">&quot;Floor Area:&quot;</span>));</span><br><span class="line">panel.add(<span class="keyword">new</span> <span class="title class_">JTextField</span>(<span class="number">10</span>));</span><br></pre></td></tr></table></figure>
+<p>A panel can also use a specific layout manager.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">JPanel</span> <span class="variable">panel</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JPanel</span>(<span class="keyword">new</span> <span class="title class_">BorderLayout</span>());</span><br></pre></td></tr></table></figure>
+<p>Panels are commonly used to separate a page into logical sections, such as:</p>
+<ul>
+<li>Header area</li>
+<li>Input form</li>
+<li>Result panel</li>
+<li>Button area</li>
+<li>Table area</li>
+</ul>
+<h2 id="JLabel"><a href="#JLabel" class="headerlink" title="JLabel"></a>JLabel</h2><p>JLabel displays text, icons, or images.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">JLabel</span> <span class="variable">titleLabel</span> <span class="operator">=</span><span class="keyword">new</span> <span class="title class_">JLabel</span>(<span class="string">&quot;Residential Energy Rating Tool&quot;</span>);</span><br></pre></td></tr></table></figure>
+<p>A label can be aligned horizontally.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">titleLabel.setHorizontalAlignment(SwingConstants.CENTER);</span><br></pre></td></tr></table></figure>
+<p>The font can also be customized.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">titleLabel.setFont(<span class="keyword">new</span> <span class="title class_">Font</span>(<span class="string">&quot;SansSerif&quot;</span>, Font.BOLD, <span class="number">24</span>));</span><br></pre></td></tr></table></figure>
+<p>Labels are commonly used for:</p>
+<ul>
+<li>Form field names</li>
+<li>Page titles</li>
+<li>Result values</li>
+<li>Instructions</li>
+<li>Validation messages</li>
+</ul>
+<h2 id="JTextField"><a href="#JTextField" class="headerlink" title="JTextField"></a>JTextField</h2><p><code>JTextField</code> accepts a single line of text input.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">JTextField</span> <span class="variable">areaField</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JTextField</span>(<span class="number">15</span>);</span><br></pre></td></tr></table></figure>
+<p>The number passed to the constructor represents the preferred number of visible columns.<br>Reading a value:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">areaText</span> <span class="operator">=</span> areaField.getText();</span><br></pre></td></tr></table></figure>
+<p>Removing spaces:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">areaText</span> <span class="operator">=</span> areaField.getText().trim();</span><br></pre></td></tr></table></figure>
+<p>Converting the value to a number:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">double</span> <span class="variable">floorArea</span> <span class="operator">=</span>Double.parseDouble(areaField.getText().trim());</span><br></pre></td></tr></table></figure>
+<p>Clearing the field:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">areaField.setText(<span class="string">&quot;&quot;</span>);</span><br></pre></td></tr></table></figure>
+<p>Setting an initial value:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">areaField.setText(<span class="string">&quot;150&quot;</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="JTextArea"><a href="#JTextArea" class="headerlink" title="JTextArea"></a>JTextArea</h2><p>JTextArea accepts multi-line input.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">JTextArea</span> <span class="variable">notesArea</span> <span class="operator">=</span><span class="keyword">new</span> <span class="title class_">JTextArea</span>(<span class="number">6</span>, <span class="number">30</span>);</span><br></pre></td></tr></table></figure>
+<p>Enable line wrapping:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">notesArea.setLineWrap(<span class="literal">true</span>);</span><br><span class="line">notesArea.setWrapStyleWord(<span class="literal">true</span>);</span><br></pre></td></tr></table></figure>
+<p>A text area should normally be placed inside a JScrollPane.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">JScrollPane</span> <span class="variable">scrollPane</span> <span class="operator">=</span><span class="keyword">new</span> <span class="title class_">JScrollPane</span>(notesArea);</span><br></pre></td></tr></table></figure>
+<h2 id="JButton"><a href="#JButton" class="headerlink" title="JButton"></a>JButton</h2><p>JButton creates a clickable button.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">JButton</span> <span class="variable">calculateButton</span> <span class="operator">=</span><span class="keyword">new</span> <span class="title class_">JButton</span>(<span class="string">&quot;Calculate&quot;</span>);</span><br></pre></td></tr></table></figure>
+<p>A button click is handled using an ActionListener.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">calculateButton.addActionListener(event -&gt; &#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;Calculate button clicked&quot;</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>For better readability, the action can call a separate method.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">calculateButton.addActionListener(event -&gt; calculateRating());</span><br></pre></td></tr></table></figure>
+<p>This is better than placing a large amount of business logic directly inside the listener.</p>
+<h2 id="JCheckBox"><a href="#JCheckBox" class="headerlink" title="JCheckBox"></a>JCheckBox</h2><p>JCheckBox represents an option that can be selected or cleared.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">JCheckBox</span> <span class="variable">insulationCheckBox</span> <span class="operator">=</span><span class="keyword">new</span> <span class="title class_">JCheckBox</span>(<span class="string">&quot;Property has insulation&quot;</span>);</span><br></pre></td></tr></table></figure>
+<p>Check whether the option is selected:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">boolean</span> <span class="variable">hasInsulation</span> <span class="operator">=</span>insulationCheckBox.isSelected();</span><br></pre></td></tr></table></figure>
+<p>Select or clear the checkbox programmatically:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">insulationCheckBox.setSelected(<span class="literal">true</span>);</span><br><span class="line">insulationCheckBox.setSelected(<span class="literal">false</span>);</span><br></pre></td></tr></table></figure>
+<p>Checkboxes are suitable for independent boolean options.</p>
+<p>Examples include:</p>
+<ul>
+<li>Has insulation</li>
+<li>Has solar panels</li>
+<li>Include archived records</li>
+<li>Enable notifications</li>
+</ul>
+<h2 id="JRadioButton"><a href="#JRadioButton" class="headerlink" title="JRadioButton"></a>JRadioButton</h2><p>JRadioButton is normally used when the user must choose one option from a group.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">JRadioButton</span> <span class="variable">houseButton</span> <span class="operator">=</span><span class="keyword">new</span> <span class="title class_">JRadioButton</span>(<span class="string">&quot;House&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="type">JRadioButton</span> <span class="variable">apartmentButton</span> <span class="operator">=</span><span class="keyword">new</span> <span class="title class_">JRadioButton</span>(<span class="string">&quot;Apartment&quot;</span>);</span><br></pre></td></tr></table></figure>
+<p>The buttons must be placed inside a ButtonGroup.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">ButtonGroup</span> <span class="variable">propertyTypeGroup</span> <span class="operator">=</span><span class="keyword">new</span> <span class="title class_">ButtonGroup</span>();</span><br><span class="line"></span><br><span class="line">propertyTypeGroup.add(houseButton);</span><br><span class="line">propertyTypeGroup.add(apartmentButton);</span><br></pre></td></tr></table></figure>
+<p>Set a default selection:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">houseButton.setSelected(<span class="literal">true</span>);</span><br></pre></td></tr></table></figure>
+<p>Read the selected option:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (houseButton.isSelected()) &#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;House selected&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="JComboBox"><a href="#JComboBox" class="headerlink" title="JComboBox"></a>JComboBox</h2><p>JComboBox displays a drop-down list.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">JComboBox&lt;String&gt; heatingComboBox =</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">JComboBox</span>&lt;&gt;(</span><br><span class="line">                <span class="keyword">new</span> <span class="title class_">String</span>[]&#123;</span><br><span class="line">                        <span class="string">&quot;Electric Resistance&quot;</span>,</span><br><span class="line">                        <span class="string">&quot;Gas Heating&quot;</span>,</span><br><span class="line">                        <span class="string">&quot;Heat Pump&quot;</span></span><br><span class="line">                &#125;</span><br><span class="line">        );</span><br></pre></td></tr></table></figure>
+<p>Read the selected value:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">heatingSystem</span> <span class="operator">=</span>(String) heatingComboBox.getSelectedItem();</span><br></pre></td></tr></table></figure>
+<p>Select an item by index:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">heatingComboBox.setSelectedIndex(<span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+<p>Listen for selection changes:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">heatingComboBox.addActionListener(event -&gt; &#123;</span><br><span class="line">    <span class="type">String</span> <span class="variable">selectedValue</span> <span class="operator">=</span>(String) heatingComboBox.getSelectedItem();</span><br><span class="line">    System.out.println(selectedValue);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="JSpinner"><a href="#JSpinner" class="headerlink" title="JSpinner"></a>JSpinner</h2><p>JSpinner is useful when the user must enter a value within a defined range.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">JSpinner</span> <span class="variable">occupantSpinner</span> <span class="operator">=</span></span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">JSpinner</span>(</span><br><span class="line">                <span class="keyword">new</span> <span class="title class_">SpinnerNumberModel</span>(</span><br><span class="line">                        <span class="number">2</span>,</span><br><span class="line">                        <span class="number">1</span>,</span><br><span class="line">                        <span class="number">20</span>,</span><br><span class="line">                        <span class="number">1</span></span><br><span class="line">                )</span><br><span class="line">        );</span><br></pre></td></tr></table></figure>
+<p>The values represent:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Initial value: 2</span><br><span class="line">Minimum value: 1</span><br><span class="line">Maximum value: 20</span><br><span class="line">Step size: 1</span><br></pre></td></tr></table></figure>
+<p>Read the current value:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">occupants</span> <span class="operator">=</span>(Integer) occupantSpinner.getValue();</span><br></pre></td></tr></table></figure>
+<p>Change the value:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">occupantSpinner.setValue(<span class="number">4</span>);</span><br></pre></td></tr></table></figure>
+<p>A spinner is often safer than a text field for bounded numeric input.</p>
+<h2 id="JOptionPane"><a href="#JOptionPane" class="headerlink" title="JOptionPane"></a>JOptionPane</h2><p>JOptionPane provides simple dialog boxes.<br>Information dialog</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">JOptionPane.showMessageDialog(frame,<span class="string">&quot;Calculation completed.&quot;</span>);</span><br></pre></td></tr></table></figure>
+<p>Error dialog</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">JOptionPane.showMessageDialog(frame,<span class="string">&quot;Please enter a valid floor area.&quot;</span>,<span class="string">&quot;Invalid Input&quot;</span>,JOptionPane.ERROR_MESSAGE);</span><br></pre></td></tr></table></figure>
+<p>Warning dialog</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">JOptionPane.showMessageDialog(</span><br><span class="line">        frame,</span><br><span class="line">        <span class="string">&quot;The selected file already exists.&quot;</span>,</span><br><span class="line">        <span class="string">&quot;Warning&quot;</span>,</span><br><span class="line">        JOptionPane.WARNING_MESSAGE</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>Confirmation dialog</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">result</span> <span class="operator">=</span> JOptionPane.showConfirmDialog(frame,<span class="string">&quot;Do you want to clear the form?&quot;</span>,<span class="string">&quot;Confirmation&quot;</span>,JOptionPane.YES_NO_OPTION);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (result == JOptionPane.YES_OPTION) &#123;</span><br><span class="line">clearForm();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Input dialog</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">propertyName</span> <span class="operator">=</span>JOptionPane.showInputDialog(frame,<span class="string">&quot;Enter the property name:&quot;</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="JTable"><a href="#JTable" class="headerlink" title="JTable"></a>JTable</h2><p>JTable displays data in rows and columns.</p>
+<p>The table itself displays the data, while a table model manages the underlying values.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">String[] columns = &#123;</span><br><span class="line"><span class="string">&quot;Area&quot;</span>,</span><br><span class="line"><span class="string">&quot;Occupants&quot;</span>,</span><br><span class="line"><span class="string">&quot;Heating&quot;</span>,</span><br><span class="line"><span class="string">&quot;Energy Usage&quot;</span>,</span><br><span class="line"><span class="string">&quot;Rating&quot;</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="type">DefaultTableModel</span> <span class="variable">tableModel</span> <span class="operator">=</span><span class="keyword">new</span> <span class="title class_">DefaultTableModel</span>(columns, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"><span class="type">JTable</span> <span class="variable">table</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JTable</span>(tableModel);</span><br></pre></td></tr></table></figure>
+<p>Add a new row:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tableModel.addRow(<span class="keyword">new</span> <span class="title class_">Object</span>[]&#123;<span class="number">150</span>,<span class="number">3</span>,<span class="string">&quot;Heat Pump&quot;</span>,<span class="string">&quot;9,800 kWh/year&quot;</span>,<span class="string">&quot;5 Stars&quot;</span>&#125;);</span><br></pre></td></tr></table></figure>
+<p>Remove a row:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">selectedRow</span> <span class="operator">=</span> table.getSelectedRow();</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (selectedRow &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">  tableModel.removeRow(selectedRow);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Read a cell value:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Object</span> <span class="variable">value</span> <span class="operator">=</span>tableModel.getValueAt(<span class="number">0</span>, <span class="number">2</span>);</span><br></pre></td></tr></table></figure>
+<p>A table should normally be placed inside a scroll pane.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">JScrollPane</span> <span class="variable">tableScrollPane</span> <span class="operator">=</span><span class="keyword">new</span> <span class="title class_">JScrollPane</span>(table);</span><br></pre></td></tr></table></figure>
+<p>Disable direct cell editing:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">DefaultTableModel</span> <span class="variable">tableModel</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">DefaultTableModel</span>(columns, <span class="number">0</span>) &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isCellEditable</span><span class="params">(</span></span><br><span class="line"><span class="params">            <span class="type">int</span> row,</span></span><br><span class="line"><span class="params">            <span class="type">int</span> column</span></span><br><span class="line"><span class="params">    )</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="JScrollPane"><a href="#JScrollPane" class="headerlink" title="JScrollPane"></a>JScrollPane</h2><p>JScrollPane adds horizontal or vertical scrolling to another component.</p>
+<p>It is commonly used with:</p>
+<ul>
+<li>JTable</li>
+<li>JTextArea</li>
+<li>JList</li>
+<li>Large panels</li>
+<li>Images</li>
+</ul>
+<p>Example:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">JTextArea</span> <span class="variable">textArea</span> <span class="operator">=</span><span class="keyword">new</span> <span class="title class_">JTextArea</span>(<span class="number">10</span>, <span class="number">40</span>);</span><br><span class="line"></span><br><span class="line"><span class="type">JScrollPane</span> <span class="variable">scrollPane</span> <span class="operator">=</span><span class="keyword">new</span> <span class="title class_">JScrollPane</span>(textArea);</span><br></pre></td></tr></table></figure>
+<h2 id="JMenuBar"><a href="#JMenuBar" class="headerlink" title="JMenuBar"></a>JMenuBar</h2><p>JMenuBar creates an application menu.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">JMenuBar</span> <span class="variable">menuBar</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JMenuBar</span>();</span><br><span class="line"></span><br><span class="line"><span class="type">JMenu</span> <span class="variable">fileMenu</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JMenu</span>(<span class="string">&quot;File&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="type">JMenuItem</span> <span class="variable">newItem</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JMenuItem</span>(<span class="string">&quot;New&quot;</span>);</span><br><span class="line"><span class="type">JMenuItem</span> <span class="variable">saveItem</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JMenuItem</span>(<span class="string">&quot;Save&quot;</span>);</span><br><span class="line"><span class="type">JMenuItem</span> <span class="variable">exitItem</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JMenuItem</span>(<span class="string">&quot;Exit&quot;</span>);</span><br><span class="line"></span><br><span class="line">fileMenu.add(newItem);</span><br><span class="line">fileMenu.add(saveItem);</span><br><span class="line">fileMenu.addSeparator();</span><br><span class="line">fileMenu.add(exitItem);</span><br><span class="line"></span><br><span class="line">menuBar.add(fileMenu);</span><br><span class="line"></span><br><span class="line">frame.setJMenuBar(menuBar);</span><br></pre></td></tr></table></figure>
+<p>Handle a menu action:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exitItem.addActionListener(event -&gt; System.exit(<span class="number">0</span>));</span><br></pre></td></tr></table></figure>
+<h2 id="JFileChooser"><a href="#JFileChooser" class="headerlink" title="JFileChooser"></a>JFileChooser</h2><p>JFileChooser allows the user to select a file or directory.</p>
+<p>Open a file</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">JFileChooser</span> <span class="variable">fileChooser</span> <span class="operator">=</span><span class="keyword">new</span> <span class="title class_">JFileChooser</span>();</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="variable">result</span> <span class="operator">=</span>fileChooser.showOpenDialog(frame);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (result == JFileChooser.APPROVE_OPTION) &#123;</span><br><span class="line">    <span class="type">File</span> <span class="variable">selectedFile</span> <span class="operator">=</span>fileChooser.getSelectedFile();</span><br><span class="line">    System.out.println(selectedFile.getAbsolutePath());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Save a file</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">result</span> <span class="operator">=</span>fileChooser.showSaveDialog(frame);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (result == JFileChooser.APPROVE_OPTION) &#123;</span><br><span class="line">  <span class="type">File</span> <span class="variable">selectedFile</span> <span class="operator">=</span>fileChooser.getSelectedFile();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Swing-Layout-Managers"><a href="#Swing-Layout-Managers" class="headerlink" title="Swing Layout Managers"></a>Swing Layout Managers</h2><p>Layout managers control the position and size of Swing components.</p>
+<p>Using layout managers is recommended because they can automatically adjust the interface when:</p>
+<ul>
+<li>The window is resized</li>
+<li>The font size changes</li>
+<li>The operating system changes</li>
+<li>Text labels have different lengths</li>
+<li>Components require different sizes</li>
+</ul>
+<p>Common layout managers include:</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Layout Manager</th>
+<th>Typical Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BorderLayout</td>
+<td>Main application structure</td>
+</tr>
+<tr>
+<td>FlowLayout</td>
+<td>Buttons and simple horizontal groups</td>
+</tr>
+<tr>
+<td>GridLayout</td>
+<td>Equal-sized rows and columns</td>
+</tr>
+<tr>
+<td>GridBagLayout</td>
+<td>Complex forms</td>
+</tr>
+<tr>
+<td>BoxLayout</td>
+<td>Horizontal or vertical groups</td>
+</tr>
+<tr>
+<td>CardLayout</td>
+<td>Multiple pages or views</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="BorderLayout"><a href="#BorderLayout" class="headerlink" title="BorderLayout"></a>BorderLayout</h2><p>BorderLayout divides a container into five regions.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">      NORTH</span><br><span class="line">WEST  CENTER EAST</span><br><span class="line">      SOUTH</span><br></pre></td></tr></table></figure>
+<p>Example:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">JPanel</span> <span class="variable">mainPanel</span> <span class="operator">=</span><span class="keyword">new</span> <span class="title class_">JPanel</span>(<span class="keyword">new</span> <span class="title class_">BorderLayout</span>());</span><br><span class="line"></span><br><span class="line">mainPanel.add(headerPanel, BorderLayout.NORTH);</span><br><span class="line">mainPanel.add(contentPanel, BorderLayout.CENTER);</span><br><span class="line">mainPanel.add(buttonPanel, BorderLayout.SOUTH);</span><br></pre></td></tr></table></figure>
+<p>Only one component can be placed directly in each region. To place multiple components in one region, put them inside another panel.</p>
+<h2 id="FlowLayout"><a href="#FlowLayout" class="headerlink" title="FlowLayout"></a>FlowLayout</h2><p>FlowLayout arranges components from left to right.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">JPanel</span> <span class="variable">buttonPanel</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JPanel</span>(<span class="keyword">new</span> <span class="title class_">FlowLayout</span>(FlowLayout.CENTER));</span><br><span class="line"></span><br><span class="line">buttonPanel.add(calculateButton);</span><br><span class="line">buttonPanel.add(clearButton);</span><br></pre></td></tr></table></figure>
+<p>It is commonly used for:</p>
+<ul>
+<li>Button groups</li>
+<li>Toolbars</li>
+<li>Simple input rows</li>
+<li>GridLayout</li>
+</ul>
+<p>GridLayout places components into equal-sized cells.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">JPanel</span> <span class="variable">panel</span> <span class="operator">=</span><span class="keyword">new</span> <span class="title class_">JPanel</span>(<span class="keyword">new</span> <span class="title class_">GridLayout</span>(<span class="number">2</span>, <span class="number">2</span>, <span class="number">10</span>, <span class="number">10</span>));</span><br><span class="line"></span><br><span class="line">panel.add(<span class="keyword">new</span> <span class="title class_">JLabel</span>(<span class="string">&quot;Name:&quot;</span>));</span><br><span class="line">panel.add(<span class="keyword">new</span> <span class="title class_">JTextField</span>());</span><br><span class="line"></span><br><span class="line">panel.add(<span class="keyword">new</span> <span class="title class_">JLabel</span>(<span class="string">&quot;Email:&quot;</span>));</span><br><span class="line">panel.add(<span class="keyword">new</span> <span class="title class_">JTextField</span>());</span><br></pre></td></tr></table></figure>
+<p>The parameters represent:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Rows: 2</span><br><span class="line">Columns: 2</span><br><span class="line">Horizontal gap: 10</span><br><span class="line">Vertical gap: 10</span><br></pre></td></tr></table></figure>
+<h2 id="GridBagLayout"><a href="#GridBagLayout" class="headerlink" title="GridBagLayout"></a>GridBagLayout</h2><p>GridBagLayout is more complex but provides better control for business forms.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">JPanel</span> <span class="variable">formPanel</span> <span class="operator">=</span><span class="keyword">new</span> <span class="title class_">JPanel</span>(<span class="keyword">new</span> <span class="title class_">GridBagLayout</span>());</span><br><span class="line"></span><br><span class="line"><span class="type">GridBagConstraints</span> <span class="variable">constraints</span> <span class="operator">=</span><span class="keyword">new</span> <span class="title class_">GridBagConstraints</span>();</span><br><span class="line"></span><br><span class="line">constraints.insets =<span class="keyword">new</span> <span class="title class_">Insets</span>(<span class="number">5</span>, <span class="number">5</span>, <span class="number">5</span>, <span class="number">5</span>);</span><br><span class="line"></span><br><span class="line">constraints.gridx = <span class="number">0</span>;</span><br><span class="line">constraints.gridy = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">formPanel.add(<span class="keyword">new</span> <span class="title class_">JLabel</span>(<span class="string">&quot;Floor Area:&quot;</span>),constraints);</span><br></pre></td></tr></table></figure>
+<p>Add the input field in the next column:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">constraints.gridx = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">formPanel.add(<span class="keyword">new</span> <span class="title class_">JTextField</span>(<span class="number">15</span>),constraints);</span><br></pre></td></tr></table></figure>
+<p>Important GridBagConstraints properties include:</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>gridx</td>
+<td>Column position</td>
+</tr>
+<tr>
+<td>gridy</td>
+<td>Row position</td>
+</tr>
+<tr>
+<td>gridwidth</td>
+<td>Number of columns occupied</td>
+</tr>
+<tr>
+<td>gridheight</td>
+<td>Number of rows occupied</td>
+</tr>
+<tr>
+<td>weightx</td>
+<td>Horizontal resizing weight</td>
+</tr>
+<tr>
+<td>weighty</td>
+<td>Vertical resizing weight</td>
+</tr>
+<tr>
+<td>fill</td>
+<td>Controls component expansion</td>
+</tr>
+<tr>
+<td>anchor</td>
+<td>Controls component alignment</td>
+</tr>
+<tr>
+<td>insets</td>
+<td>Adds external spacing</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="BoxLayout"><a href="#BoxLayout" class="headerlink" title="BoxLayout"></a>BoxLayout</h2><p><code>BoxLayout</code> arranges components vertically or horizontally.</p>
+<p>Vertical layout:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">JPanel</span> <span class="variable">panel</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JPanel</span>();</span><br><span class="line"></span><br><span class="line">panel.setLayout(<span class="keyword">new</span> <span class="title class_">BoxLayout</span>(panel,BoxLayout.Y_AXIS));</span><br></pre></td></tr></table></figure>
+<p>Horizontal layout:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">panel.setLayout(<span class="keyword">new</span> <span class="title class_">BoxLayout</span>(panel,BoxLayout.X_AXIS));</span><br></pre></td></tr></table></figure>
+<p>Add spacing:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">panel.add(Box.createVerticalStrut(<span class="number">10</span>));</span><br></pre></td></tr></table></figure>
+<h2 id="CardLayout"><a href="#CardLayout" class="headerlink" title="CardLayout"></a>CardLayout</h2><p><code>CardLayout</code> allows multiple panels to share the same display area.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">CardLayout</span> <span class="variable">cardLayout</span> <span class="operator">=</span><span class="keyword">new</span> <span class="title class_">CardLayout</span>();</span><br><span class="line"></span><br><span class="line"><span class="type">JPanel</span> <span class="variable">cardPanel</span> <span class="operator">=</span><span class="keyword">new</span> <span class="title class_">JPanel</span>(cardLayout);</span><br><span class="line"></span><br><span class="line">cardPanel.add(loginPanel, <span class="string">&quot;login&quot;</span>);</span><br><span class="line">cardPanel.add(dashboardPanel, <span class="string">&quot;dashboard&quot;</span>);</span><br></pre></td></tr></table></figure>
+<p>Switch between panels:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cardLayout.show(cardPanel,<span class="string">&quot;dashboard&quot;</span>);</span><br></pre></td></tr></table></figure>
+<p>It is useful for:</p>
+<ul>
+<li>Login and dashboard pages</li>
+<li>Multi-step forms</li>
+<li>Wizard interfaces</li>
+<li>Settings pages</li>
+<li>Applications with multiple screens</li>
+</ul>
+<h2 id="Event-Handling"><a href="#Event-Handling" class="headerlink" title="Event Handling"></a>Event Handling</h2><p>Swing applications use an event-driven programming model.</p>
+<p>An event occurs when the user performs an action, such as:</p>
+<ul>
+<li>Clicking a button</li>
+<li>Selecting a menu item</li>
+<li>Typing in a text field</li>
+<li>Changing a drop-down selection</li>
+<li>Selecting a table row</li>
+<li>Closing a window</li>
+<li>Pressing a keyboard key</li>
+</ul>
+<h2 id="ActionListener"><a href="#ActionListener" class="headerlink" title="ActionListener"></a>ActionListener</h2><p><code>ActionListener</code> handles actions from buttons, menu items, and some other components.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">button.addActionListener(event -&gt; &#123;System.out.println(<span class="string">&quot;Button clicked&quot;</span>);&#125;);</span><br></pre></td></tr></table></figure>
+<p>The traditional anonymous class syntax is:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">button.addActionListener(</span><br><span class="line"><span class="keyword">new</span> <span class="title class_">ActionListener</span>() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">actionPerformed</span><span class="params">(</span></span><br><span class="line"><span class="params">                    ActionEvent event</span></span><br><span class="line"><span class="params">            )</span> &#123;</span><br><span class="line">                System.out.println(</span><br><span class="line">                        <span class="string">&quot;Button clicked&quot;</span></span><br><span class="line">                );</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>The lambda version is shorter and easier to read.</p>
+<h2 id="ItemListener"><a href="#ItemListener" class="headerlink" title="ItemListener"></a>ItemListener</h2><p><code>ItemListener</code> can detect checkbox and selection state changes.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">insulationCheckBox.addItemListener(event -&gt; &#123;</span><br><span class="line"><span class="type">boolean</span> <span class="variable">selected</span> <span class="operator">=</span>event.getStateChange()== ItemEvent.SELECTED;</span><br><span class="line">    System.out.println(</span><br><span class="line">            <span class="string">&quot;Selected: &quot;</span> + selected</span><br><span class="line">    );</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="MouseListener"><a href="#MouseListener" class="headerlink" title="MouseListener"></a>MouseListener</h2><p><code>MouseListener</code> handles mouse-related actions.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">table.addMouseListener(</span><br><span class="line"><span class="keyword">new</span> <span class="title class_">MouseAdapter</span>() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">mouseClicked</span><span class="params">(</span></span><br><span class="line"><span class="params">                    MouseEvent event</span></span><br><span class="line"><span class="params">            )</span> &#123;</span><br><span class="line">                <span class="type">int</span> <span class="variable">selectedRow</span> <span class="operator">=</span></span><br><span class="line">                        table.getSelectedRow();</span><br><span class="line">                System.out.println(</span><br><span class="line">                        <span class="string">&quot;Selected row: &quot;</span></span><br><span class="line">                                + selectedRow</span><br><span class="line">                );</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<h2 id="KeyListener"><a href="#KeyListener" class="headerlink" title="KeyListener"></a>KeyListener</h2><p><code>KeyListener</code> handles keyboard events.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">textField.addKeyListener(<span class="keyword">new</span> <span class="title class_">KeyAdapter</span>() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">keyReleased</span><span class="params">(</span></span><br><span class="line"><span class="params">                    KeyEvent event</span></span><br><span class="line"><span class="params">            )</span> &#123;</span><br><span class="line">                System.out.println(</span><br><span class="line">                        textField.getText()</span><br><span class="line">                );</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>For text changes, a <code>DocumentListener</code> is usually more reliable than a <code>KeyListener</code>.</p>
+<h2 id="DocumentListener"><a href="#DocumentListener" class="headerlink" title="DocumentListener"></a>DocumentListener</h2><p><code>DocumentListener</code> detects changes in a text component.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">textField.getDocument().addDocumentListener(<span class="keyword">new</span> <span class="title class_">DocumentListener</span>() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">insertUpdate</span><span class="params">(</span></span><br><span class="line"><span class="params">            DocumentEvent event</span></span><br><span class="line"><span class="params">    )</span> &#123;</span><br><span class="line">        handleTextChange();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">removeUpdate</span><span class="params">(</span></span><br><span class="line"><span class="params">            DocumentEvent event</span></span><br><span class="line"><span class="params">    )</span> &#123;</span><br><span class="line">        handleTextChange();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">changedUpdate</span><span class="params">(</span></span><br><span class="line"><span class="params">            DocumentEvent event</span></span><br><span class="line"><span class="params">    )</span> &#123;</span><br><span class="line">        handleTextChange();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="Input-Validation"><a href="#Input-Validation" class="headerlink" title="Input Validation"></a>Input Validation</h2><p>A desktop application should never assume that user input is valid.</p>
+<p>For example, when reading a floor area:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">areaText</span> <span class="operator">=</span>areaField.getText().trim();</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (areaText.isEmpty()) &#123;</span><br><span class="line">  <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalArgumentException</span>(</span><br><span class="line">    <span class="string">&quot;Please enter the floor area.&quot;</span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Validate the numeric format:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">double</span> floorArea;</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">  floorArea =Double.parseDouble(areaText);</span><br><span class="line">&#125; <span class="keyword">catch</span> (NumberFormatException exception) &#123;</span><br><span class="line">  <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalArgumentException</span>(</span><br><span class="line">    <span class="string">&quot;Floor area must be a valid number.&quot;</span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Validate the range:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (floorArea &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">  <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalArgumentException</span>(</span><br><span class="line">    <span class="string">&quot;Floor area must be greater than zero.&quot;</span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Display the validation error:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">JOptionPane.showMessageDialog(</span><br><span class="line">  frame,</span><br><span class="line">  exception.getMessage(),</span><br><span class="line">  <span class="string">&quot;Invalid Input&quot;</span>,</span><br><span class="line">  JOptionPane.ERROR_MESSAGE</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>A reliable application should validate:</p>
+<ul>
+<li>Required fields</li>
+<li>Number formats</li>
+<li>Date formats</li>
+<li>Minimum and maximum values</li>
+<li>File existence</li>
+<li>Conflicting selections</li>
+<li>Business rules</li>
+<li>Duplicate records</li>
+</ul>
+<h2 id="Long-Running-Tasks-and-SwingWorker"><a href="#Long-Running-Tasks-and-SwingWorker" class="headerlink" title="Long-Running Tasks and SwingWorker"></a>Long-Running Tasks and SwingWorker</h2><p>The Event Dispatch Thread should only perform short UI operations.</p>
+<p>The following code may freeze the interface:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">calculateButton.addActionListener(event -&gt; &#123;</span><br><span class="line">  loadLargeFile();</span><br><span class="line">  queryDatabase();</span><br><span class="line">  callRemoteService();</span><br><span class="line">  runComplexCalculation();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>If these operations take several seconds, the application window may become unresponsive.</p>
+<p>Swing provides SwingWorker for background processing.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">SwingWorker&lt;Double, Void&gt; worker =<span class="keyword">new</span> <span class="title class_">SwingWorker</span>&lt;&gt;() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> Double <span class="title function_">doInBackground</span><span class="params">()</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="keyword">return</span> runComplexCalculation();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">done</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="type">double</span> <span class="variable">result</span> <span class="operator">=</span> get();</span><br><span class="line"></span><br><span class="line">            JOptionPane.showMessageDialog(</span><br><span class="line">                    frame,</span><br><span class="line">                    <span class="string">&quot;Result: &quot;</span> + result</span><br><span class="line">            );</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception exception) &#123;</span><br><span class="line">            JOptionPane.showMessageDialog(</span><br><span class="line">                    frame,</span><br><span class="line">                    exception.getMessage(),</span><br><span class="line">                    <span class="string">&quot;Calculation Error&quot;</span>,</span><br><span class="line">                    JOptionPane.ERROR_MESSAGE</span><br><span class="line">            );</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">worker.execute();</span><br></pre></td></tr></table></figure>
+<p>The two most important methods are:</p>
+<ul>
+<li><code>doInBackground()</code> runs outside the EDT.</li>
+<li><code>done()</code> runs on the EDT after the task has completed.</li>
+</ul>
+<p>SwingWorker is suitable for:</p>
+<ul>
+<li>Reading large files</li>
+<li>Importing data</li>
+<li>Exporting reports</li>
+<li>Calling remote APIs</li>
+<li>Querying databases</li>
+<li>Running complex calculations</li>
+<li>Loading large tables</li>
+</ul>
+<h1 id="Swing-Development-Best-Practices"><a href="#Swing-Development-Best-Practices" class="headerlink" title="Swing Development Best Practices"></a>Swing Development Best Practices</h1><h2 id="Use-the-Event-Dispatch-Thread-EDT"><a href="#Use-the-Event-Dispatch-Thread-EDT" class="headerlink" title="Use the Event Dispatch Thread (EDT)"></a>Use the Event Dispatch Thread (EDT)</h2><p>Create and update Swing components on the EDT.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SwingUtilities.invokeLater(() -&gt; &#123;</span><br><span class="line">    <span class="type">ApplicationFrame</span> <span class="variable">frame</span> <span class="operator">=</span><span class="keyword">new</span> <span class="title class_">ApplicationFrame</span>();</span><br><span class="line"></span><br><span class="line">    frame.setVisible(<span class="literal">true</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="Avoid-Null-Layout"><a href="#Avoid-Null-Layout" class="headerlink" title="Avoid Null Layout"></a>Avoid Null Layout</h2><p>The following approach is not recommended:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">panel.setLayout(<span class="literal">null</span>);</span><br><span class="line"></span><br><span class="line">button.setBounds(<span class="number">10</span>,<span class="number">20</span>,<span class="number">120</span>,<span class="number">30</span>);</span><br></pre></td></tr></table></figure>
+<p>Absolute positions may fail when:</p>
+<ul>
+<li>The window is resized</li>
+<li>The font size changes</li>
+<li>The application runs on another operating system</li>
+<li>Text labels become longer</li>
+<li>Display scaling changes</li>
+</ul>
+<p>Use layout managers instead.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">panel.setLayout(<span class="keyword">new</span> <span class="title class_">BorderLayout</span>());</span><br></pre></td></tr></table></figure>
+<h2 id="Keep-Business-Logic-Outside-Event-Listeners"><a href="#Keep-Business-Logic-Outside-Event-Listeners" class="headerlink" title="Keep Business Logic Outside Event Listeners"></a>Keep Business Logic Outside Event Listeners</h2><p>Avoid writing all logic directly inside an <code>ActionListener</code>.</p>
+<p>Not recommended:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">button.addActionListener(event -&gt; &#123;</span><br><span class="line">  <span class="comment">// Read fields</span></span><br><span class="line">  <span class="comment">// Validate values</span></span><br><span class="line">  <span class="comment">// Perform calculations</span></span><br><span class="line">  <span class="comment">// Query the database</span></span><br><span class="line">  <span class="comment">// Save files</span></span><br><span class="line">  <span class="comment">// Update the table</span></span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+<p>Recommended:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">button.addActionListener(event -&gt; calculateRating());</span><br></pre></td></tr></table></figure>
+<p>Then split the work into smaller methods.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">handleCalculation</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">Property</span> <span class="variable">property</span> <span class="operator">=</span> readProperty();</span><br><span class="line">    validateProperty(property);</span><br><span class="line">    <span class="type">EnergyRatingResult</span> <span class="variable">result</span> <span class="operator">=</span> ratingService.calculate(property);</span><br><span class="line">    displayResult(result);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Use-Clear-Component-Names"><a href="#Use-Clear-Component-Names" class="headerlink" title="Use Clear Component Names"></a>Use Clear Component Names</h2><p>Recommended names:</p>
+<ul>
+<li>floorAreaField</li>
+<li>calculateButton</li>
+<li>heatingSystemComboBox</li>
+<li>ratingResultLabel</li>
+<li>historyTable</li>
+</ul>
+<p>Avoid unclear names:</p>
+<ul>
+<li>text1</li>
+<li>button2</li>
+<li>combo</li>
+<li>label3</li>
+<li>table1</li>
+</ul>
+<h2 id="Use-Constants-Instead-of-Magic-Numbers"><a href="#Use-Constants-Instead-of-Magic-Numbers" class="headerlink" title="Use Constants Instead of Magic Numbers"></a>Use Constants Instead of Magic Numbers</h2><p>Not recommended:<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">annualUsage = floorArea * 120;</span><br><span class="line">annualUsage *= 0.75;</span><br><span class="line">annualUsage -= 1800;</span><br></pre></td></tr></table></figure><br>Recommended:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">double</span> <span class="variable">BASE_USAGE_PER_SQUARE_METRE</span> <span class="operator">=</span> <span class="number">120</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">double</span> <span class="variable">INSULATION_FACTOR</span> <span class="operator">=</span> <span class="number">0.75</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">double</span> <span class="variable">SOLAR_REDUCTION</span> <span class="operator">=</span> <span class="number">1800</span>;</span><br></pre></td></tr></table></figure><br>Then use the constants:<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">annualUsage = floorArea * BASE_USAGE_PER_SQUARE_METRE;</span><br></pre></td></tr></table></figure></p>
+<h1 id="Practical-Project-Residential-Energy-Rating-Tool"><a href="#Practical-Project-Residential-Energy-Rating-Tool" class="headerlink" title="Practical Project: Residential Energy Rating Tool"></a>Practical Project: Residential Energy Rating Tool</h1><p><a target="_blank" rel="noopener" href="https://github.com/wenyupeng/java-lab/tree/main/swing-demo/residential-energy-rating-tool">Residential Energy Rating Tool</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://wenyupeng.github.io">Chris Wen</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://wenyupeng.github.io/2026/07/10/java/swing/01/">https://wenyupeng.github.io/2026/07/10/java/swing/01/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/swing/">swing</a></div><div class="post-share"><div class="social-share" data-image="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251007095210307.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2026/07/08/interview/03-common08072026/" title="interview question 07082026"><img class="cover" src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20260708103650059.png" onerror="onerror=null;src='/images/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">interview question 07082026</div></div><div class="info-2"><div class="info-item-1">What makes code maintainable?Maintainable code is code that is easy to understand, modify, test and extend. It should have clear naming, simple structure, small functions and consistent formatting. Good maintainable code follows SOLID principles, avoids unnecessary duplication, and separates responsibilities clearly. It should also include meaningful comments where needed, but the code itself should be readable without too many explanations. Automated tests, good error handling, and clear doc...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/images/lucky-icon.png" onerror="this.onerror=null;this.src='/images/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Chris Wen</div><div class="author-info-description">Dwell not on the past, nor fear the future.</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">124</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">38</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">63</div></a></div><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/wenyupeng" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:chriswen430@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://www.linkedin.com/in/chriswen430" target="_blank" title="Linkedin"><i class="fab fa-linkedin" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">Maintain the motivation to learn and stay humble when facing every problem.</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Introduction"><span class="toc-number">1.</span> <span class="toc-text">Introduction</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Why-Learn-Java-Swing"><span class="toc-number">2.</span> <span class="toc-text">Why Learn Java Swing?</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Basic-Structure-of-a-Swing-Application"><span class="toc-number">3.</span> <span class="toc-text">Basic Structure of a Swing Application</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Creating-The-First-Swing-Window"><span class="toc-number">4.</span> <span class="toc-text">Creating The First Swing Window</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#The-Event-Dispatch-Thread-EDT"><span class="toc-number">5.</span> <span class="toc-text">The Event Dispatch Thread (EDT)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Commonly-Used-Swing-Components"><span class="toc-number">6.</span> <span class="toc-text">Commonly Used Swing Components</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#JFrame"><span class="toc-number">6.1.</span> <span class="toc-text">JFrame</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JPanel"><span class="toc-number">6.2.</span> <span class="toc-text">JPanel</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JLabel"><span class="toc-number">6.3.</span> <span class="toc-text">JLabel</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JTextField"><span class="toc-number">6.4.</span> <span class="toc-text">JTextField</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JTextArea"><span class="toc-number">6.5.</span> <span class="toc-text">JTextArea</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JButton"><span class="toc-number">6.6.</span> <span class="toc-text">JButton</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JCheckBox"><span class="toc-number">6.7.</span> <span class="toc-text">JCheckBox</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JRadioButton"><span class="toc-number">6.8.</span> <span class="toc-text">JRadioButton</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JComboBox"><span class="toc-number">6.9.</span> <span class="toc-text">JComboBox</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JSpinner"><span class="toc-number">6.10.</span> <span class="toc-text">JSpinner</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JOptionPane"><span class="toc-number">6.11.</span> <span class="toc-text">JOptionPane</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JTable"><span class="toc-number">6.12.</span> <span class="toc-text">JTable</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JScrollPane"><span class="toc-number">6.13.</span> <span class="toc-text">JScrollPane</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JMenuBar"><span class="toc-number">6.14.</span> <span class="toc-text">JMenuBar</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JFileChooser"><span class="toc-number">6.15.</span> <span class="toc-text">JFileChooser</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Swing-Layout-Managers"><span class="toc-number">6.16.</span> <span class="toc-text">Swing Layout Managers</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#BorderLayout"><span class="toc-number">6.17.</span> <span class="toc-text">BorderLayout</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#FlowLayout"><span class="toc-number">6.18.</span> <span class="toc-text">FlowLayout</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GridBagLayout"><span class="toc-number">6.19.</span> <span class="toc-text">GridBagLayout</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#BoxLayout"><span class="toc-number">6.20.</span> <span class="toc-text">BoxLayout</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CardLayout"><span class="toc-number">6.21.</span> <span class="toc-text">CardLayout</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Event-Handling"><span class="toc-number">6.22.</span> <span class="toc-text">Event Handling</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ActionListener"><span class="toc-number">6.23.</span> <span class="toc-text">ActionListener</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ItemListener"><span class="toc-number">6.24.</span> <span class="toc-text">ItemListener</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MouseListener"><span class="toc-number">6.25.</span> <span class="toc-text">MouseListener</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#KeyListener"><span class="toc-number">6.26.</span> <span class="toc-text">KeyListener</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DocumentListener"><span class="toc-number">6.27.</span> <span class="toc-text">DocumentListener</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Input-Validation"><span class="toc-number">6.28.</span> <span class="toc-text">Input Validation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Long-Running-Tasks-and-SwingWorker"><span class="toc-number">6.29.</span> <span class="toc-text">Long-Running Tasks and SwingWorker</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Swing-Development-Best-Practices"><span class="toc-number">7.</span> <span class="toc-text">Swing Development Best Practices</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Use-the-Event-Dispatch-Thread-EDT"><span class="toc-number">7.1.</span> <span class="toc-text">Use the Event Dispatch Thread (EDT)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Avoid-Null-Layout"><span class="toc-number">7.2.</span> <span class="toc-text">Avoid Null Layout</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Keep-Business-Logic-Outside-Event-Listeners"><span class="toc-number">7.3.</span> <span class="toc-text">Keep Business Logic Outside Event Listeners</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Use-Clear-Component-Names"><span class="toc-number">7.4.</span> <span class="toc-text">Use Clear Component Names</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Use-Constants-Instead-of-Magic-Numbers"><span class="toc-number">7.5.</span> <span class="toc-text">Use Constants Instead of Magic Numbers</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Practical-Project-Residential-Energy-Rating-Tool"><span class="toc-number">8.</span> <span class="toc-text">Practical Project: Residential Energy Rating Tool</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/07/10/java/swing/01/" title="Java Swing Practical Project - Residential Energy Rating Tool"><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251007095210307.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="Java Swing Practical Project - Residential Energy Rating Tool"/></a><div class="content"><a class="title" href="/2026/07/10/java/swing/01/" title="Java Swing Practical Project - Residential Energy Rating Tool">Java Swing Practical Project - Residential Energy Rating Tool</a><time datetime="2026-07-10T01:10:32.000Z" title="Created 2026-07-10 11:10:32">2026-07-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/07/08/interview/03-common08072026/" title="interview question 07082026"><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20260708103650059.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="interview question 07082026"/></a><div class="content"><a class="title" href="/2026/07/08/interview/03-common08072026/" title="interview question 07082026">interview question 07082026</a><time datetime="2026-07-08T00:35:33.000Z" title="Created 2026-07-08 10:35:33">2026-07-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/06/15/cert/databricks/03/" title="Certified Data Engineer Associate 2026"><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20260610115917399.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="Certified Data Engineer Associate 2026"/></a><div class="content"><a class="title" href="/2026/06/15/cert/databricks/03/" title="Certified Data Engineer Associate 2026">Certified Data Engineer Associate 2026</a><time datetime="2026-06-15T02:19:33.000Z" title="Created 2026-06-15 12:19:33">2026-06-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/05/11/cloud/databricks/01-data-engineer-associate/" title="Databricks Data Engineer Associate"><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20260610115917399.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="Databricks Data Engineer Associate"/></a><div class="content"><a class="title" href="/2026/05/11/cloud/databricks/01-data-engineer-associate/" title="Databricks Data Engineer Associate">Databricks Data Engineer Associate</a><time datetime="2026-05-11T23:12:42.000Z" title="Created 2026-05-12 09:12:42">2026-05-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/04/11/others/evolze/01-ai-foundation/" title="Digital Empowerment - Smart Future"><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251007095230189.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="Digital Empowerment - Smart Future"/></a><div class="content"><a class="title" href="/2026/04/11/others/evolze/01-ai-foundation/" title="Digital Empowerment - Smart Future">Digital Empowerment - Smart Future</a><time datetime="2026-04-11T02:56:01.000Z" title="Created 2026-04-11 12:56:01">2026-04-11</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By Chris Wen</span></div><div class="footer_custom_text">Live each day with purpose.</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><div class="js-pjax"></div><script src='/js/custom.js'></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="false" data-text="HAPPY,EVERY,DAY" data-fontsize="15px" data-random="true" async="async"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js" defer="defer"></script><script>document.addEventListener('DOMContentLoaded', () => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      false
+        ? pjax.loadUrl('/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})</script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading Database</span></div><div class="local-search-input"><input placeholder="Search for Posts" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><script src="https://cdn.jsdelivr.net/npm/live2d-widget@^3.1.3/lib/L2Dwidget.min.js"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":0.5,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"superSample":3,"position":"left","width":300,"height":600,"hOffset":90,"vOffset":-100},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.3,"opacityOnHover":0.3,"opacity":0.95},"log":false});</script></body></html>
