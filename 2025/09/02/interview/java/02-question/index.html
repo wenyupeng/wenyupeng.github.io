@@ -1,0 +1,384 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Java Interview - Why can a Java request hang when CPU and network look normal? | Chris Wen's Blog</title><meta name="author" content="Chris Wen"><meta name="copyright" content="Chris Wen"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Why can a Java request hang when CPU and network look normal?When CPU and network are normal, the request is usually waiting for a resource or blocked by another operation, rather than actively execut">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java Interview - Why can a Java request hang when CPU and network look normal?">
+<meta property="og:url" content="https://wenyupeng.github.io/2025/09/02/interview/java/02-question/index.html">
+<meta property="og:site_name" content="Chris Wen&#39;s Blog">
+<meta property="og:description" content="Why can a Java request hang when CPU and network look normal?When CPU and network are normal, the request is usually waiting for a resource or blocked by another operation, rather than actively execut">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20260529225039xjl7Su.png">
+<meta property="article:published_time" content="2025-09-02T23:18:44.000Z">
+<meta property="article:modified_time" content="2026-10-11T11:31:22.216Z">
+<meta property="article:author" content="Chris Wen">
+<meta property="article:tag" content="java-interview">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20260529225039xjl7Su.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Java Interview - Why can a Java request hang when CPU and network look normal?",
+  "url": "https://wenyupeng.github.io/2025/09/02/interview/java/02-question/",
+  "image": "https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20260529225039xjl7Su.png",
+  "datePublished": "2025-09-02T23:18:44.000Z",
+  "dateModified": "2026-10-11T11:31:22.216Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Chris Wen",
+      "url": "https://wenyupeng.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/images/favicon.ico"><link rel="canonical" href="https://wenyupeng.github.io/2025/09/02/interview/java/02-question/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.json","preload":true,"top_n_per_article":-1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"No results found for: ${query}","hits_stats":"${hits} articles found"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"Author: Chris Wen","link":"Link: ","source":"Source: Chris Wen's Blog","info":"Copyright belongs to the author. For commercial use, please contact the author for authorization. For non-commercial use, please indicate the source."}},
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: true,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Java Interview - Why can a Java request hang when CPU and network look normal?',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/custom-style.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/constown/HexoCustomFile@0.0.4/dist/css/custom.min.css"><meta name="generator" content="Hexo 8.1.2"><link rel="alternate" href="/atom.xml" title="Chris Wen's Blog" type="application/atom+xml">
+</head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      if ($loadingBox.classList.contains('loaded')) return
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+
+  if (document.readyState === 'complete') {
+    preloader.endLoading()
+  } else {
+    window.addEventListener('load', preloader.endLoading)
+    document.addEventListener('DOMContentLoaded', preloader.endLoading)
+    // Add timeout protection: force end after 7 seconds
+    setTimeout(preloader.endLoading, 7000)
+  }
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/images/lucky-icon.png" onerror="this.onerror=null;this.src='/images/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">133</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">44</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">71</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/project/"><i class="fa-fw fas fa-project-diagram"></i><span> Project</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20260529225039xjl7Su.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Chris Wen's Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">Java Interview - Why can a Java request hang when CPU and network look normal?</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/project/"><i class="fa-fw fas fa-project-diagram"></i><span> Project</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Java Interview - Why can a Java request hang when CPU and network look normal?</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-09-02T23:18:44.000Z" title="Created 2025-09-03 09:18:44">2025-09-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2026-10-11T11:31:22.216Z" title="Updated 2026-10-11 22:31:22">2026-10-11</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/interview-question/">interview-question</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/interview-question/java/">java</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">1.8k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>11mins</span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:30,&quot;messagePrev&quot;:&quot;It has been&quot;,&quot;messageNext&quot;:&quot;days since the last update, the content of the article may be outdated.&quot;,&quot;postUpdate&quot;:&quot;2026-10-11 22:31:22&quot;}" hidden></div><h1 id="Why-can-a-Java-request-hang-when-CPU-and-network-look-normal"><a href="#Why-can-a-Java-request-hang-when-CPU-and-network-look-normal" class="headerlink" title="Why can a Java request hang when CPU and network look normal?"></a>Why can a Java request hang when CPU and network look normal?</h1><p>When CPU and network are normal, the request is usually waiting for a resource or blocked by another operation, rather than actively executing. Here are some common causes:</p>
+<ol>
+<li><strong>Slow or blocked database operations</strong></li>
+<li><strong>Thread deadlock or lock contention</strong></li>
+<li><strong>Web server thread pool exhaustion</strong></li>
+<li><strong>Downstream service calls without timeouts</strong></li>
+<li><strong>CompletableFuture or asynchronous-task starvation</strong></li>
+<li><strong>Transaction or distributed lock is never released</strong></li>
+<li><strong>Garbage collection pause</strong></li>
+<li><strong>Infinite retry or incorrectly terminated loop</strong></li>
+<li><strong>Response-generation or response-writing problem</strong></li>
+</ol>
+<h2 id="1-Slow-or-blocked-database-operations"><a href="#1-Slow-or-blocked-database-operations" class="headerlink" title="1. Slow or blocked database operations"></a>1. Slow or blocked database operations</h2><p>The request may be waiting for a database query to complete. If the database is slow or the query is blocked, the request will hang. The Java thread may be waiting for </p>
+<ul>
+<li>A slow SQL query</li>
+<li>A database lock</li>
+<li>An uncommitted transaction</li>
+<li>A database connection from an exhausted connection pool</li>
+</ul>
+<p>For example:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// JDBC example</span></span><br><span class="line">connection = dataSource.getConnection(); <span class="comment">// May wait here</span></span><br><span class="line">resultSet = statement.executeQuery(sql); <span class="comment">// Or here</span></span><br></pre></td></tr></table></figure><br>What you need to do is check the database logs, monitor the query performance, and ensure that the connection pool is properly sized. Like:</p>
+<ul>
+<li>Active and blocked SQL queries</li>
+<li>Long-running transactions</li>
+<li>HikariCP or DBCP connection pool metrics</li>
+<li>Logs containing messages such as “Connection pool exhausted” or “Timeout waiting for connection” or “Connection is not available”</li>
+</ul>
+<p>A connection leak is particularly common: code obtains a connection but does not close it.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Connection</span> <span class="variable">conn</span> <span class="operator">=</span> dataSource.getConnection();</span><br><span class="line"><span class="comment">// Use the connection</span></span><br><span class="line"><span class="comment">// conn.close(); // forget to close the connection</span></span><br></pre></td></tr></table></figure></p>
+<p>An easy way to avoid connection leaks is to use try-with-resources, which automatically closes the connection:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> (<span class="type">Connection</span> <span class="variable">conn</span> <span class="operator">=</span> dataSource.getConnection()) &#123;</span><br><span class="line">    <span class="comment">// Use the connection</span></span><br><span class="line">&#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">    <span class="comment">// Handle exception</span></span><br><span class="line">&#125; <span class="comment">// Connection is automatically closed here</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="2-Thread-deadlock-or-lock-contention"><a href="#2-Thread-deadlock-or-lock-contention" class="headerlink" title="2. Thread deadlock or lock contention"></a>2. Thread deadlock or lock contention</h2><p>The second common cause is that the request is waiting for a lock held by another thread. If two or more threads are waiting for each other to release locks, a deadlock occurs. If many threads are trying to acquire the same lock, it can lead to lock contention.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">synchronized</span> (lockA) &#123;</span><br><span class="line">    <span class="keyword">synchronized</span> (lockB) &#123;</span><br><span class="line">        <span class="comment">// Do something</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;   </span><br></pre></td></tr></table></figure><br>Tipically, you can use thread dumps to analyze the state of threads and identify deadlocks or lock contention. Look for threads that are in a BLOCKED or WAITING state.<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">BLOCKED (on object monitor)</span><br><span class="line">waiting to lock &lt;0x00000000&gt; (a java.lang.Object)</span><br></pre></td></tr></table></figure><br>Or a deadlock message:<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Found one Java-level deadlock:</span><br><span class="line">=============================</span><br></pre></td></tr></table></figure></p>
+<p>Generate a thread dump using <code>jstack</code> or by sending a <code>kill -3</code> signal to the Java process. Analyze the thread dump to find threads that are waiting for locks and identify the deadlock cycle.<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">jstack -l &lt;java_pid&gt; &gt; thread_dump.txt</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">or using jcmd</span></span><br><span class="line">jcmd &lt;java_pid&gt; Thread.print &gt; thread_dump.txt</span><br></pre></td></tr></table></figure></p>
+<p>Take three dumps approximately 10 seconds apart. If the same request thread remains at the same stack location, that location is probably where it is stuck.</p>
+<h2 id="3-Web-server-thread-pool-exhaustion"><a href="#3-Web-server-thread-pool-exhaustion" class="headerlink" title="3. Web server thread pool exhaustion"></a>3. Web server thread pool exhaustion</h2><p>When the web server’s thread pool is exhausted(all Tomcat, Jetty, or application threads are occupied), incoming requests must wait for an available thread. This can lead to a backlog of requests and increased latency. Monitoring the thread pool metrics can help identify this issue.</p>
+<p>For Tomcat, relevant settings include:<br><figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server.tomcat.threads.max</span>=<span class="string">200</span></span><br><span class="line"><span class="attr">server.tomcat.accept-count</span>=<span class="string">100</span></span><br></pre></td></tr></table></figure></p>
+<p>Possible causes of thread pool exhaustion include:</p>
+<ul>
+<li>Too many long-running requests</li>
+<li>Blocking operations inside request threads</li>
+<li>Threads waiting for database connections or external services</li>
+<li>Threads calling external APIs without timeouts</li>
+</ul>
+<p>In a thread dump, you may see almost all HTTP threads waiting in the same method:<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">http-nio-8080-exec-1</span><br><span class="line">http-nio-8080-exec-2</span><br><span class="line">http-nio-8080-exec-3</span><br></pre></td></tr></table></figure></p>
+<p>Monitor relevant metrics such as:</p>
+<ul>
+<li>Active HTTP threads</li>
+<li>Maximum HTTP threads</li>
+<li>Request queue size</li>
+<li>Executor queue size</li>
+<li>Rejected task count</li>
+</ul>
+<h2 id="4-Downstream-service-calls-without-timeouts"><a href="#4-Downstream-service-calls-without-timeouts" class="headerlink" title="4. Downstream service calls without timeouts"></a>4. Downstream service calls without timeouts</h2><p>When your application makes calls to external services (e.g., REST APIs, databases, Redis, Kafka, RabbitMQ, DNS resolution, A file system or mounted network drive), it’s crucial to set appropriate timeouts. Without timeouts, a request can hang indefinitely if the downstream service is slow or unresponsive, leading to resource exhaustion and degraded performance.</p>
+<p>Without properly configured timeouts, this can wait for a long time.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">restTemplate.getForObject(<span class="string">&quot;http://example.com/api&quot;</span>, String.class); <span class="comment">// No timeout set</span></span><br></pre></td></tr></table></figure></p>
+<p>A thread waiting for an external response may appear as:<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">RUNNABLE</span><br><span class="line">at sun.nio.ch.SocketDispatcher.read0(...)</span><br></pre></td></tr></table></figure><br>Runnable does not always mean it it consuming CPU. It can be waiting inside native socket I/O code, which is not visible in the Java stack trace. This is a common cause of hanging requests.</p>
+<p>to avoid this, you should configure timeouts for your HTTP client or REST template. For example, using Spring’s <code>RestTemplate</code>:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Example of setting a timeout for an HTTP client call</span></span><br><span class="line"><span class="type">CloseableHttpClient</span> <span class="variable">httpClient</span> <span class="operator">=</span> HttpClients.custom()</span><br><span class="line">    .setDefaultRequestConfig(RequestConfig.custom()</span><br><span class="line">        .setConnectTimeout(<span class="number">5000</span>) <span class="comment">// 5 seconds</span></span><br><span class="line">        .setSocketTimeout(<span class="number">10000</span>) <span class="comment">// 10 seconds</span></span><br><span class="line">        .build())</span><br><span class="line">    .build();</span><br><span class="line"></span><br><span class="line"><span class="type">HttpRequest</span> <span class="variable">request</span> <span class="operator">=</span> HttpRequest.newBuilder()</span><br><span class="line">    .uri(URI.create(<span class="string">&quot;http://example.com/api&quot;</span>))</span><br><span class="line">    .timeout(Duration.ofSeconds(<span class="number">10</span>)) <span class="comment">// 10 seconds</span></span><br><span class="line">    .build();</span><br></pre></td></tr></table></figure></p>
+<p>Monitor the following metrics:</p>
+<ul>
+<li>Number of pending requests to downstream services</li>
+<li>Average response time of downstream calls</li>
+<li>Timeout occurrences</li>
+</ul>
+<blockquote>
+<p>Use circuit breakers (e.g., Hystrix) to prevent cascading failures when downstream services are unavailable. </p>
+</blockquote>
+<h2 id="5-CompletableFuture-or-asynchronous-task-starvation"><a href="#5-CompletableFuture-or-asynchronous-task-starvation" class="headerlink" title="5. CompletableFuture or asynchronous-task starvation"></a>5. CompletableFuture or asynchronous-task starvation</h2><p>This can happend when one task submits another task to the same limited thread pool and waits for it. When using <code>CompletableFuture</code> or other asynchronous programming constructs, it’s possible for tasks to become starved if the thread pool is exhausted or if there are circular dependencies. This can lead to tasks waiting indefinitely for resources that never become available.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CompletableFuture&lt;String&gt; future = CompletableFuture.supplyAsync(<span class="built_in">this</span>::loadData, executor);</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> future.get(); <span class="comment">// This can block if the executor is exhausted, may wait indefinitely</span></span><br></pre></td></tr></table></figure></p>
+<p>A particularly dangerous pattern is:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">executor.submit(()-&gt;&#123;</span><br><span class="line">    Future&lt;Result&gt; child = executor.submit(<span class="built_in">this</span>::doWork);</span><br><span class="line">    <span class="keyword">return</span> child.get(); <span class="comment">// This can block if the executor is exhausted, may wait indefinitely</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure><br>If every executor thread is waiting for another task in the same executor, queued tasks can never run.</p>
+<p>to avoid this, you should always apply timeouts when waiting for asynchronous tasks to complete. For example:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Result</span> <span class="variable">result</span> <span class="operator">=</span> future.get(<span class="number">5</span>, TimeUnit.SECONDS); <span class="comment">// Wait for 5 seconds</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="6-Transaction-or-distributed-lock-is-never-released"><a href="#6-Transaction-or-distributed-lock-is-never-released" class="headerlink" title="6. Transaction or distributed lock is never released"></a>6. Transaction or distributed lock is never released</h2><p>The request may be waiting for a transaction or distributed lock that is never released. This can happen if a transaction is not committed or rolled back, or if a distributed lock is not released due to an application bug or crash.</p>
+<ul>
+<li>A Redis distributed lock</li>
+<li>A database advisory lock</li>
+<li>A ReentrantLock or Semaphore in Java</li>
+<li>A CountDownLatch or CyclicBarrier that is never counted down</li>
+</ul>
+<p>Example:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">lock.lock();</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    process();</span><br><span class="line">&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">    lock.unlock();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>Or<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">boolean</span> <span class="variable">acquired</span> <span class="operator">=</span> lock.tryLock(<span class="number">10</span>, TimeUnit.SECONDS);</span><br></pre></td></tr></table></figure></p>
+<p>Avoid unlimited waits for locks. Always ensure that locks are released in a <code>finally</code> block, and consider using timeouts when acquiring locks.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">boolean</span> <span class="variable">acquired</span> <span class="operator">=</span> lock.tryLock(<span class="number">10</span>, TimeUnit.SECONDS);</span><br><span class="line"><span class="keyword">if</span> (acquired) &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        process();</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">        lock.unlock();</span><br><span class="line">    &#125;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// Handle lock acquisition failure</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="7-Garbage-collection-pause"><a href="#7-Garbage-collection-pause" class="headerlink" title="7. Garbage collection pause"></a>7. Garbage collection pause</h2><p>A long garbage collection (GC) pause can cause the application to become unresponsive. During a GC pause, all application threads are stopped, which can lead to requests hanging. Monitoring GC logs and metrics can help identify if this is the cause of the hang.</p>
+<p>At this point, you should check the GC logs for long pauses. For example, in a GC log, you might see:<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-Xlog:gc*:file=gc.log:time,uptime,level,tags</span><br><span class="line"></span><br><span class="line">[GC pause (G1 Evacuation Pause) (young) 1000ms]</span><br></pre></td></tr></table></figure></p>
+<p>Also inspect:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jstat -gcutil &lt;java_pid&gt; 1000</span><br></pre></td></tr></table></figure><br>The warning signs of GC issues include:</p>
+<ul>
+<li>Frequent Full GC events</li>
+<li>Long GC pause times (e.g., &gt; 1 second)</li>
+<li>Very high old-generation usage</li>
+<li>Memory allocation faster than collection</li>
+</ul>
+<h2 id="8-Infinite-retry-or-incorrectly-terminated-loop"><a href="#8-Infinite-retry-or-incorrectly-terminated-loop" class="headerlink" title="8. Infinite retry or incorrectly terminated loop"></a>8. Infinite retry or incorrectly terminated loop</h2><p>A request may hang due to an infinite retry mechanism or a loop that never terminates. This can happen if the code is designed to retry on failure without a proper exit condition, or if there is a logical error in the loop that prevents it from completing.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        process();</span><br><span class="line">        <span class="keyword">break</span>; <span class="comment">// Exit on success</span></span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">        <span class="comment">// Log and retry indefinitely</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>CPU and network may look normal because the thread is actively running, but it is stuck in a loop or retrying indefinitely.</p>
+<p>The other common case is the loop contains sleep, blocking I/O, or backoff.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (!success) &#123;</span><br><span class="line">    Thread.sleep(<span class="number">5000</span>);</span><br><span class="line">    success = callService();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>In this case, we can search logs for repeated messages from the same request or trace ID to identify if the request is stuck in a retry loop.</p>
+<h2 id="9-Response-generation-or-response-writing-problem"><a href="#9-Response-generation-or-response-writing-problem" class="headerlink" title="9. Response-generation or response-writing problem"></a>9. Response-generation or response-writing problem</h2><p>The business logic may finish, but the response is never completed because of:</p>
+<ul>
+<li>Streaming response not being closed</li>
+<li>Reactive stream never emitting completion</li>
+<li>DeferredResult never receiving a result</li>
+<li>An exception being swallowed</li>
+<li>Servlet async context not being completed</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">DeferredResult&lt;ResponseEntity&lt;?&gt;&gt; result = <span class="keyword">new</span> <span class="title class_">DeferredResult</span>&lt;&gt;();</span><br><span class="line"><span class="comment">// If neither setResult nor setErrorResult is called,</span></span><br><span class="line"><span class="comment">// the client may continue waiting.</span></span><br></pre></td></tr></table></figure>
+<p>For servlet asynchronous processing:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">AsyncContext</span> <span class="variable">asyncContext</span> <span class="operator">=</span> request.startAsync();</span><br><span class="line"><span class="comment">// Ensure the async context is completed</span></span><br><span class="line">asyncContext.complete();</span><br></pre></td></tr></table></figure></p>
+<h2 id="Recommended-diagnostic-sequence"><a href="#Recommended-diagnostic-sequence" class="headerlink" title="Recommended diagnostic sequence"></a>Recommended diagnostic sequence</h2><h3 id="Step-1-Add-request-tracing"><a href="#Step-1-Add-request-tracing" class="headerlink" title="Step 1: Add request tracing"></a>Step 1: Add request tracing</h3><p>Log the beginning and end of each request with the same request ID:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">log.info(<span class="string">&quot;Request started: requestId=&#123;&#125;&quot;</span>, requestId);</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> service.process();</span><br><span class="line">&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">    log.info(<span class="string">&quot;Request finished: requestId=&#123;&#125;&quot;</span>, requestId);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Add logs before and after major operations:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">log.info(<span class="string">&quot;Before database query&quot;</span>);</span><br><span class="line">repository.findData();</span><br><span class="line">log.info(<span class="string">&quot;After database query&quot;</span>);</span><br><span class="line"></span><br><span class="line">log.info(<span class="string">&quot;Before downstream API&quot;</span>);</span><br><span class="line">client.callApi();</span><br><span class="line">log.info(<span class="string">&quot;After downstream API&quot;</span>);</span><br></pre></td></tr></table></figure><br>This quickly identifies the operation where execution stops.</p>
+<h3 id="Step-2-Capture-thread-dumps"><a href="#Step-2-Capture-thread-dumps" class="headerlink" title="Step 2: Capture thread dumps"></a>Step 2: Capture thread dumps</h3><p>While the request is hanging:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">jcmd &lt;pid&gt; Thread.<span class="built_in">print</span> &gt; dump1.txt</span><br><span class="line"><span class="built_in">sleep</span> 10</span><br><span class="line">jcmd &lt;pid&gt; Thread.<span class="built_in">print</span> &gt; dump2.txt</span><br><span class="line"><span class="built_in">sleep</span> 10</span><br><span class="line">jcmd &lt;pid&gt; Thread.<span class="built_in">print</span> &gt; dump3.txt</span><br></pre></td></tr></table></figure></p>
+<p>Look for the request thread and check whether it is:</p>
+<ul>
+<li><code>BLOCKED</code>: waiting for a Java lock</li>
+<li><code>WAITING</code>: waiting indefinitely</li>
+<li><code>TIMED_WAITING</code>: sleeping or waiting with a timeout</li>
+<li>In <code>Socket.read</code>: waiting for an external service</li>
+<li>In <code>JDBC</code> code: waiting for the database</li>
+<li>In <code>HikariPool.getConnection</code>: waiting for a database connection</li>
+<li>In <code>Future.get</code>: waiting for an asynchronous task</li>
+</ul>
+<h3 id="Step-3-Check-resource-pools"><a href="#Step-3-Check-resource-pools" class="headerlink" title="Step 3: Check resource pools"></a>Step 3: Check resource pools</h3><p>Inspect:</p>
+<ul>
+<li>Tomcat active/max threads</li>
+<li>Database active/max connections</li>
+<li>Executor active threads and queue size</li>
+<li>Redis connection pool</li>
+<li>HTTP client connection pool</li>
+</ul>
+<h3 id="Step-4-Verify-every-external-call-has-a-timeout"><a href="#Step-4-Verify-every-external-call-has-a-timeout" class="headerlink" title="Step 4: Verify every external call has a timeout"></a>Step 4: Verify every external call has a timeout</h3><p>There should be timeouts for:</p>
+<ul>
+<li>Database queries</li>
+<li>Database connection acquisition</li>
+<li>HTTP connection and response</li>
+<li>Redis commands</li>
+<li>Futures</li>
+<li>Locks</li>
+<li>Message broker operations</li>
+</ul>
+<p>A healthy network does not prevent an external system from accepting a connection and then never returning a response.</p>
+<h2 id="Final-thoughts"><a href="#Final-thoughts" class="headerlink" title="Final thoughts"></a>Final thoughts</h2><p>In production Java applications, I would investigate these first:</p>
+<ul>
+<li>Slow or blocked database query</li>
+<li>Database connection-pool exhaustion</li>
+<li>HTTP/Tomcat thread-pool exhaustion</li>
+<li>Downstream service call without a timeout</li>
+<li>Lock contention or deadlock</li>
+<li>Future.get() or asynchronous-thread-pool starvation</li>
+</ul>
+<p>The most useful first action is to capture several thread dumps while the request is hanging. They normally show exactly what the request thread is waiting for.</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://wenyupeng.github.io">Chris Wen</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://wenyupeng.github.io/2025/09/02/interview/java/02-question/">https://wenyupeng.github.io/2025/09/02/interview/java/02-question/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/java-interview/">java-interview</a></div><div class="post-share"><div class="social-share" data-image="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20260529225039xjl7Su.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/09/07/math/01-derivative/" title="Derivative"><img class="cover" src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251007095210307.png" onerror="onerror=null;src='/images/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">Derivative</div></div><div class="info-2"><div class="info-item-1">DerivativeThe derivative is a fundamental concept in calculus. The derivative of a function at a specific point represents the rate of change of the function near that point (i.e., the slope of the tangent line to the function’s graph at that point). The essence of a derivative is to provide a local linear approximation of a function using the concept of limits.  When the independent variable of function $f(x)$ produces an increment $\Delta x$ at point $x_0$, if the limit of the ratio between...</div></div></div></a><a class="pagination-related" href="/2025/08/31/interview/java/01-basic/" title="Basic Java Interview"><img class="cover" src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20260529225039xjl7Su.png" onerror="onerror=null;src='/images/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">Basic Java Interview</div></div><div class="info-2"><div class="info-item-1">1. What is Java, and what are the features of Java?Java is a high-level program language and is platform-independent.Some of the key features of Java include:  Object-Oriented: Java is an object-oriented programming language, which means it allows developers to create modular programs and reusable code. Platform Independence: Java code can run on any platform that has a Java Virtual Machine (JVM), making it highly portable. Robust: Java has strong memory management and exception handling feat...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/08/31/interview/java/01-basic/" title="Basic Java Interview"><img class="cover" src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20260529225039xjl7Su.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-01</div><div class="info-item-2">Basic Java Interview</div></div><div class="info-2"><div class="info-item-1">1. What is Java, and what are the features of Java?Java is a high-level program language and is platform-independent.Some of the key features of Java include:  Object-Oriented: Java is an object-oriented programming language, which means it allows developers to create modular programs and reusable code. Platform Independence: Java code can run on any platform that has a Java Virtual Machine (JVM), making it highly portable. Robust: Java has strong memory management and exception handling feat...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/images/lucky-icon.png" onerror="this.onerror=null;this.src='/images/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Chris Wen</div><div class="author-info-description">Dwell not on the past, nor fear the future.</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">133</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">44</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">71</div></a></div><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/wenyupeng" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:chriswen430@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://www.linkedin.com/in/chriswen430" target="_blank" title="Linkedin"><i class="fab fa-linkedin" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">Maintain the motivation to learn and stay humble when facing every problem.</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Why-can-a-Java-request-hang-when-CPU-and-network-look-normal"><span class="toc-number">1.</span> <span class="toc-text">Why can a Java request hang when CPU and network look normal?</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Slow-or-blocked-database-operations"><span class="toc-number">1.1.</span> <span class="toc-text">1. Slow or blocked database operations</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Thread-deadlock-or-lock-contention"><span class="toc-number">1.2.</span> <span class="toc-text">2. Thread deadlock or lock contention</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Web-server-thread-pool-exhaustion"><span class="toc-number">1.3.</span> <span class="toc-text">3. Web server thread pool exhaustion</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Downstream-service-calls-without-timeouts"><span class="toc-number">1.4.</span> <span class="toc-text">4. Downstream service calls without timeouts</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-CompletableFuture-or-asynchronous-task-starvation"><span class="toc-number">1.5.</span> <span class="toc-text">5. CompletableFuture or asynchronous-task starvation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-Transaction-or-distributed-lock-is-never-released"><span class="toc-number">1.6.</span> <span class="toc-text">6. Transaction or distributed lock is never released</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-Garbage-collection-pause"><span class="toc-number">1.7.</span> <span class="toc-text">7. Garbage collection pause</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-Infinite-retry-or-incorrectly-terminated-loop"><span class="toc-number">1.8.</span> <span class="toc-text">8. Infinite retry or incorrectly terminated loop</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-Response-generation-or-response-writing-problem"><span class="toc-number">1.9.</span> <span class="toc-text">9. Response-generation or response-writing problem</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Recommended-diagnostic-sequence"><span class="toc-number">1.10.</span> <span class="toc-text">Recommended diagnostic sequence</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Step-1-Add-request-tracing"><span class="toc-number">1.10.1.</span> <span class="toc-text">Step 1: Add request tracing</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Step-2-Capture-thread-dumps"><span class="toc-number">1.10.2.</span> <span class="toc-text">Step 2: Capture thread dumps</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Step-3-Check-resource-pools"><span class="toc-number">1.10.3.</span> <span class="toc-text">Step 3: Check resource pools</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Step-4-Verify-every-external-call-has-a-timeout"><span class="toc-number">1.10.4.</span> <span class="toc-text">Step 4: Verify every external call has a timeout</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Final-thoughts"><span class="toc-number">1.11.</span> <span class="toc-text">Final thoughts</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/09/26/database/postgresql/01-data-migration/" title="Data Migration"><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20260926134635732.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="Data Migration"/></a><div class="content"><a class="title" href="/2026/09/26/database/postgresql/01-data-migration/" title="Data Migration">Data Migration</a><time datetime="2026-09-26T03:09:07.000Z" title="Created 2026-09-26 13:09:07">2026-09-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/09/14/database/sqlserver/01-maxsize-error/" title="SQL Server - Max Size Error"><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20260914093957247.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="SQL Server - Max Size Error"/></a><div class="content"><a class="title" href="/2026/09/14/database/sqlserver/01-maxsize-error/" title="SQL Server - Max Size Error">SQL Server - Max Size Error</a><time datetime="2026-09-14T02:09:07.000Z" title="Created 2026-09-14 12:09:07">2026-09-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/09/12/cert/aws/solution_arch_associate/01/" title="Solution Architect - Associate 01"><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20260913224239040.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="Solution Architect - Associate 01"/></a><div class="content"><a class="title" href="/2026/09/12/cert/aws/solution_arch_associate/01/" title="Solution Architect - Associate 01">Solution Architect - Associate 01</a><time datetime="2026-09-12T00:09:07.000Z" title="Created 2026-09-12 10:09:07">2026-09-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/08/21/security/01-owasp/" title="Security - OWASP Top 10"><img src="https://raw.githubusercontent.com/wenyupeng/pic-lib/main/blog/20251007095245295.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="Security - OWASP Top 10"/></a><div class="content"><a class="title" href="/2026/08/21/security/01-owasp/" title="Security - OWASP Top 10">Security - OWASP Top 10</a><time datetime="2026-08-21T23:11:16.000Z" title="Created 2026-08-22 09:11:16">2026-08-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/07/10/java/swing/01/" title="Java Swing Practical Project - Residential Energy Rating Tool"><img src="https://jsd.012700.xyz/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="Java Swing Practical Project - Residential Energy Rating Tool"/></a><div class="content"><a class="title" href="/2026/07/10/java/swing/01/" title="Java Swing Practical Project - Residential Energy Rating Tool">Java Swing Practical Project - Residential Energy Rating Tool</a><time datetime="2026-07-10T01:10:32.000Z" title="Created 2026-07-10 11:10:32">2026-07-10</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By Chris Wen</span></div><div class="footer_custom_text">Live each day with purpose.</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><div class="js-pjax"></div><script src='/js/custom.js'></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="false" data-text="HAPPY,EVERY,DAY" data-fontsize="15px" data-random="true" async="async"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js" defer="defer"></script><script>document.addEventListener('DOMContentLoaded', () => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      false
+        ? pjax.loadUrl('/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})</script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading Database</span></div><div class="local-search-input"><input placeholder="Search for Posts" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><script src="https://cdn.jsdelivr.net/npm/live2d-widget@^3.1.3/lib/L2Dwidget.min.js"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":0.5,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"superSample":3,"position":"left","width":300,"height":600,"hOffset":90,"vOffset":-100},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.3,"opacityOnHover":0.3,"opacity":0.95},"log":false});</script></body></html>

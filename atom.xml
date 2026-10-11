@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <author>
+    <name>Chris Wen</name>
+  </author>
+  <generator uri="https://hexo.io/">Hexo</generator>
+  <icon>https://wenyupeng.github.io/icon.png</icon>
+  <id>https://wenyupeng.github.io/</id>
+  <link href="https://wenyupeng.github.io/" rel="alternate"/>
+  <link href="https://wenyupeng.github.io/atom.xml" rel="self"/>
+  <rights>All rights reserved 2026, Chris Wen</rights>
+  <subtitle>study record</subtitle>
+  <title>Chris Wen's Blog</title>
+  <updated>2026-10-11T11:31:22.215Z</updated>
+  <entry>
+    <author>
+      <name>Chris Wen</name>
+    </author>
+    <category term="database" scheme="https://wenyupeng.github.io/categories/database/"/>
+    <category term="postgresql" scheme="https://wenyupeng.github.io/categories/database/postgresql/"/>
+    <category term="postgresql" scheme="https://wenyupeng.github.io/tags/postgresql/"/>
+    <id>https://wenyupeng.github.io/2026/09/26/database/postgresql/01-data-migration/</id>
+    <link href="https://wenyupeng.github.io/2026/09/26/database/postgresql/01-data-migration/"/>
+    <published>2026-09-26T03:09:07.000Z</published>
+    <summary>
+      <![CDATA[<h1 id="Back-ground"><a href="#Back-ground" class="headerlink" title="Back ground"></a>Back ground</h1><p>I have a project that uses PostgreSQL as its database. The project has been running for a long time, and the production database has]]>
+    </summary>
+    <title>Data Migration</title>
+    <updated>2026-10-11T11:31:22.215Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>Chris Wen</name>
+    </author>
+    <category term="database" scheme="https://wenyupeng.github.io/categories/database/"/>
+    <category term="sqlserver" scheme="https://wenyupeng.github.io/categories/database/sqlserver/"/>
+    <category term="sqlserver" scheme="https://wenyupeng.github.io/tags/sqlserver/"/>
+    <id>https://wenyupeng.github.io/2026/09/14/database/sqlserver/01-maxsize-error/</id>
+    <link href="https://wenyupeng.github.io/2026/09/14/database/sqlserver/01-maxsize-error/"/>
+    <published>2026-09-14T02:09:07.000Z</published>
+    <summary>
+      <![CDATA[<h1 id="SQL-Server-Max-Size-Error"><a href="#SQL-Server-Max-Size-Error" class="headerlink" title="SQL Server - Max Size Error"></a>SQL Server - Max Size Error</h1><p>It is a common error in SQL Server when the database reaches its maximum size]]>
+    </summary>
+    <title>SQL Server - Max Size Error</title>
+    <updated>2026-10-11T11:31:22.215Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>Chris Wen</name>
+    </author>
+    <category term="cert" scheme="https://wenyupeng.github.io/categories/cert/"/>
+    <category term="aws" scheme="https://wenyupeng.github.io/categories/cert/aws/"/>
+    <category term="solution_arch_associate" scheme="https://wenyupeng.github.io/categories/cert/aws/solution-arch-associate/"/>
+    <category term="cert" scheme="https://wenyupeng.github.io/tags/cert/"/>
+    <id>https://wenyupeng.github.io/2026/09/12/cert/aws/solution_arch_associate/01/</id>
+    <link href="https://wenyupeng.github.io/2026/09/12/cert/aws/solution_arch_associate/01/"/>
+    <published>2026-09-12T00:09:07.000Z</published>
+    <summary>
+      <![CDATA[<h1 id="Solution-Architect-Associate-01"><a href="#Solution-Architect-Associate-01" class="headerlink" title="Solution Architect - Associate 01"></a>Solution Architect - Associate 01</h1><h2 id="S3"><a href="#S3" class="headerlink"]]>
+    </summary>
+    <title>Solution Architect - Associate 01</title>
+    <updated>2026-10-11T11:31:22.213Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>Chris Wen</name>
+    </author>
+    <category term="Security" scheme="https://wenyupeng.github.io/categories/Security/"/>
+    <category term="OWASP" scheme="https://wenyupeng.github.io/tags/OWASP/"/>
+    <id>https://wenyupeng.github.io/2026/08/21/security/01-owasp/</id>
+    <link href="https://wenyupeng.github.io/2026/08/21/security/01-owasp/"/>
+    <published>2026-08-21T23:11:16.000Z</published>
+    <summary>
+      <![CDATA[<h1 id="Security-OWASP-Top-10"><a href="#Security-OWASP-Top-10" class="headerlink" title="Security - OWASP Top 10"></a>Security - OWASP Top 10</h1><h2 id="What-is-OWASP"><a href="#What-is-OWASP" class="headerlink" title="What is OWASP?"></a>What is]]>
+    </summary>
+    <title>Security - OWASP Top 10</title>
+    <updated>2026-10-11T11:31:22.218Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>Chris Wen</name>
+    </author>
+    <category term="java" scheme="https://wenyupeng.github.io/categories/java/"/>
+    <category term="swing" scheme="https://wenyupeng.github.io/categories/java/swing/"/>
+    <category term="swing" scheme="https://wenyupeng.github.io/tags/swing/"/>
+    <id>https://wenyupeng.github.io/2026/07/10/java/swing/01/</id>
+    <link href="https://wenyupeng.github.io/2026/07/10/java/swing/01/"/>
+    <published>2026-07-10T01:10:32.000Z</published>
+    <summary>
+      <![CDATA[<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>Java Swing is a graphical user interface toolkit included in the Java Development Kit. It allows developers to build cross-platform desktop]]>
+    </summary>
+    <title>Java Swing Practical Project - Residential Energy Rating Tool</title>
+    <updated>2026-10-11T11:31:22.217Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>Chris Wen</name>
+    </author>
+    <category term="interview-question" scheme="https://wenyupeng.github.io/categories/interview-question/"/>
+    <category term="interview-question" scheme="https://wenyupeng.github.io/tags/interview-question/"/>
+    <id>https://wenyupeng.github.io/2026/07/08/interview/03-common08072026/</id>
+    <link href="https://wenyupeng.github.io/2026/07/08/interview/03-common08072026/"/>
+    <published>2026-07-08T00:35:33.000Z</published>
+    <summary>
+      <![CDATA[<h1 id="What-makes-code-maintainable"><a href="#What-makes-code-maintainable" class="headerlink" title="What makes code maintainable?"></a>What makes code maintainable?</h1><p>Maintainable code is code that is easy to understand, modify, test and]]>
+    </summary>
+    <title>interview question 07082026</title>
+    <updated>2026-10-11T11:31:22.216Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>Chris Wen</name>
+    </author>
+    <category term="cert" scheme="https://wenyupeng.github.io/categories/cert/"/>
+    <category term="databricks" scheme="https://wenyupeng.github.io/categories/cert/databricks/"/>
+    <category term="cert" scheme="https://wenyupeng.github.io/tags/cert/"/>
+    <id>https://wenyupeng.github.io/2026/06/15/cert/databricks/data_engineer_associate/03/</id>
+    <link href="https://wenyupeng.github.io/2026/06/15/cert/databricks/data_engineer_associate/03/"/>
+    <published>2026-06-15T02:19:33.000Z</published>
+    <summary>
+      <![CDATA[<h1 id="Certified-Data-Engineer-Associate-2026"><a href="#Certified-Data-Engineer-Associate-2026" class="headerlink" title="Certified Data Engineer Associate 2026"></a>Certified Data Engineer Associate 2026</h1><h2]]>
+    </summary>
+    <title>Certified Data Engineer Associate 2026</title>
+    <updated>2026-10-11T11:31:22.213Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>Chris Wen</name>
+    </author>
+    <category term="databricks" scheme="https://wenyupeng.github.io/categories/databricks/"/>
+    <category term="data-engineer" scheme="https://wenyupeng.github.io/categories/databricks/data-engineer/"/>
+    <category term="databricks" scheme="https://wenyupeng.github.io/tags/databricks/"/>
+    <id>https://wenyupeng.github.io/2026/05/11/cloud/databricks/01-data-engineer-associate/</id>
+    <link href="https://wenyupeng.github.io/2026/05/11/cloud/databricks/01-data-engineer-associate/"/>
+    <published>2026-05-11T23:12:42.000Z</published>
+    <summary>
+      <![CDATA[<h1 id="What-is-Databricks"><a href="#What-is-Databricks" class="headerlink" title="What is Databricks?"></a>What is Databricks?</h1><p>Databricks is multi-cloud lakehouse platform based on Apache Spark. It provides a unified analytics platform that]]>
+    </summary>
+    <title>Databricks Data Engineer Associate</title>
+    <updated>2026-10-11T11:31:22.214Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>Chris Wen</name>
+    </author>
+    <category term="intelligent industry" scheme="https://wenyupeng.github.io/categories/intelligent-industry/"/>
+    <category term="intelligent industry" scheme="https://wenyupeng.github.io/tags/intelligent-industry/"/>
+    <id>https://wenyupeng.github.io/2026/04/11/others/evolze/01-ai-foundation/</id>
+    <link href="https://wenyupeng.github.io/2026/04/11/others/evolze/01-ai-foundation/"/>
+    <published>2026-04-11T02:56:01.000Z</published>
+    <summary>
+      <![CDATA[<h1 id="Digital-Empowerment-Smart-Future"><a href="#Digital-Empowerment-Smart-Future" class="headerlink" title="Digital Empowerment - Smart Future"></a>Digital Empowerment - Smart Future</h1><ol>
+<li><strong>Predictive Maintenance</strong>:]]>
+    </summary>
+    <title>Digital Empowerment - Smart Future</title>
+    <updated>2026-10-11T11:31:22.218Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>Chris Wen</name>
+    </author>
+    <category term="da" scheme="https://wenyupeng.github.io/categories/da/"/>
+    <category term="da" scheme="https://wenyupeng.github.io/tags/da/"/>
+    <id>https://wenyupeng.github.io/2025/11/14/big_data/da/11-des-statistics-2/</id>
+    <link href="https://wenyupeng.github.io/2025/11/14/big_data/da/11-des-statistics-2/"/>
+    <published>2025-11-14T00:14:08.000Z</published>
+    <summary>
+      <![CDATA[<h1 id="Box-Cox-and-Yeo-Johnson-Transformations"><a href="#Box-Cox-and-Yeo-Johnson-Transformations" class="headerlink" title="Box-Cox and Yeo-Johnson Transformations"></a>Box-Cox and Yeo-Johnson Transformations</h1><p>The main motivations for]]>
+    </summary>
+    <title>Box-Cox and Yeo-Johnson Transformations</title>
+    <updated>2026-10-11T11:31:22.213Z</updated>
+  </entry>
+</feed>
